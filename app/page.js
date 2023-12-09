@@ -1,113 +1,164 @@
+'use client'
+
+import Link from 'next/link';
 import Image from 'next/image'
+import Main from '@/app/components/main'
+import Section from "@/app/components/section";
+import CountdownTimer from "@/app/components/countdown-timer";
+import { FaHistory, FaImages, FaYoutube, FaLocationArrow } from "react-icons/fa";
+import { useDataContext } from "@/app/context/data";
+import {formatDate, getDateByIndex, shuffle} from "@/app/utils/functions";
+import { paytoneOne, hind } from "@/app/fonts";
+import { MediaPlayer, MediaProvider } from '@vidstack/react';
+import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
+import '@vidstack/react/player/styles/default/theme.css';
+import '@vidstack/react/player/styles/default/layouts/video.css';
+
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    const siteData = useDataContext();
+    const data = siteData?.data ?? null
+    const year = getDateByIndex(data, 0)
+    const curYear = new Date().getFullYear()
+    const btnYear = curYear > year ? curYear : year
+    const videos = shuffle(data?.videos ?? [])
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    const items = [
+        {
+            title: 'History',
+            description: 'When the entire Bengal, nay India, was under the British rule, inspite of being under the French',
+            icon: <FaHistory className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            link: '/puja-history'
+        },
+        {
+            title: 'Gallery',
+            description: 'Latest Online Photo Gallery for Chandannagar, Mankundu and Bhadreswar Jagadhatri Puja.',
+            icon: <FaImages className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            link: 'https://www.facebook.com/JagadhatriOnlineOfficial/photos/'
+        },
+        {
+            title: 'Videos',
+            description: 'Here are the latest Online Video Gallery for Chandannagar Jagadhatri Puja.',
+            icon: <FaYoutube className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            link: 'https://www.youtube.com/c/JagadhatriOnline'
+        },
+        {
+            title: 'Location',
+            description: 'Explore the Grand Festival of Chandannagar with CGR Utsav Android App.',
+            icon: <FaLocationArrow className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            link: 'https://play.google.com/store/apps/details?id=com.cgr.utsav',
+        }
+    ]
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+    return (
+        <Main>
+            <div className="hero min-h-full lg:min-h-screen" style={{backgroundImage: 'url(bg.jpg)'}}>
+            {/*<div className="relative min-h-full lg:min-h-screen flex items-center justify-center w-full">*/}
+            {/*    <div className="absolute inset-0 z-0">*/}
+            {/*        <iframe className="w-full h-full" src="https://www.youtube.com/embed/fd-_rr5YWc8?autoplay=1&loop=1&controls=0&mute=1" frameBorder="0" allowFullScreen></iframe>*/}
+            {/*        <div className="absolute inset-0 bg-black opacity-50"></div>*/}
+            {/*    </div>*/}
+                <div className="hero-overlay bg-opacity-60"></div>
+                <div className="hero-content text-center text-white-content text-white p-0 z-2">
+                    <div className="pt-36 pb-28">
+                        <h1 className={ `mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}` }>CHANDANNAGAR <br /> JAGADHATRI PUJA</h1>
+                        <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
+                        {data && <Link href={`#`} className="btn bg-yellow-500 border-0 uppercase py-3.5 px-5 h-auto min-h-full rounded-md">Jagadhatri Puja {btnYear}</Link>}
+                    </div>
+                </div>
+            </div>
+            <Section className="bg-gray-100" title="Welcome to the Online Puja Portal" description={ <>Jagadhatri <font color="#F4C040">Online</font></> }>
+                <div className="flex flex-col gap-6 text-center">
+                    <p>
+                      Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu & Bhadreswar. It is a platform on internet where we display the Location, Photos & Videos of various Jagadhatri Pujas of Chandannagar. It will guide people who want directions to go Pandal Hopping around the city, looking for the best Pujas in town.
+                    </p>
+                    <div className="grid gap-2 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+                        {items?.map((segment, index) => (
+                            <Link key={index} href={segment?.link} target={segment?.link?.includes('https') ? '_blank' : '_self'} className="flex flex-col gap-2 items-center">
+                                <span className="p-5 border rounded-full">{segment?.icon}</span>
+                                <span className="text-xl font-bold uppercase">{segment?.title}</span>
+                                <span className="">{segment?.description}</span>
+                            </Link>
+                        ))}
+                    </div>
+                    <div className="stats stats-vertical lg:stats-horizontal shadow container my-5">
+                        <div className="stat">
+                            <div className="stat-figure text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <div className="stat-title">Total Likes</div>
+                            <div className="stat-value text-primary">25.6K</div>
+                            <div className="stat-desc">21% more than last month</div>
+                        </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+                        <div className="stat">
+                            <div className="stat-figure text-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div className="stat-title">Page Views</div>
+                            <div className="stat-value text-secondary">2.6M</div>
+                            <div className="stat-desc">21% more than last month</div>
+                        </div>
+                        <div className="stat">
+                            <div className="stat-figure text-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div className="stat-title">Page Views</div>
+                            <div className="stat-value text-secondary">2.6M</div>
+                            <div className="stat-desc">21% more than last month</div>
+                        </div>
+                        <div className="stat">
+                            <div className="stat-figure text-secondary">
+                                <div className="avatar online">
+                                    <div className="w-16 rounded-full">
+                                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="stat-value">86%</div>
+                            <div className="stat-title">Tasks done</div>
+                            <div className="stat-desc text-secondary">31 tasks remaining</div>
+                        </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+                    </div>
+                </div>
+            </Section>
+            { data && <Section title="Jagadhatri Puja" description={ <>Countdown <font color="#F4C040">2024</font></> } >
+                <div className="flex flex-col gap-8 text-center">
+                    <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.value?.date} />
+                    <div className="grid gap-6 grid-cols-2 md:grid-cols-6">
+                        {data?.dates?.slice(-5)?.map((segment, index) => {
+                              return (
+                                  <div key={index} className={`flex gap-4 col-span-2${index === 3 ? ' md:col-start-2': ''}`}>
+                                      <Image
+                                          width={55}
+                                          height={55}
+                                          src={ `/dates/${index}.png`}
+                                          alt={segment?.value?.event}
+                                          quality={100}
+                                          className="h-fit"
+                                      />
+                                      <div className="flex flex-col gap-2 text-left">
+                                          <span className="font-bold">{segment?.value?.info}</span>
+                                          <span className="">{segment?.value?.event}: {formatDate(segment?.value?.date)}</span>
+                                      </div>
+                                  </div>
+                              )
+                        })}
+                    </div>
+                    <div>
+                        <p className="font-bold text-base sm:text-xl md:text-2xl xl:text-3xl mb-4">Glimps of <font color="#F4C040">Jagadhatri Puja</font></p>
+                        {videos?.slice(-1)?.map((segment, index) => {
+                            return (
+                                <MediaPlayer key={index} title={segment?.value?.title} src={`youtube/${segment?.value?.video_id}`}>
+                                    <MediaProvider />
+                                    <DefaultVideoLayout icons={defaultLayoutIcons} />
+                                </MediaPlayer>
+                            )
+                        })}
+                    </div>
+                </div>
+          </Section> }
+        </Main>
+    )
 }

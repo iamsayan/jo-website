@@ -1,24 +1,20 @@
+'use client'
+
 import { createContext, useContext, useEffect, useState } from 'react';
+import { getSingletonData } from "@/app/utils/fetch";
 
 const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
+export const DataContextProvider = ({ children }) => {
     const [fetchedData, setFetchedData] = useState(null);
 
     useEffect(() => {
-        // Fetch data using Fetch API
         const fetchData = async () => {
             try {
-                const response = await fetch('https://api.example.com/data');
-                if (response.ok) {
-                    const data = await response.json();
-                    setFetchedData(data);
-                } else {
-                    throw new Error('Failed to fetch data');
-                }
+                const data = await getSingletonData( 'home' )
+                setFetchedData(data);
             } catch (error) {
                 console.error(error);
-                // Handle errors
             }
         };
 
@@ -30,6 +26,6 @@ export const DataProvider = ({ children }) => {
             {children}
         </DataContext.Provider>
     );
-};
+}
 
-export const useData = () => useContext(DataContext);
+export const useDataContext = () => useContext(DataContext);

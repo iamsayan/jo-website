@@ -1,9 +1,26 @@
-import { FacebookProvider, Comments } from 'react-facebook';
+'use client'
 
-export default function Main({ url }) {
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+const Breadcrumbs = () => {
+    const pathname = usePathname()
+    const pathSegments = pathname.split('/').filter((segment) => segment !== '');
+
     return (
-        <FacebookProvider appId="2673466959356911">
-            <Comments href={url} />
-        </FacebookProvider>
-    )
-}
+        <div className="text-xs breadcrumbs uppercase">
+            <ul>
+                <li>
+                    <Link href="/">Home</Link>
+                </li>
+                {pathSegments.map((segment, index) => (
+                    <li key={index}>
+                        <Link href={`/${pathSegments.slice(0, index + 1).join('/')}`}>{segment.replaceAll('-', ' ')}</Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default Breadcrumbs;

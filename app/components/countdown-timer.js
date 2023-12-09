@@ -1,70 +1,51 @@
-import React, { useState, useEffect } from 'react';
+'use client'
 
-const CountdownTimer = ({ targetDate }) => {
-    const calculateTimeLeft = () => {
-        const difference = +new Date(targetDate) - +new Date();
-        let timeLeft = {};
+import Countdown from 'react-countdown';
+import React from 'react';
+import NoSsr from "@/app/components/nossr";
+import classNames from 'classnames';
+import { paytoneOne } from "@/app/fonts";
 
-        if (difference > 0) {
-            timeLeft = {
-                days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-                minutes: Math.floor((difference / 1000 / 60) % 60),
-                seconds: Math.floor((difference / 1000) % 60)
-            };
-        }
+const CountdownTimer = ({ className, targetDate }) => {
+    const classes = classNames( 'countdown-area', className );
 
-        return timeLeft;
-    };
-
-    const [time, setTime] = useState(calculateTimeLeft());
-    const [countdownFinished, setCountdownFinished] = useState(false);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            const timeLeft = calculateTimeLeft();
-            if (Object.keys(timeLeft).length === 0) {
-                setCountdownFinished(true);
-            } else {
-                setTime(timeLeft);
+    const renderer = ({ days, hours, minutes, seconds, completed }) => {
+        const timer = [
+            {
+                label: 'Days',
+                data: days
+            },
+            {
+                label: 'Hours',
+                data: hours
+            },
+            {
+                label: 'Minutes',
+                data: minutes
+            },
+            {
+                label: 'Seconds',
+                data: seconds
             }
-        }, 1000);
+        ]
 
-        return () => clearTimeout(timer);
-    });
-
-    const formatTime = (timeUnit) => {
-        return timeUnit < 10 ? `0${timeUnit}` : `${timeUnit}`;
+        if (completed) {
+            return <span>Countdown has ended!</span>;
+        } else {
+            return (
+                <div className={ `grid grid-flow-col gap-3 justify-center text-center auto-cols-max ${classes}` }>
+                    {timer.map((segment, index) => (
+                        <div className="flex flex-col gap-2 border-slate-800 border-2 p-3 sm:p-4 md:p-5 rounded bg-gray-100" key={index}>
+                            <span className={`countdown text-2xl sm:text-4xl md:text-5xl text-yellow-500 ${paytoneOne.className}`}><span style={{"--value":segment?.data}}></span></span>
+                            <span className="countdown-label text-sm sm:text-base md:text-md">{segment?.label}</span>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
     };
 
-    return (
-        <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
-            <div className="flex flex-col">
-                <span className="countdown font-mono text-5xl">
-                  <span style={{"--value":formatTime(time.days)}}></span>
-                </span>
-                days
-            </div>
-            <div className="flex flex-col">
-                <span className="countdown font-mono text-5xl">
-                  <span style={{"--value":formatTime(time.hours)}}></span>
-                </span>
-                hours
-            </div>
-            <div className="flex flex-col">
-                <span className="countdown font-mono text-5xl">
-                  <span style={{"--value":formatTime(time.minutes)}}></span>
-                </span>
-                min
-            </div>
-            <div className="flex flex-col">
-                <span className="countdown font-mono text-5xl">
-                  <span style={{"--value":formatTime(time.seconds)}}></span>
-                </span>
-                sec
-            </div>
-        </div>
-    );
+    return <NoSsr><Countdown date={targetDate} renderer={renderer} /></NoSsr>;
 };
 
 export default CountdownTimer;
