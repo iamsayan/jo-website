@@ -1,0 +1,20 @@
+'use client'
+import Main from './../components/main'
+import Breadcrumbs from "./../components/breadcrumbs";
+
+export default function Layout({ children }) {
+  return (
+    <>
+        <Main>
+            <div className="hero h-96" style={{backgroundImage: 'url(https://www.jagadhatrionline.co.in/wp-content/uploads/2021/07/web-bg.png)'}}>
+                <div className="hero-overlay bg-opacity-70"></div>
+                <div className="flex-col hero-content text-center text-white-content text-white p-0 pt-10">
+                    <h1 className="text-3xl font-bold">Box Office News!</h1>
+                    <Breadcrumbs />
+                </div>
+            </div>
+            <div>{children}</div>
+        </Main>
+    </>
+  )
+}
