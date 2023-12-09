@@ -1,19 +1,32 @@
-import { Fragment } from "react";
+'use client'
+
+import { Fragment, useEffect, useState } from "react";
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
 import { getCollectionData } from "@/app/utils/fetch";
 import { jubilees, preJubilees, getYear, getCelebrating } from "@/app/utils/functions";
+import { useDataContext } from "@/app/context/data";
 
-export const metadata = {
-    title: 'Jagadhatri Puja Committee List',
-    description: 'Here is the full list of Chadannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
-}
+export default function Page() {
+    const [ pujaData, setPujaData ] = useState(null );
 
-export default async function Page() {
-    const info = await getCollectionData( 'pujas', {
-        sort: { 'puja_name': 1 }
-    } )
-    const data = info?.data
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getCollectionData('pujas', {
+                    sort: { 'puja_name': 1 }
+                })
+                setPujaData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const pujas = pujaData?.data ?? null
+    const data = pujas ?? []
 
     const cgr = data?.filter((data) => { return data?.puja_zone === 'cgr' });
     const bhr = data?.filter((data) => { return data?.puja_zone === 'bhr' });
@@ -43,7 +56,7 @@ export default async function Page() {
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
-                        {zones.map((segment, index) => (
+                        {pujas && zones.map((segment, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label={segment?.name} defaultChecked={index === 0} />
                                 <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
