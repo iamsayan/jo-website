@@ -3,14 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useDataContext } from "@/app/context/data";
 import logo from '../../public/logo.png'
-import {getDateByIndex} from "@/app/utils/functions";
 
 export default function Navbar() {
-    const fetchedData = useDataContext();
-    const data = fetchedData?.data ?? []
-    const showYear = getDateByIndex(data, 0)
     const pathname = usePathname()
 
     const items = [
@@ -23,8 +18,8 @@ export default function Navbar() {
             path: '/puja-history'
         },
         {
-            name: `Jagadhatri Puja`,
-            path: `/jagadhatri-puja/${showYear}`
+            name: 'Jagadhatri Puja',
+            path: '/jagadhatri-puja'
         },
         {
             name: 'Puja List',
@@ -95,11 +90,6 @@ export default function Navbar() {
                                     <Link href={segment?.path} className={`focus:!text-white focus:!bg-transparent ${(pathname === segment?.path ) ? 'text-white' : 'text-slate-300'}`}>{segment?.name}</Link>
                                 </li>
                             ))}
-                            {/*{fetchedData?.primary_menu?.map((segment, index) => (*/}
-                            {/*    <li key={index}>*/}
-                            {/*        <Link href={segment?.path} className={`focus:!text-white focus:!bg-transparent ${(pathname === segment?.path ) ? 'text-white' : 'text-slate-300'}`}>{segment?.name}</Link>*/}
-                            {/*    </li>*/}
-                            {/*))}*/}
                         </ul>
                     </div>
                     <div className="navbar-end hidden lg:flex">

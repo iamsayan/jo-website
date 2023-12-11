@@ -1,5 +1,6 @@
 import Layout from '@/app/components/layout';
 import Section from '@/app/components/section';
+import schema from "@/app/utils/schema";
 
 export const metadata = {
     title: 'History of Jagadhatri Puja',
@@ -7,8 +8,13 @@ export const metadata = {
 }
 
 export default function Page() {
+    const jsonLd = schema({
+        slug: 'puja-history',
+        title: 'History of Jagadhatri Puja',
+    })
+
     return (
-        <Layout title="Puja History">
+        <Layout title="Puja History" jsonLd={jsonLd}>
             <Section title="Know More About" description={ <>Jagadhatri <font color="#F4C040">Puja</font></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>When the entire Bengal, nay India, was under the British rule, inspite of being under the French administration at that time Chandannagar created a distinct tradition. Jagadhatri Puja is a major socio-cultural event in this region.</p>

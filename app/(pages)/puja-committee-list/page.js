@@ -1,32 +1,23 @@
-'use client'
-
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
 import { getCollectionData } from "@/app/utils/fetch";
-import { jubilees, preJubilees, getYear, getCelebrating } from "@/app/utils/functions";
-import { useDataContext } from "@/app/context/data";
+import { jubilees, preJubilees, getYear, getCelebrating, getDateByIndex } from "@/app/utils/functions";
+import schema from "@/app/utils/schema";
 
-export default function Page() {
-    const [ pujaData, setPujaData ] = useState(null );
+export function generateMetadata() {
+    return {
+        title: 'Jagadhatri Puja Committee List',
+        description: 'Here is the full list of Chadannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
+    }
+}
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getCollectionData('pujas', {
-                    sort: { 'puja_name': 1 }
-                })
-                setPujaData(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+export default async function Page() {
+    const pujaData = await getCollectionData('pujas', {
+        sort: { 'puja_name': 1 }
+    })
 
-        fetchData();
-    }, []);
-
-    const pujas = pujaData?.data ?? null
-    const data = pujas ?? []
+    const data = pujaData ?? []
 
     const cgr = data?.filter((data) => { return data?.puja_zone === 'cgr' });
     const bhr = data?.filter((data) => { return data?.puja_zone === 'bhr' });
@@ -48,23 +39,28 @@ export default function Page() {
         }
     ]
 
+    const jsonLd = schema({
+        slug: 'puja-committee-list',
+        title: 'Jagadhatri Puja Committee List',
+    })
+
     return (
-        <Layout title="Puja Committee List">
+        <Layout title="Puja Committee List" jsonLd={jsonLd}>
             <Section title="View All Jagadhatri" description={ <>Puja Committee <font color="#F4C040">List</font></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
-                        {pujas && zones.map((segment, index) => (
+                        {zones?.map((segment, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label={segment?.name} defaultChecked={index === 0} />
                                 <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">List of Jagadhatri Puja Committees</p>
                                     <p className="font-bold">Total {segment?.zone.length} Puja Committees</p>
-                                    <p className="font-bold">Total Jubilee: {filterData(segment?.zone, jubilees).length} & Total Pre – Jubilee: {filterData(segment?.zone, preJubilees).length}</p>
+                                    <p className="font-bold">Total Jubilee: {filterData(segment?.zone, jubilees)?.length} & Total Pre – Jubilee: {filterData(segment?.zone, preJubilees)?.length}</p>
                                     <div className="overflow-x-auto mt-5">
-                                        <table className="table text-center table-zebra">
+                                        <table className="table text-center table-zebdra">
                                             <thead>
                                             <tr>
                                                 <th>Puja Name</th>

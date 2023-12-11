@@ -1,39 +1,43 @@
-'use client'
-
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
-import { useDataContext } from "@/app/context/data";
-import { getCollectionData } from "@/app/utils/fetch";
-import {jubilees, preJubilees, getYear, getCelebrating, formatDate, getDay } from "@/app/utils/functions";
+import { getCollectionData, getSingletonData } from "@/app/utils/fetch";
+import {
+    jubilees,
+    preJubilees,
+    getYear,
+    getCelebrating,
+    formatDate,
+    getDay,
+    getDateByIndex
+} from "@/app/utils/functions";
+import schema from "@/app/utils/schema";
 
-export default function Page({ params }) {
+export async function generateMetadata({ params }) {
+    return {
+        title: `Jagadhatri Puja ${params?.year} Jubilee, Pre Jubilee List, Schedule`,
+        description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${params?.year} the great festival of Chandannagar.`,
+    }
+}
+
+export default async function Page({ params }) {
     if ( params?.year < 2000 || params?.year > 2099 ) {
         notFound()
     }
 
-    const [ fetchedData, setFetchedData ] = useState(null );
-    const siteData = useDataContext();
-    const data = siteData?.data ?? null
+    const siteDataRes = getSingletonData('home');
+    const pujasDataRes= getCollectionData('pujas', {
+        sort: { estd: 1 }
+    })
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getCollectionData('pujas', {
-                    sort: { estd: 1 }
-                })
-                setFetchedData(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
+    const [siteData, pujasData] = await Promise.all([ siteDataRes, pujasDataRes ]);
 
-        fetchData();
-    }, []);
+    const data = siteData ?? null
+    const pujas = pujasData ?? null
 
-    const pujas = fetchedData?.data ?? null
-
+    const displayDate = getDateByIndex(data, 0)
+    const dateIsCurrent = parseInt(params?.year) === displayDate.getFullYear()
     const jubilee = pujas?.filter((data) => { return jubilees.includes(getYear(data?.estd, params?.year)) });
     const prejubilee = pujas?.filter((data) => { return preJubilees.includes(getYear(data?.estd, params?.year)) });
 
@@ -48,18 +52,21 @@ export default function Page({ params }) {
         }
     ]
 
-    // if ( ! data ) {
-    //     return <span className="loading loading-bars loading-lg"></span>
-    // }
+    const jsonLd = schema({
+        slug: `jagadhatri-puja/${params?.year}`,
+        title: `Jagadhatri Puja ${params?.year} Jubilee, Pre Jubilee List, Schedule`,
+        description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${params?.year} the great festival of Chandannagar.`,
+        start: getDateByIndex(data, 0),
+        end: getDateByIndex(data, 4)
+    })
 
     return (
-        <Layout title={`Puja Details ${params?.year}`}>
+        <Layout title={`Puja Details ${params?.year}`} jsonLd={jsonLd}>
             <Section title="Know More about" description={ <>Puja Details <font color="#F4C040">{params?.year}</font></> }>
                 <div className="flex flex-col gap-6 text-justify">
-                    {data ?
-                        <p>In {params?.year}, Jagadhatri Puja will be observed on {formatDate(data?.dates[0]?.value?.date)}. Main Jagadhatri puja is celebrated over five days from Sasthi to Dashami. This year it will start on {formatDate(data?.dates[0]?.value?.date, true)} and continue up to {formatDate(data?.dasami, true)}. Chandanagar is famous for Jagadhatri Puja like Kolkata Durga Puja and Barasat famous for Kali Puja.</p>
-                        : <></>
-                    }
+                    <p>
+                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious significance and communal harmony.
+                        {dateIsCurrent && <>In {params?.year}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
@@ -97,7 +104,7 @@ export default function Page({ params }) {
                                 </div>
                             </Fragment>
                         ))}
-                        {data && parseInt(params?.year) === new Date(data?.dates[0]?.value?.date).getFullYear() &&
+                        {dateIsCurrent &&
                             <>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label="Puja Schedule" />
                                 <div role="tabpanel" className="tab-content bg-base-100 border-base-300 p-4">

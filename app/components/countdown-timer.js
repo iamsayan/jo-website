@@ -1,7 +1,6 @@
 'use client'
 
 import Countdown from 'react-countdown';
-import React from 'react';
 import NoSsr from "@/app/components/nossr";
 import classNames from 'classnames';
 import { paytoneOne } from "@/app/fonts";

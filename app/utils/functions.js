@@ -59,5 +59,5 @@ export const shuffle = array => {
 
 export const getDateByIndex = (data, index) => {
     const dates = data?.dates ?? []
-    return dates[index]?.value?.date ? new Date(dates[index]?.value?.date).getFullYear() : new Date().getFullYear()
+    return dates[index]?.value?.date ? new Date(dates[index]?.value?.date) : new Date()
 }

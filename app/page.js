@@ -1,24 +1,19 @@
-'use client'
-
 import Link from 'next/link';
 import Image from 'next/image'
 import Main from '@/app/components/main'
 import Section from "@/app/components/section";
 import CountdownTimer from "@/app/components/countdown-timer";
 import { FaHistory, FaImages, FaYoutube, FaLocationArrow } from "react-icons/fa";
-import { useDataContext } from "@/app/context/data";
-import {formatDate, getDateByIndex, shuffle} from "@/app/utils/functions";
+import { formatDate, getDateByIndex, shuffle } from "@/app/utils/functions";
 import { paytoneOne, hind } from "@/app/fonts";
-import { MediaPlayer, MediaProvider } from '@vidstack/react';
-import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
-import '@vidstack/react/player/styles/default/theme.css';
-import '@vidstack/react/player/styles/default/layouts/video.css';
+import { getSingletonData } from "@/app/utils/fetch";
+import YouTube from "@/app/components/youtube";
+import bg from '../public/bg.jpg'
 
-
-export default function Home() {
-    const siteData = useDataContext();
-    const data = siteData?.data ?? null
-    const year = getDateByIndex(data, 0)
+export default async function Home() {
+    const siteData = await getSingletonData('home');
+    const data = siteData ?? null
+    const year = getDateByIndex(data, 0).getFullYear()
     const curYear = new Date().getFullYear()
     const btnYear = curYear > year ? curYear : year
     const videos = shuffle(data?.videos ?? [])
@@ -50,9 +45,44 @@ export default function Home() {
         }
     ]
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://www.jagadhatrionline.co.in/#organization",
+                "name": "Jagadhatri Online",
+                "sameAs": [
+                    "https://www.facebook.com/JagadhatriOnlineOfficial/",
+                    "https://twitter.com/JagadhatriLive"
+                ]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://www.jagadhatrionline.co.in/#website",
+                "url": "https://www.jagadhatrionline.co.in",
+                "name": "Jagadhatri Online",
+                "publisher": {
+                    "@id": "https://www.jagadhatrionline.co.in/#organization"
+                },
+                "inLanguage": "en-US"
+            },
+            {
+                "@type": "WebPage",
+                "@id": `https://www.jagadhatrionline.co.in#webpage`,
+                "url": `https://www.jagadhatrionline.co.in`,
+                "name": "Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja",
+                "isPartOf": {
+                    "@id": "https://www.jagadhatrionline.co.in/#website"
+                },
+                "inLanguage": "en-US"
+            }
+        ]
+    }
+
     return (
-        <Main>
-            <div className="hero min-h-full lg:min-h-screen" style={{backgroundImage: 'url(bg.jpg)'}}>
+        <Main jsonLd={jsonLd}>
+            <div className="hero min-h-full lg:min-h-screen" style={{backgroundImage: `url(${bg.src})`}}>
             {/*<div className="relative min-h-full lg:min-h-screen flex items-center justify-center w-full">*/}
             {/*    <div className="absolute inset-0 z-0">*/}
             {/*        <iframe className="w-full h-full" src="https://www.youtube.com/embed/fd-_rr5YWc8?autoplay=1&loop=1&controls=0&mute=1" frameBorder="0" allowFullScreen></iframe>*/}
@@ -63,7 +93,7 @@ export default function Home() {
                     <div className="pt-36 pb-28">
                         <h1 className={ `mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}` }>CHANDANNAGAR <br /> JAGADHATRI PUJA</h1>
                         <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
-                        {data && <Link href={`#`} className="btn bg-yellow-500 border-0 uppercase py-3.5 px-5 h-auto min-h-full rounded-md">Jagadhatri Puja {btnYear}</Link>}
+                        <Link href={`/jagadhatri-puja/${year}`} className="btn bg-yellow-500 border-0 uppercase py-3.5 px-5 h-auto min-h-full rounded-md">Jagadhatri Puja {btnYear}</Link>
                     </div>
                 </div>
             </div>
@@ -123,7 +153,7 @@ export default function Home() {
                     </div>
                 </div>
             </Section>
-            { data && <Section title="Jagadhatri Puja" description={ <>Countdown <font color="#F4C040">2024</font></> } >
+            <Section title="Jagadhatri Puja" description={ <>Countdown <font color="#F4C040">2024</font></> } >
                 <div className="flex flex-col gap-8 text-center">
                     <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.value?.date} />
                     <div className="grid gap-6 grid-cols-2 md:grid-cols-6">
@@ -150,15 +180,12 @@ export default function Home() {
                         <p className="font-bold text-base sm:text-xl md:text-2xl xl:text-3xl mb-4">Glimps of <font color="#F4C040">Jagadhatri Puja</font></p>
                         {videos?.slice(-1)?.map((segment, index) => {
                             return (
-                                <MediaPlayer key={index} title={segment?.value?.title} src={`youtube/${segment?.value?.video_id}`}>
-                                    <MediaProvider />
-                                    <DefaultVideoLayout icons={defaultLayoutIcons} />
-                                </MediaPlayer>
+                                <YouTube key={index} title={segment?.value?.title} id={segment?.value?.video_id} />
                             )
                         })}
                     </div>
                 </div>
-          </Section> }
+          </Section>
         </Main>
     )
 }

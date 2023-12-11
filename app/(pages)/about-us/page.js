@@ -3,6 +3,7 @@ import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-ico
 
 import Layout from "./../../components/layout";
 import Section from "./../../components/section";
+import schema from "@/app/utils/schema";
 
 export const metadata = {
     title: 'About Us',
@@ -80,8 +81,13 @@ export default function Page() {
         }
     ]
 
+    const jsonLd = schema({
+        slug: 'about-us',
+        title: 'About Us',
+    })
+
     return (
-        <Layout title="About Us">
+        <Layout title="About Us" jsonLd={jsonLd}>
             <Section title="Know More" description={ <>Who We <font color="#F4C040">Are</font></> } >
                 <div className="flex flex-col gap-6 text-center">
                     <p>

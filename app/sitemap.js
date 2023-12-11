@@ -1,18 +1,22 @@
-export default function manifest() {
-    return {
-        name: 'Next.js App',
-        short_name: 'Next.js App',
-        description: 'Next.js App',
-        start_url: '/',
-        display: 'standalone',
-        background_color: '#fff',
-        theme_color: '#fff',
-        icons: [
-            {
-                src: '/favicon.ico',
-                sizes: 'any',
-                type: 'image/x-icon',
-            },
-        ],
-    }
+export default async function sitemap() {
+    return [
+        {
+            url: 'https://acme.com',
+            lastModified: new Date(),
+            changeFrequency: 'yearly',
+            priority: 1,
+        },
+        {
+            url: 'https://acme.com/about',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://acme.com/blog',
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.5,
+        },
+    ]
 }

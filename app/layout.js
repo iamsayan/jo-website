@@ -1,5 +1,4 @@
 import { hind } from "@/app/fonts";
-import { DataContextProvider } from "@/app/context/data";
 import './globals.sass'
 
 export const metadata = {
@@ -37,7 +36,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" data-theme="light">
             <body className={ `${hind.className} overflow-x-hidden text-sm md:text-base ${hind.variable}` }>
-                <DataContextProvider>{children}</DataContextProvider>
+                {children}
             </body>
         </html>
     )

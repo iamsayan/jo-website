@@ -1,5 +1,6 @@
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
+import schema from "@/app/utils/schema";
 
 export const metadata = {
     title: 'Privacy Policy',
@@ -7,8 +8,13 @@ export const metadata = {
 }
 
 export default function Page() {
+    const jsonLd = schema({
+        slug: 'privacy-policy',
+        title: 'Privacy Policy',
+    })
+
     return (
-        <Layout title="Privacy Policy">
+        <Layout title="Privacy Policy" jsonLd={jsonLd}>
             <Section title="Read Our" description={ <>Privacy <font color="#F4C040">Policy</font></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p><strong>JO Stream App Privacy Policy:</strong></p>
