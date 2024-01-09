@@ -14,6 +14,8 @@ import {
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 
+export const runtime = 'edge';
+
 export async function generateMetadata({ params }) {
     return {
         title: `Jagadhatri Puja ${params?.year} Jubilee, Pre Jubilee List, Schedule`,
