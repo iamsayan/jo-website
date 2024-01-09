@@ -9,23 +9,25 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vidstack/react": "^1.9.4",
-    "next": "14.0.3",
+    "@next/third-parties": "^14.0.4",
+    "@splidejs/react-splide": "^0.7.12",
+    "@vercel/speed-insights": "^1.0.1",
+    "@vidstack/react": "^1.9.8",
+    "classnames": "^2.3.2",
+    "daisyui": "^4.4.6",
+    "next": "^14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-countdown": "^2.3.5",
+    "react-dom": "^18",
+    "react-facebook": "^9.0.12",
+    "react-icons": "^4.12.0",
+    "tailwind-merge": "^2.1.0",
+    "tailwindcss": "^3.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
-    "classnames": "^2.3.2",
-    "daisyui": "^4.4.6",
     "postcss": "^8",
-    "react-countdown": "^2.3.5",
-    "react-daisyui": "^5.0.0",
-    "react-facebook": "^9.0.12",
-    "react-icons": "^4.12.0",
-    "react-lite-youtube-embed": "^2.4.0",
     "sass": "^1.69.5",
-    "sharp": "^0.32.6",
-    "tailwindcss": "^3.3.0"
+    "sharp": "^0.32.6"
   }
 }

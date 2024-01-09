@@ -1,17 +1,48 @@
+import classNames from "classnames";
+import { twMerge } from "tailwind-merge";
+
+export const cn = (...classes) => {
+    return twMerge( classNames( classes ) )
+}
+
 export const jubilees = [25, 50, 60, 75, 100, 125, 150, 160, 175, 200, 225, 250, 260, 275, 300];
 export const preJubilees = [24, 49, 59, 74, 99, 124, 149, 159, 174, 199, 224, 249, 259, 274, 299];
 
 export const getCelebrating = year => {
     year = parseInt(year)
     if (jubilees.includes(year)) {
-        return "Jubilee"
+        return populateCel(year)
     } else if (preJubilees.includes(year)) {
-        return "Pre Jubilee"
+        return populateCel(year, true)
     } else if (!year) {
         return "Adi Puja"
     }
     return '--'
 }
+
+export const populateCel = (year, pre = false) => {
+    year = pre ? year + 1 : year;
+    let name = ''
+
+    switch (year) {
+        case 25:
+            name = "Silver";
+            break;
+        case 50:
+            name = "Golden";
+            break;
+        case 60:
+            name = "Diamond";
+            break;
+        case 75:
+            name = "Platinum";
+            break;
+    }
+    name = pre ? 'Pre ' + name : name;
+
+    return name ? name + " Jubilee" : "Jubilee"
+}
+
 
 export const getYear = (estd, year) => {
     estd = parseInt(estd)

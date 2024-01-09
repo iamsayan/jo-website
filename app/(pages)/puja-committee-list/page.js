@@ -52,13 +52,13 @@ export default async function Page() {
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
-                        {zones?.map((segment, index) => (
+                        {zones?.map((item, index) => (
                             <Fragment key={index}>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label={segment?.name} defaultChecked={index === 0} />
+                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label={item?.name} defaultChecked={index === 0} />
                                 <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">List of Jagadhatri Puja Committees</p>
-                                    <p className="font-bold">Total {segment?.zone.length} Puja Committees</p>
-                                    <p className="font-bold">Total Jubilee: {filterData(segment?.zone, jubilees)?.length} & Total Pre – Jubilee: {filterData(segment?.zone, preJubilees)?.length}</p>
+                                    <p className="font-bold">Total {item?.zone.length} Puja Committees</p>
+                                    <p className="font-bold">Total Jubilee: {filterData(item?.zone, jubilees)?.length} & Total Pre – Jubilee: {filterData(item?.zone, preJubilees)?.length}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebdra">
                                             <thead>
@@ -69,12 +69,12 @@ export default async function Page() {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {segment?.zone.map((segment, index) => {
-                                                const y = getYear(segment?.estd);
+                                            {item?.zone.map((item, index) => {
+                                                const y = getYear(item?.estd);
                                                 const cel= getCelebrating(y);
                                                 return (
                                                     <tr key={index} className={`${ cel != '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
-                                                        <td>{segment?.puja_name}</td>
+                                                        <td>{item?.puja_name}</td>
                                                         <td>{y}</td>
                                                         <td>{cel}</td>
                                                     </tr>

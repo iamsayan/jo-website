@@ -11,19 +11,19 @@ export const metadata = {
 }
 
 export default function Page() {
-    const shuffle = (array) => {
-        return array.sort(() => Math.random() - 0.5);
+    const shuffle = array => {
+        return array?.sort(() => Math.random() - 0.5);
     };
 
     const admins = [
         {
             name: "Sayan Datta",
-            role: "Founder & Lead Developer",
+            role: "Co-Founder & Lead Developer",
             icon: "sayan.png"
         },
         {
             name: "Pritam Mitra",
-            role: "Founder & Creative Head",
+            role: "Co-Founder & Creative Head",
             icon: "pritam.png"
         }
     ]
@@ -88,7 +88,7 @@ export default function Page() {
 
     return (
         <Layout title="About Us" jsonLd={jsonLd}>
-            <Section title="Know More" description={ <>Who We <font color="#F4C040">Are</font></> } >
+            <Section title="Know More" description={ <>Who We <font color="#F4C040">Are</font></> }>
                 <div className="flex flex-col gap-6 text-center">
                     <p>
                         Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu & Bhadreswar. It is a platform on internet where we display the Location, Photos & Videos of various Jagadhatri Pujas of Chandannagar. It will guide people who want directions to go Pandal Hopping around the city, looking for the best Pujas in town. Jagadhatri Puja is the biggest and the grandest festival celebrated in Chandannagar. Maa Jagadhatri is the Goddess of divine power against all evils. Starting from the day of the Kali Puja, the days of Sashthi, Saptami, Ashtami, Nabami and Dashami every day has its own unique rituals. The grandiosity and enthusiasm with which Jagadhatri Puja is celebrated in Chandannagar is unparalleled.
@@ -107,7 +107,7 @@ export default function Page() {
                     </p>
                 </div>
             </Section>
-            <Section className="bg-gray-100" title="MEET OUR" description={ <>Passionate <font color="#F4C040">Team</font></> } >
+            <Section className="bg-gray-100" title="MEET OUR" description={ <>Passionate <font color="#F4C040">Team</font></> }>
                 <div className="flex flex-col gap-6 justify-center items-center">
                     <p className="text-center text-[18px]">
                         Jagadhatri Online is designed to capture the most popular Jagadhatri Puja’s of Chandannagar, Mankundu & Bhadreswar. Some of you, who are not in Chandannagar are unable to experience the pleasure of Jagadhatri Puja in Bengal with their own eyes. We have created this Website to share our pride Jagadhatri Puja with the whole world. A well organised team at their best. Know more about our Team.
@@ -115,22 +115,22 @@ export default function Page() {
                     <div className="flex flex-col items-center gap-5 w-full">
                         <h2 className="text-xl font-bold">Founders</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                            {shuffle(admins).map((segment, index) => (
+                            {shuffle(admins)?.map((item, index) => (
                                 <div key={index} className="flex flex-col md:flex-row p-10 bg-base-100 gap-4 items-center md:gap-10 md:items-start shadow rounded-md">
                                     <div className="avatar">
                                         <div className="w-32 rounded-full">
                                             <Image
                                                 width={500}
                                                 height={500}
-                                                src={ `/members/${segment?.icon}`}
-                                                alt={segment?.name}
+                                                src={ `/members/${item?.icon}`}
+                                                alt={item?.name}
                                                 quality={100}
                                             />
                                         </div>
                                     </div>
                                     <div className="flex flex-col justify-center items-center md:items-start gap-2">
-                                        <h2 className="card-title">{segment?.name}</h2>
-                                        <p>{segment?.role}</p>
+                                        <h2 className="card-title">{item?.name}</h2>
+                                        <p>{item?.role}</p>
                                         <div className="flex gap-2 mt-4">
                                             <FaSquareFacebook className="facebook h-6 w-6 cursor-pointer" />
                                             <FaSquareXTwitter className="twitter h-6 w-6 cursor-pointer" />
@@ -141,26 +141,25 @@ export default function Page() {
                             ))}
                         </div>
                     </div>
-
                     <div className="flex flex-col items-center gap-5 w-full">
                         <h2 className="text-xl font-bold">Team</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 w-full">
-                        {shuffle(members).map((segment, index) => (
+                        {shuffle(members)?.map((item, index) => (
                             <div key={index} className="flex flex-col p-6 bg-base-100 gap-4 items-center w-full shadow rounded-md">
                                 <div className="avatar">
                                     <div className="w-24 rounded-full">
                                         <Image
                                             width={500}
                                             height={500}
-                                            src={ `/members/${segment?.icon}`}
-                                            alt={segment?.name}
+                                            src={ `/members/${item?.icon}`}
+                                            alt={item?.name}
                                             quality={80}
                                         />
                                     </div>
                                 </div>
                                 <div className="flex flex-col justify-center items-center gap-2">
-                                    <h2 className="card-title">{segment?.name}</h2>
-                                    <p>{segment?.role}</p>
+                                    <h2 className="card-title">{item?.name}</h2>
+                                    <p>{item?.role}</p>
                                     <div className="flex gap-2 mt-3">
                                         <FaSquareFacebook className="facebook h-5 w-5 cursor-pointer" />
                                         <FaSquareXTwitter className="twitter h-5 w-5 cursor-pointer" />

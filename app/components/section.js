@@ -1,11 +1,11 @@
-import classNames from 'classnames';
 import { paytoneOne } from "@/app/fonts";
+import { cn } from "@/app/utils/functions";
 
-export default function Section({ children, title, description, className }) {
-    const classes = classNames( 'w-full flex justify-center bg-light-yellow1', className );
+export default function Section({ children, title, description, className, ...props }) {
+    const classes = cn( 'w-full flex justify-center', className );
 
     return (
-        <div className={classes}>
+        <div className={classes} {...props}>
             <div className="container py-16 px-5 md:px-0">
                 <div className={`flex flex-col text-center justify-around ${ paytoneOne.className }`}>
                     <div className="uppercase text-xs md:text-base text-slate-600">{title}</div>

@@ -47,9 +47,9 @@ export default function Navbar() {
             <div className="bg-yellow-500 hidden lg:block">
                 <div className="container mx-auto py-2">
                     <div className="flex gap-5 text-neutral-950 uppercase text-xs font-semibold" role="menubar">
-                        {topItems.map((segment, index) => (
+                        {topItems.map((item, index) => (
                             <div key={index}>
-                                <Link href={segment?.path} className={`${(pathname === segment?.path ) ? 'text-black' : 'text-slate-800'}`}>{segment?.name}</Link>
+                                <Link href={item?.path} className={`${(pathname === item?.path ) ? 'text-black' : 'text-slate-800'}`}>{item?.name}</Link>
                             </div>
                         ))}
                         <div>
@@ -66,28 +66,30 @@ export default function Navbar() {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                             </label>
                             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                {items.map((segment, index) => (
+                                {items.map((item, index) => (
                                     <li key={index}>
-                                        <Link href={segment?.path} className={`${(pathname === segment?.path ) ? 'text-white' : 'text-slate-300'}`}>{segment?.name}</Link>
+                                        <Link href={item?.path} className={`${(pathname === item?.path ) ? 'text-white' : 'text-slate-300'}`}>{item?.name}</Link>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                         <div className="p-2">
-                            <Image
-                                height={45}
-                                src={logo}
-                                priority={true}
-                                alt="Picture of the author"
-                                //style={{objectFit: "contain", height: "100%"}}
-                            />
+                            <Link href="/">
+                                <Image
+                                    height={45}
+                                    src={logo}
+                                    priority={true}
+                                    alt="Picture of the author"
+                                    //style={{objectFit: "contain", height: "100%"}}
+                                />
+                            </Link>
                         </div>
                     </div>
                     <div className="navbar-center hidden lg:flex">
                         <ul className="menu menu-horizontal px-1 gap-2 uppercase font-bold">
-                            {items.map((segment, index) => (
+                            {items.map((item, index) => (
                                 <li key={index}>
-                                    <Link href={segment?.path} className={`focus:!text-white focus:!bg-transparent ${(pathname === segment?.path ) ? 'text-white' : 'text-slate-300'}`}>{segment?.name}</Link>
+                                    <Link href={item?.path} className={`focus:!text-white focus:!bg-transparent ${(pathname === item?.path ) ? 'text-white' : 'text-slate-300'}`}>{item?.name}</Link>
                                 </li>
                             ))}
                         </ul>

@@ -1,9 +1,9 @@
-import classNames from 'classnames';
+import { cn } from '@/app/utils/functions';
 import NavBar from './navbar'
 import Footer from './footer'
 
 export default function Main({children, className, jsonLd}) {
-    const classes = classNames( 'flex flex-col flex-wrap items-center justify-between', className );
+    const classes = cn( 'flex flex-col flex-wrap items-center justify-between', className );
   
     return (
         <>

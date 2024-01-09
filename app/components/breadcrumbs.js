@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 
 const Breadcrumbs = () => {
     const pathname = usePathname()
-    const pathSegments = pathname.split('/').filter((segment) => segment !== '');
+    const pathitems = pathname.split('/').filter((item) => item !== '');
 
     return (
         <div className="text-xs breadcrumbs uppercase">
@@ -13,9 +13,9 @@ const Breadcrumbs = () => {
                 <li>
                     <Link href="/">Home</Link>
                 </li>
-                {pathSegments.map((segment, index) => (
+                {pathitems.map((item, index) => (
                     <li key={index}>
-                        <Link href={`/${pathSegments.slice(0, index + 1).join('/')}`}>{segment.replaceAll('-', ' ')}</Link>
+                        <Link href={`/${pathitems.slice(0, index + 1).join('/')}`}>{item.replaceAll('-', ' ')}</Link>
                     </li>
                 ))}
             </ul>

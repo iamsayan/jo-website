@@ -1,8 +1,10 @@
+import { GoogleTagManager } from '@next/third-parties/google'
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { hind } from "@/app/fonts";
 import './globals.sass'
 
 export const metadata = {
-    metadataBase: new URL('http://localhost:3000'),
+    metadataBase: new URL(process.env.SITE_URL),
     title: {
         template: '%s - Jagadhatri Online | the #1 Popular Jagadhatri Puja Portal',
         default: 'Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja',
@@ -37,6 +39,12 @@ export default function RootLayout({ children }) {
         <html lang="en" data-theme="light">
             <body className={ `${hind.className} overflow-x-hidden text-sm md:text-base ${hind.variable}` }>
                 {children}
+                {process.env.NODE_ENV === 'production' &&
+                    <>
+                        <SpeedInsights />
+                        <GoogleTagManager gtmId="GTM-XYZ" />
+                    </>
+                }
             </body>
         </html>
     )

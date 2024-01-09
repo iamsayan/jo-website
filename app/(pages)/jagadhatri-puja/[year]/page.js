@@ -70,11 +70,11 @@ export default async function Page({ params }) {
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
-                        {tabs.map((segment, index) => (
+                        {tabs.map((item, index) => (
                             <Fragment key={index}>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label={segment?.name} defaultChecked={index === 0} />
+                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap" aria-label={item?.name} defaultChecked={index === 0} />
                                 <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
-                                    <p className="text-xl font-bold">Number of Total Jubilees: {segment?.type?.length}</p>
+                                    <p className="text-xl font-bold">Number of Total Jubilees: {item?.type?.length}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
@@ -86,13 +86,13 @@ export default async function Page({ params }) {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {segment?.type?.map((segment, index) => {
-                                                const y = getYear(segment?.estd, params?.year);
+                                            {item?.type?.map((item, index) => {
+                                                const y = getYear(item?.estd, params?.year);
                                                 const cel= getCelebrating(y);
                                                 return (
                                                     <tr key={index} className='row'>
-                                                        <td>{segment?.puja_name}</td>
-                                                        <td>{segment?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                                        <td>{item?.puja_name}</td>
+                                                        <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
                                                         <td>{y}</td>
                                                         <td>{cel}</td>
                                                     </tr>
@@ -106,8 +106,9 @@ export default async function Page({ params }) {
                         ))}
                         {dateIsCurrent &&
                             <>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold" aria-label="Puja Schedule" />
-                                <div role="tabpanel" className="tab-content bg-base-100 border-base-300 p-4">
+                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap" aria-label="Puja Schedule" />
+                                <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
+                                    <p className="text-xl font-bold">Puja Schedule {params?.year}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
@@ -118,15 +119,15 @@ export default async function Page({ params }) {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                {data?.dates?.map((segment, index) => {
-                                                    return (
-                                                        <tr key={index} className='row'>
-                                                            <td>{formatDate(segment?.value?.date)}</td>
-                                                            <td>{getDay(segment?.value?.date)}</td>
-                                                            <td>{segment?.value?.event}</td>
-                                                        </tr>
-                                                    )
-                                                })}
+                                            {data?.dates?.map((item, index) => {
+                                                return (
+                                                    <tr key={index} className='row'>
+                                                        <td>{formatDate(item?.value?.date)}</td>
+                                                        <td>{getDay(item?.value?.date)}</td>
+                                                        <td>{item?.value?.event}</td>
+                                                    </tr>
+                                                )
+                                            })}
                                             </tbody>
                                         </table>
                                     </div>
