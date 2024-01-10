@@ -28,7 +28,7 @@ export default async function Page({ params }) {
         notFound()
     }
 
-    const siteDataRes = getSingletonData('home');
+    const siteDataRes = getSingletonData('information');
     const pujasDataRes= getCollectionData('pujas', {
         sort: { estd: 1 }
     })

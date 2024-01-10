@@ -12,7 +12,7 @@ import bg from '../public/bg.jpg'
 import Videos from "@/app/components/videos";
 
 export default async function Home() {
-    const siteData = await getSingletonData('home');
+    const siteData = await getSingletonData('information');
     const data = siteData ?? null
     const year = getDateByIndex(data, 0).getFullYear()
     const curYear = new Date().getFullYear()

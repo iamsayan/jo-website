@@ -10,7 +10,7 @@ export const metadata = {
 }
 
 export default async function Page() {
-    const siteData = await getSingletonData('home');
+    const siteData = await getSingletonData('information');
     const data = siteData ?? null
 
     const currentYear = new Date().getFullYear();
