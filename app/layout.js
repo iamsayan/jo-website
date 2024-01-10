@@ -1,7 +1,7 @@
+import Script from "next/script";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { outfit } from "@/app/fonts";
 import './globals.sass'
-import GoogleAnalyticsProvider from "@/app/components/ga";
 
 export const metadata = {
     metadataBase: new URL(process.env.SITE_URL),
@@ -41,14 +41,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" data-theme="light">
+            {process.env.NODE_ENV === 'production' &&
+                <>
+                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA4_ID}`} />
+                    <Script id="google-analytics">
+                        {`
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', '${process.env.GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
+                        `}
+                    </Script>
+                </>
+            }
             <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
                 {children}
-                {process.env.NODE_ENV === 'production' &&
-                    <>
-                        <SpeedInsights />
-                        <GoogleAnalyticsProvider />
-                    </>
-                }
+                {process.env.NODE_ENV === 'production' && <SpeedInsights />}
             </body>
         </html>
     )

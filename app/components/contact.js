@@ -20,7 +20,7 @@ export default function Contact() {
     const [message, setMessage] = useState(false);
 
     const { submit: onSubmit } = useWeb3Forms({
-        access_key: process.env.FORM_API_KEY,
+        access_key: process.env.WEB3_FORM_API_KEY,
         settings: {
             from_name: "Jagadhatri Online Website",
             subject: "New Contact Message from Website",
