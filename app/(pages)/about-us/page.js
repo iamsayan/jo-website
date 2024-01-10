@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
 
-import Layout from "./../../components/layout";
-import Section from "./../../components/section";
+import Layout from "@/app/components/layout";
+import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
 
 export const metadata = {

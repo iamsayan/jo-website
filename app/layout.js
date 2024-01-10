@@ -1,6 +1,6 @@
 import { GoogleTagManager } from '@next/third-parties/google'
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { hind } from "@/app/fonts";
+import { hind, outfit } from "@/app/fonts";
 import './globals.sass'
 
 export const metadata = {
@@ -37,7 +37,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" data-theme="light">
-            <body className={ `${hind.className} overflow-x-hidden text-sm md:text-base ${hind.variable}` }>
+            <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
                 {children}
                 {process.env.NODE_ENV === 'production' &&
                     <>

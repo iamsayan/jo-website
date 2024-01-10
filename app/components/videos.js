@@ -30,7 +30,7 @@ export default function Videos({ children, title }) {
                     {videos?.map((info, index) => (
                         <div key={index} className="flex flex-row items-center gap-3 cursor-pointer" onClick={() => setVideoId(info?.id)}>
                             <div className="basis-1/4">
-                                <img className="pointer-events-none" src={`https://i3.ytimg.com/vi/${info?.id}/maxresdefault.jpg`} alt={info?.name} />
+                                <img className="pointer-events-none" width={300} src={`https://i3.ytimg.com/vi/${info?.id}/maxresdefault.jpg`} alt={info?.name} />
                             </div>
                             <div className="basis-3/4 text-left overflow-ellipsis overflow-hidden whitespace-nowrap">{info?.name}</div>
                         </div>

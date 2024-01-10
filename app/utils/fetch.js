@@ -1,5 +1,3 @@
-import {NextResponse} from "next/server";
-
 export async function getCollectionData(slug, options = {}) {
     let body = {
         simple: true,

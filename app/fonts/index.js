@@ -1,7 +1,12 @@
-import {Assistant, Hind_Siliguri, Outfit, Paytone_One} from 'next/font/google'
+import {
+    Hind_Siliguri,
+    Outfit,
+    Paytone_One,
+} from 'next/font/google'
 
 export const outfit= Outfit({
-    subsets: ['latin']
+    subsets: ['latin'],
+    variable: '--video-font-family',
 })
 
 export const paytoneOne= Paytone_One({

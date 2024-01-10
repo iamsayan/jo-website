@@ -4,7 +4,7 @@ import Main from '@/app/components/main'
 import Section from "@/app/components/section";
 import Slider from "@/app/components/slider";
 import CountdownTimer from "@/app/components/countdown-timer";
-import { FaHistory, FaImages, FaYoutube, FaLocationArrow } from "react-icons/fa";
+import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook } from "react-icons/fa";
 import { cn, formatDate, getDateByIndex, shuffle } from "@/app/utils/functions";
 import { paytoneOne } from "@/app/fonts";
 import { getSingletonData } from "@/app/utils/fetch";
@@ -49,8 +49,8 @@ export default async function Home() {
     const stats = [
         {
             title: 'Followers',
-            stat: '60.3K',
-            icon: <FaHistory className="inline-block w-8 h-8 stroke-current" />,
+            stat: '60.5K',
+            icon: <FaFacebook className="inline-block w-8 h-8 stroke-current" />,
             description: '1K+ new followers in last 30 days'
         },
         {
@@ -61,18 +61,26 @@ export default async function Home() {
             class: 'text-secondary'
         },
         {
-            title: 'Followers',
-            stat: '60.3K',
-            icon: <FaHistory className="inline-block w-8 h-8 stroke-current" />,
-            description: '1K+ new followers in last 30 days'
+            title: 'Post Engagement',
+            stat: '47.8K',
+            icon: <FaVideo className="inline-block w-8 h-8 stroke-current" />,
+            description: '38% more than last month',
+            class: 'text-blue-500'
         },
         {
-            title: 'Post Reach',
-            stat: '1.6M',
-            icon: <FaHistory className="inline-block w-8 h-8 stroke-current" />,
-            description: '85% more than last month',
-            class: 'text-secondary'
-        }
+            title: 'Subscribers',
+            stat: '4.04K',
+            icon: <FaYoutube className="inline-block w-8 h-8 stroke-current" />,
+            description: '500+ new followers in last 1 year',
+            class: 'text-green-600'
+        },
+        {
+            title: 'Visitors',
+            stat: '98.5K',
+            icon: <FaGlobe className="inline-block w-8 h-8 stroke-current" />,
+            description: '14% more than last month',
+            class: 'text-pink-500'
+        },
     ]
 
     const jsonLd = {
@@ -118,39 +126,28 @@ export default async function Home() {
             {/*        <iframe className="w-full h-full" src="https://www.youtube.com/embed/fd-_rr5YWc8?autoplay=1&loop=1&controls=0&mute=1" frameBorder="0" allowFullScreen></iframe>*/}
             {/*        <div className="absolute inset-0 bg-black opacity-50"></div>*/}
             {/*    </div>*/}
-                <div className="hero-overlay bg-opacity-60"></div>
+                <div className="hero-overlay bg-slate-900 bg-opacity-60"></div>
                 <div className="hero-content text-center text-white-content text-white p-0 z-2">
                     <div className="pt-36 pb-28">
                         <h1 className={ `mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}` }>CHANDANNAGAR <br /> JAGADHATRI PUJA</h1>
                         <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
-                        <Link href={`/jagadhatri-puja/${year}`} className="btn bg-yellow-500 border-0 uppercase py-3.5 px-5 h-auto min-h-full rounded-md">Jagadhatri Puja {btnYear}</Link>
+                        <Link href={`/jagadhatri-puja/${year}`} className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3.5 px-6 h-auto min-h-full rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Jagadhatri Puja {btnYear}</Link>
                     </div>
                 </div>
             </div>
             <Section className="bg-gray-100" title="Welcome to the Online Puja Portal" description={ <>Jagadhatri <font color="#F4C040">Online</font></> }>
                 <div className="flex flex-col gap-6 text-center">
-                    <p>
+                    <p className="md:text-xl md:w-[1100px] text-center m-auto md:leading-relaxed">
                         Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri
                         Pujas of Chanannagar, Mankundu & Bhadreswar. It is a platform on internet where we display the
                         Location, Photos & Videos of various Jagadhatri Pujas of Chandannagar. It will guide people who
                         want directions to go Pandal Hopping around the city, looking for the best Pujas in town.
                     </p>
-                    <Slider slides={[
-                        { imageUrl: 'bg.jpg' },
-                        { imageUrl: 'cgrutsavapp.jpg' },
-                    ]} options={{
-                        height: 500
-                    }} />
-                    <div className="grid gap-2 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 mt-5">
-                        {items?.map((item, index) => (
-                            <Link key={index} href={item?.link} target={item?.link?.includes('https') ? '_blank' : '_self'} className="flex flex-col gap-2 items-center">
-                                <span className="p-5 border rounded-full">{item?.icon}</span>
-                                <span className="text-xl font-bold uppercase">{item?.title}</span>
-                                <span className="">{item?.description}</span>
-                            </Link>
-                        ))}
+                    <div>
+                        <Link href="/achievements"
+                              className="btn bg-yellow-500 border-0 uppercase py-4 px-6 h-auto min-h-full rounded-md hover:text-white hover:bg-blue-700"><FaFlag/> Achievements</Link>
                     </div>
-                    <div className="stats stats-vertical lg:stats-horizontal text-left shadow container my-5">
+                    <div className="stats stats-vertical lg:stats-horizontal text-left shadow container">
                         {stats?.map((item, index) => (
                             <div className="stat" key={index}>
                                 <div className={`${cn('stat-figure text-primary', item?.class)}`}>{item?.icon}</div>
@@ -158,6 +155,23 @@ export default async function Home() {
                                 <div className={`${cn('stat-value text-primary', item?.class)}`}>{item?.stat}</div>
                                 <div className="stat-desc">{item?.description}</div>
                             </div>
+                        ))}
+                    </div>
+                    <Slider slides={[
+                        {imageUrl: 'bg.jpg'},
+                        {imageUrl: 'cgrutsavapp.jpg'},
+                    ]} options={{
+                        height: 500
+                    }}/>
+                    <div className="grid gap-2 grid-cols-2 xl:grid-cols-4 mt-5">
+                        {items?.map((item, index) => (
+                            <Link key={index} href={item?.link}
+                                  target={item?.link?.includes('https') ? '_blank' : '_self'}
+                                  className="flex flex-col gap-2 items-center">
+                                <span className="p-5 border rounded-full">{item?.icon}</span>
+                                <span className="text-xl font-bold uppercase">{item?.title}</span>
+                                <span className="">{item?.description}</span>
+                            </Link>
                         ))}
                     </div>
                 </div>
