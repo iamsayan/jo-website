@@ -1,7 +1,7 @@
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { outfit } from "@/app/fonts";
 import './globals.sass'
+import GoogleAnalyticsProvider from "@/app/components/ga";
 
 export const metadata = {
     metadataBase: new URL(process.env.SITE_URL),
@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
                 {process.env.NODE_ENV === 'production' &&
                     <>
                         <SpeedInsights />
-                        <GoogleAnalytics gaId="G-9SC8PWR57R" />
+                        <GoogleAnalyticsProvider />
                     </>
                 }
             </body>
