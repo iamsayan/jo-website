@@ -4,7 +4,7 @@ const nextConfig = {
         API_URL: process.env.API_URL,
         API_KEY: process.env.API_KEY,
         SITE_URL: process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.LIVE_URL,
-        WEB3_FORM_API_KEY: process.env.PUBLIC_ACCESS_KEY,
+        WEB3_FORM_API_KEY: process.env.WEB3_FORM_ACCESS_KEY,
         GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
         GA4_ID: process.env.GA4_ID,
     },
