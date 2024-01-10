@@ -109,7 +109,7 @@ export default function Page() {
             </Section>
             <Section className="bg-gray-100" title="MEET OUR" description={ <>Passionate <font color="#F4C040">Team</font></> }>
                 <div className="flex flex-col gap-6 justify-center items-center">
-                    <p className="text-center text-[18px]">
+                    <p className="text-center md:text-[18px] md:w-[1100px] text-center m-auto md:leading-relaxed">
                         Jagadhatri Online is designed to capture the most popular Jagadhatri Puja’s of Chandannagar, Mankundu & Bhadreswar. Some of you, who are not in Chandannagar are unable to experience the pleasure of Jagadhatri Puja in Bengal with their own eyes. We have created this Website to share our pride Jagadhatri Puja with the whole world. A well organised team at their best. Know more about our Team.
                     </p>
                     <div className="flex flex-col items-center gap-5 w-full">

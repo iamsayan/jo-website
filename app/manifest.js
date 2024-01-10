@@ -1,7 +1,7 @@
 export default function manifest() {
     return {
-        name: 'Next.js App',
-        short_name: 'Next.js App',
+        name: 'Jagadhatri Online',
+        short_name: 'Jagadhatri Online',
         description: 'Next.js App',
         start_url: '/',
         display: 'standalone',

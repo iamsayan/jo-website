@@ -24,9 +24,9 @@ export default function Footer() {
     return (
         <footer className="p-10 bg-neutral text-neutral-content">
             <div className="footer footer-center container mx-auto">
-              <nav className="grid grid-flow-col gap-4">
+              <nav className="grid grid-flow-row md:grid-flow-col gap-2 md:gap-4">
                   {items?.map((item, index) => (
-                      <div key={index}>
+                      <div key={index} className="text-xs md:text-sm">
                           <Link href={item?.path} className="link link-hover">{item?.name}</Link>
                       </div>
                   ))}

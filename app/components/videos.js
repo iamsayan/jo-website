@@ -7,6 +7,14 @@ export default function Videos({ children, title }) {
     const [ videoId, setVideoId ] = useState( '67g1r7Hin0E' )
     const videos = [
         {
+            id: 'OiK_ZWpZgeA',
+            name: 'Best of Jagadhatri puja 2022 | Rathersarak | Barabazar | Moranroad | Neogibagan | Circus Math'
+        },
+        {
+            id: 'CczMV6ep6p8',
+            name: 'Best video of Jagadhatri Puja'
+        },
+        {
             id: '67g1r7Hin0E',
             name: 'Best video of Jagadhatri Puja'
         },
@@ -19,7 +27,7 @@ export default function Videos({ children, title }) {
     return (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-5">
             <div className="col-span-3">
-                <YouTubeEmbed className="yt-player" videoid={videoId} params="controls=0&playsinline=1&cc_load_policy=1&modestbranding=1" style={{maxWidth: '100%'}} />
+                <YouTubeEmbed className="yt-player" videoid={videoId} params="controls=0&playsinline=1&cc_load_policy=1&modestbranding=1&rel=0" style={{maxWidth: '100%'}} />
             </div>
             <div className="flex flex-col">
                 <div className="flex flex-row justify-between p-4 border-b-2">

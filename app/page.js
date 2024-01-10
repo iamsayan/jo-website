@@ -8,8 +8,15 @@ import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVid
 import { cn, formatDate, getDateByIndex, shuffle } from "@/app/utils/functions";
 import { paytoneOne } from "@/app/fonts";
 import { getSingletonData } from "@/app/utils/fetch";
-import bg from '../public/bg.jpg'
 import Videos from "@/app/components/videos";
+import ImageSlider from "@/app/components/hero";
+
+import slider1 from '../public/assets/slider1.jpg'
+import slider2 from '../public/assets/slider2.jpg'
+import slider3 from '../public/assets/slider3.jpg'
+import slider4 from '../public/assets/slider4.jpg'
+import slider5 from '../public/assets/slider5.jpg'
+import slider6 from '../public/assets/slider6.jpg'
 
 export default async function Home() {
     const siteData = await getSingletonData('information');
@@ -17,7 +24,6 @@ export default async function Home() {
     const year = getDateByIndex(data, 0).getFullYear()
     const curYear = new Date().getFullYear()
     const btnYear = curYear > year ? curYear : year
-    const videos = shuffle(data?.videos ?? [])
 
     const items = [
         {
@@ -120,22 +126,20 @@ export default async function Home() {
 
     return (
         <Main jsonLd={jsonLd}>
-            <div className="hero min-h-full lg:min-h-screen" style={{backgroundImage: `url(${bg.src})`}}>
-            {/*<div className="relative min-h-full lg:min-h-screen flex items-center justify-center w-full">*/}
-            {/*    <div className="absolute inset-0 z-0">*/}
-            {/*        <iframe className="w-full h-full" src="https://www.youtube.com/embed/fd-_rr5YWc8?autoplay=1&loop=1&controls=0&mute=1" frameBorder="0" allowFullScreen></iframe>*/}
-            {/*        <div className="absolute inset-0 bg-black opacity-50"></div>*/}
-            {/*    </div>*/}
-                <div className="hero-overlay bg-slate-900 bg-opacity-60"></div>
+            <ImageSlider>
                 <div className="hero-content text-center text-white-content text-white p-0 z-2">
                     <div className="pt-36 pb-28">
-                        <h1 className={ `mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}` }>CHANDANNAGAR <br /> JAGADHATRI PUJA</h1>
+                        <h1 className={`mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}`}>CHANDANNAGAR <br/> JAGADHATRI
+                            PUJA</h1>
                         <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
-                        <Link href={`/jagadhatri-puja/${year}`} className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3.5 px-6 h-auto min-h-full rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Jagadhatri Puja {btnYear}</Link>
+                        <Link href={`/jagadhatri-puja/${year}`}
+                              className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3.5 px-6 h-auto min-h-full rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Jagadhatri
+                            Puja {btnYear}</Link>
                     </div>
                 </div>
-            </div>
-            <Section className="bg-gray-100" title="Welcome to the Online Puja Portal" description={ <>Jagadhatri <font color="#F4C040">Online</font></> }>
+            </ImageSlider>
+            <Section className="bg-gray-100" title="Welcome to the Online Puja Portal"
+                     description={<>Jagadhatri <font color="#F4C040">Online</font></>}>
                 <div className="flex flex-col gap-6 text-center">
                     <p className="md:text-xl md:w-[1100px] text-center m-auto md:leading-relaxed">
                         Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri
@@ -158,10 +162,19 @@ export default async function Home() {
                         ))}
                     </div>
                     <Slider slides={[
-                        {imageUrl: 'bg.jpg'},
-                        {imageUrl: 'cgrutsavapp.jpg'},
+                        { imageUrl: slider1.src },
+                        { imageUrl: slider2.src },
+                        { imageUrl: slider3.src },
+                        { imageUrl: slider4.src },
+                        { imageUrl: slider5.src },
+                        { imageUrl: slider6.src },
                     ]} options={{
-                        height: 500
+                        height: 800,
+                        breakpoints: {
+                            640: {
+                                height: 300,
+                            },
+                        }
                     }}/>
                     <div className="grid gap-2 grid-cols-2 xl:grid-cols-4 mt-5">
                         {items?.map((item, index) => (

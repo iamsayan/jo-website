@@ -28,7 +28,7 @@ export default function Navbar() {
     ]
 
     return (
-        <header className="bg-transparent border border-yellow-500">
+        <header className="bg-transparent border border-yellow-500 relative z-10">
             <div className="navbar-container absolute w-full">
                 <div className="navbar container mx-auto px-0">
                     <div className="navbar-start">

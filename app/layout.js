@@ -1,6 +1,6 @@
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { hind, outfit } from "@/app/fonts";
+import { outfit } from "@/app/fonts";
 import './globals.sass'
 
 export const metadata = {
@@ -32,6 +32,10 @@ export const metadata = {
         type: 'website',
         authors: ['Sayan Datta', 'Jagadhatri Online Team'],
     },
+    other: {
+        'google-site-verification': 'DlFEkrjmoyJEMTrNA5wonqW45Se03O5RkI_9D8Md7Us',
+        'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
+    },
 }
 
 export default function RootLayout({ children }) {
@@ -42,7 +46,7 @@ export default function RootLayout({ children }) {
                 {process.env.NODE_ENV === 'production' &&
                     <>
                         <SpeedInsights />
-                        <GoogleTagManager gtmId="GTM-XYZ" />
+                        <GoogleAnalytics gaId="G-9SC8PWR57R" />
                     </>
                 }
             </body>
