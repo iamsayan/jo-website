@@ -28,7 +28,7 @@ export default async function Page() {
     })
 
     return (
-        <Layout title="Puja Schedule">
+        <Layout title="Puja Schedule" jsonLd={jsonLd}>
             <Section title="Know More About" description={ <>Puja <font color="#F4C040">Schedule</font></> } >
                 <div className="flex flex-col gap-6 text-justify">
                     <p>Jagadhatri Puja, an esteemed festival in certain regions, extends across five joyous days, commencing from Sasthi and culminating on Dashami. The main observance traditionally takes place on the seventh day of the festivities. Much akin to the grandeur of Kolkata's revered Durga Puja and Barasat's revered Kali Puja, Chandannagar stands out for its opulent celebrations and cultural exuberance during the Jagadhatri Puja. The city comes alive with vibrant decorations, illuminations, and fervent devotional activities, attracting both locals and visitors alike, creating an atmosphere of religious significance and communal harmony.</p>
