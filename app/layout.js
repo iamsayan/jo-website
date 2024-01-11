@@ -31,6 +31,7 @@ export const metadata = {
         locale: 'en_US',
         type: 'website',
         authors: ['Sayan Datta', 'Jagadhatri Online Team'],
+        url: '/'
     },
     other: {
         'google-site-verification': 'DlFEkrjmoyJEMTrNA5wonqW45Se03O5RkI_9D8Md7Us',
