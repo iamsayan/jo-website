@@ -1,11 +1,14 @@
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
-import {getSingletonData} from "@/app/utils/fetch";
+import { getSingletonData } from "@/app/utils/fetch";
 import schema from "@/app/utils/schema";
 
 export const metadata = {
     title: 'Terms & Conditions',
     description: 'Please read these terms and conditions carefully before applying to become a member of Jagadhatri Online on our Website. You should understand that by applying to become a part of this Community, you agree to be bound by these terms and conditions.',
+    openGraph: {
+        url: '/terms',
+    },
 }
 
 export default async function Page() {

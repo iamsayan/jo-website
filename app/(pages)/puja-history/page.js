@@ -5,6 +5,9 @@ import schema from "@/app/utils/schema";
 export const metadata = {
     title: 'History of Jagadhatri Puja',
     description: 'History of Chandannagar Jagadhatri Puja. It is heard that Indranarayan Chowdhury introduced the Jagadhatri Puja in the manner of King Krishnachandra.',
+    openGraph: {
+        url: '/puja-history',
+    },
 }
 
 export default function Page() {

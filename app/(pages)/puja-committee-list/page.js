@@ -9,6 +9,9 @@ export function generateMetadata() {
     return {
         title: 'Jagadhatri Puja Committee List',
         description: 'Here is the full list of Chadannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
+        openGraph: {
+            url: '/puja-committee-list',
+        },
     }
 }
 

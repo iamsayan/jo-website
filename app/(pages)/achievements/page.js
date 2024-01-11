@@ -6,6 +6,9 @@ import { getSingletonData } from "@/app/utils/fetch";
 export const metadata = {
     title: 'Achievements',
     description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
+    openGraph: {
+        url: '/achievements',
+    },
 }
 
 export default async function Page() {
