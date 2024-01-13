@@ -1,5 +1,4 @@
 import Script from "next/script";
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { outfit } from "@/app/fonts";
 import './globals.sass'
 
@@ -10,7 +9,7 @@ export const metadata = {
         default: 'Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja',
     },
     description: `Jagadhatri or Jagaddhatri is an aspect of the Hindu goddess Durga, who is particularly worshipped in the Chandannagar region of West Bengal, India. Her cult is directly derived from Tantra where she is a symbol of sattva beside Durga and Kali, respectably symbolized with Rajas and Tamas.`,
-    keywords: ['Next.js', 'React', 'JavaScript'],
+    keywords: ['jagadhatri puja', 'jagadhatri', 'chandannagar'],
     authors: [{ name: 'Sayan Datta', url: 'https://sayandatta.co.in' }],
     creator: 'Sayan Datta',
     publisher: 'Jagadhatri Online',
@@ -57,7 +56,6 @@ export default function RootLayout({ children }) {
             }
             <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
                 {children}
-                {process.env.NODE_ENV === 'production' && <SpeedInsights />}
             </body>
         </html>
     )

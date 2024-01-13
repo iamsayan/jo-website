@@ -2,7 +2,7 @@
 
 import Countdown from 'react-countdown';
 import { paytoneOne } from "@/app/fonts";
-import NoSsr from "@/app/components/nossr";
+import NoSsr from "@/app/utils/nossr";
 import { cn } from "@/app/utils/functions";
 
 const CountdownTimer = ({ className, targetDate }) => {
