@@ -13,6 +13,7 @@ import {
     getDateByIndex
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
+import CommentsProvider from "@/app/components/comments";
 
 export const runtime = 'edge';
 
@@ -152,6 +153,7 @@ export default async function Page({ params }) {
                     </div>
                 </div>
             </Section>
+            <CommentsProvider path={`/jagadhatri-puja/${params?.year}`}/>
         </Layout>
     )
 }

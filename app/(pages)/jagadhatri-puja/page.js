@@ -45,7 +45,7 @@ export default async function Page() {
                         ))}
                     </div>
                 </div>
-                <CommentsProvider url="/" />
+                <CommentsProvider path="/jagadhatri-puja" />
             </Section>
         </Layout>
     )

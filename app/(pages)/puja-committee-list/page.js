@@ -4,6 +4,7 @@ import Section from "@/app/components/section";
 import { getCollectionData } from "@/app/utils/fetch";
 import { jubilees, preJubilees, getYear, getCelebrating, getDateByIndex } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
+import CommentsProvider from "@/app/components/comments";
 
 export function generateMetadata() {
     return {
@@ -99,6 +100,7 @@ export default async function Page() {
                     </div>
                 </div>
             </Section>
+            <CommentsProvider path="/puja-committee-list" />
         </Layout>
     )
 }
