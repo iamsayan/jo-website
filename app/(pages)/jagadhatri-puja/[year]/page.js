@@ -23,6 +23,9 @@ export async function generateMetadata({ params }) {
         openGraph: {
             url: `/jagadhatri-puja/${params?.year}`,
         },
+        alternates: {
+            canonical: `/jagadhatri-puja/${params?.year}`,
+        },
     }
 }
 
@@ -57,13 +60,20 @@ export default async function Page({ params }) {
         }
     ]
 
-    const jsonLd = schema({
+    let schemaData = {
         slug: `jagadhatri-puja/${params?.year}`,
         title: `Jagadhatri Puja ${params?.year} Jubilee, Pre Jubilee List, Schedule`,
-        description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${params?.year} the great festival of Chandannagar.`,
-        start: getDateByIndex(data, 0),
-        end: getDateByIndex(data, 4)
-    })
+    }
+
+    if ( dateIsCurrent ) {
+        schemaData = {
+            ...schemaData,
+            description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${params?.year} the great festival of Chandannagar.`,
+            start: getDateByIndex(data, 0),
+            end: getDateByIndex(data, 4)
+        }
+    }
+    const jsonLd = schema(schemaData)
 
     return (
         <Layout title={`Puja Details ${params?.year}`} jsonLd={jsonLd}>

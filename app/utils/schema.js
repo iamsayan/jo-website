@@ -63,9 +63,9 @@ export default function schema({slug, title, description, start, end}) {
         siteSchema?.['@graph'].push({
             "name": title,
             "description": description,
-            "@type": "Festival",
-            "eventStatus": "EventScheduled",
-            "eventAttendanceMode": "MixedEventAttendanceMode",
+            "@type": "Event",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
             "location": [
                 {
                     "@type": "VirtualLocation",
@@ -90,14 +90,13 @@ export default function schema({slug, title, description, start, end}) {
                 "name": "Jagadhatri Online",
                 "sameAs": "https://www.jagadhatrionline.co.in"
             },
+            "organizer": {
+                "@type": "Organization",
+                "name": "Jagadhatri Online",
+                "url": "https://www.jagadhatrionline.co.in"
+            },
             "startDate": start,
             "endDate": end,
-            "offers": {
-                "@type": "Offer",
-                "name": "General Admission",
-                "category": "primary",
-                "availability": "InStock"
-            },
             "@id": `https://www.jagadhatrionline.co.in/${slug}#schema-${Math.floor(Math.random())}`,
             "isPartOf": {
                 "@id": `https://www.jagadhatrionline.co.in/${slug}#webpage`

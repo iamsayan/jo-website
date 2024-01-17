@@ -12,6 +12,9 @@ export function generateMetadata() {
         openGraph: {
             url: '/puja-committee-list',
         },
+        alternates: {
+            canonical: '/puja-committee-list',
+        },
     }
 }
 

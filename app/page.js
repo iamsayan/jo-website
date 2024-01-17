@@ -141,7 +141,7 @@ export default async function Home() {
             <Section className="bg-gray-100" title="Welcome to the Online Puja Portal"
                      description={<>Jagadhatri <font color="#F4C040">Online</font></>}>
                 <div className="flex flex-col gap-6 text-center">
-                    <p className="md:text-xl md:w-[1100px] text-center m-auto md:leading-relaxed">
+                    <p className="md:text-xl text-center m-auto md:leading-relaxed">
                         Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri
                         Pujas of Chanannagar, Mankundu & Bhadreswar. It is a platform on internet where we display the
                         Location, Photos & Videos of various Jagadhatri Pujas of Chandannagar. It will guide people who

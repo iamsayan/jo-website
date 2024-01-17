@@ -1,8 +1,10 @@
+'use client'
+
 import { FacebookProvider, Comments } from 'react-facebook';
 
-export default function Main({ url }) {
+export default function CommentsProvider({ url }) {
     return (
-        <FacebookProvider appId="2673466959356911">
+        <FacebookProvider appId="906906950683467">
             <Comments href={url} />
         </FacebookProvider>
     )

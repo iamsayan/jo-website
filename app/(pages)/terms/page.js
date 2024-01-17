@@ -9,6 +9,9 @@ export const metadata = {
     openGraph: {
         url: '/terms',
     },
+    alternates: {
+        canonical: '/terms',
+    },
 }
 
 export default async function Page() {

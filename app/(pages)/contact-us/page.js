@@ -10,6 +10,9 @@ export const metadata = {
     openGraph: {
         url: '/contact-us',
     },
+    alternates: {
+        canonical: '/contact-us',
+    },
 }
 
 export default function Page() {

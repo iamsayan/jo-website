@@ -3,12 +3,16 @@ import Layout from '@/app/components/layout';
 import Section from '@/app/components/section';
 import { getSingletonData } from "@/app/utils/fetch";
 import schema from "@/app/utils/schema";
+import CommentsProvider from "@/app/components/comments";
 
 export const metadata = {
     title: 'Jagadhatri Puja Jubilee, Pre Jubilee List, Schedule',
     description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
     openGraph: {
         url: '/jagadhatri-puja',
+    },
+    alternates: {
+        canonical: '/jagadhatri-puja',
     },
 }
 
@@ -41,6 +45,7 @@ export default async function Page() {
                         ))}
                     </div>
                 </div>
+                <CommentsProvider url="/" />
             </Section>
         </Layout>
     )

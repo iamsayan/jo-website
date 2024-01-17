@@ -9,6 +9,9 @@ export const metadata = {
     openGraph: {
         url: '/privacy-policy',
     },
+    alternates: {
+        canonical: '/privacy-policy',
+    },
 }
 
 export default async function Page() {

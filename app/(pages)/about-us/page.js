@@ -11,6 +11,9 @@ export const metadata = {
     openGraph: {
         url: '/about-us',
     },
+    alternates: {
+        canonical: '/about-us',
+    },
 }
 
 export default function Page() {

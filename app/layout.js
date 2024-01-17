@@ -4,6 +4,9 @@ import './globals.sass'
 
 export const metadata = {
     metadataBase: new URL(process.env.SITE_URL),
+    alternates: {
+        canonical: '/',
+    },
     title: {
         template: '%s - Jagadhatri Online | the #1 Popular Jagadhatri Puja Portal',
         default: 'Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja',
@@ -32,9 +35,12 @@ export const metadata = {
         authors: ['Sayan Datta', 'Jagadhatri Online Team'],
         url: '/'
     },
+    verification: {
+        google: 'DlFEkrjmoyJEMTrNA5wonqW45Se03O5RkI_9D8Md7Us',
+    },
     other: {
-        'google-site-verification': 'DlFEkrjmoyJEMTrNA5wonqW45Se03O5RkI_9D8Md7Us',
         'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
+        'fb:app_id': '906906950683467'
     },
 }
 
