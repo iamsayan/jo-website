@@ -37,7 +37,7 @@ export default function Page() {
                     <p>It is difficult to say why Chandannagar became the centre of light industry. Some say that it may be due to the special flavour attached to the local festivals which have given the impetus to the proliferation of this unique craft. There has always been intense competition among the lighting artisans to outdo each other in terms of decoration. A pageant of floats and illumination precedes the immersion and every puja committee tries to make the best floats.</p>
                     <p>The wizards : Sridhar Das , Kashinath Neogie and so on.</p> </div>
             </Section>
-            <CommentsProvider url="/" />
+            <CommentsProvider path="/puja-history" />
         </Layout>
     )
 }
