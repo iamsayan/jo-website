@@ -99,8 +99,8 @@ export default async function Page() {
                         </div>
                     </div>
                 </div>
+                <CommentsProvider path="/puja-committee-list" />
             </Section>
-            <CommentsProvider path="/puja-committee-list" />
         </Layout>
     )
 }

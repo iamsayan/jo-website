@@ -152,8 +152,8 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
+                <CommentsProvider path={`/jagadhatri-puja/${params?.year}`}/>
             </Section>
-            <CommentsProvider path={`/jagadhatri-puja/${params?.year}`}/>
         </Layout>
     )
 }
