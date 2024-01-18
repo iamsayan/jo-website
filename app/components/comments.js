@@ -1,7 +1,6 @@
 'use client'
 
 import { FacebookProvider, Comments } from 'react-facebook';
-import NoSsr from "@/app/utils/nossr";
 
 export default function CommentsProvider({ path }) {
     return (
