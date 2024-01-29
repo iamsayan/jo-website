@@ -15,6 +15,11 @@ const nextConfig = {
                 destination: '/jagadhatri-puja/:year', // Matched parameters can be used in the destination
                 permanent: true,
             },
+            {
+                source: '/puja',
+                destination: '/puja-committee-list', // Matched parameters can be used in the destination
+                permanent: true,
+            },
         ]
     },
 }

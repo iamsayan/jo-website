@@ -77,7 +77,7 @@ export const formatDate = (date, showDay = false) => {
     return `${day}${daySuffix} ${date.toLocaleDateString('en-US', options)}`;
 }
 
-export const getDay = (date) => {
+export const getDay = date => {
     date = new Date(date);
     const dayOfWeek = date.getDay();
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -91,4 +91,8 @@ export const shuffle = array => {
 export const getDateByIndex = (data, index) => {
     const dates = data?.dates ?? []
     return dates[index]?.value?.date ? new Date(dates[index]?.value?.date) : new Date()
+}
+
+export const getUrlSlug = text => {
+    return text.toLowerCase().trim().replaceAll(' ', '-').replace(/[._(),;]/g, '');
 }
