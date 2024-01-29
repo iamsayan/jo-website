@@ -36,7 +36,7 @@ export default async function Home() {
             title: 'Gallery',
             description: 'Latest Online Photo Gallery for Chandannagar, Mankundu and Bhadreswar Jagadhatri Puja.',
             icon: <FaImages className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
-            link: 'https://www.facebook.com/JagadhatriOnlineOfficial/photos/'
+            link: '/gallery'
         },
         {
             title: 'Videos',

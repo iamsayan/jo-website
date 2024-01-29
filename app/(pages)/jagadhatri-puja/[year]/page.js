@@ -10,10 +10,11 @@ import {
     getCelebrating,
     formatDate,
     getDay,
-    getDateByIndex
+    getDateByIndex, getUrlSlug
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import CommentsProvider from "@/app/components/comments";
+import Link from "next/link";
 
 export const runtime = 'edge';
 
@@ -88,17 +89,19 @@ export default async function Page({ params }) {
                     <div role="tablist" className="tabs tabs-lifted">
                         {tabs.map((item, index) => (
                             <Fragment key={index}>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap" aria-label={item?.name} defaultChecked={index === 0} />
-                                <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
+                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label={item?.name} defaultChecked={index === 0} />
+                                <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Number of Total Jubilees: {item?.type?.length}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
                                             <tr>
+                                                <th>Sl. No.</th>
                                                 <th>Puja Name</th>
                                                 <th>Under P. S.</th>
                                                 <th>Years</th>
                                                 <th>Celebrating</th>
+                                                <th>Details</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -107,30 +110,35 @@ export default async function Page({ params }) {
                                                 const cel= getCelebrating(y);
                                                 return (
                                                     <tr key={index} className='row'>
+                                                        <td>{index + 1}</td>
                                                         <td>{item?.puja_name}</td>
                                                         <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
                                                         <td>{y}</td>
                                                         <td>{cel}</td>
+                                                        <th className="text-blue-800"><Link
+                                                            href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}>
+                                                            <button className="btn btn-ghost btn-xs">View</button></Link></th>
                                                     </tr>
-                                                )
+                                            )
                                             })}
                                             </tbody>
-                                        </table>
-                                    </div>
+                                            </table>
+                                            </div>
                                 </div>
                             </Fragment>
                         ))}
                         {dateIsCurrent &&
                             <>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap" aria-label="Puja Schedule" />
-                                <div role="tabpanel" className="tab-content text-center bg-base-100 border-base-300 p-2 pt-5 md:p-5">
+                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label="Puja Schedule" />
+                                <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Puja Schedule {params?.year}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
                                             <tr>
-                                                <th>Date (English Calender)</th>
                                                 <th>Day</th>
+                                                <th>Date (English Calender)</th>
+                                                <th>Weekday</th>
                                                 <th>Tithi</th>
                                             </tr>
                                             </thead>
@@ -138,6 +146,7 @@ export default async function Page({ params }) {
                                             {data?.dates?.map((item, index) => {
                                                 return (
                                                     <tr key={index} className='row'>
+                                                        <td>{index+1}</td>
                                                         <td>{formatDate(item?.value?.date)}</td>
                                                         <td>{getDay(item?.value?.date)}</td>
                                                         <td>{item?.value?.event}</td>

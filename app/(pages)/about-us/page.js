@@ -4,6 +4,7 @@ import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-ico
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
+import { shuffle } from "@/app/utils/functions";
 
 export const metadata = {
     title: 'About Us',
@@ -17,14 +18,10 @@ export const metadata = {
 }
 
 export default function Page() {
-    const shuffle = array => {
-        return array?.sort(() => Math.random() - 0.5);
-    };
-
     const admins = [
         {
             name: "Sayan Datta",
-            role: "Co-Founder & Lead Developer",
+            role: "Co-Founder & Engineering Head",
             icon: "sayan.png"
         },
         {
@@ -121,7 +118,7 @@ export default function Page() {
                     <div className="flex flex-col items-center gap-5 w-full">
                         <h2 className="text-xl font-bold">Founders</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                            {shuffle(admins)?.map((item, index) => (
+                            {admins?.map((item, index) => (
                                 <div key={index} className="flex flex-col md:flex-row p-10 bg-base-100 gap-4 items-center md:gap-10 md:items-start shadow rounded-md">
                                     <div className="avatar">
                                         <div className="w-32 rounded-full">

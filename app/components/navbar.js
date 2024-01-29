@@ -14,8 +14,12 @@ export default function Navbar() {
             path: '/'
         },
         {
-            name: 'Puja History',
+            name: 'History',
             path: '/puja-history'
+        },
+        {
+            name: 'Gallery',
+            path: '/gallery'
         },
         {
             name: 'Jagadhatri Puja',
