@@ -75,8 +75,8 @@ export default async function Page({ params }) {
     const cel= getCelebrating(y);
 
     const jsonLd = schema({
-        slug: `puja/${params?.uid}`,
-        title: `Jagadhatri Puja ${params?.uid} Jubilee, Pre Jubilee List, Schedule`,
+        slug: `/puja/${getUrlSlug(currentPuja?.puja_name)}/${currentPuja?._id}`,
+        title: `${currentPuja?.puja_name} Sarbajanin in Chandannagar`,
     })
 
     const imgStyle = {
@@ -166,7 +166,7 @@ export default async function Page({ params }) {
                         <div className="flex flex-col gap-3 mt-2">
                             <h2 className="font-bold flex items-center gap-2 text-blue-900">Other Puja Committees</h2>
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                                {shuffle(otherPujas)?.slice(0, 11)?.map((item, index) => {
+                                {shuffle(otherPujas)?.slice(0, 7)?.map((item, index) => {
                                     return (
                                         <div key={index} className="border rounded-md border-neutral-200"><Link className="px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap" href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}><FaHandPointRight className="inline-block mr-2 -mt-1" /> {item?.puja_name}</Link></div>
                                     )
