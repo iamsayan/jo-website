@@ -55,7 +55,7 @@ export default async function sitemap() {
             priority: 0.5,
         },
         {
-            url: 'https://www.jagadhatrionline.co.in/achievements/',
+            url: 'https://www.jagadhatrionline.co.in/achievements',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.6,
