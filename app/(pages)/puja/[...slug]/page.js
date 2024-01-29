@@ -76,7 +76,7 @@ export default async function Page({ params }) {
 
     const jsonLd = schema({
         slug: `/puja/${getUrlSlug(currentPuja?.puja_name)}/${currentPuja?._id}`,
-        title: `${currentPuja?.puja_name} Sarbajanin in Chandannagar`,
+        title: `Details of ${currentPuja?.puja_name} Sarbajanin`,
     })
 
     const imgStyle = {
