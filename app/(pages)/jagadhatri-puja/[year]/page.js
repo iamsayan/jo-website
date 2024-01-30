@@ -13,7 +13,6 @@ import {
     getDateByIndex, getUrlSlug
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
-import CommentsProvider from "@/app/components/comments";
 import Link from "next/link";
 
 export const runtime = 'edge';
@@ -48,8 +47,8 @@ export default async function Page({ params }) {
 
     const displayDate = getDateByIndex(data, 0)
     const dateIsCurrent = parseInt(params?.year) === displayDate.getFullYear()
-    const jubilee = pujas?.filter((data) => { return jubilees.includes(getYear(data?.estd, params?.year)) });
-    const prejubilee = pujas?.filter((data) => { return preJubilees.includes(getYear(data?.estd, params?.year)) });
+    const jubilee = pujas?.filter((data) => jubilees.includes(getYear(data?.estd, params?.year)));
+    const prejubilee = pujas?.filter((data) => preJubilees.includes(getYear(data?.estd, params?.year)));
 
     const tabs = [
         {
@@ -161,7 +160,6 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
-                <CommentsProvider path={`/jagadhatri-puja/${params?.year}`}/>
             </Section>
         </Layout>
     )

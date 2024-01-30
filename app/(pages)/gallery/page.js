@@ -1,7 +1,6 @@
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
-import CommentsProvider from "@/app/components/comments";
 import Gallery from "@/app/components/gallery";
 import { getCollectionData } from "@/app/utils/fetch";
 import { shuffle } from "@/app/utils/functions";
@@ -25,10 +24,10 @@ export default async function Page() {
 
     const pujas = pujasData ?? null
     let images = imagesData ?? null
-    images = images?.filter(data => { return [1,9].includes(data?.category) });
+    images = images?.filter(data => [1,9].includes(data?.category));
 
     const getPujaName = pujaId => {
-        return pujas?.filter(data => { return data?._id === pujaId })?.[0]?.puja_name;
+        return pujas?.filter(data => data?._id === pujaId)?.[0]?.puja_name;
     }
 
     const imgStyle = {
@@ -60,7 +59,6 @@ export default async function Page() {
                         )
                     })}
                 </Gallery>
-                <CommentsProvider path="/gallery" />
             </Section>
         </Layout>
     )

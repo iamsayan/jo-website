@@ -4,7 +4,6 @@ import Section from "@/app/components/section";
 import { getCollectionData } from "@/app/utils/fetch";
 import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
-import CommentsProvider from "@/app/components/comments";
 import Link from "next/link";
 
 export const revalidate = 3600
@@ -29,8 +28,8 @@ export default async function Page() {
 
     const data = pujaData ?? []
 
-    const cgr = data?.filter((data) => { return data?.puja_zone === 'cgr' });
-    const bhr = data?.filter((data) => { return data?.puja_zone === 'bhr' });
+    const cgr = data?.filter((data) => data?.puja_zone === 'cgr');
+    const bhr = data?.filter((data) => data?.puja_zone === 'bhr');
 
     const filterData = (zone, cel) => {
         return zone.filter((data) => {
@@ -107,7 +106,6 @@ export default async function Page() {
                         </div>
                     </div>
                 </div>
-                <CommentsProvider path="/puja-committee-list" />
             </Section>
         </Layout>
     )

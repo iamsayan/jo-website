@@ -3,7 +3,6 @@ import Layout from '@/app/components/layout';
 import Section from '@/app/components/section';
 import { getSingletonData } from "@/app/utils/fetch";
 import schema from "@/app/utils/schema";
-import CommentsProvider from "@/app/components/comments";
 
 export const metadata = {
     title: 'Jagadhatri Puja Jubilee, Pre Jubilee List, Schedule',
@@ -45,7 +44,6 @@ export default async function Page() {
                         ))}
                     </div>
                 </div>
-                <CommentsProvider path="/jagadhatri-puja" />
             </Section>
         </Layout>
     )

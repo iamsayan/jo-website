@@ -3,18 +3,26 @@ import { notFound } from 'next/navigation';
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
 import { getCollectionData, getSingletonData } from "@/app/utils/fetch";
-import {FaArrowLeft, FaCalendarAlt, FaCheckCircle, FaHandPointRight, FaMapMarkerAlt} from "react-icons/fa";
+import {
+    FaArrowLeft,
+    FaArrowRight,
+    FaCalendarAlt,
+    FaCheckCircle,
+    FaMapMarkerAlt
+} from "react-icons/fa";
 import {
     getYear,
     getCelebrating,
     formatDate,
-    getUrlSlug, shuffle
+    getUrlSlug,
+    shuffle
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
-import CommentsProvider from "@/app/components/comments";
 import { GoogleMapsEmbed } from "@next/third-parties/google";
 import Gallery from "@/app/components/gallery";
 import Link from "next/link";
+import Image from 'next/image'
+import vrImage from '../../../../public/vr.jpg'
 
 export const runtime = 'edge';
 
@@ -44,7 +52,9 @@ export default async function Page({ params }) {
 
     const pujaId = slug?.[1]
     const siteDataRes = getSingletonData('information');
-    const pujasDataRes= getCollectionData('pujas')
+    const pujasDataRes= getCollectionData('pujas', {
+        sort: { 'puja_name': 1 }
+    })
     const imagesDataRes= getCollectionData('appimages', {
         filter: { puja_entry_id: pujaId, year: 2023 }
     })
@@ -55,8 +65,16 @@ export default async function Page({ params }) {
     const pujas = pujasData ?? null
     const images = imagesData ?? null
 
-    const currentPuja = pujas?.filter(data => { return data?._id === pujaId })?.[0];
-    const otherPujas = pujas?.filter(data => { return data?._id !== pujaId });
+    const currentPuja = pujas?.filter(data => data?._id === pujaId)?.[0];
+    const otherPujas = pujas?.filter(data => data?._id !== pujaId);
+
+    let array = [];
+    pujas?.forEach((item, index) => {
+        if( item?._id === pujaId ) {
+            array.push(pujas?.[0 < index ? index-1 : pujas?.length-1])
+            array.push(pujas?.[pujas?.length-1 > index ? index+1 : 0])
+        }
+    });
 
     if ( ! currentPuja || currentPuja?.length < 1 ) {
         notFound()
@@ -68,7 +86,7 @@ export default async function Page({ params }) {
     }
 
     const getPujaName = pujaId => {
-        return pujas?.filter(data => { return data?._id === pujaId })?.[0]?.puja_name;
+        return pujas?.filter(data => data?._id === pujaId)?.[0]?.puja_name;
     }
 
     const y = getYear(currentPuja?.estd);
@@ -94,7 +112,10 @@ export default async function Page({ params }) {
                             <h2 className="text-[28px] font-bold flex items-center gap-2 text-blue-900">{pujaName}<FaCheckCircle
                                 className="text-xl text-green-700"/></h2>
                             {currentPuja?.location?.address && <h2 className="text-sm flex items-center gap-2">
-                                <FaMapMarkerAlt/> {currentPuja?.location?.address}</h2>}
+                                <FaMapMarkerAlt/>
+                                <div className="overflow-ellipsis overflow-hidden whitespace-nowrap">{currentPuja?.location?.address}
+                                    </div>
+                            </h2>}
                         </div>
                         <hr/>
                         <div className="flex flex-col gap-3">
@@ -125,7 +146,7 @@ export default async function Page({ params }) {
 
                             {currentPuja?.puja_info && <p>{puja_info}</p>}
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-4 text-sm">
                             <div className="border rounded-md border-neutral-200 px-6 py-4">Year of Establishment: <span
                                 className="font-bold">{currentPuja?.estd != 0 ? currentPuja?.estd : 'Not Known'}</span>
                             </div>
@@ -146,7 +167,7 @@ export default async function Page({ params }) {
                                     className="font-bold">{currentPuja?.decoration_artist?.display}</span></div>}
                         </div>
                         {images?.length > 0 &&
-                            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2" speed={500}
+                            <Gallery elementClassNames="grid grid-cols-2 xl:grid-cols-4 gap-2 mt-2" speed={500}
                                      slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
                                 {shuffle(images)?.map((item, index) => {
                                     return (
@@ -163,53 +184,68 @@ export default async function Page({ params }) {
                                 })}
                             </Gallery>
                         }
-                        <div className="flex flex-col gap-3 mt-2">
-                            <h2 className="font-bold flex items-center gap-2 text-blue-900">Other Puja Committees</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                                {shuffle(otherPujas)?.slice(0, 7)?.map((item, index) => {
-                                    return (
-                                        <div key={index} className="border rounded-md border-neutral-200"><Link className="px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap" href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}><FaHandPointRight className="inline-block mr-2 -mt-1" /> {item?.puja_name}</Link></div>
-                                    )
-                                })}
-                                <div className="border rounded-md border-neutral-200 bg-gray-50"><Link className="px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap" href="/puja-committee-list"><FaArrowLeft className="inline-block mr-2 -mt-1" /> View All Puja List</Link></div>
+                        <hr />
+                        <div className="flex flex-col sm:flex-row gap-3 justify-between text-sm">
+                            <div className="border rounded-md border-neutral-200">
+                                <Link
+                                    className="px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                                    href={`/puja/${getUrlSlug(array?.[0]?.puja_name)}/${array?.[0]?._id}`}>
+                                    <FaArrowLeft className="inline-block mr-2 -mt-1"/>
+                                    {array?.[0]?.puja_name}
+                                </Link>
+                            </div>
+                            <div className="border rounded-md border-neutral-200 text-right">
+                                <Link
+                                    className="px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                                    href={`/puja/${getUrlSlug(array?.[1]?.puja_name)}/${array?.[1]?._id}`}>
+                                    {array?.[1]?.puja_name}<FaArrowRight className="inline-block ml-2 -mt-1"/>
+                                </Link>
                             </div>
                         </div>
                     </div>
                     <div className="md:col-span-2">
-                        <div className="p-6 bg-gray-100 flex flex-col gap-7 sticky top-6">
-                            <div className="flex flex-col gap-2">
-                                <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
-                                <hr/>
-                                <div className="flex flex-col gap-1 text-sm">
-                                    {data?.dates?.slice(-5)?.map((item, index) => {
-                                        return (
-                                            <div key={index} className="flex">
-                                                <div className="flex items-center justify-center gap-2">
-                                                    <FaCalendarAlt/> {item?.value?.event}: {formatDate(item?.value?.date)}
+                        <div className="sticky top-6">
+                            <div className="p-6 bg-gray-100 flex flex-col gap-7">
+                                <div className="flex flex-col gap-2">
+                                    <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
+                                    <hr/>
+                                    <div className="flex flex-col gap-1 text-sm">
+                                        {data?.dates?.slice(-5)?.map((item, index) => {
+                                            return (
+                                                <div key={index} className="flex">
+                                                    <div className="flex items-center justify-center gap-2">
+                                                        <FaCalendarAlt/> {item?.value?.event}: {formatDate(item?.value?.date)}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    })}
+                                            )
+                                        })}
+                                    </div>
                                 </div>
+                                {currentPuja?.location?.address && <div className="flex flex-col gap-2">
+                                    <h1 className="text-xl font-bold uppercadse text-blue-700"><a
+                                        href={`https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
+                                        target="_blank">Locate on Google Map</a></h1>
+                                    <hr/>
+                                    <GoogleMapsEmbed
+                                        apiKey={process.env.GOOGLE_MAP_API_KEY}
+                                        height={400}
+                                        width="100%"
+                                        mode="place"
+                                        zoom={16}
+                                        q={`${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
+                                    />
+                                </div>}
                             </div>
-                            {currentPuja?.location?.address && <div className="flex flex-col gap-2">
-                                <h1 className="text-xl font-bold uppercadse text-blue-700"><a
-                                    href={`https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
-                                    target="_blank">Locate on Google Map</a></h1>
-                                <hr/>
-                                <GoogleMapsEmbed
-                                    apiKey={process.env.GOOGLE_MAP_API_KEY}
-                                    height={300}
-                                    width="100%"
-                                    mode="place"
-                                    zoom={16}
-                                    q={`${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
+                            <a href="https://vr.jagadhatrionline.co.in/" target="_blank">
+                                <Image
+                                    src={vrImage}
+                                    alt="Virtual Puja"
+                                    className="mt-4"
                                 />
-                            </div>}
+                            </a>
                         </div>
                     </div>
                 </div>
-                <CommentsProvider path={`/puja/${params?.slug?.[0]}/${params?.slug?.[1]}`}/>
             </Section>
         </Layout>
     )
