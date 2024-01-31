@@ -40,7 +40,7 @@ export default async function Page() {
                     <p>Jagadhatri Puja, an esteemed festival in certain regions, extends across five joyous days, commencing from Sasthi and culminating on Dashami. The main observance traditionally takes place on the seventh day of the festivities. Much akin to the grandeur of Kolkata's revered Durga Puja and Barasat's revered Kali Puja, Chandannagar stands out for its opulent celebrations and cultural exuberance during the Jagadhatri Puja. The city comes alive with vibrant decorations, illuminations, and fervent devotional activities, attracting both locals and visitors alike, creating an atmosphere of religious significance and communal harmony.</p>
                     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
                         {yearsArray.map((year, index) => (
-                            <Link key={index} href={`/jagadhatri-puja/${year}`} className="bg-gray-200 p-2 text-center rounded border">Jagadhatri Puja {year}</Link>
+                            <Link key={index} href={`/jagadhatri-puja/${year}`} className="bg-gray-50 hover:bg-gray-100 p-3 text-center border rounded-md border-neutral-200">Jagadhatri Puja {year}</Link>
                         ))}
                     </div>
                 </div>

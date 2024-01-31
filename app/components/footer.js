@@ -39,19 +39,19 @@ export default function Footer() {
                 </nav>
                 <nav>
                     <div className="grid grid-flow-col gap-4">
-                        <a href="https://www.facebook.com/JagadhatriOnlineOfficial/" target="_blank">
+                        <a href="https://www.facebook.com/JagadhatriOnlineOfficial/" target="_blank" rel="noopener">
                             <FaFacebookF className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"/>
                         </a>
-                        <a href="https://www.youtube.com/c/JagadhatriOnline" target="_blank">
+                        <a href="https://www.youtube.com/c/JagadhatriOnline?sub_confirmation=1" target="_blank" rel="noopener">
                             <FaYoutube className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"/>
                         </a>
-                        <a href="https://www.instagram.com/jagadhatri_online" target="_blank">
+                        <a href="https://www.instagram.com/jagadhatri_online" target="_blank" rel="noopener">
                             <FaInstagram className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"/>
                         </a>
-                        <a href="https://twitter.com/JagadhatriLive" target="_blank">
+                        <a href="https://twitter.com/Official_JO16" target="_blank" rel="noopener">
                             <FaXTwitter className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"/>
                         </a>
-                        <a href="https://www.pinterest.com/jagadhatrionline/" target="_blank">
+                        <a href="https://www.pinterest.com/jagadhatrionline/" target="_blank" rel="noopener">
                             <FaPinterestP className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"/>
                         </a>
                     </div>
