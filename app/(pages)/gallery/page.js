@@ -48,13 +48,14 @@ export default async function Page() {
                 <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
                     {shuffle(images)?.slice(0, 80)?.map((item, index) => {
                         return (
-                            <a key={index} className="h-52 md:h-72" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
+                            <a key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
                                 <img
                                     src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}
                                     style={imgStyle}
                                     className="img-responsive"
                                     alt={getPujaName(item?.puja_entry_id?._id)}
                                 />
+                                <div className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-sm">{getPujaName(item?.puja_entry_id?._id)}</div>
                             </a>
                         )
                     })}

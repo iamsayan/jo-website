@@ -165,8 +165,7 @@ export default async function Page({ params }) {
                                     className="font-bold">{currentPuja?.decoration_artist?.display}</span></div>}
                         </div>
                         {images?.length > 0 &&
-                            <Gallery elementClassNames="grid grid-cols-2 xl:grid-cols-4 gap-2 mt-2" speed={500}
-                                     slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
+                            <Gallery elementClassNames="grid grid-cols-2 xl:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
                                 {shuffle(images)?.map((item, index) => {
                                     return (
                                         <a key={index} className="h-52 md:h-72"
@@ -205,7 +204,7 @@ export default async function Page({ params }) {
                     </div>
                     <div className="md:col-span-2">
                         <div className="sticky top-6">
-                            <div className="p-6 bg-gray-100 flex flex-col gap-7">
+                            <div className="p-4 md:p-6 bg-gray-100 flex flex-col gap-7">
                                 <div className="flex flex-col gap-2">
                                     <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
                                     <hr/>

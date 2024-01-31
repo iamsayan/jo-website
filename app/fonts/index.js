@@ -5,7 +5,7 @@ import {
 
 export const outfit= Outfit({
     subsets: ['latin'],
-    variable: '--video-font-family',
+    variable: '--font-family',
     display: 'swap',
 })
 
