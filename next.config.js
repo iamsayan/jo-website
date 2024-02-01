@@ -8,16 +8,27 @@ const nextConfig = {
         GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
         GA4_ID: process.env.GA4_ID,
     },
+    images: {
+        formats: [ 'image/webp' ],
+        contentDispositionType: 'attachment',
+        contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**.jagadhatrionline.co.in',
+            },
+        ],
+    },
     async redirects() {
         return [
             {
                 source: '/jagadhatri-puja-:year',
-                destination: '/jagadhatri-puja/:year', // Matched parameters can be used in the destination
+                destination: '/jagadhatri-puja/:year',
                 permanent: true,
             },
             {
                 source: '/puja',
-                destination: '/puja-committee-list', // Matched parameters can be used in the destination
+                destination: '/puja-committee-list',
                 permanent: true,
             },
         ]
