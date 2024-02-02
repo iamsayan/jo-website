@@ -8,6 +8,7 @@ Copyright &copy; Sayan Datta. All Rights Reserved.
 
 - NextJS / React
 - Tailwind CSS
+- Daisy UI
 - Cloudflare Pages
 
 ## License

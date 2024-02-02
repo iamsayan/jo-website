@@ -62,6 +62,18 @@ export default function RootLayout({ children }) {
             }
             <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
                 {children}
+                {process.env.NODE_ENV === 'production' &&
+                    <>
+                        <Script id="statcounter">
+                            {`
+                                var sc_project=11108007; 
+                                var sc_invisible=1; 
+                                var sc_security="13b4e93a"; 
+                            `}
+                        </Script>
+                        <Script src="https://www.statcounter.com/counter/counter.js" async={true} />
+                    </>
+                }
             </body>
         </html>
     )
