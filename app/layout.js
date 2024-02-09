@@ -59,6 +59,12 @@ export default function RootLayout({ children }) {
                             gtag('config', '${process.env.GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
                         `}
                     </Script>
+                    <Script
+                        async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2589621197191732"
+                        crossOrigin="anonymous"
+                        strategy="lazyOnload"
+                    />
                 </>
             }
             <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
