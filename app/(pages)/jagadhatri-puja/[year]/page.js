@@ -19,20 +19,22 @@ import Link from "next/link";
 export const runtime = 'edge';
 
 export async function generateMetadata({ params }) {
+    const queryYear = parseInt(params?.year)
     return {
-        title: `Jagadhatri Puja ${params?.year} Jubilee, Pre Jubilee List, Schedule`,
-        description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${params?.year} the great festival of Chandannagar.`,
+        title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List, Schedule`,
+        description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
         openGraph: {
-            url: `/jagadhatri-puja/${params?.year}`,
+            url: `/jagadhatri-puja/${queryYear}`,
         },
         alternates: {
-            canonical: `/jagadhatri-puja/${params?.year}`,
+            canonical: `/jagadhatri-puja/${queryYear}`,
         },
     }
 }
 
 export default async function Page({ params }) {
-    if ( params?.year < 2000 || params?.year > 2099 ) {
+    const queryYear = parseInt(params?.year)
+    if ( queryYear < 2000 || queryYear > 2099 ) {
         notFound()
     }
 
@@ -47,9 +49,9 @@ export default async function Page({ params }) {
     const pujas = pujasData ?? null
 
     const displayDate = getDateByIndex(data, 0)
-    const dateIsCurrent = parseInt(params?.year) === displayDate.getFullYear()
-    const jubilee = pujas?.filter((data) => jubilees.includes(getYear(data?.estd, params?.year)));
-    const prejubilee = pujas?.filter((data) => preJubilees.includes(getYear(data?.estd, params?.year)));
+    const dateIsCurrent = parseInt(queryYear) === displayDate.getFullYear()
+    const jubilee = pujas?.filter((data) => jubilees.includes(getYear(data?.estd, queryYear)));
+    const prejubilee = pujas?.filter((data) => preJubilees.includes(getYear(data?.estd, queryYear)));
 
     const tabs = [
         {
@@ -63,14 +65,14 @@ export default async function Page({ params }) {
     ]
 
     let schemaData = {
-        slug: `jagadhatri-puja/${params?.year}`,
-        title: `Jagadhatri Puja ${params?.year} Jubilee, Pre Jubilee List, Schedule`,
+        slug: `jagadhatri-puja/${queryYear}`,
+        title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List, Schedule`,
     }
 
     if ( dateIsCurrent ) {
         schemaData = {
             ...schemaData,
-            description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${params?.year} the great festival of Chandannagar.`,
+            description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
             start: getDateByIndex(data, 0),
             end: getDateByIndex(data, 4)
         }
@@ -78,11 +80,11 @@ export default async function Page({ params }) {
     const jsonLd = schema(schemaData)
 
     return (
-        <Layout title={`Puja Details ${params?.year}`} jsonLd={jsonLd}>
-            <Section title="Know More about" description={ <>Puja Details <font color="#F4C040">{params?.year}</font></> }>
+        <Layout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
+            <Section title="Know More about" description={ <>Puja Details <font color="#F4C040">{queryYear}</font></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>
-                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious significance and communal harmony. {dateIsCurrent && <>In {params?.year}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
+                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious significance and communal harmony. {dateIsCurrent && <>In {queryYear}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
@@ -105,7 +107,7 @@ export default async function Page({ params }) {
                                             </thead>
                                             <tbody>
                                             {item?.type?.map((item, index) => {
-                                                const y = getYear(item?.estd, params?.year);
+                                                const y = getYear(item?.estd, queryYear);
                                                 const cel= getCelebrating(y);
                                                 return (
                                                     <tr key={index} className='row'>
@@ -131,7 +133,7 @@ export default async function Page({ params }) {
                             <>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label="Puja Schedule" />
                                 <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
-                                    <p className="text-xl font-bold">Puja Schedule {params?.year}</p>
+                                    <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
