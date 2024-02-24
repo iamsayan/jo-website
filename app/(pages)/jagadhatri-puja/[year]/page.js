@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
+import Adsense from "@/app/components/adsense";
 import { getCollectionData, getSingletonData } from "@/app/utils/fetch";
 import {
     jubilees,
@@ -81,8 +82,7 @@ export default async function Page({ params }) {
             <Section title="Know More about" description={ <>Puja Details <font color="#F4C040">{params?.year}</font></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>
-                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious significance and communal harmony.
-                        {dateIsCurrent && <>In {params?.year}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
+                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious significance and communal harmony. {dateIsCurrent && <>In {params?.year}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
@@ -116,13 +116,14 @@ export default async function Page({ params }) {
                                                         <td>{cel}</td>
                                                         <th className="text-blue-800"><Link
                                                             href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}>
-                                                            <button className="btn btn-ghost btn-xs">View</button></Link></th>
+                                                            <button className="btn btn-ghost btn-xs">View</button></Link>
+                                                        </th>
                                                     </tr>
-                                            )
+                                                )
                                             })}
                                             </tbody>
-                                            </table>
-                                            </div>
+                                        </table>
+                                    </div>
                                 </div>
                             </Fragment>
                         ))}
@@ -160,6 +161,7 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
+                <Adsense slot="7643253893" responsive="true" format="auto" />
             </Section>
         </Layout>
     )

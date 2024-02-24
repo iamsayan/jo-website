@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ctrl/react-adsense": "^1.7.0",
     "@next/third-parties": "^14.0.4",
     "@splidejs/react-splide": "^0.7.12",
     "@web3forms/react": "^1.1.3",

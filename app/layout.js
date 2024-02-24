@@ -63,7 +63,7 @@ export default function RootLayout({ children }) {
                         async
                         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2589621197191732"
                         crossOrigin="anonymous"
-                        strategy="lazyOnload"
+                        strategy="afterInteractive"
                     />
                 </>
             }
