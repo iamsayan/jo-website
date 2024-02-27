@@ -1,5 +1,5 @@
-import Script from "next/script";
-import { outfit } from "@/app/fonts";
+import Script from "next/script"
+import { outfit } from "@/app/fonts"
 import './globals.sass'
 
 export const metadata = {
@@ -50,19 +50,20 @@ export default function RootLayout({ children }) {
         <html lang="en" data-theme="light">
             {process.env.NODE_ENV === 'production' &&
                 <>
-                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA4_ID}`} />
+                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />
                     <Script id="google-analytics">
                         {`
                             window.dataLayer = window.dataLayer || [];
                             function gtag(){dataLayer.push(arguments);}
                             gtag('js', new Date());
-                            gtag('config', '${process.env.GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
+                            gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
                         `}
                     </Script>
                     <Script
                         async
-                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                        strategy="afterInteractive"
+                        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
+                        crossOrigin="anonymous"
+                        strategy="lazyOnload"
                     />
                 </>
             }

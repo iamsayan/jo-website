@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
 import Layout from "@/app/components/layout";
 import Section from "@/app/components/section";
-import Adsense from "@/app/components/adsense";
 import { getCollectionData, getSingletonData } from "@/app/utils/fetch";
 import {
     jubilees,
@@ -15,6 +14,7 @@ import {
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import Link from "next/link";
+import GoogleAdUnit from "@/app/components/adunit";
 
 export const runtime = 'edge';
 
@@ -163,7 +163,11 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
-                <Adsense slot="7643253893" responsive="true" format="auto" />
+                <GoogleAdUnit
+                    data-ad-slot="7643253893"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"
+                />
             </Section>
         </Layout>
     )
