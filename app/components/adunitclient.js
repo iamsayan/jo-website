@@ -1,21 +1,25 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from 'next/navigation';
 
 const GoogleAdUnitClient = ({ children }) => {
+    const initialized = useRef(false)
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
     useEffect(() => {
-        try {
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (err) {
-            console.error(err);
+        if (!initialized.current) {
+            initialized.current = true;
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.error(err);
+            }
         }
     }, [pathname, searchParams]);
 
-    return <>{children}</>;
+    return <div className="google-ad">{children}</div>;
 };
 
 export default GoogleAdUnitClient;

@@ -29,25 +29,25 @@ export default async function Home() {
         {
             title: 'History',
             description: 'When the entire Bengal, nay India, was under the British rule, inspite of being under the French',
-            icon: <FaHistory className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            icon: <FaHistory className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: '/puja-history'
         },
         {
             title: 'Gallery',
             description: 'Latest Online Photo Gallery for Chandannagar, Mankundu and Bhadreswar Jagadhatri Puja.',
-            icon: <FaImages className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            icon: <FaImages className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: '/gallery'
         },
         {
             title: 'Videos',
             description: 'Here are the latest Online Video Gallery for Chandannagar Jagadhatri Puja.',
-            icon: <FaYoutube className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            icon: <FaYoutube className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: 'https://www.youtube.com/c/JagadhatriOnline'
         },
         {
             title: 'Location',
             description: 'Explore the Grand Festival of Chandannagar with CGR Utsav Android App.',
-            icon: <FaLocationArrow className="h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 text-yellow-500" />,
+            icon: <FaLocationArrow className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: 'https://play.google.com/store/apps/details?id=com.cgr.utsav',
         }
     ]
@@ -56,34 +56,34 @@ export default async function Home() {
         {
             title: 'Followers',
             stat: '60.5K',
-            icon: <FaFacebook className="inline-block w-8 h-8 stroke-current" />,
+            icon: <FaFacebook className="inline-block size-8 stroke-current" />,
             description: '1K+ new followers in last 30 days'
         },
         {
             title: 'Post Reach',
             stat: '1.6M',
-            icon: <FaHistory className="inline-block w-8 h-8 stroke-current" />,
+            icon: <FaHistory className="inline-block size-8 stroke-current" />,
             description: '85% more than last month',
             class: 'text-secondary'
         },
         {
             title: 'Post Engagement',
             stat: '47.8K',
-            icon: <FaVideo className="inline-block w-8 h-8 stroke-current" />,
+            icon: <FaVideo className="inline-block size-8 stroke-current" />,
             description: '38% more than last month',
             class: 'text-blue-500'
         },
         {
             title: 'Subscribers',
             stat: '4.04K',
-            icon: <FaYoutube className="inline-block w-8 h-8 stroke-current" />,
+            icon: <FaYoutube className="inline-block size-8 stroke-current" />,
             description: '500+ new followers in last 1 year',
             class: 'text-green-600'
         },
         {
             title: 'Visitors',
             stat: '98.5K',
-            icon: <FaGlobe className="inline-block w-8 h-8 stroke-current" />,
+            icon: <FaGlobe className="inline-block size-8 stroke-current" />,
             description: '14% more than last month',
             class: 'text-pink-500'
         },

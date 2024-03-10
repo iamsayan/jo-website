@@ -3,11 +3,11 @@ import GoogleAdUnitClient from "@/app/components/adunitclient";
 
 const GoogleAdUnit = (props) => {
     return (
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="skeleton w-full h-16"></div>}>
             <GoogleAdUnitClient>
-                <ins
-                    className="adsbygoogle ad"
-                    style={{ display: 'block', width: '100%' }}
+            <ins
+                    className="adsbygoogle"
+                    style={{ display: 'block' }}
                     data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}
                     {...props}
                 ></ins>

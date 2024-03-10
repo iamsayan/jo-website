@@ -135,9 +135,9 @@ export default function Page() {
                                         <h2 className="card-title">{item?.name}</h2>
                                         <p>{item?.role}</p>
                                         <div className="flex gap-2 mt-4">
-                                            <FaSquareFacebook className="facebook h-6 w-6 cursor-pointer" />
-                                            <FaSquareXTwitter className="twitter h-6 w-6 cursor-pointer" />
-                                            <FaSquareInstagram className="instagram h-6 w-6 cursor-pointer" />
+                                            <FaSquareFacebook className="facebook size-6 cursor-pointer" />
+                                            <FaSquareXTwitter className="twitter size-6 cursor-pointer" />
+                                            <FaSquareInstagram className="instagram size-6 cursor-pointer" />
                                         </div>
                                     </div>
                                 </div>
@@ -164,9 +164,9 @@ export default function Page() {
                                     <h2 className="card-title">{item?.name}</h2>
                                     <p>{item?.role}</p>
                                     <div className="flex gap-2 mt-3">
-                                        <FaSquareFacebook className="facebook h-5 w-5 cursor-pointer" />
-                                        <FaSquareXTwitter className="twitter h-5 w-5 cursor-pointer" />
-                                        <FaSquareInstagram className="instagram h-5 w-5 cursor-pointer" />
+                                        <FaSquareFacebook className="facebook size-5 cursor-pointer" />
+                                        <FaSquareXTwitter className="twitter size-5 cursor-pointer" />
+                                        <FaSquareInstagram className="instagram size-5 cursor-pointer" />
                                     </div>
                                 </div>
                             </div>
