@@ -41,7 +41,7 @@ export const metadata = {
     other: {
         'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
         'fb:app_id': '906906950683467',
-        'google-adsense-account': 'ca-pub-2589621197191732'
+        'google-adsense-account': process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
     },
 }
 
