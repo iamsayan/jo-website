@@ -5,7 +5,7 @@ const GoogleAdUnit = (props) => {
     return (
         <Suspense fallback={<div className="skeleton w-full h-16"></div>}>
             <GoogleAdUnitClient>
-            <ins
+                <ins
                     className="adsbygoogle"
                     style={{ display: 'block' }}
                     data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}

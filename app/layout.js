@@ -40,7 +40,7 @@ export const metadata = {
     },
     other: {
         'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
-        'fb:app_id': '906906950683467',
+        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID,
         'google-adsense-account': process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
     },
 }

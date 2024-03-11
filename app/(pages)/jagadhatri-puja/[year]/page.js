@@ -15,6 +15,7 @@ import {
 import schema from "@/app/utils/schema";
 import Link from "next/link";
 import GoogleAdUnit from "@/app/components/adunit";
+import Comments from "@/app/components/comments";
 
 export const runtime = 'edge';
 
@@ -163,6 +164,7 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
+                <Comments />
                 <GoogleAdUnit
                     data-ad-slot="7643253893"
                     data-ad-format="auto"
