@@ -7,7 +7,6 @@ import {
     FaArrowLeft,
     FaArrowRight,
     FaCalendarAlt,
-    FaCheckCircle,
     FaMapMarkerAlt
 } from "react-icons/fa";
 import {
@@ -23,6 +22,7 @@ import Gallery from "@/app/components/gallery";
 import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '../../../../public/vr.jpg'
+import Comments from "@/app/components/comments";
 
 export const runtime = 'edge';
 
@@ -118,7 +118,7 @@ export default async function Page({ params }) {
                         <hr/>
                         <div className="flex flex-col gap-3">
                             <p>Welcome to the webpage dedicated to the vibrant celebration of Jagadhatri Puja
-                                by {pujaName} in Chandannagar! As one of the 177 esteemed puja committees in our beloved
+                                by {pujaName} in {currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}! As one of the 177 esteemed puja committees in our beloved
                                 city, this platform serves as a window into our annual festivities.</p>
 
                             <p>At {pujaName} Sarbajanin, the commitment to tradition and community shines through in
@@ -158,22 +158,27 @@ export default async function Page({ params }) {
                                 <div className="border rounded-md border-neutral-200 px-6 py-4">Theme: <span
                                     className="font-bold">{currentPuja?.current_theme}</span></div>}
                             {currentPuja?.idol_artist?.display &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">Idol Artist: <span
-                                    className="font-bold">{currentPuja?.idol_artist?.display}</span></div>}
+                                <div className="border rounded-md border-neutral-200"><Link rel="tag" className="block px-6 py-4" href={`/profile/${getUrlSlug(currentPuja?.idol_artist?.display)}/${currentPuja?.idol_artist?._id}`}>
+                                    Idol Artist:  <span className="font-bold">{currentPuja?.idol_artist?.display}</span></Link>
+                                </div>}
                             {currentPuja?.decoration_artist?.display &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">Decoration Artist: <span
-                                    className="font-bold">{currentPuja?.decoration_artist?.display}</span></div>}
+                                <div className="border rounded-md border-neutral-200"><Link rel="tag" className="block px-6 py-4" href={`/profile/${getUrlSlug(currentPuja?.decoration_artist?.display)}/${currentPuja?.decoration_artist?._id}`}>
+                                    Decoration Artist: <span className="font-bold">{currentPuja?.decoration_artist?.display}</span></Link>
+                                </div>}
                         </div>
                         {images?.length > 0 &&
                             <Gallery elementClassNames="grid grid-cols-2 xl:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
-                                {shuffle(images)?.map((item, index) => {
+                                {images?.map((item, index) => {
                                     return (
                                         <a key={index} className="h-52 md:h-72"
                                            href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
-                                            <img
+                                            <Image
                                                 src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}
+                                                width={500}
+                                                height={300}
                                                 style={imgStyle}
-                                                className="img-responsive"
+                                                priority={false}
+                                                loading="lazy"
                                                 alt={getPujaName(item?.puja_entry_id?._id)}
                                             />
                                         </a>
@@ -245,6 +250,7 @@ export default async function Page({ params }) {
                         </div>
                     </div>
                 </div>
+                <Comments />
             </Section>
         </Layout>
     )

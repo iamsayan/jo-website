@@ -165,11 +165,6 @@ export default async function Page({ params }) {
                     </div>
                 </div>
                 <Comments />
-                <GoogleAdUnit
-                    data-ad-slot="7643253893"
-                    data-ad-format="auto"
-                    data-full-width-responsive="true"
-                />
             </Section>
         </Layout>
     )
