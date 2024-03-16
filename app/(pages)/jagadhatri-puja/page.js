@@ -4,6 +4,7 @@ import Section from '@/app/components/section';
 import { getSingletonData } from "@/app/utils/fetch";
 import schema from "@/app/utils/schema";
 import Comments from "@/app/components/comments";
+import Disqus from "@/app/components/discus";
 
 export const metadata = {
     title: 'Jagadhatri Puja Jubilee, Pre Jubilee List, Schedule',
@@ -45,7 +46,7 @@ export default async function Page() {
                         ))}
                     </div>
                 </div>
-                <Comments />
+                <Disqus />
             </Section>
         </Layout>
     )
