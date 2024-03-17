@@ -8,7 +8,7 @@ const Disqus = () => {
     return (
         <div className="mt-6">
             <div
-                data-chirpy-theme="system"
+                data-chirpy-theme="light"
                 data-chirpy-comment="true"
                 id="chirpy-comment"
             ></div>
