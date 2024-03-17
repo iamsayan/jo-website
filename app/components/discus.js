@@ -1,22 +1,19 @@
 'use client'
 
 import { usePathname } from 'next/navigation';
-import { DiscussionEmbed } from 'disqus-react';
 
 const Disqus = () => {
     const pathname = usePathname();
 
     return (
         <div className="mt-6">
-            <DiscussionEmbed
-                shortname="jagadhatri-online"
-                config={
-                    {
-                        url: `${process.env.SITE_URL}${pathname}`,
-                        identifier: pathname.replaceAll('/', '-'),
-                    }
-                }
-            />
+            <div id="cusdis_thread"
+                 data-host="https://cusdis.com"
+                 data-app-id="e1ca3c56-6fd1-4a23-8d2a-899b7731272b"
+                 data-page-id={`${pathname}`}
+                 data-page-url={`${process.env.SITE_URL}${pathname}`}
+                 data-page-title={`${pathname.replaceAll('/', '')}`}
+            ></div>
         </div>
     );
 };

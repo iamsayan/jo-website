@@ -52,7 +52,7 @@ export default function RootLayout({ children }) {
         <html lang="en" data-theme="light">
             {process.env.NODE_ENV === 'production' &&
                 <>
-                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />
+                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`}/>
                     <Script id="google-analytics">
                         {`
                             window.dataLayer = window.dataLayer || [];
@@ -61,6 +61,7 @@ export default function RootLayout({ children }) {
                             gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
                         `}
                     </Script>
+                    <Script async defer src="https://cusdis.com/js/cusdis.es.js" strategy="lazyOnload" />
                     <Script
                         async
                         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
@@ -69,7 +70,7 @@ export default function RootLayout({ children }) {
                     />
                 </>
             }
-            <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
+            <body className={`${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
                 {children}
                 {process.env.NODE_ENV === 'production' &&
                     <>
