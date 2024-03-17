@@ -61,7 +61,7 @@ export default function RootLayout({ children }) {
                             gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
                         `}
                     </Script>
-                    <Script defer src="https://chirpy.dev/bootstrapper.js" data-chirpy-domain="www.jagadhatrionline.co.in" strategy="lazyOnload" />
+                    <Script async defer src="https://cusdis.com/js/cusdis.es.js" strategy="lazyOnload" />
                     <Script
                         async
                         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
