@@ -78,9 +78,9 @@ export default function Page() {
             icon: "suman.png"
         },
         {
-            name: "Sujan Ganguly",
+            name: "Suvam Mohanty",
             role: "Executive Member",
-            icon: "preet.png"
+            icon: "suvam.png"
         }
     ]
 
