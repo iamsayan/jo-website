@@ -4,7 +4,6 @@ import schema from "@/app/utils/schema";
 import Gallery from "@/app/components/gallery";
 import { getCollectionData } from "@/app/utils/fetch";
 import Image from "next/image";
-import Comments from "@/app/components/comments";
 
 export const metadata = {
     title: 'Photo Gallery',
@@ -64,7 +63,6 @@ export default async function Page() {
                         )
                     })}
                 </Gallery>
-                <Comments />
             </Section>
         </Layout>
     )

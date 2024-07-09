@@ -14,8 +14,6 @@ import {
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import Link from "next/link";
-import GoogleAdUnit from "@/app/components/adunit";
-import Comments from "@/app/components/comments";
 
 export const runtime = 'edge';
 
@@ -164,7 +162,6 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
-                <Comments />
             </Section>
         </Layout>
     )
