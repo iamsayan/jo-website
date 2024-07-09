@@ -8,8 +8,8 @@ export const metadata = {
         canonical: '/',
     },
     title: {
-        template: '%s - Jagadhatri Online | the #1 Popular Jagadhatri Puja Portal',
-        default: 'Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja',
+        template: '%s - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal',
+        default: 'Jagadhatri Online™ | the #1 Puja Portal for Chandannagar Jagadhatri Puja',
     },
     description: `Jagadhatri or Jagaddhatri is an aspect of the Hindu goddess Durga, who is particularly worshipped in the Chandannagar region of West Bengal, India. Her cult is directly derived from Tantra where she is a symbol of sattva beside Durga and Kali, respectably symbolized with Rajas and Tamas.`,
     keywords: ['jagadhatri puja', 'jagadhatri', 'chandannagar'],
@@ -61,12 +61,6 @@ export default function RootLayout({ children }) {
                             gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"www.jagadhatrionline.co.in","cookie_flags":"samesite=none;secure","allow_google_signals":true});
                         `}
                     </Script>
-                    <Script
-                        async
-                        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`}
-                        crossOrigin="anonymous"
-                        strategy="lazyOnload"
-                    />
                 </>
             }
             <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>

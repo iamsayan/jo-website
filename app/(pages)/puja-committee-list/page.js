@@ -5,7 +5,6 @@ import { getCollectionData } from "@/app/utils/fetch";
 import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import Link from "next/link";
-import Comments from "@/app/components/comments";
 
 export const revalidate = 3600
 
@@ -107,7 +106,6 @@ export default async function Page() {
                         </div>
                     </div>
                 </div>
-                <Comments />
             </Section>
         </Layout>
     )

@@ -22,7 +22,6 @@ import Gallery from "@/app/components/gallery";
 import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '../../../../public/vr.jpg'
-import Comments from "@/app/components/comments";
 
 export const runtime = 'edge';
 
@@ -155,15 +154,15 @@ export default async function Page({ params }) {
                                 className="font-bold">{currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</span>
                             </div>
                             {currentPuja?.current_theme &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">Theme: <span
-                                    className="font-bold">{currentPuja?.current_theme}</span></div>}
+                                <div className="border rounded-md border-neutral-200 px-6 py-4">
+                                    Theme: <span className="font-bold">{currentPuja?.current_theme}</span></div>}
                             {currentPuja?.idol_artist?.display &&
-                                <div className="border rounded-md border-neutral-200"><Link rel="tag" className="block px-6 py-4" href={`/profile/${getUrlSlug(currentPuja?.idol_artist?.display)}/${currentPuja?.idol_artist?._id}`}>
-                                    Idol Artist:  <span className="font-bold">{currentPuja?.idol_artist?.display}</span></Link>
+                                <div className="border rounded-md border-neutral-200 px-6 py-4">
+                                    Idol Artist:  <span className="font-bold">{currentPuja?.idol_artist?.display}</span>
                                 </div>}
                             {currentPuja?.decoration_artist?.display &&
-                                <div className="border rounded-md border-neutral-200"><Link rel="tag" className="block px-6 py-4" href={`/profile/${getUrlSlug(currentPuja?.decoration_artist?.display)}/${currentPuja?.decoration_artist?._id}`}>
-                                    Decoration Artist: <span className="font-bold">{currentPuja?.decoration_artist?.display}</span></Link>
+                                <div className="border rounded-md border-neutral-200 px-6 py-4">
+                                    Decoration Artist: <span className="font-bold">{currentPuja?.decoration_artist?.display}</span>
                                 </div>}
                         </div>
                         {images?.length > 0 &&
@@ -250,7 +249,6 @@ export default async function Page({ params }) {
                         </div>
                     </div>
                 </div>
-                <Comments />
             </Section>
         </Layout>
     )
