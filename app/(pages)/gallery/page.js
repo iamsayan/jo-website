@@ -48,7 +48,7 @@ export default async function Page() {
                 <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
                     {images?.slice(0, 80)?.map((item, index) => {
                         return (
-                            <a key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
+                            <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
                                 <Image
                                     src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}
                                     width={500}

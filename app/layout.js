@@ -1,5 +1,6 @@
 import Script from "next/script"
 import { outfit } from "@/app/fonts"
+import Loader from "@/app/components/loader";
 import './globals.sass'
 
 export const metadata = {
@@ -65,6 +66,7 @@ export default function RootLayout({ children }) {
             }
             <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
                 {children}
+                <Loader />
                 {process.env.NODE_ENV === 'production' &&
                     <>
                         <Script id="statcounter">

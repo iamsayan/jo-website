@@ -2,7 +2,7 @@ export default function manifest() {
     return {
         name: 'Jagadhatri Online',
         short_name: 'Jagadhatri Online',
-        description: 'Next.js App',
+        description: 'the #1 Puja Portal for Chandannagar Jagadhatri Puja',
         start_url: '/',
         display: 'standalone',
         background_color: '#eab308',
