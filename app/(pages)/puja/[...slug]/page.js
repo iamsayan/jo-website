@@ -169,7 +169,7 @@ export default async function Page({ params }) {
                             <Gallery elementClassNames="grid grid-cols-2 xl:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
                                 {images?.map((item, index) => {
                                     return (
-                                        <a key={index} className="h-52 md:h-72"
+                                        <a data-disable-nprogress={true} key={index} className="h-52 md:h-72"
                                            href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
                                             <Image
                                                 src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}
