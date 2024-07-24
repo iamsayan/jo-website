@@ -55,10 +55,12 @@ export default async function Page({ params }) {
     const tabs = [
         {
             name: 'Jubilee List',
+            text: 'Number of Total Jubilees',
             type: jubilee
         },
         {
             name: 'Pre Jubilee List',
+            text: 'Number of Total Pre Jubilees',
             type: prejubilee
         }
     ]
@@ -91,7 +93,7 @@ export default async function Page({ params }) {
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label={item?.name} defaultChecked={index === 0} />
                                 <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
-                                    <p className="text-xl font-bold">Number of Total Jubilees: {item?.type?.length}</p>
+                                    <p className="text-xl font-bold">{item?.text}: {item?.type?.length}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>

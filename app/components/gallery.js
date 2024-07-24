@@ -14,8 +14,12 @@ import lgAutoplay from 'lightgallery/plugins/autoplay';
 import lgFullscreen from 'lightgallery/plugins/fullscreen'
 
 function Gallery({ children, ...props }) {
+    const settings = {
+        ...props,
+        licenseKey: 'KRLM-9HJW-HAX-CVQZ'
+    }
     return (
-        <LightGallery plugins={[lgThumbnail, lgZoom, lgFullscreen, lgAutoplay]} {...props} download={false}>
+        <LightGallery plugins={[lgThumbnail, lgZoom, lgFullscreen, lgAutoplay]} {...settings} download={false}>
             {children}
         </LightGallery>
     );
