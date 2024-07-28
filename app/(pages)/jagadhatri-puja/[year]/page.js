@@ -15,7 +15,7 @@ import {
 import schema from "@/app/utils/schema";
 import Link from "next/link";
 
-export const runtime = 'edge';
+//export const runtime = 'edge';
 
 export async function generateMetadata({ params }) {
     const queryYear = parseInt(params?.year)

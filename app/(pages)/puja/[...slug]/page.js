@@ -23,7 +23,7 @@ import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '../../../../public/vr.jpg'
 
-export const runtime = 'edge';
+//export const runtime = 'edge';
 
 export async function generateMetadata({ params }) {
     const pujaData = await getCollectionData('pujas', {
