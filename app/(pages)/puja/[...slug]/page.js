@@ -32,8 +32,8 @@ export async function generateMetadata({ params }) {
     const data = pujaData ?? []
 
     return {
-        title: `${data?.[0]?.puja_name} Sarbajanin`,
-        description: `Here are the Puja Updates and Latest Information about ${data?.[0]?.puja_name} Sarbajanin.`,
+        title: `${data?.[0]?.puja_name} Sarbajanin, ${data?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+        description: `Here are the Puja Updates and Latest Information about ${data?.[0]?.puja_name} Sarbajanin of ${data?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}!`,
         openGraph: {
             url: `/puja/${params?.slug?.[0]}/${params?.slug?.[1]}`,
         },

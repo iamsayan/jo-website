@@ -1,4 +1,6 @@
 import Script from "next/script"
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { outfit } from "@/app/fonts"
 import Loader from "@/app/components/loader";
 import './globals.sass'
@@ -69,6 +71,8 @@ export default function RootLayout({ children }) {
                 <Loader />
                 {process.env.NODE_ENV === 'production' &&
                     <>
+                        <Analytics />
+                        <SpeedInsights/>
                         <Script id="statcounter">
                             {`
                                 var sc_project=11108007; 
