@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaYoutube, FaFacebookF, FaInstagram, FaXTwitter, FaPinterestP } from "react-icons/fa6";
+import { FaYoutube, FaFacebookF, FaInstagram, FaXTwitter, FaPinterestP, FaGithub } from "react-icons/fa6";
 import ScrollTop from "@/app/components/scroll-top";
 
 export default function Footer() {
@@ -42,7 +42,8 @@ export default function Footer() {
                         <a href="https://www.facebook.com/JagadhatriOnlineOfficial/" target="_blank" rel="noopener">
                             <FaFacebookF className="size-4 sm:size-5 md:size-6"/>
                         </a>
-                        <a href="https://www.youtube.com/c/JagadhatriOnline?sub_confirmation=1" target="_blank" rel="noopener">
+                        <a href="https://www.youtube.com/c/JagadhatriOnline?sub_confirmation=1" target="_blank"
+                           rel="noopener">
                             <FaYoutube className="size-4 sm:size-5 md:size-6"/>
                         </a>
                         <a href="https://www.instagram.com/jagadhatri_online" target="_blank" rel="noopener">
@@ -53,6 +54,9 @@ export default function Footer() {
                         </a>
                         <a href="https://www.pinterest.com/jagadhatrionline/" target="_blank" rel="noopener">
                             <FaPinterestP className="size-4 sm:size-5 md:size-6"/>
+                        </a>
+                        <a href="https://github.com/iamsayan/jo-website" target="_blank" rel="noopener">
+                            <FaGithub className="size-4 sm:size-5 md:size-6"/>
                         </a>
                     </div>
                 </nav>

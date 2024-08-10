@@ -14,6 +14,7 @@ import {
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import Link from "next/link";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 //export const runtime = 'edge';
 
@@ -82,17 +83,40 @@ export default async function Page({ params }) {
 
     return (
         <Layout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
-            <Section title="Know More about" description={ <>Puja Details <font color="#F4C040">{queryYear}</font></> }>
+            <Section title="Know More about" description={<>Puja Details <font color="#F4C040">{queryYear}</font></>}>
                 <div className="flex flex-col gap-6 text-justify">
+                    {dateIsCurrent && <p>
+                        Bengalis have a popular saying: “Bangalir baro mashe tero parbon,” which translates to "Bengalis
+                        celebrate 13 festivals in 12 months." This phrase reflects their boundless enthusiasm for
+                        festivals and celebrations. However, the most eagerly awaited festival for the people of
+                        Chandannagar, Mankundu and Bhadreswar is undoubtedly Jagadhatri Puja. Typically taking place in
+                        November, Jagadhatri Puja is celebrated in Chandannagar, Mankundu and Bhadreswar with
+                        unparalleled pomp and grandeur. It stands out as a festival that spans five days, starting with
+                        Sashti and continuing through Saptami, Ashtami, Nabami, and culminating on Dashami with the
+                        immersion Procession of Goddess Jagadhatri in water, known as "Bisarjan." Also on the day of
+                        dashami, the procession of Goddess Jagadhatri is conducted in the city of Chandannagar, which is
+                        the 2nd largest after Brazil's city of Rio de Janeiro.</p>}
                     <p>
-                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious significance and communal harmony. {dateIsCurrent && <>In {queryYear}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
+                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a
+                        special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on
+                        the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished
+                        Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja
+                        festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit
+                        of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious
+                        significance and communal harmony. {dateIsCurrent && <>In {queryYear}, Jagadhatri Puja will be
+                        observed on {formatDate(displayDate)}. This year it will start
+                        on {formatDate(displayDate, true)} and continue up
+                        to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
                         {tabs.map((item, index) => (
                             <Fragment key={index}>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label={item?.name} defaultChecked={index === 0} />
-                                <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
+                                <input type="radio" name="puja_zone" role="tab"
+                                       className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
+                                       aria-label={item?.name} defaultChecked={index === 0}/>
+                                <div role="tabpanel"
+                                     className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">{item?.text}: {item?.type?.length}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
@@ -109,7 +133,7 @@ export default async function Page({ params }) {
                                             <tbody>
                                             {item?.type?.map((item, index) => {
                                                 const y = getYear(item?.estd, queryYear);
-                                                const cel= getCelebrating(y);
+                                                const cel = getCelebrating(y);
                                                 return (
                                                     <tr key={index} className='row'>
                                                         <td>{index + 1}</td>
@@ -119,7 +143,8 @@ export default async function Page({ params }) {
                                                         <td>{cel}</td>
                                                         <th className="text-blue-800"><Link
                                                             href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}>
-                                                            <button className="btn btn-ghost btn-xs">View</button></Link>
+                                                            <button className="btn btn-ghost btn-xs">View</button>
+                                                        </Link>
                                                         </th>
                                                     </tr>
                                                 )
@@ -132,8 +157,11 @@ export default async function Page({ params }) {
                         ))}
                         {dateIsCurrent &&
                             <>
-                                <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label="Puja Schedule" />
-                                <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
+                                <input type="radio" name="puja_zone" role="tab"
+                                       className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
+                                       aria-label="Puja Schedule"/>
+                                <div role="tabpanel"
+                                     className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
@@ -149,7 +177,7 @@ export default async function Page({ params }) {
                                             {data?.dates?.map((item, index) => {
                                                 return (
                                                     <tr key={index} className='row'>
-                                                        <td>{index+1}</td>
+                                                        <td>{index + 1}</td>
                                                         <td>{formatDate(item?.value?.date)}</td>
                                                         <td>{getDay(item?.value?.date)}</td>
                                                         <td>{item?.value?.event}</td>
@@ -160,8 +188,33 @@ export default async function Page({ params }) {
                                         </table>
                                     </div>
                                 </div>
+                                <input type="radio" name="puja_zone" role="tab"
+                                       className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
+                                       aria-label="Procession List"/>
+                                <div role="tabpanel" className="tab-content bg-gray-50 border-base-300 p-4">
+                                    Procession List is not officially published yet. Please check back later.
+                                </div>
                             </>
                         }
+                    </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 text-sm justify-between mt-6">
+                    <div className="border rounded-md border-neutral-200 self-start">
+                        <Link
+                            rel="prev"
+                            className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                            href={`/jagadhatri-puja/${queryYear-1}`}>
+                            <FaArrowLeft className="inline-block mr-2 -mt-1"/>
+                            {queryYear - 1}
+                        </Link>
+                    </div>
+                    <div className="border rounded-md border-neutral-200 text-right self-end">
+                        <Link
+                            rel="next"
+                            className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                            href={`/jagadhatri-puja/${queryYear+1}`}>
+                            {queryYear + 1}<FaArrowRight className="inline-block ml-2 -mt-1"/>
+                        </Link>
                     </div>
                 </div>
             </Section>
