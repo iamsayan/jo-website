@@ -33,7 +33,8 @@ export default function Footer() {
                 <nav className="grid grid-flow-row md:grid-flow-col gap-2 md:gap-4">
                     {items?.map((item, index) => (
                         <div key={index} className="text-xs md:text-sm">
-                            <Link href={item?.path} target={item?.target ?? '_self'} className="link link-hover">{item?.name}</Link>
+                            <Link href={item?.path} target={item?.target ?? '_self'}
+                                  className="link link-hover">{item?.name}</Link>
                         </div>
                     ))}
                 </nav>
@@ -63,10 +64,10 @@ export default function Footer() {
                 <aside className="text-slate-400 text-xs">
                     <p>Copyright © 2016 - {new Date().getFullYear()} Jagadhatri Online. All Rights Reserved.</p>
                     <p>Unauthorised copying or representation of any content / photograph / illustration / artwork
-                      from this website is strictly prohibited.</p>
+                        from this website is strictly prohibited.</p>
                 </aside>
             </div>
-            <ScrollTop />
+            <ScrollTop/>
         </footer>
     )
 }

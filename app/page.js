@@ -139,7 +139,7 @@ export default async function Home() {
                 </div>
             </ImageSlider>
             <Section className="bg-gray-100" title="Welcome to the Online Puja Portal"
-                     description={<>Jagadhatri <font color="#F4C040">Online</font></>}>
+                     description={<>Jagadhatri <span className="text-yellow-500">Online</span></>}>
                 <div className="flex flex-col gap-6 text-center">
                     <p className="md:text-xl text-center m-auto md:leading-relaxed">
                         Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri
@@ -189,7 +189,7 @@ export default async function Home() {
                     </div>
                 </div>
             </Section>
-            <Section title="Jagadhatri Puja" description={<>Countdown <font color="#F4C040">2024</font></>}>
+            <Section title="Jagadhatri Puja" description={<>Countdown <span className="text-yellow-500">2024</span></>}>
                 <div className="flex flex-col gap-8 text-center">
                     <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.value?.date}/>
                     <div className="grid gap-6 grid-cols-2 md:grid-cols-6">
@@ -214,7 +214,7 @@ export default async function Home() {
                         })}
                     </div>
                     <div>
-                        <p className="font-bold text-base sm:text-xl md:text-2xl xl:text-3xl mb-4">Glimps of <font color="#F4C040">Jagadhatri Puja</font></p>
+                        <p className="font-bold text-base sm:text-xl md:text-2xl xl:text-3xl mb-4">Glimps of <span className="text-yellow-500">Jagadhatri Puja</span></p>
                         <Videos />
                     </div>
                 </div>

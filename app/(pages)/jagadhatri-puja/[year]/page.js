@@ -83,7 +83,7 @@ export default async function Page({ params }) {
 
     return (
         <Layout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
-            <Section title="Know More about" description={<>Puja Details <font color="#F4C040">{queryYear}</font></>}>
+            <Section title="Know More about" description={<>Puja Details <span className="text-yellow-500">{queryYear}</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     {dateIsCurrent && <p>
                         Bengalis have a popular saying: “Bangalir baro mashe tero parbon,” which translates to "Bengalis
@@ -103,10 +103,11 @@ export default async function Page({ params }) {
                         Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja
                         festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit
                         of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious
-                        significance and communal harmony. {dateIsCurrent && <>In {queryYear}, Jagadhatri Puja will be
+                        significance and communal harmony.</p>
+                    {dateIsCurrent && <p>In {queryYear}, Jagadhatri Puja will be
                         observed on {formatDate(displayDate)}. This year it will start
                         on {formatDate(displayDate, true)} and continue up
-                        to {formatDate(getDateByIndex(data, 4), true)}.</>}</p>
+                        to {formatDate(getDateByIndex(data, 4), true)}.</p>}
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
@@ -198,8 +199,8 @@ export default async function Page({ params }) {
                         }
                     </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-3 text-sm justify-between mt-6">
-                    <div className="border rounded-md border-neutral-200 self-start">
+                <div className="flex gap-3 text-sm justify-between mt-6">
+                    <div className="border rounded-md border-neutral-200">
                         <Link
                             rel="prev"
                             className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
@@ -208,7 +209,7 @@ export default async function Page({ params }) {
                             {queryYear - 1}
                         </Link>
                     </div>
-                    <div className="border rounded-md border-neutral-200 text-right self-end">
+                    <div className="border rounded-md border-neutral-200 text-right">
                         <Link
                             rel="next"
                             className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"

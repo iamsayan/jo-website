@@ -21,7 +21,7 @@ export default function Page() {
 
     return (
         <Layout title="Puja History" jsonLd={jsonLd}>
-            <Section title="Know More About" description={ <>Jagadhatri <font color="#F4C040">Puja</font></> }>
+            <Section title="Know More About" description={ <>Jagadhatri <span className="text-yellow-500">Puja</span></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>When the entire Bengal, nay India, was under the British rule, inspite of being under the French administration at that time Chandannagar created a distinct tradition. Jagadhatri Puja is a major socio-cultural event in this region.</p>
                     <p>The ancient history of Jagadhatri Puja in Chandannagar is unknown even today. It is heard that Indranarayan Chowdhury introduced the Jagadhatri Puja in Chandannagar in the manner of King Krishnachandra of Krishnanagore. The time of beginning of Jagadhatri Puja in Krishnanagore was 1762. Indranarayan Choudhury died in 1756. So Indranarayan Choudhury by no means introduce the Jagadhatri puja in Chandannagar. The beginning of Jagadhatri puja in Chandannagar probably dates back earlier than 1750. Indranarayan Choudhury performed the Jagadhatri puja at his own house in Chandannagar, at the time Krishna Chandra used to come to borrow money from Indranarayan Choudhury. Perhaps Krishnachandra was attracted to greatness of Jagadhatri at this time.</p>

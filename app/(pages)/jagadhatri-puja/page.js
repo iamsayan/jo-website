@@ -23,7 +23,7 @@ export default async function Page() {
     const uptoYear = data?.dates[0]?.value?.date ? new Date(data?.dates[0]?.value?.date).getFullYear() : currentYear;
     const yearsArray = [];
 
-    for (let year = currentYear-24; year <= uptoYear-1; year++) {
+    for (let year = currentYear-12; year <= uptoYear-1; year++) {
         yearsArray.push(year);
     }
     yearsArray.reverse();
@@ -35,7 +35,7 @@ export default async function Page() {
 
     return (
         <Layout title="Puja Schedule" jsonLd={jsonLd}>
-            <Section title="Know More About" description={<>Puja <font color="#F4C040">Schedule</font></>}>
+            <Section title="Know More About" description={<>Puja <span className="text-yellow-500">Schedule</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>Jagadhatri Puja, an esteemed festival in certain regions, extends across five joyous days,
                         commencing from Sasthi and culminating on Dashami. The main observance traditionally takes place

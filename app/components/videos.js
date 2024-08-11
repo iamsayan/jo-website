@@ -8,7 +8,11 @@ export default function Videos({ children, title }) {
     const videos = [
         {
             id: 'OiK_ZWpZgeA',
-            name: 'Best of Jagadhatri puja 2022 | Rathersarak | Barabazar | Moranroad | Neogibagan | Circus Math'
+            name: 'Best of Jagadhatri Puja 2022 | Rathersarak | Barabazar | Moranroad | Neogibagan | Circus Math'
+        },,
+        {
+            id: 'SGqn6Y2MAEI',
+            name: 'World Famous Lighting || Best LED Lighting at Chandannagar Jagadhatri Puja 2023'
         },
         {
             id: 'CczMV6ep6p8',

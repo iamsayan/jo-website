@@ -44,9 +44,9 @@ export default async function Page() {
 
     return (
         <Layout title="Photo Gallery" jsonLd={jsonLd}>
-            <Section title="View Jagadhatri Puja" description={ <>Photo <font color="#F4C040">Gallery</font></> }>
-                <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
-                    {images?.slice(0, 80)?.map((item, index) => {
+            <Section title="View Jagadhatri Puja" description={ <>Photo <span className="text-yellow-500">Gallery</span></> }>
+                <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
+                    {images?.reverse()?.slice(0, 96)?.map((item, index) => {
                         return (
                             <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
                                 <Image

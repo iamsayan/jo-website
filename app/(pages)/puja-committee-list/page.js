@@ -55,7 +55,7 @@ export default async function Page() {
 
     return (
         <Layout title="Puja Committee List" jsonLd={jsonLd}>
-            <Section title="View All Jagadhatri" description={ <>Puja Committee <font color="#F4C040">List</font></> }>
+            <Section title="View All Jagadhatri" description={ <>Puja Committee <span className="text-yellow-500">List</span></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
                 </div>
