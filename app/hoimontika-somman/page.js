@@ -3,8 +3,8 @@ import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
 
 export const metadata = {
-    title: 'Amie Srestho Hoimantika Samman',
-    description: 'The Amie Srestho Hoimantika Samman is a prestigious award that has been celebrating creativity and craftsmanship during Jagadhatri Puja in Chandannagar since 2016.',
+    title: 'Amie Srestho Hoimantika Somman',
+    description: 'The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity and craftsmanship during Jagadhatri Puja in Chandannagar since 2016.',
     openGraph: {
         url: '/hoimontika-somman',
     },
@@ -20,10 +20,10 @@ export default function Page() {
     })
 
     return (
-        <Layout title="Hoimantika Samman" jsonLd={jsonLd}>
+        <Layout title="Hoimantika Somman" jsonLd={jsonLd}>
             <Section title="Know More About Amie Srestho" description={ <>Hoimantika <span className="text-yellow-500">Somman</span></> }>
                 <div className="flex flex-col gap-6 text-justify">
-                    <p>The Amie Srestho Hoimantika Samman is a prestigious award that has been celebrating creativity
+                    <p>The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity
                         and craftsmanship during Jagadhatri Puja in Chandannagar since 2016. It is one of the most
                         significant awards given to the best pandals across the city, recognizing excellence in various
                         aspects such as decoration, theme, and artistry.</p><p>
@@ -36,7 +36,7 @@ export default function Page() {
                     receive a unique statuette, which has evolved in design over the years, symbolizing the honor and
                     prestige of the award.</p><p>
 
-                    In this year, the Hoimantika Samman continues to uphold its legacy, with pandals across Chandannagar
+                    In this year, the Hoimantika Somman continues to uphold its legacy, with pandals across Chandannagar
                     striving to win in categories like Best Puja, Creative Excellence, and Best Artisan, among
                     others</p>
                     <div className="text-md font-bold text-center">Archives</div>
