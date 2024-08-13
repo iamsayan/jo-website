@@ -59,42 +59,42 @@ export default function Page() {
                                         <tbody>
                                         <tr>
                                             <th>Srestho Mukhosri</th>
-                                            <td>Tematha</td>
-                                            <td>Palpara<br/>Gondalpara Satghat</td>
-                                            <td>Gondalpara Charmandirtala<br/>Sabinara</td>
+                                            <td>👉 Tematha</td>
+                                            <td>👉 Palpara<br/>👉 Gondalpara Satghat</td>
+                                            <td>👉 Gondalpara Charmandirtala<br/>👉 Sabinara</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Sajsojja</th>
-                                            <td>Kundughat Dalan</td>
-                                            <td>Lalbagan Padripara<br/>Urdibazar</td>
-                                            <td>Khalisani<br/>Kanailal Pally</td>
+                                            <td>👉 Kundughat Dalan</td>
+                                            <td>👉 Lalbagan Padripara<br/>Urdibazar</td>
+                                            <td>👉 Khalisani<br/>👉 Kanailal Pally</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Mondopsojja</th>
-                                            <td>Uttaranchal</td>
-                                            <td>Kanailal Pally<br/>Gondalpara Mansatala</td>
-                                            <td>Bhadreswar Krisnapatty<br/>Doibakpara</td>
+                                            <td>👉 Uttaranchal</td>
+                                            <td>👉 Kanailal Pally<br/>👉 Gondalpara Mansatala</td>
+                                            <td>👉 Bhadreswar Krisnapatty<br/>👉 Doibakpara</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Procession</th>
-                                            <td>Boro Champatala, Yuba Sampraday</td>
-                                            <td>Khalisani<br/>Gondalpara Charmanadirtala</td>
-                                            <td>Boro Panchananatala<br/>Palpara</td>
+                                            <td>👉 Boro Champatala, Yuba Sampraday</td>
+                                            <td>👉 Khalisani<br/>👉 Gondalpara Charmanadirtala</td>
+                                            <td>👉 Boro Panchananatala<br/>👉 Palpara</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Road Light</th>
-                                            <td>Barabazar</td>
-                                            <td>Bidyalankar</td>
-                                            <td>Kalupukur</td>
-                                            <td>Madhyanchal</td>
+                                            <td>👉 Barabazar</td>
+                                            <td>👉 Bidyalankar</td>
+                                            <td>👉 Kalupukur</td>
+                                            <td>👉 Madhyanchal</td>
                                         </tr>
                                         <tr>
                                             <th>JO Priyo Pujo</th>
-                                            <td>Barasat Chakrabarty Para</td>
+                                            <td>👉 Barasat Chakrabarty Para</td>
                                             <td>--</td>
                                             <td>--</td>
                                             <td>--</td>
@@ -122,35 +122,35 @@ export default function Page() {
                                         <tbody>
                                         <tr>
                                             <th>Srestho Mukhosri</th>
-                                            <td>Palpara</td>
-                                            <td>Circus Math<br/>Suksanatantala</td>
-                                            <td>Mankundu<br/>Haridradanga</td>
+                                            <td>👉 Palpara</td>
+                                            <td>👉 Circus Math<br/>👉 Suksanatantala</td>
+                                            <td>👉 Mankundu<br/>👉 Haridradanga</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Sajsojja</th>
-                                            <td>Urdibazar</td>
-                                            <td>Kundughat Dalan<br/>Bindubasini Para</td>
-                                            <td>Narua Sarkarpara<br/>Narua Boropukurdhar</td>
+                                            <td>👉 Urdibazar</td>
+                                            <td>👉 Kundughat Dalan<br/>👉 Bindubasini Para</td>
+                                            <td>👉 Narua Sarkarpara<br/>👉 Narua Boropukurdhar</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Mondopsojja</th>
-                                            <td>Doibakpara</td>
-                                            <td>Mankundu Notunpara<br/>Rathersarak</td>
-                                            <td>Gondalpara Moran Road<br/>Mahadanga Balak Sangha</td>
+                                            <td>👉 Doibakpara</td>
+                                            <td>👉 Mankundu Notunpara<br/>👉 Rathersarak</td>
+                                            <td>👉 Gondalpara Moran Road<br/>👉 Mahadanga Balak Sangha</td>
                                             <td>--</td>
                                         </tr>
                                         <tr>
                                             <th>Srestho Procession</th>
-                                            <td>Boro Kalitala Byelane</td>
-                                            <td>Rathersorok<br/>Sarishapara</td>
-                                            <td>Madhyanchal<br/>Mansatala</td>
-                                            <td>Barabazar<br/>Bagbazar Chowmatha<br/>Doibakpara</td>
+                                            <td>👉 Boro Kalitala Byelane</td>
+                                            <td>👉 Rathersorok<br/>👉 Sarishapara</td>
+                                            <td>👉 Madhyanchal<br/>👉 Mansatala</td>
+                                            <td>👉 Barabazar<br/>👉 Bagbazar Chowmatha<br/>👉 Doibakpara</td>
                                         </tr>
                                         <tr>
                                             <th>JO Priyo Pujo</th>
-                                            <td>Rathersarak</td>
+                                            <td>👉 Rathersarak</td>
                                             <td>--</td>
                                             <td>--</td>
                                             <td>--</td>
@@ -176,31 +176,31 @@ export default function Page() {
                                     <tbody>
                                     <tr>
                                         <th>Srestho Mukhosri</th>
-                                        <td>Bibirhat Uttaranchal</td>
-                                        <td>Hatkhola Mansatala</td>
-                                        <td>Barasat Banerjee Para</td>
+                                        <td>👉 Bibirhat Uttaranchal</td>
+                                        <td>👉 Hatkhola Mansatala</td>
+                                        <td>👉 Barasat Banerjee Para</td>
                                     </tr>
                                     <tr>
                                         <th>Srestho Sajsojja</th>
-                                        <td>Boro Taldanga</td>
-                                        <td>Bagbazar Chowmatha</td>
-                                        <td>Circus Math</td>
+                                        <td>👉 Boro Taldanga</td>
+                                        <td>👉 Bagbazar Chowmatha</td>
+                                        <td>👉 Circus Math</td>
                                     </tr>
                                     <tr>
                                         <th>Srestho Mondopsojja</th>
-                                        <td>Mankundu</td>
-                                        <td>Ambika Atheletic Club</td>
-                                        <td>Kanailal Pally</td>
+                                        <td>👉 Mankundu</td>
+                                        <td>👉 Ambika Atheletic Club</td>
+                                        <td>👉 Kanailal Pally</td>
                                     </tr>
                                     <tr>
                                         <th>Srestho Road Light</th>
-                                        <td>Madhyanchal</td>
-                                        <td>Fatakgora</td>
-                                        <td>Kalupukur</td>
+                                        <td>👉 Madhyanchal</td>
+                                        <td>👉 Fatakgora</td>
+                                        <td>👉 Kalupukur</td>
                                     </tr>
                                     <tr>
                                         <th>JO Priyo Pujo</th>
-                                        <td>Barasat Gate</td>
+                                        <td>👉 Barasat Gate</td>
                                         <td>--</td>
                                         <td>--</td>
                                     </tr>
