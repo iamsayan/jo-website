@@ -44,7 +44,7 @@ export default function Page() {
                         <div className="collapse collapse-arrow join-item border-base-300 border">
                             <input type="radio" name="my-accordion-4"/>
                             <div className="collapse-title text-xl font-medium">2023</div>
-                            <div className="collapse-content">
+                            <div className="collapse-content overflow-x-auto">
                                 <div className="overflow-x-auto">
                                     <table className="table">
                                         <thead>
@@ -67,7 +67,7 @@ export default function Page() {
                                         <tr>
                                             <th>Srestho Sajsojja</th>
                                             <td>👉 Kundughat Dalan</td>
-                                            <td>👉 Lalbagan Padripara<br/>Urdibazar</td>
+                                            <td>👉 Lalbagan Padripara<br/>👉 Urdibazar</td>
                                             <td>👉 Khalisani<br/>👉 Kanailal Pally</td>
                                             <td>--</td>
                                         </tr>
@@ -107,7 +107,7 @@ export default function Page() {
                         <div className="collapse collapse-arrow join-item border-base-300 border">
                             <input type="radio" name="my-accordion-4"/>
                             <div className="collapse-title text-xl font-medium">2022</div>
-                            <div className="collapse-content">
+                            <div className="collapse-content overflow-x-auto">
                                 <div className="overflow-x-auto">
                                     <table className="table">
                                         <thead>
@@ -163,7 +163,7 @@ export default function Page() {
                         <div className="collapse collapse-arrow join-item border-base-300 border">
                             <input type="radio" name="my-accordion-4"/>
                             <div className="collapse-title text-xl font-medium">2021</div>
-                            <div className="collapse-content">
+                            <div className="collapse-content overflow-x-auto">
                                 <table className="table">
                                     <thead>
                                     <tr>
