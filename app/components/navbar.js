@@ -48,6 +48,10 @@ export default function Navbar() {
             name: 'Puja List',
             path: '/puja-committee-list'
         },
+        {
+            name: `ASHS ${new Date().getFullYear()}`,
+            path: '/hoimontika-somman'
+        }
     ]
 
     return (
