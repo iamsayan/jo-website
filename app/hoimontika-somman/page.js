@@ -30,13 +30,13 @@ export default function Page() {
 
                     The awards have contributed to a shift in how Jagadhatri Puja is celebrated in Chandannagar,
                     Mankundu and Bhadreswar, emphasizing artistic and cultural innovation in the creation of pandals and
-                    idols. The initiative has not only become an integral part of Kolkata’s Jagadhatri Puja traditions
+                    idols. The initiative has not only become an integral part of Chandannagar’s Jagadhatri Puja traditions
                     but also reflects the evolving cultural landscape of the festival. Each year, the awards are judged
                     by a panel of eminent personalities from various fields such as art, literature, and cinema. Winners
                     receive a unique statuette, which has evolved in design over the years, symbolizing the honor and
                     prestige of the award.</p><p>
 
-                    In this year, the Hoimantika Samman continues to uphold its legacy, with pandals across Kolkata
+                    In this year, the Hoimantika Samman continues to uphold its legacy, with pandals across Chandannagar
                     striving to win in categories like Best Puja, Creative Excellence, and Best Artisan, among
                     others</p>
                     <div className="text-md font-bold text-center">Archives</div>
