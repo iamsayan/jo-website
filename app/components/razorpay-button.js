@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 
 const RazorPayButton = ({ buttonId }) => {
     const initialized = useRef(false)
+    const formRef = useRef(null);
 
     useEffect(() => {
         if (!initialized.current) {
@@ -13,12 +14,12 @@ const RazorPayButton = ({ buttonId }) => {
             script.src = 'https://checkout.razorpay.com/v1/payment-button.js';
             script.async = true;
             script.setAttribute('data-payment_button_id', buttonId)
-            document.getElementById(`btn-${buttonId}`).appendChild(script);
+            formRef.current.appendChild(script);
         }
-    }, []);
+    }, [buttonId]);
 
     return (
-        <form id={`btn-${buttonId}`}></form>
+        <form ref={formRef}></form>
     );
 };
 

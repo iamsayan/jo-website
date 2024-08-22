@@ -64,58 +64,58 @@ export default function Page() {
                         ))}
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="table text-center">
+                        <table className="table text-center border">
                             <thead>
                             <tr>
                                 <th>Services</th>
                                 <th>Basic Package</th>
-                                <th>Premium Package</th>
+                                <th className="bg-yellow-100  relative">Premium Package <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1">Trending</span></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
-                                <th>Online Promotion</th>
+                                <th className="bg-gray-100">Online Promotion</th>
                                 <td>✅ <br/><small>(High quality content should be provided by the Puja
                                     Committee)</small></td>
-                                <td>✅ <br/><small>(We visit the Puja Committee and create our own content)</small></td>
+                                <td className="bg-yellow-50">✅ <br/><small>(We visit the Puja Committee and create our own content)</small></td>
                             </tr>
                             <tr>
-                                <th>Reels Videos</th>
+                                <th className="bg-gray-100">Reels Videos</th>
                                 <td>1 <br/><small>(up to 30 seconds)</small></td>
-                                <td>4 <br/><small>(any duration)</small></td>
+                                <td className="bg-yellow-50">4 <br/><small>(any duration)</small></td>
                             </tr>
                             <tr>
-                                <th>Audio & Video Content</th>
+                                <th className="bg-gray-100">Audio & Video Content</th>
                                 <td>❌</td>
-                                <td>✅</td>
+                                <td className="bg-yellow-50">✅</td>
                             </tr>
                             <tr>
-                                <th>Live Videos (During Puja)</th>
+                                <th className="bg-gray-100">Live Videos (During Puja)</th>
                                 <td>1</td>
-                                <td>2</td>
+                                <td className="bg-yellow-50">2</td>
                             </tr>
                             <tr>
-                                <th>Drone Shoot</th>
+                                <th className="bg-gray-100">Drone Shoot</th>
                                 <td>❌</td>
-                                <td>✅</td>
+                                <td className="bg-yellow-50">✅</td>
                             </tr>
                             <tr>
-                                <th>360° Virtual Tours</th>
+                                <th className="bg-gray-100">360° Virtual Tours</th>
                                 <td>❌</td>
-                                <td>✅</td>
+                                <td className="bg-yellow-50">✅</td>
                             </tr>
                             <tr>
-                                <th>Price</th>
-                                <td>₹500</td>
-                                <td>₹5000</td>
+                                <th className="bg-gray-100">Price</th>
+                                <td><del>₹800</del> <span className="text-xl ml-2">₹500</span></td>
+                                <td className="bg-yellow-50"><del>₹9500</del><span className="text-xl ml-2">₹5000</span><br/><small>(You save ₹4500)</small></td>
                             </tr>
                             <tr>
-                                <th></th>
+                                <th className="bg-gray-100">Click to Register</th>
                                 <td>
-                                    <RazorpayButton buttonId="pl_Ony68U6SyoZEI6" />
+                                    <RazorpayButton buttonId="pl_Ony68U6SyoZEI6"/>
                                 </td>
-                                <td>
-                                    {/*<RazorpayButton buttonId="pl_Ony68U6SyoZEI6" />*/}
+                                <td className="bg-yellow-50">
+                                    <RazorpayButton buttonId="pl_Ony68U6SyoZEI6" />
                                 </td>
                             </tr>
                             </tbody>
