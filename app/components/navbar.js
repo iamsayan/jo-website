@@ -5,8 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image'
 import classNames from 'classnames';
 import { usePathname } from 'next/navigation'
-import logo from '../../public/logo.png'
-import circleLogo from '../../public/circle-logo.png'
+import logo from '@/public/logo.png'
+import circleLogo from '@/public/circle-logo.png'
 
 export default function Navbar() {
     const pathname = usePathname()
@@ -46,11 +46,29 @@ export default function Navbar() {
         },
         {
             name: 'Puja List',
-            path: '/puja-committee-list'
+            path: '/puja-committee-list',
         },
         {
-            name: `ASHS ${new Date().getFullYear()}`,
-            path: '/hoimontika-somman'
+            name: 'Resources',
+            subMenu: [
+                {
+                    name: 'Achievements',
+                    path: '/achievements'
+                },
+                {
+                    name: 'Hoimontika Somman',
+                    path: '/hoimontika-somman'
+                },
+                {
+                    name: 'DMP Programme',
+                    path: '/digital-media-partnership'
+                },
+                {
+                    name: '360° Virtual Tours',
+                    path: 'https://vr.jagadhatrionline.co.in/',
+                    target: '_blank'
+                }
+            ],
         }
     ]
 
@@ -66,7 +84,19 @@ export default function Navbar() {
                             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                                 {items.map((item, index) => (
                                     <li key={index}>
-                                        <Link href={item?.path} className={`font-bold ${(pathname === item?.path ) ? 'text-whitegh' : 'text-slate-3f00'}`}>{item?.name}</Link>
+                                        {item?.subMenu ?
+                                            <details>
+                                                <summary className="font-bold">{item?.name}</summary>
+                                                <ul className="p-2">
+                                                    {item?.subMenu?.map((item, index) => (
+                                                        <li key={index}>
+                                                            <Link href={item?.path} target={item?.target ?? '_self'} className="font-bold">{item?.name}</Link>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </details> :
+                                            <Link href={item?.path} className="font-bold">{item?.name}</Link>
+                                        }
                                     </li>
                                 ))}
                             </ul>
@@ -92,14 +122,32 @@ export default function Navbar() {
                                 })
                                 return(
                                     <li key={index}>
-                                        <Link href={item?.path} className={classes}>{item?.name}</Link>
+                                        {item?.subMenu ?
+                                            <details>
+                                                <summary className={classes}>{item?.name}</summary>
+                                                <ul className="p-2 w-52">
+                                                    {item?.subMenu?.map((item, index) => {
+                                                        const innerClasses = classNames('text-slate-600', {
+                                                            '!text-yellow-500': pathname === item?.path,
+                                                        })
+                                                        return(
+                                                            <li key={index}>
+                                                                <Link href={item?.path} target={item?.target ?? '_self'} className={innerClasses}>{item?.name}</Link>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                </ul>
+                                            </details> :
+                                            <Link href={item?.path} target={item?.target ?? '_self'} className={classes}>{item?.name}</Link>
+                                        }
                                     </li>
                                 )
                             })}
                         </ul>
                     </div>
                     <div className="navbar-end hidden lg:flex">
-                        <a className="btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">360° Virtual Tours</a>
+                        <a className="btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400"
+                           href="https://vr.jagadhatrionline.co.in/" target="_blank">360° Virtual Tours</a>
                     </div>
                 </div>
             </div>

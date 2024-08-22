@@ -1,6 +1,7 @@
 import Layout from '@/app/components/layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
+import bg from '@/public/ashs.jpg'
 
 export const metadata = {
     title: 'Amie Srestho Hoimantika Somman',
@@ -20,7 +21,7 @@ export default function Page() {
     })
 
     return (
-        <Layout title="Hoimantika Somman" jsonLd={jsonLd}>
+        <Layout title="Hoimantika Somman" jsonLd={jsonLd} bgImg={bg}>
             <Section title="Know More About Amie Srestho" description={ <>Hoimantika <span className="text-yellow-500">Somman</span></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity
