@@ -15,7 +15,7 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 5);
         };
 
         handleScroll();
@@ -49,7 +49,7 @@ export default function Navbar() {
             path: '/puja-committee-list',
         },
         {
-            name: 'Resources',
+            name: 'Links',
             subMenu: [
                 {
                     name: 'Achievements',

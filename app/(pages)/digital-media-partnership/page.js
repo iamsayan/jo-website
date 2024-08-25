@@ -1,7 +1,6 @@
 import Layout from '@/app/components/layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
-import RazorpayButton from "@/app/components/razorpay-button";
 
 export const metadata = {
     title: 'Digital Media Partnership Programme',
@@ -94,15 +93,10 @@ export default function Page() {
                                 <td>1</td>
                                 <td className="bg-yellow-50">2</td>
                             </tr>
-                            {/*<tr>*/}
-                            {/*    <th className="bg-gray-100">Drone Shoot</th>*/}
-                            {/*    <td>❌</td>*/}
-                            {/*    <td className="bg-yellow-50">✅</td>*/}
-                            {/*</tr>*/}
                             <tr>
-                                <th className="bg-gray-100">360° Virtual Tours</th>
+                                <th className="bg-gray-100">Drone Shoot</th>
                                 <td>❌</td>
-                                <td className="bg-yellow-50">✅<br/><small>(On open pandel)</small></td>
+                                <td className="bg-yellow-50">✅</td>
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Package Price</th>
