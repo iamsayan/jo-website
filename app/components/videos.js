@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from "react";
-import { YouTubeEmbed } from '@next/third-parties/google'
 import NoSsr from "@/app/utils/nossr";
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
 import { PlyrLayout, plyrLayoutIcons } from '@vidstack/react/player/layouts/plyr';
@@ -45,8 +44,6 @@ export default function Videos({ children, title }) {
                         <PlyrLayout icons={plyrLayoutIcons} />
                     </MediaPlayer>
                 </NoSsr>
-
-                {/*<YouTubeEmbed className="yt-player" videoid={videoId} params="controls=0&playsinline=1&cc_load_policy=1&modestbranding=1&rel=0" style={{maxWidth: '100%'}} />*/}
             </div>
             <div className="flex flex-col">
                 <div className="flex flex-row justify-between p-4 border-b-2">

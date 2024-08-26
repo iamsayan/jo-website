@@ -63,11 +63,11 @@ export default function Navbar() {
                     name: 'DMP Programme',
                     path: '/digital-media-partnership'
                 },
-                {
-                    name: '360° Virtual Tours',
-                    path: 'https://vr.jagadhatrionline.co.in/',
-                    target: '_blank'
-                }
+                // {
+                //     name: '360° Virtual Tours',
+                //     path: 'https://vr.jagadhatrionline.co.in/',
+                //     target: '_blank'
+                // }
             ],
         }
     ]
