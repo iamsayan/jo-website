@@ -12,13 +12,7 @@ interface SchemaItem {
     [key: string]: any;
 }
 
-export default function schema({
-   slug,
-   title,
-   description,
-   start,
-   end
-}: SchemaOptions): { "@context": string; "@graph": SchemaItem[] } {
+export default function schema({ slug, title, description, start, end }: SchemaOptions) {
     const siteSchema: { "@context": string; "@graph": SchemaItem[] } = {
         "@context": "https://schema.org",
         "@graph": [
@@ -79,7 +73,7 @@ export default function schema({
         ]
     };
 
-    if (description) {
+    if (typeof description !== 'undefined') {
         siteSchema["@graph"].push({
             "name": title,
             "description": description,
