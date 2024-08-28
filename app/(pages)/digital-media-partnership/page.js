@@ -101,7 +101,7 @@ export default function Page() {
                             <tr>
                                 <th className="bg-gray-100">Package Price</th>
                                 <td><del>₹799</del><span className="text-xl ml-2 font-bold">₹499</span></td>
-                                <td className="bg-yellow-50"><del>₹9499</del><span className="text-xl ml-2 font-bold">₹4999</span><br/><small>(You save ₹4500)</small></td>
+                                <td className="bg-yellow-50"><del>₹10499</del><span className="text-xl ml-2 font-bold">₹5999</span><br/><small>(You save ₹4500)</small></td>
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Click to Register</th>
