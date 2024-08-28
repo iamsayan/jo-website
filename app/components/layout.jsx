@@ -4,16 +4,7 @@ import Breadcrumbs from "@/app/components/breadcrumbs";
 import { paytoneOne } from "@/app/fonts";
 import bg from '@/public/img.png';
 
-interface LayoutComponentProps {
-    children: ReactNode;
-    title: string;
-    jsonLd?: object;
-    breadcrumbTitle?: string;
-    end?: number;
-    bgImg?: { src: string };
-}
-
-function Layout({ children, title, jsonLd, breadcrumbTitle, end, bgImg }: LayoutComponentProps) {
+function Layout({ children, title, jsonLd, breadcrumbTitle, end, bgImg }) {
     return (
         <Main jsonLd={jsonLd}>
             <div className="hero h-96" style={{ backgroundImage: `url(${bgImg ? bgImg.src : bg.src})` }}>
