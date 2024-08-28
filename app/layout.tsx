@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+import React from "react";
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -5,8 +7,8 @@ import { outfit } from "@/app/fonts"
 import Loader from "@/app/components/loader";
 import './globals.sass'
 
-export const metadata = {
-    metadataBase: new URL(process.env.SITE_URL),
+export const metadata: Metadata = {
+    metadataBase: new URL(process.env.SITE_URL || ''),
     alternates: {
         canonical: '/',
     },
@@ -19,7 +21,6 @@ export const metadata = {
     authors: [{ name: 'Sayan Datta', url: 'https://sayandatta.co.in' }],
     creator: 'Sayan Datta',
     publisher: 'Jagadhatri Online',
-    copyright: 'Jagadhatri Online',
     robots: {
         index: true,
         follow: true,
@@ -35,7 +36,6 @@ export const metadata = {
         siteName: 'Jagadhatri Online',
         locale: 'en_US',
         type: 'website',
-        authors: ['Sayan Datta', 'Jagadhatri Online Team'],
         url: '/'
     },
     verification: {
@@ -44,13 +44,17 @@ export const metadata = {
     other: {
         'p:domain_verify': '17e6e3cc4fa6744677baf74c22411d8d',
         'facebook-domain-verification': 'ym11t0xaxb0v6wd0hctilep9ww4w0o',
-        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID,
+        'fb:app_id': process.env.NEXT_PUBLIC_FB_APP_ID || '',
         'fb:admins': '100009403062755',
-        'google-adsense-account': process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
+        'google-adsense-account': process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID || ''
     },
 }
 
-export default function RootLayout({ children }) {
+interface RootLayoutProps {
+    children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en" data-theme="light">
             {process.env.NODE_ENV === 'production' &&
