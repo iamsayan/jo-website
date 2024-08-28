@@ -2,19 +2,18 @@ import React, { ReactNode } from 'react';
 import Main from '@/app/components/main';
 import Breadcrumbs from "@/app/components/breadcrumbs";
 import { paytoneOne } from "@/app/fonts";
-
 import bg from '@/public/img.png';
 
-interface LayoutComponentsProps {
+interface LayoutComponentProps {
     children: ReactNode;
     title: string;
-    jsonLd?: object | null;
-    breadcrumbTitle?: string | null;
-    end?: number | null;
+    jsonLd?: object;
+    breadcrumbTitle?: string;
+    end?: number;
     bgImg?: { src: string };
 }
 
-const Layout: React.FC<LayoutComponentsProps> = ({ children, title, jsonLd = null, breadcrumbTitle = null, end = null, bgImg = null }) => {
+function Layout({ children, title, jsonLd, breadcrumbTitle, end, bgImg }: LayoutComponentProps) {
     return (
         <Main jsonLd={jsonLd}>
             <div className="hero h-96" style={{ backgroundImage: `url(${bgImg ? bgImg.src : bg.src})` }}>
