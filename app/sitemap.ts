@@ -71,7 +71,7 @@ export default async function sitemap() {
         });
     }
 
-    data.forEach(element => {
+    data.forEach((element: any) => {
         sitemaps.push({
             url: `https://www.jagadhatrionline.co.in/puja/${getUrlSlug(element?.puja_name)}/${element?._id}`,
             lastModified: new Date(),

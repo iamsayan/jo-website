@@ -1,4 +1,6 @@
-export default function manifest() {
+import type { MetadataRoute } from 'next'
+
+export default function manifest(): MetadataRoute.Manifest {
     return {
         name: 'Jagadhatri Online',
         short_name: 'Jagadhatri Online',

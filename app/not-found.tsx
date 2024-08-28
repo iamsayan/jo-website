@@ -1,12 +1,14 @@
-import Link from 'next/link'
-import { FaArrowLeftLong } from "react-icons/fa6";
+import React from "react";
+import type { Metadata } from 'next'
+import Link from 'next/link';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: '404: This page could not be found',
     description: 'Oops! The page you are looking for does not exist. Find your way back home.'
-}
+};
 
-export default function NotFound() {
+const NotFound: React.FC = () => {
     return (
         <div className="bg-gray-200 w-full px-16 md:px-0 h-screen flex items-center justify-center">
             <div className="bg-white border border-gray-200 flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg shadow-2xl">
@@ -18,6 +20,7 @@ export default function NotFound() {
                 </Link>
             </div>
         </div>
-
-    )
+    );
 }
+
+export default NotFound;
