@@ -4,9 +4,8 @@ import Breadcrumbs from '@/app/components/breadcrumbs';
 import { paytoneOne } from '@/app/fonts';
 import bg from '@/public/img.png';
 
-// Define the interface for the props
 interface LayoutProps {
-    children: NonNullable<React.ReactNode>;
+    children: React.ReactNode;
     title: string;
     jsonLd?: object;
     breadcrumbTitle?: string;
@@ -14,7 +13,7 @@ interface LayoutProps {
     bgImg?: { src: string };
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, title, jsonLd, breadcrumbTitle, end, bgImg }) => {
+export default function MainLayout({ children, title, jsonLd, breadcrumbTitle, end, bgImg }: LayoutProps) {
     return (
         <Main jsonLd={jsonLd}>
             <div className="hero h-96" style={{backgroundImage: `url(${typeof bgImg !== 'undefined' ? bgImg.src : bg.src})`}}>
@@ -28,5 +27,3 @@ const Layout: React.FC<LayoutProps> = ({ children, title, jsonLd, breadcrumbTitl
         </Main>
     );
 };
-
-export default Layout;

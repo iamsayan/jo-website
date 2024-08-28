@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
-import Layout from "@/app/components/layout";
+import MainLayout from "@/app/components/main-layout";
 import Section from "@/app/components/section";
 import { getCollectionData, getSingletonData } from "@/app/utils/fetch";
 import {
@@ -117,7 +117,7 @@ export default async function Page({ params }: PageProps) {
     const jsonLd = schema(schemaData);
 
     return (
-        <Layout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
+        <MainLayout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
             <Section title="Know More about" description={<>Puja Details <span className="text-yellow-500">{queryYear}</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     {dateIsCurrent && <p>
@@ -254,6 +254,6 @@ export default async function Page({ params }: PageProps) {
                     </div>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     );
 }

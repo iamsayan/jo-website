@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Layout from "@/app/components/layout";
+import MainLayout from "@/app/components/main-layout";
 import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
 import Gallery from "@/app/components/gallery";
@@ -44,7 +44,7 @@ export default async function Page() {
     })
 
     return (
-        <Layout title="Photo Gallery" jsonLd={jsonLd}>
+        <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
             <Section title="View Jagadhatri Puja" description={ <>Photo <span className="text-yellow-500">Gallery</span></> }>
                 <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
                     {images?.reverse()?.slice(0, 96)?.map((item: any, index: number) => {
@@ -65,6 +65,6 @@ export default async function Page() {
                     })}
                 </Gallery>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { GoogleMapsEmbed } from '@next/third-parties/google'
 import Contact from "@/app/components/contact";
-import Layout from "@/app/components/layout";
+import MainLayout from "@/app/components/main-layout";
 import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
 
@@ -23,7 +23,7 @@ export default function Page() {
     })
 
     return (
-        <Layout title="Contact Us" jsonLd={jsonLd}>
+        <MainLayout title="Contact Us" jsonLd={jsonLd}>
             <Section title="need any help?" description={ <>Contact <span className="text-yellow-500">Us</span></> }>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <div><Contact /></div>
@@ -37,6 +37,6 @@ export default function Page() {
                     />
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link';
-import Layout from '@/app/components/layout';
+import MainLayout from '@/app/components/main-layout';
 import Section from '@/app/components/section';
 import { getSingletonData } from "@/app/utils/fetch";
 import schema from "@/app/utils/schema";
@@ -35,7 +35,7 @@ export default async function Page() {
     });
 
     return (
-        <Layout title="Puja Schedule" jsonLd={jsonLd}>
+        <MainLayout title="Puja Schedule" jsonLd={jsonLd}>
             <Section title="Know More About" description={<>Puja <span className="text-yellow-500">Schedule</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>Jagadhatri Puja, an esteemed festival in certain regions, extends across five joyous days,
@@ -73,6 +73,6 @@ export default async function Page() {
                     </div>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Layout from '@/app/components/layout';
+import MainLayout from '@/app/components/main-layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
 import bg from '@/public/ashs.jpg'
@@ -22,7 +22,7 @@ export default function Page() {
     })
 
     return (
-        <Layout title="Hoimantika Somman" jsonLd={jsonLd} bgImg={bg}>
+        <MainLayout title="Hoimantika Somman" jsonLd={jsonLd} bgImg={bg}>
             <Section title="Know More About Amie Srestho" description={ <>Hoimantika <span className="text-yellow-500">Somman</span></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity
@@ -213,6 +213,6 @@ export default function Page() {
                     </div>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }

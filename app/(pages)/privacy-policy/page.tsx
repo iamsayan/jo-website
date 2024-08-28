@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Layout from "@/app/components/layout";
+import MainLayout from "@/app/components/main-layout";
 import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
 import { getSingletonData } from "@/app/utils/fetch";
@@ -25,10 +25,10 @@ export default async function Page() {
     })
 
     return (
-        <Layout title="Privacy Policy" jsonLd={jsonLd}>
+        <MainLayout title="Privacy Policy" jsonLd={jsonLd}>
             <Section title="Read Our" description={ <>Privacy <span className="text-yellow-500">Policy</span></> }>
                 <div className="flex flex-col gap-6 text-justify" dangerouslySetInnerHTML={{__html: data?.privacy}}></div>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }

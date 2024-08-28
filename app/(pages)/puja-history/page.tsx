@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Layout from '@/app/components/layout';
+import MainLayout from '@/app/components/main-layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
 
@@ -21,7 +21,7 @@ export default function Page() {
     })
 
     return (
-        <Layout title="Puja History" jsonLd={jsonLd}>
+        <MainLayout title="Puja History" jsonLd={jsonLd}>
             <Section title="Know More About" description={ <>Jagadhatri <span className="text-yellow-500">Puja</span></> }>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>When the entire Bengal, nay India, was under the British rule, inspite of being under the French administration at that time Chandannagar created a distinct tradition. Jagadhatri Puja is a major socio-cultural event in this region.</p>
@@ -45,6 +45,6 @@ export default function Page() {
                     <p>The wizards : Sridhar Das , Kashinath Neogie and so on.</p>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }

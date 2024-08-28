@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
-import Layout from "@/app/components/layout";
+import MainLayout from "@/app/components/main-layout";
 import Section from "@/app/components/section";
 import { getCollectionData, getSingletonData } from "@/app/utils/fetch";
 import {
@@ -129,7 +129,7 @@ export default async function Page({ params }: PageProps) {
         pointerEvents: 'none'
     };
     return (
-        <Layout title={pujaName} jsonLd={jsonLd} breadcrumbTitle={pujaName} end={-1}>
+        <MainLayout title={pujaName} jsonLd={jsonLd} breadcrumbTitle={pujaName} end={-1}>
             <Section>
                 <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mb-6">
                     <div className="md:col-span-4 text-justify flex flex-col gap-4">
@@ -276,6 +276,6 @@ export default async function Page({ params }: PageProps) {
                     </div>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }

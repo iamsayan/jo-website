@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image';
 import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
 
-import Layout from "@/app/components/layout";
+import MainLayout from "@/app/components/main-layout";
 import Section from "@/app/components/section";
 import schema from "@/app/utils/schema";
 import { shuffle } from "@/app/utils/functions";
@@ -97,7 +97,7 @@ export default function Page() {
     });
 
     return (
-        <Layout title="About Us" jsonLd={jsonLd}>
+        <MainLayout title="About Us" jsonLd={jsonLd}>
             <Section title="Know More" description={<>Who We <span className="text-yellow-500">Are</span></>}>
                 <div className="flex flex-col gap-6 text-center">
                     <p>
@@ -182,6 +182,6 @@ export default function Page() {
                     </div>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     );
 }

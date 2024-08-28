@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Layout from '@/app/components/layout';
+import MainLayout from '@/app/components/main-layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
 
@@ -49,7 +49,7 @@ export default function Page() {
     ];
 
     return (
-        <Layout title="Digital Media Partnership" jsonLd={jsonLd}>
+        <MainLayout title="Digital Media Partnership" jsonLd={jsonLd}>
             <Section title="Know More About Digital" description={<>Media <span className="text-yellow-500">Partnership</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>Digital Media Partnership Programme is a collaboration program for Jagadhatri Puja Commitees
@@ -122,6 +122,6 @@ export default function Page() {
                     </div>
                 </div>
             </Section>
-        </Layout>
+        </MainLayout>
     );
 }

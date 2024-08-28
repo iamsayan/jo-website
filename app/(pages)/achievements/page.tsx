@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Layout from '@/app/components/layout';
+import MainLayout from '@/app/components/main-layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
 import { getSingletonData } from "@/app/utils/fetch";
@@ -25,7 +25,7 @@ export default async function Page() {
     })
 
     return (
-        <Layout title="Achievements" jsonLd={jsonLd}>
+        <MainLayout title="Achievements" jsonLd={jsonLd}>
             <Section title="Know More About" description={ <>Our <span className="text-yellow-500">Achievements</span></> } >
                 <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                     {data && data?.data?.map((item: any, index: number) => (
@@ -48,6 +48,6 @@ export default async function Page() {
                     ))}
                 </ul>
             </Section>
-        </Layout>
+        </MainLayout>
     )
 }
