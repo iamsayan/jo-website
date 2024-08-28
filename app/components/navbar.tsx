@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
             subMenu: [
                 { name: 'Achievements', path: '/achievements' },
                 { name: 'Hoimontika Somman', path: '/hoimontika-somman' },
-                { name: 'DMP Programme', path: '/digital-media-partnership' },
+                { name: `DMP Program ${new Date().getFullYear()}`, path: '/digital-media-partnership' },
                 // { name: '360° Virtual Tours', path: 'https://vr.jagadhatrionline.co.in/', target: '_blank' }
             ],
         }

@@ -1,11 +1,13 @@
+import type { MetadataRoute } from 'next'
+
 import { getCollectionData } from "@/app/utils/fetch";
 import { getUrlSlug } from "@/app/utils/functions";
 
-export default async function sitemap() {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const pujaData = await getCollectionData('pujas');
     const data = pujaData ?? null
 
-    const sitemaps = [
+    const sitemaps: MetadataRoute.Sitemap = [
         {
             url: 'https://www.jagadhatrionline.co.in',
             lastModified: new Date(),

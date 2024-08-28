@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import MainLayout from '@/app/components/main-layout';
 import Section from '@/app/components/section';
 import schema from "@/app/utils/schema";
+import { FaCircleCheck, FaXmark, FaCheck } from "react-icons/fa6";
 
 export const metadata: Metadata = {
     title: 'Digital Media Partnership Programme',
@@ -45,6 +46,10 @@ export default function Page() {
         {
             title: 'Cost-Effective Marketing',
             description: 'It can reduce costs while maximizing the impact of reaching higher perks.',
+        },
+        {
+            title: 'Real-Time Interaction',
+            description: 'Partners can engage with their audience in real-time, interacting with their followers in real-time.',
         }
     ];
 
@@ -60,9 +65,12 @@ export default function Page() {
                         etc got benefitted with our digital media partnership program.</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {features.map((feature, index) => (
-                            <div className="card bg-base-100 shadow-md" key={index}>
-                                <div className="card-body">
-                                    <h2 className="card-title">{feature.title}</h2>
+                            <div className="hover:shadow border rounded-md border-neutral-200 px-4 py-4 md:px-5 flex gap-4">
+                                <div className="pt-1">
+                                    <FaCircleCheck className="size-6 text-green-500" />
+                                </div>
+                                <div className="flex flex-col gap-2 text-left">
+                                    <h2 className="text-xl font-medium">{feature.title}</h2>
                                     <p>{feature.description}</p>
                                 </div>
                             </div>
@@ -74,14 +82,14 @@ export default function Page() {
                             <tr>
                                 <th>Services</th>
                                 <th>Basic Package</th>
-                                <th className="bg-yellow-100 relative">Premium Package <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1">Best Choice</span></th>
+                                <th>Premium Package <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1">Best Choice</span></th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <th className="bg-gray-100">Online Promotion</th>
-                                <td>✅ <br/><small>(High quality content should be provided by the Puja Committee)</small></td>
-                                <td className="bg-yellow-50">✅ <br/><small>(We visit the Puja Committee and create our own content)</small></td>
+                                <td><FaCheck className="size-6 text-green-500 inline" /><br/><small>(High quality content should be provided by the Puja Committee)</small></td>
+                                <td className="bg-yellow-50"><FaCheck className="size-6 text-green-500 inline" /> <br/><small>(We visit the Puja Committee and create our own content)</small></td>
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Reels Videos</th>
@@ -90,8 +98,8 @@ export default function Page() {
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Audio & Video Content</th>
-                                <td>❌</td>
-                                <td className="bg-yellow-50">✅<br/><small>(We will provide edited high quality content)</small></td>
+                                <td><FaXmark className="size-6 text-red-500 inline" /></td>
+                                <td className="bg-yellow-50"><FaCheck className="size-6 text-green-500 inline" /><br/><small>(We will provide edited high quality content)</small></td>
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Live Videos (During Puja)</th>
@@ -100,8 +108,8 @@ export default function Page() {
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Drone Shoot</th>
-                                <td>❌</td>
-                                <td className="bg-yellow-50">✅</td>
+                                <td><FaXmark className="size-6 text-red-500 inline" /></td>
+                                <td className="bg-yellow-50"><FaCheck className="size-6 text-green-500 inline" /></td>
                             </tr>
                             <tr>
                                 <th className="bg-gray-100">Package Price</th>
