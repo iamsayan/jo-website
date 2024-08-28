@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Main from '@/app/components/main';
 import Breadcrumbs from '@/app/components/breadcrumbs';
 import { paytoneOne } from '@/app/fonts';
@@ -6,7 +6,7 @@ import bg from '@/public/img.png';
 
 // Define the interface for the props
 interface LayoutProps {
-    children: ReactNode;
+    children: NonNullable<React.ReactNode>;
     title: string;
     jsonLd?: object;
     breadcrumbTitle?: string;
@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, jsonLd, breadcrumbTitl
                     <Breadcrumbs breadcrumbTitle={breadcrumbTitle} end={end} />
                 </div>
             </div>
-            {children!}
+            {children}
         </Main>
     );
 };
