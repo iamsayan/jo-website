@@ -5,7 +5,7 @@ import { paytoneOne } from "@/app/fonts";
 
 import bg from '@/public/img.png';
 
-interface LayoutProps {
+interface LayoutComponentsProps {
     children: ReactNode;
     title: string;
     jsonLd?: object | null;
@@ -14,7 +14,7 @@ interface LayoutProps {
     bgImg?: { src: string };
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, title, jsonLd = null, breadcrumbTitle = null, end = null, bgImg = null }) => {
+const Layout: React.FC<LayoutComponentsProps> = ({ children, title, jsonLd = null, breadcrumbTitle = null, end = null, bgImg = null }) => {
     return (
         <Main jsonLd={jsonLd}>
             <div className="hero h-96" style={{ backgroundImage: `url(${bgImg ? bgImg.src : bg.src})` }}>
