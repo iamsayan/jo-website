@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children, title, jsonLd, breadcrumbTitl
                     <Breadcrumbs breadcrumbTitle={breadcrumbTitle} end={end} />
                 </div>
             </div>
-            {children}
+            {children!}
         </Main>
     );
 };
