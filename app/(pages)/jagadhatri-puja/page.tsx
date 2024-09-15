@@ -19,8 +19,7 @@ export const metadata: Metadata = {
 export default async function Page() {
     const siteData = await getSingletonData('information');
     const data = siteData ?? null;
-    console.log(data);
-
+    
     const currentYear = new Date().getFullYear();
     const uptoYear = data?.dates[0]?.date ? new Date(data?.dates[0]?.date).getFullYear() : currentYear;
     const yearsArray: number[] = [];
