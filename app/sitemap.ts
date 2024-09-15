@@ -75,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     data.forEach((element: any) => {
         sitemaps.push({
-            url: `https://www.jagadhatrionline.co.in/puja/${getUrlSlug(element?.puja_name)}/${element?._id}`,
+            url: `https://www.jagadhatrionline.co.in/puja/${getUrlSlug(element?.puja_name)}/${element?.reference_id}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.7,

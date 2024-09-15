@@ -29,7 +29,7 @@ interface PageProps {
 }
 
 interface Puja {
-    _id: string;
+    reference_id: string;
     puja_name: string;
     puja_zone: string;
     estd: string;
@@ -179,7 +179,7 @@ export default async function Page({ params }: PageProps) {
                                                         <td>{y}</td>
                                                         <td>{cel}</td>
                                                         <th className="text-blue-800"><Link
-                                                            href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}>
+                                                            href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
                                                             <button className="btn btn-ghost btn-xs">View</button>
                                                         </Link>
                                                         </th>

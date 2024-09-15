@@ -8,7 +8,7 @@ import Link from "next/link";
 
 // Define types for data and features
 interface PujaData {
-    _id: string;
+    reference_id: string;
     puja_name: string;
     puja_zone: string;
     estd: string;
@@ -103,7 +103,7 @@ export default async function Page() {
                                                         <td>{y}</td>
                                                         <td>{cel}</td>
                                                         <th className="text-blue-800">
-                                                            <Link href={`/puja/${getUrlSlug(item?.puja_name)}/${item?._id}`}>
+                                                            <Link href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
                                                                 <button className="btn btn-ghost btn-xs">View</button>
                                                             </Link>
                                                         </th>

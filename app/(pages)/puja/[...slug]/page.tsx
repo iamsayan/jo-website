@@ -13,7 +13,8 @@ import {
     getYear,
     getCelebrating,
     formatDate,
-    getUrlSlug
+    getUrlSlug,
+    generateUrlSearchParams
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import { GoogleMapsEmbed } from "@next/third-parties/google";
@@ -26,7 +27,7 @@ import vrImage from '@/public/vr.jpg'
 export const revalidate = 3600
 
 interface PujaData {
-    _id: string;
+    reference_id: string;
     puja_name: string;
     puja_zone: string;
     estd: string;
@@ -52,9 +53,9 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-    const pujaData = await getCollectionData('pujas', {
-        filter: { _id: params?.slug?.[1] }
-    })
+    const pujaData = await getCollectionData(generateUrlSearchParams('pujas', {
+        filter: { reference_id: params?.slug?.[1] }
+    }))
     const data = pujaData ?? []
 
     return {
@@ -77,12 +78,14 @@ export default async function Page({ params }: PageProps) {
 
     const pujaId = slug?.[1]
     const siteDataRes = getSingletonData('information');
-    const pujasDataRes= getCollectionData('pujas', {
-        sort: { 'puja_name': 1 }
-    })
-    const imagesDataRes= getCollectionData('appimages', {
-        filter: { puja_entry_id: pujaId, year: 2023 }
-    })
+    const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
+        sort: { 'puja_name': 1 },
+        populate: 1
+    }))
+    const imagesDataRes= getCollectionData(generateUrlSearchParams('images', {
+        filter: { reference_id: pujaId, year: 2023 },
+        populate: 1
+    }))
 
     const [ siteData, pujasData, imagesData ] = await Promise.all([ siteDataRes, pujasDataRes, imagesDataRes ]);
 
@@ -90,12 +93,12 @@ export default async function Page({ params }: PageProps) {
     const pujas = pujasData ?? null
     const images = imagesData ?? null
 
-    const currentPuja = pujas?.filter((data: any) => data?._id === pujaId)?.[0];
-    const otherPujas = pujas?.filter((data: any) => data?._id !== pujaId);
+    const currentPuja = pujas?.filter((data: any) => data?.reference_id === pujaId)?.[0];
+    const otherPujas = pujas?.filter((data: any) => data?.reference_id !== pujaId);
 
     let array: PujaData[] = [];
     pujas?.forEach((item: PujaData, index: number) => {
-        if( item?._id === pujaId ) {
+        if( item?.reference_id === pujaId ) {
             array.push(pujas?.[0 < index ? index-1 : pujas?.length-1])
             array.push(pujas?.[pujas?.length-1 > index ? index+1 : 0])
         }
@@ -110,15 +113,11 @@ export default async function Page({ params }: PageProps) {
         notFound()
     }
 
-    const getPujaName = (pujaId: string) => {
-        return pujas?.filter((data: any) => data?._id === pujaId)?.[0]?.puja_name;
-    }
-
     const y = getYear(currentPuja?.estd);
     const cel= getCelebrating(y);
 
     const jsonLd = schema({
-        slug: `/puja/${getUrlSlug(currentPuja?.puja_name)}/${currentPuja?._id}`,
+        slug: `/puja/${getUrlSlug(currentPuja?.puja_name)}/${currentPuja?.reference_id}`,
         title: `Details of ${currentPuja?.puja_name} Sarbajanin`,
     })
 
@@ -182,13 +181,13 @@ export default async function Page({ params }: PageProps) {
                             {currentPuja?.current_theme &&
                                 <div className="border rounded-md border-neutral-200 px-6 py-4">
                                     Theme: <span className="font-bold">{currentPuja.current_theme}</span></div>}
-                            {currentPuja?.idol_artist?.display &&
+                            {currentPuja?.idol_artist?.artist_name &&
                                 <div className="border rounded-md border-neutral-200 px-6 py-4">
-                                    Idol Artist:  <span className="font-bold">{currentPuja.idol_artist.display}</span>
+                                    Idol Artist:  <span className="font-bold">{currentPuja.idol_artist.artist_name}</span>
                                 </div>}
-                            {currentPuja?.decoration_artist?.display &&
+                            {currentPuja?.decoration_artist?.artist_name &&
                                 <div className="border rounded-md border-neutral-200 px-6 py-4">
-                                    Decoration Artist: <span className="font-bold">{currentPuja.decoration_artist.display}</span>
+                                    Decoration Artist: <span className="font-bold">{currentPuja.decoration_artist.artist_name}</span>
                                 </div>}
                         </div>
                         {images?.length > 0 &&
@@ -196,15 +195,15 @@ export default async function Page({ params }: PageProps) {
                                 {images?.map((item: any, index: number) => {
                                     return (
                                         <a data-disable-nprogress={true} key={index} className="h-52 md:h-72"
-                                           href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
+                                           href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                             <Image
-                                                src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}
+                                                src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                                                 width={500}
                                                 height={300}
                                                 style={imgStyle}
                                                 priority={false}
                                                 loading="lazy"
-                                                alt={getPujaName(item?.puja_entry_id?._id)}
+                                                alt={item?.puja_entry_id?.puja_name}
                                             />
                                         </a>
                                     )
@@ -217,7 +216,7 @@ export default async function Page({ params }: PageProps) {
                                 <Link
                                     rel="prev"
                                     className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
-                                    href={`/puja/${getUrlSlug(array?.[0]?.puja_name)}/${array?.[0]?._id}`}>
+                                    href={`/puja/${getUrlSlug(array?.[0]?.puja_name)}/${array?.[0]?.reference_id}`}>
                                     <FaArrowLeft className="inline-block mr-2 -mt-1"/>
                                     {array?.[0]?.puja_name}
                                 </Link>
@@ -226,7 +225,7 @@ export default async function Page({ params }: PageProps) {
                                 <Link
                                     rel="next"
                                     className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
-                                    href={`/puja/${getUrlSlug(array?.[1]?.puja_name)}/${array?.[1]?._id}`}>
+                                    href={`/puja/${getUrlSlug(array?.[1]?.puja_name)}/${array?.[1]?.reference_id}`}>
                                     {array?.[1]?.puja_name}<FaArrowRight className="inline-block ml-2 -mt-1"/>
                                 </Link>
                             </div>
@@ -243,7 +242,7 @@ export default async function Page({ params }: PageProps) {
                                             return (
                                                 <div key={index} className="flex">
                                                     <div className="flex items-center justify-center gap-2">
-                                                        <FaCalendarAlt/> {item?.value?.event}: {formatDate(item?.value?.date)}
+                                                        <FaCalendarAlt/> {item?.event}: {formatDate(item?.date)}
                                                     </div>
                                                 </div>
                                             )
