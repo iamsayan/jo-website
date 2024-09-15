@@ -71,34 +71,34 @@ export default async function Home() {
     const stats: StatsItem[] = [
         {
             title: 'Followers',
-            stat: '60.5K',
+            stat: data?.stats?.followers ?? '60.5K',
             icon: <FaFacebook className="inline-block size-8 stroke-current" />,
             description: '1K+ new followers in last 30 days'
         },
         {
             title: 'Post Reach',
-            stat: '1.6M',
+            stat: data?.stats?.reach ?? '1.6M',
             icon: <FaHistory className="inline-block size-8 stroke-current" />,
             description: '85% more than last month',
             class: 'text-secondary'
         },
         {
             title: 'Post Engagement',
-            stat: '47.8K',
+            stat: data?.stats?.engagement ?? '47.8K',
             icon: <FaVideo className="inline-block size-8 stroke-current" />,
             description: '38% more than last month',
             class: 'text-blue-500'
         },
         {
             title: 'Subscribers',
-            stat: '4.04K',
+            stat: data?.stats?.subscribers ?? '4.04K',
             icon: <FaYoutube className="inline-block size-8 stroke-current" />,
             description: '500+ new followers in last 1 year',
             class: 'text-green-600'
         },
         {
             title: 'Visitors',
-            stat: '98.5K',
+            stat: data?.stats?.visitors ?? '98.5K',
             icon: <FaGlobe className="inline-block size-8 stroke-current" />,
             description: '14% more than last month',
             class: 'text-pink-500'
@@ -238,13 +238,13 @@ export default async function Home() {
                                     width={55}
                                     height={55}
                                     src={`/dates/${index}.png`}
-                                    alt={item?.value?.event}
+                                    alt={item?.event}
                                     quality={100}
                                     className="h-fit"
                                 />
                                 <div className="flex flex-col gap-2 text-left">
-                                    <span className="font-bold">{item?.value?.info}</span>
-                                    <span className="">{item?.value?.event}: {formatDate(item?.value?.date)}</span>
+                                    <span className="font-bold">{item?.information}</span>
+                                    <span className="">{item?.event}: {formatDate(item?.date)}</span>
                                 </div>
                             </div>
                         ))}

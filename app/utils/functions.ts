@@ -87,11 +87,25 @@ export const shuffle = <T>(array: T[]): T[] => {
     return array.sort(() => Math.random() - 0.5);
 };
 
-export const getDateByIndex = (data: { dates?: { value?: { date?: string } }[] }, index: number): Date => {
+export const getDateByIndex = (data: { dates?: { date?: string } [] }, index: number): Date => {
     const dates = data?.dates ?? [];
-    return dates[index]?.value?.date ? new Date(dates[index].value.date) : new Date();
+    return dates[index]?.date ? new Date(dates[index].date) : new Date();
 };
 
 export const getUrlSlug = (text: string): string => {
     return text.toLowerCase().trim().replaceAll(' ', '-').replace(/[._(),;]/g, '');
 };
+
+export const generateUrlSearchParams = (basePath: string, obj: Record<string, any>): string => {
+    const params = new URLSearchParams();
+
+    for (const key in obj) {
+        if (typeof obj[key] === 'object') {
+            params.append(key, JSON.stringify(obj[key]));
+        } else {
+            params.append(key, obj[key]);
+        }
+    }
+
+    return `${basePath}?${params.toString()}`;
+}

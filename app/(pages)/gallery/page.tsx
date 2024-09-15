@@ -18,19 +18,10 @@ export const metadata = {
 }
 
 export default async function Page() {
-    const pujasDataRes= getCollectionData('pujas')
-    const imagesDataRes = getCollectionData('appimages')
-
-    const [ pujasData, imagesData ] = await Promise.all([ pujasDataRes, imagesDataRes ]);
-
-    const pujas = pujasData ?? null
+    const imagesData = await getCollectionData('images?populate=1')
     let images = imagesData ?? null
-    images = images?.filter((data: any) => [1,9].includes(data?.category));
-
-    const getPujaName = (pujaId: string) => {
-        return pujas?.filter((data: any) => data?._id === pujaId)?.[0]?.puja_name;
-    }
-
+    images = images?.filter((data: any) => [1,9].includes(parseInt(data?.category)));
+    
     const imgStyle: React.CSSProperties = {
         width: '100%',
         height: '100%',
@@ -49,17 +40,17 @@ export default async function Page() {
                 <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
                     {images?.reverse()?.slice(0, 96)?.map((item: any, index: number) => {
                         return (
-                            <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}>
+                            <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                 <Image
-                                    src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.puja_entry_id?._id}/${item?.image_name}`}
+                                    src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                                     width={500}
                                     height={300}
                                     style={imgStyle}
                                     priority={false}
                                     loading="lazy"
-                                    alt={getPujaName(item?.puja_entry_id?._id)}
+                                    alt={item?.puja_entry_id?.puja_name}
                                 />
-                                <div className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-sm">{getPujaName(item?.puja_entry_id?._id)}</div>
+                                <div className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-sm">{item?.puja_entry_id?.puja_name}</div>
                             </a>
                         )
                     })}

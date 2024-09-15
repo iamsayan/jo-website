@@ -11,7 +11,8 @@ import {
     formatDate,
     getDay,
     getDateByIndex,
-    getUrlSlug
+    getUrlSlug,
+    generateUrlSearchParams
 } from "@/app/utils/functions";
 import schema from "@/app/utils/schema";
 import Link from "next/link";
@@ -74,9 +75,9 @@ export default async function Page({ params }: PageProps) {
     }
 
     const siteDataRes = getSingletonData('information');
-    const pujasDataRes = getCollectionData('pujas', {
+    const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
         sort: { estd: 1 }
-    });
+    }));
 
     const [siteData, pujasData] = await Promise.all([siteDataRes, pujasDataRes]);
 
@@ -214,9 +215,9 @@ export default async function Page({ params }: PageProps) {
                                                 return (
                                                     <tr key={index} className='row'>
                                                         <td>{index + 1}</td>
-                                                        <td>{formatDate(item?.value?.date)}</td>
-                                                        <td>{getDay(item?.value?.date)}</td>
-                                                        <td>{item?.value?.event}</td>
+                                                        <td>{formatDate(item?.date)}</td>
+                                                        <td>{getDay(item?.date)}</td>
+                                                        <td>{item?.event}</td>
                                                     </tr>
                                                 );
                                             })}

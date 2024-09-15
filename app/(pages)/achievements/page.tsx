@@ -39,9 +39,9 @@ export default async function Page() {
                                 </svg>
                             </div>
                             <div className={`flex flex-col gap-2 timeline-box ${index % 2 !== 0 ? 'timeline-start md:text-end' : 'timeline-end md:text-start'}`}>
-                                <time className="font-mono italic">{item?.value?.year}</time>
-                                <div className="text-lg font-bold text-green-600">{item?.value?.title}</div>
-                                <div className="text-sm leading-6" dangerouslySetInnerHTML={{__html: item?.value?.details}}></div>
+                                <time className="font-mono italic">{item?.year}</time>
+                                <div className="text-lg font-bold text-green-600">{item?.title}</div>
+                                <div className="text-sm leading-6" dangerouslySetInnerHTML={{__html: item?.details}}></div>
                             </div>
                             {index !== data?.data?.length-1 && <hr className="bg-success"/>}
                         </li>
