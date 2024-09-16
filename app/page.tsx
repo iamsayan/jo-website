@@ -227,7 +227,7 @@ export default async function Home() {
                 description={<>Countdown <span className="text-yellow-500">2024</span></>}
             >
                 <div className="flex flex-col gap-8 text-center">
-                    <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.value?.date} />
+                    <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.date} />
                     <div className="grid gap-6 grid-cols-2 md:grid-cols-6">
                         {data?.dates?.slice(-5)?.map((item: any, index: number) => (
                             <div
