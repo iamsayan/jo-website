@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/private/',
         },
-        sitemap: 'https://www.jagadhatrionline.co.in/sitemap.xml',
+        sitemap: `${process.env.SITE_URL}/sitemap.xml`,
     }
 }

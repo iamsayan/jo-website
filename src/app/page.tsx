@@ -119,21 +119,21 @@ export default async function Home() {
             },
             {
                 "@type": "WebSite",
-                "@id": "https://www.jagadhatrionline.co.in/#website",
-                "url": "https://www.jagadhatrionline.co.in",
+                "@id": `${process.env.SITE_URL}/#website`,
+                "url": process.env.SITE_URL,
                 "name": "Jagadhatri Online",
                 "publisher": {
-                    "@id": "https://www.jagadhatrionline.co.in/#organization"
+                    "@id": `${process.env.SITE_URL}/#organization`
                 },
                 "inLanguage": "en-US"
             },
             {
                 "@type": "WebPage",
-                "@id": `https://www.jagadhatrionline.co.in#webpage`,
-                "url": `https://www.jagadhatrionline.co.in`,
+                "@id": `${process.env.SITE_URL}#webpage`,
+                "url": process.env.SITE_URL,
                 "name": "Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja",
                 "isPartOf": {
-                    "@id": "https://www.jagadhatrionline.co.in/#website"
+                    "@id": `${process.env.SITE_URL}/#website`
                 },
                 "inLanguage": "en-US"
             }
