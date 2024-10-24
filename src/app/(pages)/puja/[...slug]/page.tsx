@@ -109,16 +109,12 @@ export default async function Page({ params }: PageProps) {
     }
 
     const pujaName = currentPuja?.puja_name;
-    if ( slug?.[0] !== getUrlSlug(pujaName) ) {
-        notFound()
-    }
-
     const y = getYear(currentPuja?.estd);
     const cel= getCelebrating(y);
 
     const jsonLd = schema({
-        slug: `/puja/${getUrlSlug(currentPuja?.puja_name)}/${currentPuja?.reference_id}`,
-        title: `Details of ${currentPuja?.puja_name} Sarbajanin`,
+        slug: `/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
+        title: `Details of ${pujaName} Sarbajanin`,
     })
 
     const imgStyle: React.CSSProperties = {
