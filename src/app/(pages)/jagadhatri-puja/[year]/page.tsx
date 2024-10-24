@@ -78,11 +78,15 @@ export default async function Page({ params }: PageProps) {
     const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
         sort: { estd: 1 }
     }));
+    const processionDataRes = getCollectionData(generateUrlSearchParams('processionlist', {
+        populate: 1
+    }));
 
-    const [siteData, pujasData] = await Promise.all([siteDataRes, pujasDataRes]);
+    const [siteData, pujasData, processionData] = await Promise.all([siteDataRes, pujasDataRes, processionDataRes]);
 
     const data = siteData ?? null;
     const pujas = pujasData ?? null;
+    const procession = processionData ?? null;
 
     const displayDate = getDateByIndex(data, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
@@ -228,8 +232,40 @@ export default async function Page({ params }: PageProps) {
                                 <input type="radio" name="puja_zone" role="tab"
                                        className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
                                        aria-label="Procession List"/>
-                                <div role="tabpanel" className="tab-content bg-gray-50 border-base-300 p-4">
-                                    Procession List is not officially published yet. Please check back later.
+                                <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
+                                    <p className="text-xl font-bold">Procession List {queryYear}</p>
+                                    <div className="overflow-x-auto mt-5">
+                                        <table className="table text-center table-zebra">
+                                            <thead>
+                                            <tr>
+                                                <th>Sl. No.</th>
+                                                <th>Puja Name</th>
+                                                <th>Vehicle(s)</th>
+                                                <th>Zone</th>
+                                                <th>Years</th>
+                                                <th>Celebrating</th>
+                                                <th>Under P. S.</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {procession?.map((item: any, index: number) => {
+                                                const y = getYear(item?.puja?.estd, queryYear);
+                                                const cel = getCelebrating(y);
+                                                return (
+                                                    <tr key={index} className={`${ cel !== '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
+                                                        <td>{index + 1}</td>
+                                                        <td>{item?.puja?.puja_name}</td>
+                                                        <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
+                                                        <td>{item?.zone}</td>
+                                                        <td>{y}</td>
+                                                        <td>{cel}</td>
+                                                        <td>{item?.puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </>
                         }
