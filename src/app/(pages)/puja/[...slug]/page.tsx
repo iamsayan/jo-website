@@ -93,7 +93,6 @@ export default async function Page({ params }: PageProps) {
     const images = imagesData ?? null
 
     const currentPuja = pujas?.find((data: any) => data?.reference_id === pujaId);
-    const otherPujas = pujas?.filter((data: any) => data?.reference_id !== pujaId);
 
     let array: PujaData[] = [];
     pujas?.forEach((item: PujaData, index: number) => {
