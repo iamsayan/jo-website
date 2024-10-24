@@ -1,5 +1,5 @@
-import { Fragment } from 'react';
 import { notFound } from 'next/navigation';
+import { NextResponse } from 'next/server';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getCollectionData, getSingletonData } from "@/utils/fetch";
@@ -109,6 +109,13 @@ export default async function Page({ params }: PageProps) {
     }
 
     const pujaName = currentPuja?.puja_name;
+    if ( slug?.[0] !== getUrlSlug(pujaName) ) {
+        return NextResponse.redirect(
+            `${process.env.SITE_URL}/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
+            301
+        );
+    }
+
     const y = getYear(currentPuja?.estd);
     const cel= getCelebrating(y);
 
