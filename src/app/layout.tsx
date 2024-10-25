@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { outfit } from "@/fonts"
 import Loader from "@/components/loader";
+import OneSignal from '@/components/onesignal';
 import './globals.sass'
 
 export const metadata: Metadata = {
@@ -70,13 +71,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     </Script>
                 </>
             }
-            <body className={ `${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}` }>
+            <body className={`${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}`}>
                 {children}
                 <Loader />
                 {process.env.NODE_ENV === 'production' &&
                     <>
+                        <OneSignal />
                         <Analytics />
-                        <SpeedInsights/>
+                        <SpeedInsights />
                         <Script id="statcounter">
                             {`
                                 var sc_project=11108007; 

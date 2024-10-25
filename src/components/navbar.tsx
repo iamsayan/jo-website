@@ -93,7 +93,6 @@ const Navbar: React.FC = () => {
                                 <Image
                                     height={45}
                                     src={isScrolled ? circleLogo : logo}
-                                    priority={true}
                                     alt="Jagadhatri Online Logo"
                                 />
                             </Link>
