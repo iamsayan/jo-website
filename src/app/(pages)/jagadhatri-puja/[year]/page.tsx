@@ -87,6 +87,7 @@ export default async function Page({ params }: PageProps) {
     const data = siteData ?? null;
     const pujas = pujasData ?? null;
     const procession = processionData ?? null;
+    const totalVehicles = procession?.reduce((sum: number, item: any) => sum + (parseInt(item?.vehicles) || 0), 0) || 0;
 
     const displayDate = getDateByIndex(data, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
@@ -229,11 +230,16 @@ export default async function Page({ params }: PageProps) {
                                         </table>
                                     </div>
                                 </div>
+                            </>
+                        }
+                        {new Date().getFullYear() === 2024 && procession &&
+                            <>
                                 <input type="radio" name="puja_zone" role="tab"
                                        className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
                                        aria-label="Procession List"/>
                                 <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Procession List {queryYear}</p>
+                                    <p className="text-gray-500 mt-2">Total Vehicles: {totalVehicles}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
