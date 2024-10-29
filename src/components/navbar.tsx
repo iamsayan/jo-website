@@ -94,6 +94,7 @@ const Navbar: React.FC = () => {
                                     src={isScrolled ? circleLogo : logo}
                                     alt="Jagadhatri Online Logo"
                                     className={isScrolled ? 'h-10 w-10' : 'h-12 w-auto'}
+                                    priority={true}
                                 />
                             </Link>
                         </div>
