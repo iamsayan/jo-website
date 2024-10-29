@@ -71,7 +71,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function Page({ params }: PageProps) {
     const slug = params?.slug ?? null
-    if ( slug?.length !== 2 ) {
+    if (slug?.length !== 2) {
         notFound()
     }
 
@@ -81,12 +81,12 @@ export default async function Page({ params }: PageProps) {
         sort: { 'puja_name': 1 },
         populate: 1
     }))
-    const imagesDataRes= getCollectionData(generateUrlSearchParams('images', {
+    const imagesDataRes = getCollectionData(generateUrlSearchParams('images', {
         filter: { reference_id: pujaId, year: 2023 },
         populate: 1
     }))
 
-    const [ siteData, pujasData, imagesData ] = await Promise.all([ siteDataRes, pujasDataRes, imagesDataRes ]);
+    const [siteData, pujasData, imagesData] = await Promise.all([siteDataRes, pujasDataRes, imagesDataRes]);
 
     const data = siteData ?? null
     const pujas = pujasData ?? null
@@ -96,23 +96,23 @@ export default async function Page({ params }: PageProps) {
 
     let array: PujaData[] = [];
     pujas?.forEach((item: PujaData, index: number) => {
-        if( item?.reference_id === pujaId ) {
-            array.push(pujas?.[0 < index ? index-1 : pujas?.length-1])
-            array.push(pujas?.[pujas?.length-1 > index ? index+1 : 0])
+        if (item?.reference_id === pujaId) {
+            array.push(pujas?.[0 < index ? index - 1 : pujas?.length - 1])
+            array.push(pujas?.[pujas?.length - 1 > index ? index + 1 : 0])
         }
     });
 
-    if ( ! currentPuja || currentPuja?.length < 1 ) {
+    if (!currentPuja || currentPuja?.length < 1) {
         notFound()
     }
 
     const pujaName = currentPuja?.puja_name;
-    if ( slug?.[0] !== getUrlSlug(pujaName) ) {
+    if (slug?.[0] !== getUrlSlug(pujaName)) {
         permanentRedirect(`/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`);
     }
 
     const y = getYear(currentPuja?.estd);
-    const cel= getCelebrating(y);
+    const cel = getCelebrating(y);
 
     const jsonLd = schema({
         slug: `/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
@@ -133,11 +133,11 @@ export default async function Page({ params }: PageProps) {
                         <div className="flex flex-col gap-2 md:gap-3">
                             <h2 className="text-2xl md:text-[28px] font-bold flex items-center gap-2 text-blue-900">{pujaName}</h2>
                             {currentPuja?.location?.address && <h2 className="text-sm flex items-center gap-2">
-                                <FaMapMarkerAlt/>
+                                <FaMapMarkerAlt />
                                 <div className="overflow-ellipsis overflow-hidden whitespace-nowrap">{currentPuja?.location?.address}</div>
                             </h2>}
                         </div>
-                        <hr/>
+                        <hr />
                         <div className="flex flex-col gap-3">
                             <p>Welcome to the webpage dedicated to the vibrant celebration of Jagadhatri Puja
                                 by {pujaName} in {currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}! As one of the 177 esteemed puja committees in our beloved
@@ -193,9 +193,9 @@ export default async function Page({ params }: PageProps) {
                                 {images?.map((item: any, index: number) => {
                                     return (
                                         <a data-disable-nprogress={true} key={index} className="h-52 md:h-72"
-                                           href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
+                                            href={`https://cdn.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                             <Image
-                                                src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
+                                                src={`https://cdn.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                                                 width={500}
                                                 height={300}
                                                 style={imgStyle}
@@ -215,7 +215,7 @@ export default async function Page({ params }: PageProps) {
                                     rel="prev"
                                     className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
                                     href={`/puja/${getUrlSlug(array?.[0]?.puja_name)}/${array?.[0]?.reference_id}`}>
-                                    <FaArrowLeft className="inline-block mr-2 -mt-1"/>
+                                    <FaArrowLeft className="inline-block mr-2 -mt-1" />
                                     {array?.[0]?.puja_name}
                                 </Link>
                             </div>
@@ -224,7 +224,7 @@ export default async function Page({ params }: PageProps) {
                                     rel="next"
                                     className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
                                     href={`/puja/${getUrlSlug(array?.[1]?.puja_name)}/${array?.[1]?.reference_id}`}>
-                                    {array?.[1]?.puja_name}<FaArrowRight className="inline-block ml-2 -mt-1"/>
+                                    {array?.[1]?.puja_name}<FaArrowRight className="inline-block ml-2 -mt-1" />
                                 </Link>
                             </div>
                         </div>
@@ -234,13 +234,13 @@ export default async function Page({ params }: PageProps) {
                             <div className="p-4 md:p-6 bg-gray-100 flex flex-col gap-7">
                                 <div className="flex flex-col gap-2">
                                     <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
-                                    <hr/>
+                                    <hr />
                                     <div className="flex flex-col gap-1 text-sm">
                                         {data?.dates?.slice(-5)?.map((item: any, index: number) => {
                                             return (
                                                 <div key={index} className="flex">
                                                     <div className="flex items-center justify-center gap-2">
-                                                        <FaCalendarAlt/> {item?.event}: {formatDate(item?.date)}
+                                                        <FaCalendarAlt /> {item?.event}: {formatDate(item?.date)}
                                                     </div>
                                                 </div>
                                             )
@@ -251,7 +251,7 @@ export default async function Page({ params }: PageProps) {
                                     <h1 className="text-xl font-bold uppercadse text-blue-700"><a
                                         href={`https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
                                         target="_blank">Locate on Google Map</a></h1>
-                                    <hr/>
+                                    <hr />
                                     <GoogleMapsEmbed
                                         apiKey={process.env.GOOGLE_MAP_API_KEY || ''}
                                         height={300}
