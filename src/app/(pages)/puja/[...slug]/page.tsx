@@ -193,9 +193,9 @@ export default async function Page({ params }: PageProps) {
                                 {images?.map((item: any, index: number) => {
                                     return (
                                         <a data-disable-nprogress={true} key={index} className="h-52 md:h-72"
-                                            href={`https://cdn.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
+                                            href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                             <Image
-                                                src={`https://cdn.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
+                                                src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                                                 width={500}
                                                 height={300}
                                                 style={imgStyle}
