@@ -25,6 +25,19 @@ export default async function runOneSignal() {
                 return !OneSignal.Notifications.permission
             }
         },
+        promptOptions: {
+            slidedown: {
+                prompts: [
+                    {
+                        autoPrompt: true,
+                        delay: {
+                            timeDelay: 1,
+                            pageViews: 1,
+                        },
+                    }
+                ]
+            }
+        },
         allowLocalhostAsSecureOrigin: process.env.NODE_ENV !== 'production',
     });
 }

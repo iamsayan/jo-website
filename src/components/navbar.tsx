@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
                                 ))}
                             </ul>
                         </div>
-                        <div className="p-2">
+                        <div className="hidden lg:block">
                             <Link href="/">
                                 <Image
                                     src={isScrolled ? circleLogo : logo}
@@ -99,8 +99,18 @@ const Navbar: React.FC = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="navbar-center hidden lg:flex">
-                        <ul className="menu menu-horizontal px-1 gap-2 uppercase font-bold">
+                    <div className="navbar-center">
+                        <div className="lg:hidden">
+                            <Link href="/">
+                                <Image
+                                    src={isScrolled ? circleLogo : logo}
+                                    alt="Jagadhatri Online Logo"
+                                    className={isScrolled ? 'h-10 w-10' : 'h-12 w-auto'}
+                                    priority={true}
+                                />
+                            </Link>
+                        </div>
+                        <ul className="menu menu-horizontal px-1 gap-2 uppercase font-bold hidden lg:flex">
                             {items.map((item, index) => {
                                 const classes = classNames({
                                     'text-slate-300 focus:!text-white focus:!bg-transparent focus:!text-yellow-500 active:!bg-transparent': !isScrolled,
@@ -137,8 +147,8 @@ const Navbar: React.FC = () => {
                             })}
                         </ul>
                     </div>
-                    <div className="navbar-end hidden lg:flex">
-                        <a className="btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
+                    <div className="navbar-end">
+                        <a className="hidden lg:flex btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
                             360° Virtual Tours
                         </a>
                     </div>

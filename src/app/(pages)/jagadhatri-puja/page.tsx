@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default async function Page() {
     const siteData = await getSingletonData('information');
     const data = siteData ?? null;
-    
+
     const currentYear = new Date().getFullYear();
     const uptoYear = data?.dates[0]?.date ? new Date(data?.dates[0]?.date).getFullYear() : currentYear;
     const yearsArray: number[] = [];
@@ -27,7 +27,7 @@ export default async function Page() {
     for (let year = currentYear - 12; year <= uptoYear - 1; year++) {
         yearsArray.push(year);
     }
-    yearsArray.reverse();
+    yearsArray.toReversed();
 
     const jsonLd = schema({
         slug: 'jagadhatri-puja',
@@ -58,7 +58,7 @@ export default async function Page() {
                         shared joy.</p>
                     <div className="flex items-center justify-center">
                         <Link href={`/jagadhatri-puja/${uptoYear}`}
-                              className="btn border-2 uppercase py-3.5 px-6 h-auto min-h-full rounded-md bg-transparent border-yellow-500 text-yellow-500 hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">
+                            className="btn border-2 uppercase py-3.5 px-6 h-auto min-h-full rounded-md bg-transparent border-yellow-500 text-yellow-500 hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">
                             View Jagadhatri Puja {uptoYear} Details
                         </Link>
                     </div>
@@ -66,7 +66,7 @@ export default async function Page() {
                     <div className="grid grid-cols-3 md:grid-cols-6 xl:grid-cols-12 gap-4">
                         {yearsArray.map((year, index) => (
                             <Link key={index} href={`/jagadhatri-puja/${year}`}
-                                  className="bg-gray-50 hover:bg-gray-100 p-3 text-center border rounded-md border-neutral-200">
+                                className="bg-gray-50 hover:bg-gray-100 p-3 text-center border rounded-md border-neutral-200">
                                 {year}
                             </Link>
                         ))}

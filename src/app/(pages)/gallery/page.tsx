@@ -20,8 +20,8 @@ export const metadata = {
 export default async function Page() {
     const imagesData = await getCollectionData('images?populate=1')
     let images = imagesData ?? null
-    images = images?.filter((data: any) => [1,9].includes(parseInt(data?.category)));
-    
+    images = images?.filter((data: any) => [1, 9].includes(parseInt(data?.category)));
+
     const imgStyle: React.CSSProperties = {
         width: '100%',
         height: '100%',
@@ -36,9 +36,9 @@ export default async function Page() {
 
     return (
         <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
-            <Section title="View Jagadhatri Puja" description={ <>Photo <span className="text-yellow-500">Gallery</span></> }>
+            <Section title="View Jagadhatri Puja" description={<>Photo <span className="text-yellow-500">Gallery</span></>}>
                 <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
-                    {images?.reverse()?.slice(0, 96)?.map((item: any, index: number) => {
+                    {images?.toReversed()?.slice(0, 96)?.map((item: any, index: number) => {
                         return (
                             <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                 <Image

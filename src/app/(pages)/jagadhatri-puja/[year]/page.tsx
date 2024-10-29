@@ -155,42 +155,42 @@ export default async function Page({ params }: PageProps) {
                         {tabs.map((item, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab"
-                                       className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
-                                       aria-label={item?.name} defaultChecked={index === 0}/>
+                                    className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
+                                    aria-label={item?.name} defaultChecked={index === 0} />
                                 <div role="tabpanel"
-                                     className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
+                                    className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">{item?.text}: {item?.type?.length}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
-                                            <tr>
-                                                <th>Sl. No.</th>
-                                                <th>Puja Name</th>
-                                                <th>Under P. S.</th>
-                                                <th>Years</th>
-                                                <th>Celebrating</th>
-                                                <th>Details</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Puja Name</th>
+                                                    <th>Under P. S.</th>
+                                                    <th>Years</th>
+                                                    <th>Celebrating</th>
+                                                    <th>Details</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            {item?.type.map((item: any, index: number) => {
-                                                const y = getYear(item?.estd, queryYear);
-                                                const cel = getCelebrating(y);
-                                                return (
-                                                    <tr key={index} className='row'>
-                                                        <td>{index + 1}</td>
-                                                        <td>{item?.puja_name}</td>
-                                                        <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
-                                                        <td>{y}</td>
-                                                        <td>{cel}</td>
-                                                        <th className="text-blue-800"><Link
-                                                            href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
-                                                            <button className="btn btn-ghost btn-xs">View</button>
-                                                        </Link>
-                                                        </th>
-                                                    </tr>
-                                                );
-                                            })}
+                                                {item?.type.map((item: any, index: number) => {
+                                                    const y = getYear(item?.estd, queryYear);
+                                                    const cel = getCelebrating(y);
+                                                    return (
+                                                        <tr key={index} className='row'>
+                                                            <td>{index + 1}</td>
+                                                            <td>{item?.puja_name}</td>
+                                                            <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                                            <td>{y}</td>
+                                                            <td>{cel}</td>
+                                                            <th className="text-blue-800"><Link
+                                                                href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
+                                                                <button className="btn btn-ghost btn-xs">View</button>
+                                                            </Link>
+                                                            </th>
+                                                        </tr>
+                                                    );
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>
@@ -200,75 +200,75 @@ export default async function Page({ params }: PageProps) {
                         {dateIsCurrent &&
                             <>
                                 <input type="radio" name="puja_zone" role="tab"
-                                       className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
-                                       aria-label="Puja Schedule"/>
+                                    className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
+                                    aria-label="Puja Schedule" />
                                 <div role="tabpanel"
-                                     className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
+                                    className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
-                                            <tr>
-                                                <th>Day</th>
-                                                <th>Date (English Calender)</th>
-                                                <th>Weekday</th>
-                                                <th>Tithi</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Day</th>
+                                                    <th>Date (English Calender)</th>
+                                                    <th>Weekday</th>
+                                                    <th>Tithi</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            {data?.dates?.map((item: any, index: number) => {
-                                                return (
-                                                    <tr key={index} className='row'>
-                                                        <td>{index + 1}</td>
-                                                        <td>{formatDate(item?.date)}</td>
-                                                        <td>{getDay(item?.date)}</td>
-                                                        <td>{item?.event}</td>
-                                                    </tr>
-                                                );
-                                            })}
+                                                {data?.dates?.map((item: any, index: number) => {
+                                                    return (
+                                                        <tr key={index} className='row'>
+                                                            <td>{index + 1}</td>
+                                                            <td>{formatDate(item?.date)}</td>
+                                                            <td>{getDay(item?.date)}</td>
+                                                            <td>{item?.event}</td>
+                                                        </tr>
+                                                    );
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </>
                         }
-                        {new Date().getFullYear() === 2024 && procession &&
+                        {queryYear === 2024 && procession &&
                             <>
                                 <input type="radio" name="puja_zone" role="tab"
-                                       className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
-                                       aria-label="Procession List"/>
+                                    className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
+                                    aria-label="Procession List" />
                                 <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Procession List {queryYear}</p>
                                     <p className="text-gray-500 mt-2">Total Vehicles: {totalVehicles}</p>
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
-                                            <tr>
-                                                <th>Sl. No.</th>
-                                                <th>Puja Name</th>
-                                                <th>Vehicle(s)</th>
-                                                <th>Zone</th>
-                                                <th>Years</th>
-                                                <th>Celebrating</th>
-                                                <th>Under P. S.</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Puja Name</th>
+                                                    <th>Vehicle(s)</th>
+                                                    <th>Zone</th>
+                                                    <th>Years</th>
+                                                    <th>Celebrating</th>
+                                                    <th>Under P. S.</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            {procession?.map((item: any, index: number) => {
-                                                const y = getYear(item?.puja?.estd, queryYear);
-                                                const cel = getCelebrating(y);
-                                                return (
-                                                    <tr key={index} className={`${ cel !== '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
-                                                        <td>{index + 1}</td>
-                                                        <td>{item?.puja?.puja_name}</td>
-                                                        <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
-                                                        <td>{item?.zone}</td>
-                                                        <td>{y}</td>
-                                                        <td>{cel}</td>
-                                                        <td>{item?.puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
-                                                    </tr>
-                                                );
-                                            })}
+                                                {procession?.map((item: any, index: number) => {
+                                                    const y = getYear(item?.puja?.estd, queryYear);
+                                                    const cel = getCelebrating(y);
+                                                    return (
+                                                        <tr key={index} className={`${cel !== '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{item?.puja?.puja_name}</td>
+                                                            <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
+                                                            <td>{item?.zone}</td>
+                                                            <td>{y}</td>
+                                                            <td>{cel}</td>
+                                                            <td>{item?.puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                                        </tr>
+                                                    );
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>
@@ -283,7 +283,7 @@ export default async function Page({ params }: PageProps) {
                             rel="prev"
                             className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
                             href={`/jagadhatri-puja/${queryYear - 1}`}>
-                            <FaArrowLeft className="inline-block mr-2 -mt-1"/>
+                            <FaArrowLeft className="inline-block mr-2 -mt-1" />
                             {queryYear - 1}
                         </Link>
                     </div>
@@ -292,7 +292,7 @@ export default async function Page({ params }: PageProps) {
                             rel="next"
                             className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
                             href={`/jagadhatri-puja/${queryYear + 1}`}>
-                            {queryYear + 1}<FaArrowRight className="inline-block ml-2 -mt-1"/>
+                            {queryYear + 1}<FaArrowRight className="inline-block ml-2 -mt-1" />
                         </Link>
                     </div>
                 </div>
