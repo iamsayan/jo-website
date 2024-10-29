@@ -91,9 +91,9 @@ const Navbar: React.FC = () => {
                         <div className="p-2">
                             <Link href="/">
                                 <Image
-                                    height={45}
                                     src={isScrolled ? circleLogo : logo}
                                     alt="Jagadhatri Online Logo"
+                                    className={isScrolled ? 'h-10 w-10' : 'h-12 w-auto'}
                                 />
                             </Link>
                         </div>

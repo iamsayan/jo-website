@@ -67,16 +67,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             function gtag(){dataLayer.push(arguments);}
                             gtag('js', new Date());
                             gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"${process.env.SITE_URL}","cookie_flags":"samesite=none;secure","allow_google_signals":true});
-                        `}
+                            `}
                     </Script>
                 </>
             }
             <body className={`${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}`}>
                 {children}
+                <OneSignal />
                 <Loader />
                 {process.env.NODE_ENV === 'production' &&
                     <>
-                        <OneSignal />
                         <Analytics />
                         <SpeedInsights />
                         <Script id="statcounter">
