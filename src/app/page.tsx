@@ -224,7 +224,7 @@ export default async function Home() {
             </Section>
             <Section
                 title="Jagadhatri Puja"
-                description={<>Countdown <span className="text-yellow-500">2024</span></>}
+                description={<>Countdown <span className="text-yellow-500">{year}</span></>}
             >
                 <div className="flex flex-col gap-8 text-center">
                     <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.date} />
