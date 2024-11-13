@@ -75,7 +75,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function Page({ params, searchParams }: PageProps) {
     const slug = params?.slug ?? null
-    const queryYear = searchParams?.y ?? undefined
+    const queryYear = searchParams?.y ?? new Date().getFullYear()
 
     if (slug?.length !== 2) {
         notFound()
@@ -99,7 +99,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     const images = imagesData ?? null
 
     const displayDate = getDateByIndex(siteData, 0);
-    const dateIsCurrent = new Date().getFullYear() === displayDate.getFullYear();
+    const dateIsCurrent = Number(queryYear) === displayDate.getFullYear();
     const currentPuja = pujas?.find((data: any) => data?.reference_id === pujaId);
 
     let array: PujaData[] = [];
