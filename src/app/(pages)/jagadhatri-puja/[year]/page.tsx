@@ -173,8 +173,8 @@ export default async function Page({ params }: PageProps) {
                                                     <th>Puja Name</th>
                                                     <th>Under P. S.</th>
                                                     <th>Years</th>
-                                                    <th>Celebrating</th>
-                                                    <th>Details</th>
+                                                    <th>{dateIsCurrent ? 'Celebrating' : 'Celebrated'}</th>
+                                                    {dateIsCurrent && <th>Details</th>}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -188,11 +188,11 @@ export default async function Page({ params }: PageProps) {
                                                             <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
                                                             <td>{y}</td>
                                                             <td>{cel}</td>
-                                                            <th className="text-blue-800"><Link
-                                                                href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
+                                                            {dateIsCurrent && <th className="text-blue-800"><Link
+                                                                href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${new Date().getFullYear() !== queryYear ? `?y=${queryYear}` : ''}`}>
                                                                 <button className="btn btn-ghost btn-xs">View</button>
                                                             </Link>
-                                                            </th>
+                                                            </th>}
                                                         </tr>
                                                     );
                                                 })}

@@ -34,7 +34,8 @@ export function generateMetadata() {
     };
 }
 
-export default async function Page() {
+export default async function Page({ searchParams }: { searchParams: { y?: number } }) {
+    const queryYear = searchParams?.y ?? undefined
     const pujaData = await getCollectionData(generateUrlSearchParams('pujas', {
         sort: { 'puja_name': 1 }
     }));
@@ -46,7 +47,7 @@ export default async function Page() {
 
     const filterData = (zone: any, cel: any) => {
         return zone.filter((data: any) => {
-            return cel.includes(Number(getYear(data?.estd)));
+            return cel.includes(Number(getYear(data?.estd, queryYear)));
         });
     }
 
@@ -70,7 +71,7 @@ export default async function Page() {
         <MainLayout title="Puja Committee List" jsonLd={jsonLd}>
             <Section title="View All Jagadhatri" description={<>Puja Committee <span className="text-yellow-500">List</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
-                    <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
+                    <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data?.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
@@ -84,32 +85,32 @@ export default async function Page() {
                                     <div className="overflow-x-auto mt-5">
                                         <table className="table text-center table-zebra">
                                             <thead>
-                                            <tr>
-                                                <th>Sl. No.</th>
-                                                <th>Puja Committee Name</th>
-                                                <th>Years</th>
-                                                <th>Celebrating (in {new Date().getFullYear()})</th>
-                                                <th>Details</th>
-                                            </tr>
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Puja Committee Name</th>
+                                                    <th>Years</th>
+                                                    <th>Celebrating (in {queryYear ?? new Date().getFullYear()})</th>
+                                                    <th>Details</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            {item?.zone.map((item, index) => {
-                                                const y = getYear(item?.estd);
-                                                const cel = getCelebrating(y);
-                                                return (
-                                                    <tr key={index} className={`${ cel !== '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
-                                                        <td>{index + 1}</td>
-                                                        <td>{item?.puja_name}</td>
-                                                        <td>{y}</td>
-                                                        <td>{cel}</td>
-                                                        <th className="text-blue-800">
-                                                            <Link href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
-                                                                <button className="btn btn-ghost btn-xs">View</button>
-                                                            </Link>
-                                                        </th>
-                                                    </tr>
-                                                );
-                                            })}
+                                                {item?.zone.map((item, index) => {
+                                                    const y = getYear(item?.estd, queryYear);
+                                                    const cel = getCelebrating(y);
+                                                    return (
+                                                        <tr key={index} className={`${cel !== '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
+                                                            <td>{index + 1}</td>
+                                                            <td>{item?.puja_name}</td>
+                                                            <td>{y}</td>
+                                                            <td>{cel}</td>
+                                                            <th className="text-blue-800">
+                                                                <Link href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${queryYear ? `?y=${queryYear}` : ''}`}>
+                                                                    <button className="btn btn-ghost btn-xs">View</button>
+                                                                </Link>
+                                                            </th>
+                                                        </tr>
+                                                    );
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>

@@ -24,7 +24,7 @@ export default async function Page() {
     const uptoYear = data?.dates[0]?.date ? new Date(data?.dates[0]?.date).getFullYear() : currentYear;
     const yearsArray: number[] = [];
 
-    for (let year = currentYear - 12; year <= uptoYear - 1; year++) {
+    for (let year = uptoYear - 12; year <= uptoYear - 1; year++) {
         yearsArray.push(year);
     }
     yearsArray.reverse();

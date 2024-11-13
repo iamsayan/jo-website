@@ -50,6 +50,9 @@ interface PageProps {
     params: {
         slug?: string[];
     };
+    searchParams: {
+        y?: number;
+    };
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -70,8 +73,10 @@ export async function generateMetadata({ params }: PageProps) {
     }
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
     const slug = params?.slug ?? null
+    const queryYear = searchParams?.y ?? undefined
+
     if (slug?.length !== 2) {
         notFound()
     }
@@ -114,7 +119,7 @@ export default async function Page({ params }: PageProps) {
         permanentRedirect(`/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`);
     }
 
-    const y = getYear(currentPuja?.estd);
+    const y = getYear(currentPuja?.estd, queryYear);
     const cel = getCelebrating(y);
 
     const jsonLd = schema({

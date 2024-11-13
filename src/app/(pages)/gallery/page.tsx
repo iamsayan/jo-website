@@ -5,6 +5,7 @@ import Section from "@/components/section";
 import schema from "@/utils/schema";
 import Gallery from "@/components/gallery";
 import { getCollectionData } from "@/utils/fetch";
+import { generateUrlSearchParams, shuffle } from "@/utils/functions";
 
 export const metadata = {
     title: 'Photo Gallery',
@@ -18,9 +19,18 @@ export const metadata = {
 }
 
 export default async function Page() {
-    const imagesData = await getCollectionData('images?populate=1')
+    const imagesData = await getCollectionData(generateUrlSearchParams('images', {
+        filter: { category: { $in: [1, 9] } },
+        populate: 1
+    }))
     let images = imagesData ?? null
-    images = images?.filter((data: any) => [1, 9].includes(parseInt(data?.category)));
+    images = images?.toReversed()?.slice(0, 96);
+
+    const uploadedBy = Array.from(new Set(images?.map((item: any) =>
+        item?.uploaded_by?.trim()?.split(' ')
+            .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ')
+    ) || [])).filter((name: any) => name.toLowerCase() !== 'admin panel').filter(Boolean);
 
     const imgStyle: React.CSSProperties = {
         width: '100%',
@@ -38,7 +48,7 @@ export default async function Page() {
         <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
             <Section title="View Jagadhatri Puja" description={<>Photo <span className="text-yellow-500">Gallery</span></>}>
                 <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true}>
-                    {images?.toReversed()?.slice(0, 96)?.map((item: any, index: number) => {
+                    {shuffle(images as any)?.map((item: any, index: number) => {
                         return (
                             <a data-disable-nprogress={true} key={index} className="h-52 md:h-72 relative" href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                 <Image
@@ -50,11 +60,14 @@ export default async function Page() {
                                     loading="lazy"
                                     alt={item?.puja_entry_id?.puja_name}
                                 />
-                                <div className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-sm">{item?.puja_entry_id?.puja_name}</div>
+                                <div className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-xs">{item?.puja_entry_id?.puja_name}</div>
                             </a>
                         )
                     })}
                 </Gallery>
+                <div className="flex flex-wrap gap-2 mt-2 justify-center text-justify">
+                    <div className="text-sm"><span className="font-bold">Image Contributors:</span> {uploadedBy?.join(', ')}. Thanks to them for sharing their photos.</div>
+                </div>
             </Section>
         </MainLayout>
     )
