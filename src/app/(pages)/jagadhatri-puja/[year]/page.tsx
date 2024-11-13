@@ -56,9 +56,14 @@ interface SchemaOptions {
 
 export async function generateMetadata({ params }: PageProps) {
     const queryYear = parseInt(params?.year);
+    const siteDataRes = await getSingletonData('information');
+    const siteData = siteDataRes ?? null;
+    const displayDate = getDateByIndex(siteData, 0);
+    const dateIsCurrent = queryYear === displayDate.getFullYear();
+
     return {
-        title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List, Schedule`,
-        description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
+        title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
+        description: `Here are the Jubilee & Pre Jubilee List${dateIsCurrent ? ', Schedule, Puja Updates ' : ''}and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
         openGraph: {
             url: `/jagadhatri-puja/${queryYear}`,
         },
@@ -109,7 +114,7 @@ export default async function Page({ params }: PageProps) {
 
     let schemaData: SchemaOptions = {
         slug: `jagadhatri-puja/${queryYear}`,
-        title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List, Schedule`,
+        title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
     };
 
     if (dateIsCurrent) {

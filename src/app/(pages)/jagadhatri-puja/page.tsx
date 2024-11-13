@@ -27,7 +27,7 @@ export default async function Page() {
     for (let year = currentYear - 12; year <= uptoYear - 1; year++) {
         yearsArray.push(year);
     }
-    yearsArray.toReversed();
+    yearsArray.reverse();
 
     const jsonLd = schema({
         slug: 'jagadhatri-puja',

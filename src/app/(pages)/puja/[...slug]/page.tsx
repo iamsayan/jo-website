@@ -13,7 +13,8 @@ import {
     getCelebrating,
     formatDate,
     getUrlSlug,
-    generateUrlSearchParams
+    generateUrlSearchParams,
+    getDateByIndex
 } from "@/utils/functions";
 import schema from "@/utils/schema";
 import { GoogleMapsEmbed } from "@next/third-parties/google";
@@ -92,6 +93,8 @@ export default async function Page({ params }: PageProps) {
     const pujas = pujasData ?? null
     const images = imagesData ?? null
 
+    const displayDate = getDateByIndex(siteData, 0);
+    const dateIsCurrent = new Date().getFullYear() === displayDate.getFullYear();
     const currentPuja = pujas?.find((data: any) => data?.reference_id === pujaId);
 
     let array: PujaData[] = [];
@@ -232,7 +235,7 @@ export default async function Page({ params }: PageProps) {
                     <div className="md:col-span-2">
                         <div className="sticky top-6">
                             <div className="p-4 md:p-6 bg-gray-100 flex flex-col gap-7">
-                                <div className="flex flex-col gap-2">
+                                {dateIsCurrent && <div className="flex flex-col gap-2">
                                     <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
                                     <hr />
                                     <div className="flex flex-col gap-1 text-sm">
@@ -246,7 +249,7 @@ export default async function Page({ params }: PageProps) {
                                             )
                                         })}
                                     </div>
-                                </div>
+                                </div>}
                                 {currentPuja?.location?.address && <div className="flex flex-col gap-2">
                                     <h1 className="text-xl font-bold uppercadse text-blue-700"><a
                                         href={`https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
