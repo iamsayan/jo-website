@@ -18,7 +18,7 @@ export default function schema({ slug, title, description, start, end }: SchemaO
         "@graph": [
             {
                 "@type": "Organization",
-                "@id": "https://www.jagadhatrionline.co.in/#organization",
+                "@id": `${process.env.SITE_URL}#organization`,
                 "name": "Jagadhatri Online",
                 "sameAs": [
                     "https://www.facebook.com/JagadhatriOnlineOfficial/",
@@ -27,23 +27,23 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             },
             {
                 "@type": "WebSite",
-                "@id": "https://www.jagadhatrionline.co.in/#website",
-                "url": "https://www.jagadhatrionline.co.in",
+                "@id": `${process.env.SITE_URL}#website`,
+                "url": process.env.SITE_URL,
                 "name": "Jagadhatri Online",
                 "publisher": {
-                    "@id": "https://www.jagadhatrionline.co.in/#organization"
+                    "@id": `${process.env.SITE_URL}#organization`
                 },
                 "inLanguage": "en-US"
             },
             {
                 "@type": "BreadcrumbList",
-                "@id": `https://www.jagadhatrionline.co.in/${slug}#breadcrumb`,
+                "@id": `${process.env.SITE_URL}/${slug}#breadcrumb`,
                 "itemListElement": [
                     {
                         "@type": "ListItem",
                         "position": "1",
                         "item": {
-                            "@id": "https://www.jagadhatrionline.co.in",
+                            "@id": process.env.SITE_URL,
                             "name": "Home"
                         }
                     },
@@ -51,7 +51,7 @@ export default function schema({ slug, title, description, start, end }: SchemaO
                         "@type": "ListItem",
                         "position": "2",
                         "item": {
-                            "@id": `https://www.jagadhatrionline.co.in/${slug}`,
+                            "@id": `${process.env.SITE_URL}/${slug}`,
                             "name": title
                         }
                     }
@@ -59,15 +59,15 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             },
             {
                 "@type": "WebPage",
-                "@id": `https://www.jagadhatrionline.co.in/${slug}#webpage`,
-                "url": `https://www.jagadhatrionline.co.in/${slug}`,
-                "name": title,
+                "@id": `${process.env.SITE_URL}/${slug}#webpage`,
+                "url": `${process.env.SITE_URL}/${slug}`,
+                "name": `${title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
                 "isPartOf": {
-                    "@id": "https://www.jagadhatrionline.co.in/#website"
+                    "@id": `${process.env.SITE_URL}#website`
                 },
                 "inLanguage": "en-US",
                 "breadcrumb": {
-                    "@id": `https://www.jagadhatrionline.co.in/${slug}#breadcrumb`
+                    "@id": `${process.env.SITE_URL}/${slug}#breadcrumb`
                 }
             }
         ]
@@ -75,7 +75,7 @@ export default function schema({ slug, title, description, start, end }: SchemaO
 
     if (typeof description !== 'undefined') {
         siteSchema["@graph"].push({
-            "name": title,
+            "name": `${title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
             "description": description,
             "@type": "Event",
             "eventStatus": "https://schema.org/EventScheduled",
@@ -102,25 +102,25 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             "performer": {
                 "@type": "Organization",
                 "name": "Jagadhatri Online",
-                "sameAs": "https://www.jagadhatrionline.co.in"
+                "sameAs": process.env.SITE_URL
             },
             "organizer": {
                 "@type": "Organization",
                 "name": "Jagadhatri Online",
-                "url": "https://www.jagadhatrionline.co.in"
+                "url": process.env.SITE_URL
             },
             "startDate": start,
             "endDate": end,
-            "@id": `https://www.jagadhatrionline.co.in/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
+            "@id": `${process.env.SITE_URL}/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
             "isPartOf": {
-                "@id": `https://www.jagadhatrionline.co.in/${slug}#webpage`
+                "@id": `${process.env.SITE_URL}/${slug}#webpage`
             },
             "publisher": {
-                "@id": "https://www.jagadhatrionline.co.in/#organization"
+                "@id": `${process.env.SITE_URL}#organization`
             },
             "inLanguage": "en-US",
             "mainEntityOfPage": {
-                "@id": `https://www.jagadhatrionline.co.in/${slug}#webpage`
+                "@id": `${process.env.SITE_URL}/${slug}#webpage`
             }
         });
     }
