@@ -18,7 +18,7 @@ export default function schema({ slug, title, description, start, end }: SchemaO
         "@graph": [
             {
                 "@type": "Organization",
-                "@id": `${process.env.SITE_URL}#organization`,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#organization`,
                 "name": "Jagadhatri Online",
                 "sameAs": [
                     "https://www.facebook.com/JagadhatriOnlineOfficial/",
@@ -27,23 +27,23 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             },
             {
                 "@type": "WebSite",
-                "@id": `${process.env.SITE_URL}#website`,
-                "url": process.env.SITE_URL,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`,
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": "Jagadhatri Online",
                 "publisher": {
-                    "@id": `${process.env.SITE_URL}#organization`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#organization`
                 },
                 "inLanguage": "en-US"
             },
             {
                 "@type": "BreadcrumbList",
-                "@id": `${process.env.SITE_URL}/${slug}#breadcrumb`,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#breadcrumb`,
                 "itemListElement": [
                     {
                         "@type": "ListItem",
                         "position": "1",
                         "item": {
-                            "@id": process.env.SITE_URL,
+                            "@id": process.env.NEXT_PUBLIC_SITE_URL,
                             "name": "Home"
                         }
                     },
@@ -51,7 +51,7 @@ export default function schema({ slug, title, description, start, end }: SchemaO
                         "@type": "ListItem",
                         "position": "2",
                         "item": {
-                            "@id": `${process.env.SITE_URL}/${slug}`,
+                            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
                             "name": title
                         }
                     }
@@ -59,15 +59,15 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             },
             {
                 "@type": "WebPage",
-                "@id": `${process.env.SITE_URL}/${slug}#webpage`,
-                "url": `${process.env.SITE_URL}/${slug}`,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#webpage`,
+                "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
                 "name": `${title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
                 "isPartOf": {
-                    "@id": `${process.env.SITE_URL}#website`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
                 },
                 "inLanguage": "en-US",
                 "breadcrumb": {
-                    "@id": `${process.env.SITE_URL}/${slug}#breadcrumb`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#breadcrumb`
                 }
             }
         ]
@@ -102,25 +102,19 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             "performer": {
                 "@type": "Organization",
                 "name": "Jagadhatri Online",
-                "sameAs": process.env.SITE_URL
+                "sameAs": process.env.NEXT_PUBLIC_SITE_URL
             },
             "organizer": {
                 "@type": "Organization",
                 "name": "Jagadhatri Online",
-                "url": process.env.SITE_URL
+                "url": process.env.NEXT_PUBLIC_SITE_URL
             },
             "startDate": start,
             "endDate": end,
-            "@id": `${process.env.SITE_URL}/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
-            "isPartOf": {
-                "@id": `${process.env.SITE_URL}/${slug}#webpage`
-            },
-            "publisher": {
-                "@id": `${process.env.SITE_URL}#organization`
-            },
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
             "inLanguage": "en-US",
             "mainEntityOfPage": {
-                "@id": `${process.env.SITE_URL}/${slug}#webpage`
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#webpage`
             }
         });
     }

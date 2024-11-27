@@ -3,12 +3,11 @@ const nextConfig = {
     env: {
         API_URL: process.env.API_URL,
         API_KEY: process.env.API_KEY,
-        SITE_URL: process.env.NODE_ENV === 'development' ? process.env.DEV_URL : process.env.LIVE_URL,
         WEB3_FORM_API_KEY: process.env.WEB3_FORM_ACCESS_KEY,
         GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
     },
     images: {
-        formats: [ 'image/webp' ],
+        formats: ['image/webp'],
         contentDispositionType: 'attachment',
         contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
         remotePatterns: [
@@ -17,6 +16,59 @@ const nextConfig = {
                 hostname: '**.jagadhatrionline.co.in',
             },
         ],
+    },
+    async headers() {
+        return [
+            {
+                source: '/:path*',
+                headers: [
+                    {
+                        key: 'X-DNS-Prefetch-Control',
+                        value: 'on'
+                    },
+                    {
+                        key: 'Strict-Transport-Security',
+                        value: 'max-age=63072000; includeSubDomains; preload'
+                    },
+                    {
+                        key: 'X-Frame-Options',
+                        value: 'SAMEORIGIN'
+                    },
+                    {
+                        key: 'X-Content-Type-Options',
+                        value: 'nosniff'
+                    },
+                    {
+                        key: 'X-XSS-Protection',
+                        value: '1; mode=block'
+                    },
+                    {
+                        key: 'Referrer-Policy',
+                        value: 'strict-origin-when-cross-origin'
+                    },
+                    {
+                        key: 'Permissions-Policy',
+                        value: [
+                            'camera=()',
+                            'microphone=()',
+                            'geolocation=(self)',
+                            'payment=(self "https://checkout.razorpay.com")',
+                            'usb=()',
+                            'fullscreen=(self)',
+                            'display-capture=(self)'
+                        ].join(', ')
+                    },
+                    {
+                        key: 'Content-Security-Policy',
+                        value: "frame-ancestors 'self';"
+                    },
+                    {
+                        key: 'Access-Control-Allow-Origin',
+                        value: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+                    },
+                ]
+            },
+        ]
     },
     async redirects() {
         return [

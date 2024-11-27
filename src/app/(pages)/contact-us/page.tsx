@@ -28,7 +28,7 @@ export default function Page() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <div><Contact /></div>
                     <GoogleMapsEmbed
-                        apiKey={process.env.GOOGLE_MAP_API_KEY || ''}
+                        apiKey={process.env.GOOGLE_MAP_API_KEY!}
                         height={400}
                         width="100%"
                         mode="place"

@@ -110,7 +110,7 @@ export default async function Home() {
         "@graph": [
             {
                 "@type": "Organization",
-                "@id": "https://www.jagadhatrionline.co.in/#organization",
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`,
                 "name": "Jagadhatri Online",
                 "sameAs": [
                     "https://www.facebook.com/JagadhatriOnlineOfficial/",
@@ -119,21 +119,21 @@ export default async function Home() {
             },
             {
                 "@type": "WebSite",
-                "@id": `${process.env.SITE_URL}/#website`,
-                "url": process.env.SITE_URL,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`,
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": "Jagadhatri Online",
                 "publisher": {
-                    "@id": `${process.env.SITE_URL}/#organization`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`
                 },
                 "inLanguage": "en-US"
             },
             {
                 "@type": "WebPage",
-                "@id": `${process.env.SITE_URL}#webpage`,
-                "url": process.env.SITE_URL,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#webpage`,
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": "Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja",
                 "isPartOf": {
-                    "@id": `${process.env.SITE_URL}/#website`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`
                 },
                 "inLanguage": "en-US"
             }

@@ -10,7 +10,7 @@ interface SectionProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function Section({ children, title, description, className, ...props }: SectionProps) {
-    const classes = cn('w-full flex justify-center', className || '');
+    const classes = cn('w-full flex justify-center', className!);
 
     return (
         <div className={classes} {...props}>

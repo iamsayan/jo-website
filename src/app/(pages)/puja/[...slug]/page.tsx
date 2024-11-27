@@ -261,7 +261,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                         target="_blank">Locate on Google Map</a></h1>
                                     <hr />
                                     <GoogleMapsEmbed
-                                        apiKey={process.env.GOOGLE_MAP_API_KEY || ''}
+                                        apiKey={process.env.GOOGLE_MAP_API_KEY!}
                                         height={300}
                                         width="100%"
                                         mode="place"
