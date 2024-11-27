@@ -109,6 +109,7 @@ export default function schema({ slug, title, description, start, end }: SchemaO
                 "name": "Jagadhatri Online",
                 "url": process.env.NEXT_PUBLIC_SITE_URL
             },
+            "image": `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
             "startDate": start,
             "endDate": end,
             "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
