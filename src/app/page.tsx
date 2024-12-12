@@ -5,7 +5,8 @@ import Main from '@/components/main';
 import Section from "@/components/section";
 import Slider from "@/components/slider";
 import CountdownTimer from "@/components/countdown-timer";
-import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook } from "react-icons/fa";
+import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook, FaShoppingBag, FaTshirt } from "react-icons/fa";
+import { FaPen } from "react-icons/fa6";
 import { cn, formatDate, getDateByIndex, shuffle } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
 import { getSingletonData } from "@/utils/fetch";
@@ -34,12 +35,39 @@ interface MenuItem {
     link: string;
 }
 
+interface ShopItem {
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    comingSoon?: boolean;
+}
+
 export default async function Home() {
     const siteData = await getSingletonData('information');
     const data = siteData ?? null;
     const year = getDateByIndex(data, 0).getFullYear();
     const curYear = new Date().getFullYear();
     const btnYear = curYear > year ? curYear : year;
+
+    const shopItems: ShopItem[] = [
+        {
+            title: 'Stationery',
+            description: 'High-quality notebooks, pens, and other stationery items for your daily needs',
+            icon: <FaPen className="size-8 text-yellow-500" />,
+        },
+        {
+            title: 'T-Shirts',
+            description: 'Comfortable and stylish t-shirts with unique designs',
+            icon: <FaTshirt className="size-8 text-yellow-500" />,
+            comingSoon: true,
+        },
+        {
+            title: 'Hoodies',
+            description: 'Stay warm and fashionable with our premium hoodies',
+            icon: <FaShoppingBag className="size-8 text-yellow-500" />,
+            comingSoon: true,
+        },
+    ];
 
     const items: MenuItem[] = [
         {
@@ -219,6 +247,56 @@ export default async function Home() {
                                 <span className="">{item?.description}</span>
                             </Link>
                         ))}
+                    </div>
+                </div>
+            </Section>
+            <Section
+                title="Our Store"
+                description={<>Discover Our <span className="text-yellow-500">Products</span></>}
+                className="bg-gray-50"
+            >
+                <div className="flex flex-col gap-8 items-center">
+                    <p className="md:text-xl text-center max-w-3xl mx-auto">
+                        Visit our online store to explore a curated collection of high-quality products. 
+                        From premium stationery to trendy apparel, we've got something special for everyone.
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+                        {shopItems.map((item, index) => (
+                            <div 
+                                key={index}
+                                className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300"
+                            >
+                                <div className="flex flex-col items-center text-center gap-4">
+                                    <div className="p-4 bg-gray-50 rounded-full">
+                                        {item.icon}
+                                    </div>
+                                    <h3 className="text-xl font-bold">
+                                        {item.title}
+                                        {item.comingSoon && (
+                                            <span className="ml-2 text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
+                                                Coming Soon
+                                            </span>
+                                        )}
+                                    </h3>
+                                    <p className="text-gray-600">{item.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-col items-center gap-4 mt-4">
+                        <a
+                            href="https://store.jagadhatrionline.co.in"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn bg-yellow-500 border-0 uppercase py-4 px-6 h-auto min-h-full rounded-md hover:text-white hover:bg-blue-700"
+                        >
+                            Visit Store
+                        </a>
+                        {/* <p className="text-sm text-gray-500">
+                            Free shipping available on orders above ₹499
+                        </p> */}
                     </div>
                 </div>
             </Section>

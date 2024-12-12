@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import circleLogo from '@/public/circle-logo.png';
+import { FaShoppingBag, FaGift } from 'react-icons/fa';
 
 interface MenuItem {
     name: string;
@@ -86,6 +87,20 @@ const Navbar: React.FC = () => {
                                         )}
                                     </li>
                                 ))}
+                                {/* Store */}
+                                <li className="mt-2">
+                                    <a 
+                                        href="https://store.jagadhatrionline.co.in" 
+                                        target="_blank" 
+                                        className="flex items-center gap-2 font-bold bg-gradient-to-r from-blue-500 to-purple-600 
+                                                 text-white rounded-md relative group"
+                                    >
+                                        <FaShoppingBag className="text-lg" />
+                                        <span>Store</span>
+                                        <FaGift className="text-yellow-300 absolute right-2 top-1/2 -translate-y-1/2 
+                                                       animate-bounce" />
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div className="hidden lg:block">
@@ -147,13 +162,49 @@ const Navbar: React.FC = () => {
                             })}
                         </ul>
                     </div>
-                    <div className="navbar-end">
-                        <a className="hidden lg:flex btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
+                    <div className="navbar-end flex gap-3">
+                        <div className="hidden lg:block relative group">
+                            <a 
+                                href="https://store.jagadhatrionline.co.in" 
+                                target="_blank"
+                                className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white 
+                                         px-5 py-3 rounded-lg font-medium transition-all duration-300 
+                                         hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-105"
+                            >
+                                <FaShoppingBag className="text-xl animate-bounce" />
+                                <span>Store</span>
+                                
+                                <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full 
+                                             animate-pulse">
+                                    New
+                                </span>
+                            </a>
+                            
+                            <div className="absolute hidden group-hover:block top-full left-1/2 -translate-x-1/2 mt-2 w-48 p-2 
+                                          bg-white rounded-lg shadow-lg border border-gray-100">
+                                <div className="text-center">
+                                    <p className="text-gray-800 font-semibold mb-1">Visit Our Store!</p>
+                                    <p className="text-sm text-gray-600">Stationery • T-Shirts • Hoodies</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a className="hidden lg:flex items-center gap-2 btn bg-yellow-500 border-0 uppercase py-3 px-5 h-auto min-h-full rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
                             360° Virtual Tours
                         </a>
                     </div>
                 </div>
             </div>
+            <style jsx>{`
+                @keyframes float {
+                    0% { transform: translateY(0px); }
+                    50% { transform: translateY(-5px); }
+                    100% { transform: translateY(0px); }
+                }
+                
+                .animate-float {
+                    animation: float 2s ease-in-out infinite;
+                }
+            `}</style>
         </header>
     );
 };
