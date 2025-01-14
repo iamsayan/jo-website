@@ -3,7 +3,7 @@ import React from "react";
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { outfit } from "@/fonts"
+import { livvic } from "@/fonts"
 import Loader from "@/components/loader";
 import OneSignal from '@/components/onesignal';
 import './globals.sass'
@@ -71,7 +71,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     </Script>
                 </>
             }
-            <body className={`${outfit.className} overflow-x-hidden text-sm md:text-base ${outfit.variable}`}>
+            <body className={`${livvic.className} overflow-x-hidden text-sm md:text-base ${livvic.variable}`}>
                 {children}
                 <OneSignal />
                 <Loader />

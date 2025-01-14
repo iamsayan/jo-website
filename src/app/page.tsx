@@ -256,7 +256,7 @@ export default async function Home() {
                 className="bg-gray-50"
             >
                 <div className="flex flex-col gap-8 items-center">
-                    <p className="md:text-xl text-center max-w-3xl mx-auto">
+                    <p className="md:text-xl text-center max-w-5xl mx-auto">
                         Visit our online store to explore a curated collection of high-quality products. 
                         From premium stationery to trendy apparel, we've got something special for everyone.
                     </p>

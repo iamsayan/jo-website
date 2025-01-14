@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                                 </svg>
                             </label>
-                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-56">
                                 {items.map((item, index) => (
                                     <li key={index}>
                                         {item.subMenu ? (
@@ -137,7 +137,7 @@ const Navbar: React.FC = () => {
                                         {item.subMenu ? (
                                             <details>
                                                 <summary className={classes}>{item.name}</summary>
-                                                <ul className="p-2 w-52">
+                                                <ul className="p-2 w-56">
                                                     {item.subMenu.map((subItem, subIndex) => {
                                                         const innerClasses = classNames('text-slate-600', {
                                                             '!text-yellow-500': pathname === subItem.path,

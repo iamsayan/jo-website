@@ -21,7 +21,7 @@ const NotFound: React.FC = () => {
                     
                     {/* Content */}
                     <div className="relative space-y-8 text-center">
-                        <h1 className="text-8xl md:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
+                        <h1 className="text-8xl md:text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
                             404
                         </h1>
                         <h2 className="text-2xl md:text-3xl font-bold text-gray-800">

@@ -1,9 +1,10 @@
 import {
-    Outfit,
+    Livvic,
     Paytone_One,
 } from 'next/font/google'
 
-export const outfit= Outfit({
+export const livvic = Livvic({
+    weight: ['400', '500', '600', '700', '900'],
     subsets: ['latin'],
     variable: '--font-family',
     display: 'swap',
