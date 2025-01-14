@@ -61,38 +61,43 @@ export default function AwardsSection({ awardsData }: AwardsSectionProps) {
                     className={`transition-all duration-500 
                         ${activeYear === yearData.year ? 'opacity-100' : 'hidden opacity-0'}`}
                 >
-                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {yearData?.categories?.map((category: any, idx: any) => (
-                            <div 
-                                key={idx}
-                                className="group hover:scale-105 transition-all duration-300 hover:shadow-lg border rounded-xl border-neutral-200 bg-gradient-to-br from-white to-neutral-50 flex gap-5"
-                            >
-                                <div className="border-r border-neutral-200 py-6 px-2 flex items-center justify-center w-8 md:w-12">
-                                    <h3 className="md:text-lg font-bold text-gray-800 writing-mode-vertical transform -rotate-180">
-                                        {category.category}
-                                    </h3>
-                                </div>
-                                
-                                <div className="flex flex-col gap-3 py-4 pr-4">
-                                    {category?.positions?.map((position: any, posIdx: any) => (
-                                        <div key={posIdx}>
-                                            <div className={`flex items-center gap-2 ${getPositionStyle(position.position).color} font-semibold mb-1`}>
-                                                {createElement(getPositionStyle(position.position).icon, { className: "text-lg" })}
-                                                {position.position}
-                                            </div>
-                                            {position?.pujas?.map((puja: any, pujaIdx: any) => (
-                                                <div key={pujaIdx} className="text-gray-700 pl-6">
-                                                    • <Link href={`/puja/${getUrlSlug(puja?.puja_name)}/${puja?.reference_id}`}>
-                                                        {puja.puja_name}
-                                                    </Link>
+                    {yearData?.description && <p className="text-center text-gray-500 mb-4">{yearData?.description}</p>}
+                    {yearData?.categories?.length > 0 ? (
+                        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            {yearData?.categories?.map((category: any, idx: any) => (
+                                <div 
+                                    key={idx}
+                                    className="group hover:scale-105 transition-all duration-300 hover:shadow-lg border rounded-xl border-neutral-200 bg-gradient-to-br from-white to-neutral-50 flex gap-5"
+                                >
+                                    <div className="border-r border-neutral-200 py-6 px-2 flex items-center justify-center w-8 md:w-12">
+                                        <h3 className="md:text-lg font-bold text-gray-800 writing-mode-vertical transform -rotate-180">
+                                            {category.category}
+                                        </h3>
+                                    </div>
+                                    
+                                    <div className="flex flex-col gap-3 py-4 pr-4">
+                                        {category?.positions?.map((position: any, posIdx: any) => (
+                                            <div key={posIdx}>
+                                                <div className={`flex items-center gap-2 ${getPositionStyle(position.position).color} font-semibold mb-1`}>
+                                                    {createElement(getPositionStyle(position.position).icon, { className: "text-lg" })}
+                                                    {position.position}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    ))}
+                                                {position?.pujas?.map((puja: any, pujaIdx: any) => (
+                                                    <div key={pujaIdx} className="text-gray-700 pl-6">
+                                                        &bull; <Link href={`/puja/${getUrlSlug(puja?.puja_name)}/${puja?.reference_id}`}>
+                                                            {puja.puja_name}
+                                                        </Link>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <p className="text-center text-gray-500">No competition was organized this year.</p>
+                    )}
                 </div>
             ))}
         </div>
