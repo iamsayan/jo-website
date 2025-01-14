@@ -72,6 +72,7 @@ export default function Footer() {
                 </nav>
                 <aside className="text-slate-400 text-xs">
                     <p>Copyright © 2016 - {new Date().getFullYear()} Jagadhatri Online. All Rights Reserved.</p>
+                    <p>Handcrafted with ❤️ by Sayan Datta.</p>
                     <p>Unauthorized copying or representation of any content / photograph / illustration / artwork
                         from this website is strictly prohibited.</p>
                 </aside>
