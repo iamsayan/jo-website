@@ -64,11 +64,11 @@ export default function Page() {
             role: "Executive Member",
             icon: "subhodeep.png"
         },
-        {
-            name: "Sinjan Das",
-            role: "Executive Member",
-            icon: "sinjan.png"
-        },
+        // {
+        //     name: "Sinjan Das",
+        //     role: "Executive Member",
+        //     icon: "sinjan.png"
+        // },
         {
             name: "Raunak Pal",
             role: "Executive Member",
@@ -119,7 +119,7 @@ export default function Page() {
             </Section>
             <Section className="bg-gray-100" title="MEET OUR" description={<>Passionate <span className="text-yellow-500">Team</span></>}>
                 <div className="flex flex-col gap-6 justify-center items-center">
-                    <p className="text-center md:text-[18px] md:w-[1100px] m-auto md:leading-relaxed">
+                    <p className="text-center md:text-[18px] md:w-[1200px] m-auto md:leading-relaxed">
                         Jagadhatri Online is designed to capture the most popular Jagadhatri Puja’s of Chandannagar, Mankundu & Bhadreswar. Some of you, who are not in Chandannagar are unable to experience the pleasure of Jagadhatri Puja in Bengal with their own eyes. We have created this Website to share our pride Jagadhatri Puja with the whole world. A well organised team at their best. Know more about our Team.
                     </p>
                     <div className="flex flex-col items-center gap-5 w-full">

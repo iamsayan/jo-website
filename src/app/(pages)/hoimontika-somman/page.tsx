@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
 import schema from "@/utils/schema";
+import AwardsSection from '@/components/awards-section';
+import { FaTrophy, FaRegLightbulb, FaUsers } from 'react-icons/fa';
+import { getCollectionData } from '@/utils/fetch';
+import { generateUrlSearchParams } from '@/utils/functions';
 import bg from '@/public/ashs.jpg'
 
 export const metadata: Metadata = {
@@ -15,7 +19,13 @@ export const metadata: Metadata = {
     },
 }
 
-export default function Page() {
+export default async function Page() {
+    const awardsData = await getCollectionData(generateUrlSearchParams('awards', {
+        sort: { year: -1 },
+        populate: -1
+    }))
+    let awards = awardsData ?? null
+
     const jsonLd = schema({
         slug: 'hoimontika-somman',
         title: 'History of Jagadhatri Puja',
@@ -23,194 +33,50 @@ export default function Page() {
 
     return (
         <MainLayout title="Hoimantika Somman" jsonLd={jsonLd} bgImg={bg}>
-            <Section title="Know More About Amie Srestho" description={ <>Hoimantika <span className="text-yellow-500">Somman</span></> }>
+            <Section title="Know More About Amie Srestho" description={<>Hoimantika <span className="text-yellow-500">Somman</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity
                         and craftsmanship during Jagadhatri Puja in Chandannagar since 2016. It is one of the most
                         significant awards given to the best pandals across the city, recognizing excellence in various
-                        aspects such as decoration, theme, and artistry.</p><p>
-
-                    The awards have contributed to a shift in how Jagadhatri Puja is celebrated in Chandannagar,
-                    Mankundu and Bhadreswar, emphasizing artistic and cultural innovation in the creation of pandals and
-                    idols. The initiative has not only become an integral part of Chandannagar’s Jagadhatri Puja traditions
-                    but also reflects the evolving cultural landscape of the festival. Each year, the awards are judged
-                    by a panel of eminent personalities from various fields such as art, literature, and cinema. Winners
-                    receive a unique statuette, which has evolved in design over the years, symbolizing the honor and
-                    prestige of the award.</p><p>
-
-                    In this year, the Hoimantika Somman continues to uphold its legacy, with pandals across Chandannagar
-                    striving to win in categories like Best Puja, Creative Excellence, and Best Artisan, among
-                    others</p>
-                    <div className="text-md font-bold text-center">Archives</div>
-                    <div className="join join-vertical w-full">
-                        <div className="collapse collapse-arrow join-item border-base-300 border">
-                            <input type="radio" name="my-accordion-4"/>
-                            <div className="collapse-title text-xl font-medium">2023</div>
-                            <div className="collapse-content overflow-x-auto">
-                                <div className="overflow-x-auto">
-                                    <table className="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Prize Category</th>
-                                            <th>First</th>
-                                            <th>Second</th>
-                                            <th>Third</th>
-                                            <th>Ononnyo</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th>Srestho Mukhosri</th>
-                                            <td>👉 Tematha</td>
-                                            <td>👉 Palpara<br/>👉 Gondalpara Satghat</td>
-                                            <td>👉 Gondalpara Charmandirtala<br/>👉 Sabinara</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Sajsojja</th>
-                                            <td>👉 Kundughat Dalan</td>
-                                            <td>👉 Lalbagan Padripara<br/>👉 Urdibazar</td>
-                                            <td>👉 Khalisani<br/>👉 Kanailal Pally</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Mondopsojja</th>
-                                            <td>👉 Uttaranchal</td>
-                                            <td>👉 Kanailal Pally<br/>👉 Gondalpara Mansatala</td>
-                                            <td>👉 Bhadreswar Krisnapatty<br/>👉 Doibakpara</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Procession</th>
-                                            <td>👉 Boro Champatala, Yuba Sampraday</td>
-                                            <td>👉 Khalisani<br/>👉 Gondalpara Charmanadirtala</td>
-                                            <td>👉 Boro Panchananatala<br/>👉 Palpara</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Road Light</th>
-                                            <td>👉 Barabazar</td>
-                                            <td>👉 Bidyalankar</td>
-                                            <td>👉 Kalupukur</td>
-                                            <td>👉 Madhyanchal</td>
-                                        </tr>
-                                        <tr>
-                                            <th>JO Priyo Pujo</th>
-                                            <td>👉 Barasat Chakrabarty Para</td>
-                                            <td>--</td>
-                                            <td>--</td>
-                                            <td>--</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        aspects such as decoration, theme, and artistry.</p>
+                    <p>
+                        The awards have contributed to a shift in how Jagadhatri Puja is celebrated in Chandannagar,
+                        Mankundu and Bhadreswar, emphasizing artistic and cultural innovation in the creation of pandals and
+                        idols. The initiative has not only become an integral part of Chandannagar’s Jagadhatri Puja traditions
+                        but also reflects the evolving cultural landscape of the festival. Each year, the awards are judged
+                        by a panel of eminent personalities from various fields such as art, literature, and cinema. Winners
+                        receive a unique statuette, which has evolved in design over the years, symbolizing the honor and
+                        prestige of the award.
+                    </p>
+                    <p>
+                        In this year, the Hoimantika Somman continues to uphold its legacy, with pandals across Chandannagar
+                        striving to win in categories like Best Puja, Creative Excellence, and Best Artisan, among
+                        others
+                    </p>
+                    <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+                        <div className="bg-white/90 backdrop-blur p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
+                            <FaTrophy className="text-yellow-500 text-3xl flex-shrink-0 mt-1" />
+                            <div className="ml-4">
+                                <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Prestigious Award</h3>
+                                <p className="text-gray-600">Celebrating creativity and craftsmanship since 2016.</p>
                             </div>
                         </div>
-                        <div className="collapse collapse-arrow join-item border-base-300 border">
-                            <input type="radio" name="my-accordion-4"/>
-                            <div className="collapse-title text-xl font-medium">2022</div>
-                            <div className="collapse-content overflow-x-auto">
-                                <div className="overflow-x-auto">
-                                    <table className="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Prize Category</th>
-                                            <th>First</th>
-                                            <th>Second</th>
-                                            <th>Third</th>
-                                            <th>Ononnyo</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <th>Srestho Mukhosri</th>
-                                            <td>👉 Palpara</td>
-                                            <td>👉 Circus Math<br/>👉 Suksanatantala</td>
-                                            <td>👉 Mankundu<br/>👉 Haridradanga</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Sajsojja</th>
-                                            <td>👉 Urdibazar</td>
-                                            <td>👉 Kundughat Dalan<br/>👉 Bindubasini Para</td>
-                                            <td>👉 Narua Sarkarpara<br/>👉 Narua Boropukurdhar</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Mondopsojja</th>
-                                            <td>👉 Doibakpara</td>
-                                            <td>👉 Mankundu Notunpara<br/>👉 Rathersarak</td>
-                                            <td>👉 Gondalpara Moran Road<br/>👉 Mahadanga Balak Sangha</td>
-                                            <td>--</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Srestho Procession</th>
-                                            <td>👉 Boro Kalitala Byelane</td>
-                                            <td>👉 Rathersorok<br/>👉 Sarishapara</td>
-                                            <td>👉 Madhyanchal<br/>👉 Mansatala</td>
-                                            <td>👉 Barabazar<br/>👉 Bagbazar Chowmatha<br/>👉 Doibakpara</td>
-                                        </tr>
-                                        <tr>
-                                            <th>JO Priyo Pujo</th>
-                                            <td>👉 Rathersarak</td>
-                                            <td>--</td>
-                                            <td>--</td>
-                                            <td>--</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div className="bg-white/90 backdrop-blur p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
+                            <FaUsers className="text-yellow-500 text-3xl flex-shrink-0 mt-1" />
+                            <div className="ml-4">
+                                <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Expert Panel</h3>
+                                <p className="text-gray-600">Judged by eminent personalities from various fields.</p>
                             </div>
                         </div>
-                        <div className="collapse collapse-arrow join-item border-base-300 border">
-                            <input type="radio" name="my-accordion-4"/>
-                            <div className="collapse-title text-xl font-medium">2021</div>
-                            <div className="collapse-content overflow-x-auto">
-                                <table className="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Prize Category</th>
-                                        <th>First</th>
-                                        <th>Second</th>
-                                        <th>Third</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>Srestho Mukhosri</th>
-                                        <td>👉 Bibirhat Uttaranchal</td>
-                                        <td>👉 Hatkhola Mansatala</td>
-                                        <td>👉 Barasat Banerjee Para</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Srestho Sajsojja</th>
-                                        <td>👉 Boro Taldanga</td>
-                                        <td>👉 Bagbazar Chowmatha</td>
-                                        <td>👉 Circus Math</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Srestho Mondopsojja</th>
-                                        <td>👉 Mankundu</td>
-                                        <td>👉 Ambika Atheletic Club</td>
-                                        <td>👉 Kanailal Pally</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Srestho Road Light</th>
-                                        <td>👉 Madhyanchal</td>
-                                        <td>👉 Fatakgora</td>
-                                        <td>👉 Kalupukur</td>
-                                    </tr>
-                                    <tr>
-                                        <th>JO Priyo Pujo</th>
-                                        <td>👉 Barasat Gate</td>
-                                        <td>--</td>
-                                        <td>--</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                        <div className="bg-white/90 backdrop-blur p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
+                            <FaRegLightbulb className="text-yellow-500 text-3xl flex-shrink-0 mt-1" />
+                            <div className="ml-4">
+                                <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Innovation</h3>
+                                <p className="text-gray-600">Promoting artistic and cultural excellence.</p>
                             </div>
                         </div>
                     </div>
+                    <AwardsSection awardsData={awards} />
                 </div>
             </Section>
         </MainLayout>
