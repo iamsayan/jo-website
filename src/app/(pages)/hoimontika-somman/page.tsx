@@ -6,7 +6,6 @@ import AwardsSection from '@/components/awards-section';
 import { FaTrophy, FaRegLightbulb, FaUsers } from 'react-icons/fa';
 import { getCollectionData } from '@/utils/fetch';
 import { generateUrlSearchParams } from '@/utils/functions';
-import bg from '@/public/ashs.jpg'
 
 export const metadata: Metadata = {
     title: 'Amie Srestho Hoimantika Somman',
@@ -32,7 +31,7 @@ export default async function Page() {
     })
 
     return (
-        <MainLayout title="Hoimantika Somman" jsonLd={jsonLd} bgImg={bg}>
+        <MainLayout title="Hoimantika Somman" jsonLd={jsonLd}>
             <Section title="Know More About Amie Srestho" description={<>Hoimantika <span className="text-yellow-500">Somman</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity

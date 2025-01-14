@@ -3,7 +3,7 @@
 import { getUrlSlug } from '@/utils/functions';
 import Link from 'next/link';
 import { useState, createElement } from 'react';
-import { FaHistory, FaTrophy, FaMedal, FaAward, FaStar } from 'react-icons/fa';
+import { FaHistory, FaTrophy, FaMedal, FaAward, FaStar, FaRibbon } from 'react-icons/fa';
 
 interface AwardsSectionProps {
     awardsData: any;
@@ -17,36 +17,40 @@ export default function AwardsSection({ awardsData }: AwardsSectionProps) {
             case 'First':
                 return { icon: FaTrophy, color: 'text-yellow-500' };
             case 'Second':
-                return { icon: FaMedal, color: 'text-gray-500' };
+                return { icon: FaMedal, color: 'text-emerald-500' };
             case 'Third':
                 return { icon: FaAward, color: 'text-amber-700' };
             case 'Ononnyo':
                 return { icon: FaStar, color: 'text-blue-600' };
             default:
-                return { icon: FaTrophy, color: 'text-gray-500' };
+                return { icon: FaRibbon, color: 'text-indigo-500' };
         }
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-6">
             <h2 className="text-2xl font-bold text-center flex items-center justify-center gap-2">
                 <FaHistory className="text-yellow-500" />
                 Archives
             </h2>
 
             {/* Year Selector */}
-            <div className="flex flex-wrap justify-center gap-2 md:gap-4 px-2">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
                 {awardsData?.map((data: any) => (
-                    <button
+                    <div
                         key={data.year}
                         onClick={() => setActiveYear(data.year)}
-                        className={`px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold transition-all duration-300 text-sm md:text-base
+                        className={`relative px-4 py-2 cursor-pointer transition-all duration-300
                             ${activeYear === data.year 
-                                ? 'bg-yellow-500 text-white shadow-lg scale-105' 
-                                : 'bg-white/80 text-gray-600 hover:bg-white hover:shadow-md'}`}
+                                ? 'text-yellow-500' 
+                                : 'text-gray-500 hover:text-gray-700'}
+                        `}
                     >
                         {data.year}
-                    </button>
+                        {activeYear === data.year && (
+                            <div className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-500 rounded-full" />
+                        )}
+                    </div>
                 ))}
             </div>
 
@@ -63,7 +67,7 @@ export default function AwardsSection({ awardsData }: AwardsSectionProps) {
                                 key={idx}
                                 className="group hover:scale-105 transition-all duration-300 hover:shadow-lg border rounded-xl border-neutral-200 bg-gradient-to-br from-white to-neutral-50 flex gap-5"
                             >
-                                <div className="border-r border-neutral-200 px-2 flex items-center justify-center w-8 md:w-12">
+                                <div className="border-r border-neutral-200 py-6 px-2 flex items-center justify-center w-8 md:w-12">
                                     <h3 className="md:text-lg font-bold text-gray-800 writing-mode-vertical transform -rotate-180">
                                         {category.category}
                                     </h3>
