@@ -11,7 +11,7 @@ export async function getCollectionData(modelName: string): Promise<ApiResponse>
         },
         next: {
             tags: [`model-${modelName}`],
-            revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
+            //revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
         },
     });
 
@@ -31,7 +31,7 @@ export async function getSingletonData(modelName: string): Promise<ApiResponse> 
         },
         next: {
             tags: [`model-${modelName}`],
-            revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
+            //revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
         },
     });
 
