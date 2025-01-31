@@ -69,6 +69,27 @@ const nextConfig = {
                     },
                 ]
             },
+            {
+                source: '/api/:path*',
+                headers: [
+                    {
+                        key: "Access-Control-Allow-Origin",
+                        value: "*",
+                    },
+                    {
+                        key: "Access-Control-Allow-Methods",
+                        value: "GET, POST, PUT, DELETE, OPTIONS",
+                    },
+                    {
+                        key: "Access-Control-Allow-Headers",
+                        value: "X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding, X-Webhook-Secret",
+                    },
+                    {
+                        key: "Access-Control-Max-Age",
+                        value: "1000",
+                    }
+                ]
+            }
         ]
     },
     async redirects() {
