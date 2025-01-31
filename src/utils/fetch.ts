@@ -3,13 +3,16 @@ interface ApiResponse {
 }
 
 // Fetch collection data with optional parameters
-export async function getCollectionData(slug: string): Promise<ApiResponse> {
-    const response = await fetch(`${process.env.API_URL}/content/items/${slug}`, {
+export async function getCollectionData(modelName: string): Promise<ApiResponse> {
+    const response = await fetch(`${process.env.API_URL}/content/items/${modelName}`, {
         method: "GET",
         headers: {
             "api-key": process.env.API_KEY!,
         },
-        next: { revalidate: process.env.NODE_ENV === 'development' ? 0 : 3600 },
+        next: {
+            revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
+            tags: [modelName]
+        },
     });
 
     if (response.ok) {
@@ -20,13 +23,16 @@ export async function getCollectionData(slug: string): Promise<ApiResponse> {
 }
 
 // Fetch singleton data
-export async function getSingletonData(slug: string): Promise<ApiResponse> {
-    const response = await fetch(`${process.env.API_URL}/content/item/${slug}`, {
+export async function getSingletonData(modelName: string): Promise<ApiResponse> {
+    const response = await fetch(`${process.env.API_URL}/content/item/${modelName}`, {
         method: "GET",
         headers: {
             "api-key": process.env.API_KEY!,
         },
-        next: { revalidate: process.env.NODE_ENV === 'development' ? 0 : 3600 },
+        next: {
+            revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
+            tags: [modelName]
+        },
     });
 
     if (response.ok) {
