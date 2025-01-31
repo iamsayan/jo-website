@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        revalidateTag(modelName);
+        revalidateTag(`model-${modelName}`);
 
         return NextResponse.json({
             revalidated: true,

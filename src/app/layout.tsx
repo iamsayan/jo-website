@@ -8,6 +8,8 @@ import Loader from "@/components/loader";
 import OneSignal from '@/components/onesignal';
 import './globals.sass'
 
+export const revalidate = 604800 // 1 week
+
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
     alternates: {

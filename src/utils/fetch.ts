@@ -10,8 +10,8 @@ export async function getCollectionData(modelName: string): Promise<ApiResponse>
             "api-key": process.env.API_KEY!,
         },
         next: {
+            tags: [`model-${modelName}`],
             revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
-            tags: [modelName]
         },
     });
 
@@ -30,8 +30,8 @@ export async function getSingletonData(modelName: string): Promise<ApiResponse> 
             "api-key": process.env.API_KEY!,
         },
         next: {
+            tags: [`model-${modelName}`],
             revalidate: process.env.NODE_ENV === 'development' ? 0 : 604800,
-            tags: [modelName]
         },
     });
 
