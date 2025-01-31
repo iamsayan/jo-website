@@ -18,12 +18,13 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        revalidateTag(`model-${modelName}`);
+        const tag = `collection-${modelName}`;
+        revalidateTag(tag);
 
         return NextResponse.json({
             revalidated: true,
-            modelName,
-            now: Date.now(),
+            tag: tag,
+            timestamp: Date.now(),
         });
     } catch (err) {
         console.error('Revalidation error:', err);
