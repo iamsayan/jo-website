@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { notFound } from 'next/navigation';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getCollectionData, getSingletonData } from "@/utils/fetch";
@@ -20,7 +19,6 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 // Exporting runtime for edge function if needed
 // export const runtime = 'edge';
-export const revalidate = 3600
 
 interface PageProps {
     params: {
@@ -54,6 +52,14 @@ interface SchemaOptions {
     end?: Date;
 }
 
+export const dynamicParams = false
+
+export async function generateStaticParams() {
+    return Array.from({ length: 100 }, (_, i) => ({
+        year: (i + 2000).toString()
+    }));
+}
+
 export async function generateMetadata({ params }: PageProps) {
     const queryYear = parseInt(params?.year);
     const siteDataRes = await getSingletonData('information');
@@ -74,11 +80,7 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function Page({ params }: PageProps) {
-    const queryYear = parseInt(params?.year);
-    if (queryYear < 2000 || queryYear > 2099) {
-        notFound();
-    }
-
+    const queryYear = Number(params?.year);
     const siteDataRes = getSingletonData('information');
     const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
         sort: { estd: 1 }
@@ -132,7 +134,7 @@ export default async function Page({ params }: PageProps) {
             <Section title="Know More about" description={<>Puja Details <span className="text-yellow-500">{queryYear}</span></>}>
                 <div className="flex flex-col gap-6 text-justify">
                     {dateIsCurrent && <p>
-                        Bengalis have a popular saying: “Bangalir baro mashe tero parbon,” which translates to "Bengalis
+                        Bengalis have a popular saying: "Bangalir baro mashe tero parbon," which translates to "Bengalis
                         celebrate 13 festivals in 12 months." This phrase reflects their boundless enthusiasm for
                         festivals and celebrations. However, the most eagerly awaited festival for the people of
                         Chandannagar, Mankundu and Bhadreswar is undoubtedly Jagadhatri Puja. Typically taking place in

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import React from "react";
 import Script from "next/script"
 import { Analytics } from "@vercel/analytics/react"
@@ -9,6 +9,10 @@ import OneSignal from '@/components/onesignal';
 import './globals.sass'
 
 export const revalidate = 604800 // 1 week
+
+export const viewport: Viewport = {
+    themeColor: '#eab308',
+}
 
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),

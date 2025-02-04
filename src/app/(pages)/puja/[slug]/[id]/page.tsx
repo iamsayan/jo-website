@@ -23,9 +23,6 @@ import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '@/public/vr.jpg'
 
-//export const runtime = 'edge';
-export const revalidate = 3600
-
 interface PujaData {
     reference_id: string;
     puja_name: string;
@@ -48,16 +45,34 @@ interface PujaData {
 
 interface PageProps {
     params: {
-        slug?: string[];
+        slug: string;
+        id: string;
     };
     searchParams: {
         y?: number;
     };
 }
 
+export const dynamicParams = false
+
+export async function generateStaticParams() {
+    const pujasData = await getCollectionData(generateUrlSearchParams('pujas', {
+        sort: { estd: 1 }
+    }));
+    const data = pujasData ?? []
+    
+    return data.map((item: any) => {
+        return [
+            getUrlSlug(item?.puja_name),
+            item?.reference_id
+        ]
+    })
+}
+
 export async function generateMetadata({ params }: PageProps) {
+    const { slug, id } = params
     const pujaData = await getCollectionData(generateUrlSearchParams('pujas', {
-        filter: { reference_id: params?.slug?.[1] }
+        filter: { reference_id: id }
     }))
     const data = pujaData ?? []
 
@@ -65,30 +80,25 @@ export async function generateMetadata({ params }: PageProps) {
         title: `${data?.[0]?.puja_name} Sarbajanin, ${data?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
         description: `Here are the Puja Updates and Latest Information about ${data?.[0]?.puja_name} Sarbajanin of ${data?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}!`,
         openGraph: {
-            url: `/puja/${params?.slug?.[0]}/${params?.slug?.[1]}`,
+            url: `/puja/${slug}/${id}`,
         },
         alternates: {
-            canonical: `/puja/${params?.slug?.[0]}/${params?.slug?.[1]}`,
+            canonical: `/puja/${slug}/${id}`,
         },
     }
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
-    const slug = params?.slug ?? null
+    const { slug, id } = params
     const queryYear = searchParams?.y ?? new Date().getFullYear()
 
-    if (slug?.length !== 2) {
-        notFound()
-    }
-
-    const pujaId = slug?.[1]
     const siteDataRes = getSingletonData('information');
     const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
         sort: { 'puja_name': 1 },
         populate: 1
     }))
     const imagesDataRes = getCollectionData(generateUrlSearchParams('images', {
-        filter: { reference_id: pujaId, year: 2023 },
+        filter: { reference_id: id },
         populate: 1
     }))
 
@@ -100,11 +110,11 @@ export default async function Page({ params, searchParams }: PageProps) {
 
     const displayDate = getDateByIndex(siteData, 0);
     const dateIsCurrent = Number(queryYear) === displayDate.getFullYear();
-    const currentPuja = pujas?.find((data: any) => data?.reference_id === pujaId);
+    const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
 
     let array: PujaData[] = [];
     pujas?.forEach((item: PujaData, index: number) => {
-        if (item?.reference_id === pujaId) {
+        if (item?.reference_id === id) {
             array.push(pujas?.[0 < index ? index - 1 : pujas?.length - 1])
             array.push(pujas?.[pujas?.length - 1 > index ? index + 1 : 0])
         }
@@ -115,7 +125,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     }
 
     const pujaName = currentPuja?.puja_name;
-    if (slug?.[0] !== getUrlSlug(pujaName)) {
+    if (slug !== getUrlSlug(pujaName)) {
         permanentRedirect(`/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`);
     }
 
@@ -197,10 +207,10 @@ export default async function Page({ params, searchParams }: PageProps) {
                                 </div>}
                         </div>
                         {images?.length > 0 &&
-                            <Gallery elementClassNames="grid grid-cols-2 xl:grid-cols-4 gap-2 mt-2" speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
+                            <Gallery elementClassNames={`grid ${images?.length > 4 ? 'grid-cols-3 xl:grid-cols-6' : 'grid-cols-2 xl:grid-cols-4'} gap-2 mt-2`} speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
                                 {images?.map((item: any, index: number) => {
                                     return (
-                                        <a data-disable-nprogress={true} key={index} className="h-52 md:h-72"
+                                        <a data-disable-nprogress={true} key={index} className={`${images?.length > 4 ? 'h-40 md:h-52' : 'h-52 md:h-72'}`}
                                             href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                             <Image
                                                 src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
