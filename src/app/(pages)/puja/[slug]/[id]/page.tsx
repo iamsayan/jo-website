@@ -71,16 +71,28 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
     const { slug, id } = params
-    const pujaData = await getCollectionData(generateUrlSearchParams('pujas', {
+    const pujaDataRes = getCollectionData(generateUrlSearchParams('pujas', {
         filter: { reference_id: id }
     }))
-    const data = pujaData ?? []
+    const imagesDataRes = getCollectionData(generateUrlSearchParams('images', {
+        filter: { reference_id: id },
+        populate: 1
+    }))
+    const [pujasData, imagesData] = await Promise.all([pujaDataRes, imagesDataRes])
+    const pujas = pujasData ?? null
+    const images = imagesData ?? null
 
     return {
-        title: `${data?.[0]?.puja_name} Sarbajanin, ${data?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
-        description: `Here are the Puja Updates and Latest Information about ${data?.[0]?.puja_name} Sarbajanin of ${data?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}!`,
+        title: `${pujas?.[0]?.puja_name} Sarbajanin, ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+        description: `Here are the Puja Updates and Latest Information about ${pujas?.[0]?.puja_name} Sarbajanin of ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}!`,
         openGraph: {
             url: `/puja/${slug}/${id}`,
+            images: images?.map((item: any) => {
+                return {
+                    url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                    alt: item?.puja_entry_id?.puja_name
+                }
+            })
         },
         alternates: {
             canonical: `/puja/${slug}/${id}`,

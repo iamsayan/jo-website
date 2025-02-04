@@ -6,7 +6,6 @@ import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug, generateUrl
 import schema from "@/utils/schema";
 import Link from "next/link";
 
-// Define types for data and features
 interface PujaData {
     reference_id: string;
     puja_name: string;
@@ -18,8 +17,6 @@ interface Zone {
     name: string;
     zone: PujaData[];
 }
-
-export const revalidate = 3600;
 
 export function generateMetadata() {
     return {
