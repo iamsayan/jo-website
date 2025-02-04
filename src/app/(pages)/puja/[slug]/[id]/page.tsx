@@ -62,10 +62,10 @@ export async function generateStaticParams() {
     const data = pujasData ?? []
     
     return data.map((item: any) => {
-        return [
-            getUrlSlug(item?.puja_name),
-            item?.reference_id
-        ]
+        return {
+            slug: getUrlSlug(item?.puja_name),
+            id: item?.reference_id
+        }
     })
 }
 
