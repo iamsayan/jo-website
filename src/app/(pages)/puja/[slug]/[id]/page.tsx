@@ -60,7 +60,7 @@ export async function generateStaticParams() {
         sort: { estd: 1 }
     }));
     const data = pujasData ?? []
-    
+
     return data.map((item: any) => {
         return {
             slug: getUrlSlug(item?.puja_name),
@@ -290,6 +290,9 @@ export default async function Page({ params, searchParams }: PageProps) {
                                         zoom="16"
                                         q={`${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
                                     />
+                                    <div className="text-xs text-gray-600 mt-2">
+                                        Notice an error in the location? Please <Link href="/contact-us" className="text-blue-600 hover:text-blue-800 underline">let us know</Link>
+                                    </div>
                                 </div>}
                             </div>
                             <a href="https://vr.jagadhatrionline.co.in/" target="_blank">

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { Fragment } from 'react';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
@@ -18,17 +19,15 @@ interface Zone {
     zone: PujaData[];
 }
 
-export function generateMetadata() {
-    return {
-        title: 'Jagadhatri Puja Committee List',
-        description: 'Here is the full list of Chandannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
-        openGraph: {
-            url: '/puja-committee-list',
-        },
-        alternates: {
-            canonical: '/puja-committee-list',
-        },
-    };
+export const metadata: Metadata = {
+    title: 'Jagadhatri Puja Committee List',
+    description: 'Here is the full list of Chandannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
+    openGraph: {
+        url: '/puja-committee-list',
+    },
+    alternates: {
+        canonical: '/puja-committee-list',
+    },
 }
 
 export default async function Page({ searchParams }: { searchParams: { y?: number } }) {
