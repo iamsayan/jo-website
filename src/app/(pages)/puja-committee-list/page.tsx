@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getCollectionData } from "@/utils/fetch";
-import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug, generateUrlSearchParams } from "@/utils/functions";
+import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
 
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
 
 export default async function Page({ searchParams }: { searchParams: { y?: number } }) {
     const queryYear = searchParams?.y ?? undefined
-    const pujaData = await getCollectionData(generateUrlSearchParams('pujas', {
+    const pujaData = await getCollectionData('pujas', {
         sort: { 'puja_name': 1 }
-    }));
+    });
 
     const data = pujaData ?? [];
 

@@ -5,7 +5,6 @@ import schema from "@/utils/schema";
 import AwardsSection from '@/components/awards-section';
 import { FaTrophy, FaRegLightbulb, FaUsers } from 'react-icons/fa';
 import { getCollectionData } from '@/utils/fetch';
-import { generateUrlSearchParams } from '@/utils/functions';
 
 export const metadata: Metadata = {
     title: 'Amie Srestho Hoimantika Somman',
@@ -19,10 +18,10 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-    const awardsData = await getCollectionData(generateUrlSearchParams('awards', {
+    const awardsData = await getCollectionData('awards', {
         sort: { year: -1 },
         populate: -1
-    }))
+    })
     let awards = awardsData ?? null
 
     const jsonLd = schema({

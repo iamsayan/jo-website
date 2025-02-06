@@ -1,7 +1,7 @@
 import { notFound, permanentRedirect } from 'next/navigation';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
-import { getCollectionData, getSingletonData } from "@/utils/fetch";
+import { getCollectionData, getData } from "@/utils/fetch";
 import {
     FaArrowLeft,
     FaArrowRight,
@@ -13,7 +13,6 @@ import {
     getCelebrating,
     formatDate,
     getUrlSlug,
-    generateUrlSearchParams,
     getDateByIndex
 } from "@/utils/functions";
 import schema from "@/utils/schema";
@@ -56,9 +55,9 @@ interface PageProps {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-    const pujasData = await getCollectionData(generateUrlSearchParams('pujas', {
+    const pujasData = await getCollectionData('pujas', {
         sort: { estd: 1 }
-    }));
+    });
     const data = pujasData ?? []
 
     return data.map((item: any) => {
@@ -71,16 +70,19 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
     const { slug, id } = params
-    const pujaDataRes = getCollectionData(generateUrlSearchParams('pujas', {
-        filter: { reference_id: id }
-    }))
-    const imagesDataRes = getCollectionData(generateUrlSearchParams('images', {
-        filter: { reference_id: id },
-        populate: 1
-    }))
-    const [pujasData, imagesData] = await Promise.all([pujaDataRes, imagesDataRes])
-    const pujas = pujasData ?? null
-    const images = imagesData ?? null
+    const dataRes = await getData({
+        populate: 1,
+        models: {
+            pujas: {
+                filter: { reference_id: id }
+            },
+            images: {
+                filter: { reference_id: id },
+                populate: 1
+            },
+        }
+    });
+    const { pujas, images } = dataRes ?? {};
 
     return {
         title: `${pujas?.[0]?.puja_name} Sarbajanin, ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
@@ -104,23 +106,22 @@ export default async function Page({ params, searchParams }: PageProps) {
     const { slug, id } = params
     const queryYear = searchParams?.y ?? new Date().getFullYear()
 
-    const siteDataRes = getSingletonData('information');
-    const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
-        sort: { 'puja_name': 1 },
-        populate: 1
-    }))
-    const imagesDataRes = getCollectionData(generateUrlSearchParams('images', {
-        filter: { reference_id: id },
-        populate: 1
-    }))
+    const dataRes = await getData({
+        populate: 1,
+        models: {
+            information: {},
+            pujas: {
+                filter: { reference_id: id }
+            },
+            images: {
+                filter: { reference_id: id },
+                populate: 1
+            },
+        }
+    });
+    const { information, pujas, images } = dataRes ?? {};
 
-    const [siteData, pujasData, imagesData] = await Promise.all([siteDataRes, pujasDataRes, imagesDataRes]);
-
-    const data = siteData ?? null
-    const pujas = pujasData ?? null
-    const images = imagesData ?? null
-
-    const displayDate = getDateByIndex(siteData, 0);
+    const displayDate = getDateByIndex(information, 0);
     const dateIsCurrent = Number(queryYear) === displayDate.getFullYear();
     const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
 
@@ -266,7 +267,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                     <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
                                     <hr />
                                     <div className="flex flex-col gap-1 text-sm">
-                                        {data?.dates?.slice(-5)?.map((item: any, index: number) => {
+                                        {information?.dates?.slice(-5)?.map((item: any, index: number) => {
                                             return (
                                                 <div key={index} className="flex">
                                                     <div className="flex items-center justify-center gap-2">

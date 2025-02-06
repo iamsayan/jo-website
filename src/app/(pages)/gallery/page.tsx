@@ -5,7 +5,7 @@ import Section from "@/components/section";
 import schema from "@/utils/schema";
 import Gallery from "@/components/gallery";
 import { getCollectionData } from "@/utils/fetch";
-import { generateUrlSearchParams, shuffle } from "@/utils/functions";
+import { shuffle } from "@/utils/functions";
 
 export const metadata = {
     title: 'Photo Gallery',
@@ -19,10 +19,10 @@ export const metadata = {
 }
 
 export default async function Page() {
-    const imagesData = await getCollectionData(generateUrlSearchParams('images', {
+    const imagesData = await getCollectionData('images', {
         filter: { category: { $in: [1, 9] } },
         populate: 1
-    }))
+    })
     let images = imagesData ?? null
     images = images?.toReversed()?.slice(0, 96);
 

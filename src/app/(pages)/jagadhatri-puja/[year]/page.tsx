@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
-import { getCollectionData, getSingletonData } from "@/utils/fetch";
+import { getSingletonData, getData } from "@/utils/fetch";
 import {
     jubilees,
     preJubilees,
@@ -10,8 +10,7 @@ import {
     formatDate,
     getDay,
     getDateByIndex,
-    getUrlSlug,
-    generateUrlSearchParams
+    getUrlSlug
 } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
@@ -81,22 +80,21 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function Page({ params }: PageProps) {
     const queryYear = Number(params?.year);
-    const siteDataRes = getSingletonData('information');
-    const pujasDataRes = getCollectionData(generateUrlSearchParams('pujas', {
-        sort: { estd: 1 }
-    }));
-    const processionDataRes = getCollectionData(generateUrlSearchParams('processionlist', {
-        populate: 1
-    }));
-
-    const [siteData, pujasData, processionData] = await Promise.all([siteDataRes, pujasDataRes, processionDataRes]);
-
-    const data = siteData ?? null;
-    const pujas = pujasData ?? null;
-    const procession = processionData ?? null;
-    const totalVehicles = procession?.reduce((sum: number, item: any) => sum + (parseInt(item?.vehicles) || 0), 0) || 0;
-
-    const displayDate = getDateByIndex(data, 0);
+    const dataRes = await getData({
+        populate: 1,
+        models: {
+            information: {},
+            pujas: {
+                sort: { estd: 1 }
+            },
+            processionlist: {
+                populate: 1
+            },
+        }
+    });
+    const { information, pujas, processionlist } = dataRes ?? {};
+    const totalVehicles = processionlist?.reduce((sum: number, item: any) => sum + (parseInt(item?.vehicles) || 0), 0) || 0;
+    const displayDate = getDateByIndex(information, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
     const jubilee = pujas?.filter((data: Puja) => jubilees.includes(Number(getYear(data?.estd, queryYear))));
     const prejubilee = pujas?.filter((data: Puja) => preJubilees.includes(Number(getYear(data?.estd, queryYear))));
@@ -123,8 +121,8 @@ export default async function Page({ params }: PageProps) {
         schemaData = {
             ...schemaData,
             description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
-            start: getDateByIndex(data, 0),
-            end: getDateByIndex(data, 4)
+            start: getDateByIndex(information, 0),
+            end: getDateByIndex(information, 4)
         };
     }
     const jsonLd = schema(schemaData);
@@ -155,7 +153,7 @@ export default async function Page({ params }: PageProps) {
                     {dateIsCurrent && <p>In {queryYear}, Jagadhatri Puja will be
                         observed on {formatDate(displayDate)}. This year it will start
                         on {formatDate(displayDate, true)} and continue up
-                        to {formatDate(getDateByIndex(data, 4), true)}.</p>}
+                        to {formatDate(getDateByIndex(information, 4), true)}.</p>}
                 </div>
                 <div className="overflow-x-auto mt-6">
                     <div role="tablist" className="tabs tabs-lifted">
@@ -223,7 +221,7 @@ export default async function Page({ params }: PageProps) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {data?.dates?.map((item: any, index: number) => {
+                                                {information?.dates?.map((item: any, index: number) => {
                                                     return (
                                                         <tr key={index} className='row'>
                                                             <td>{index + 1}</td>
@@ -239,7 +237,7 @@ export default async function Page({ params }: PageProps) {
                                 </div>
                             </>
                         }
-                        {queryYear === 2024 && procession &&
+                        {queryYear === 2024 && processionlist &&
                             <>
                                 <input type="radio" name="puja_zone" role="tab"
                                     className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
@@ -261,7 +259,7 @@ export default async function Page({ params }: PageProps) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {procession?.map((item: any, index: number) => {
+                                                {processionlist?.map((item: any, index: number) => {
                                                     const y = getYear(item?.puja?.estd, queryYear);
                                                     const cel = getCelebrating(y);
                                                     return (
