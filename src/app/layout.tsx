@@ -63,7 +63,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
-        <html lang="en" data-theme="light">
+        <html lang="en" data-theme="light" suppressHydrationWarning={process.env.NODE_ENV === 'production'}>
             {process.env.NODE_ENV === 'production' &&
                 <>
                     <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />

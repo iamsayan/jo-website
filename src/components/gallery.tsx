@@ -22,6 +22,9 @@ interface GalleryProps {
 
 function Gallery({ children, ...props }: GalleryProps) {
     const settings = {
+        mobileSettings: {
+            showCloseIcon: true,
+        },
         ...props,
         licenseKey: props.licenseKey || 'KRLM-9HJW-HAX-CVQZ',
     };

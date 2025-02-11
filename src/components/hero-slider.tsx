@@ -1,22 +1,22 @@
 'use client'
 
 import React, { useState, useEffect, ReactNode } from 'react';
-import bg1 from '@/public/assets/1.jpg'
-import bg2 from '@/public/assets/2.jpg'
-import bg3 from '@/public/assets/3.jpg'
+import Image from 'next/image';
 
-// Define the types for the props
+const images = [
+    { src: '/assets/2024/IMG_3214.jpg', alt: 'Slide 1' },
+    { src: '/assets/2024/IMG_3218.jpg', alt: 'Slide 2' },
+    { src: '/assets/2024/IMG_3087.jpg', alt: 'Slide 3' },
+    { src: '/assets/2024/IMG_3215.jpg', alt: 'Slide 4' },
+    { src: '/assets/2024/IMG_3144.jpg', alt: 'Slide 5' },
+] as const;
+
 interface ImageSliderProps {
     children?: ReactNode;
 }
 
 const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState<number>(0);
-    const images: string[] = [
-        bg1.src,
-        bg2.src,
-        bg3.src,
-    ];
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -29,18 +29,26 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
     }, [images.length]);
 
     return (
-        <div className="slider hero min-h-full lg:min-h-screen">
-            <div>
+        <div className="hero relative w-full overflow-hidden min-h-full lg:min-h-screen">
+            <div className="slider-container">
                 {images.map((image, index) => (
                     <div
                         key={index}
-                        className={
-                            index === currentImageIndex ? 'slide active' : 'slide inactive'
-                        }
-                        style={{
-                            backgroundImage: `url(${image})`,
-                        }}
-                    />
+                        className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out bg-cover bg-center ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
+                    >
+                        <Image
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            priority={index === 0}
+                            quality={90}
+                            sizes="100vw"
+                            style={{
+                                objectFit: 'cover',
+                            }}
+                        />
+                        <div className="absolute inset-0 bg-black opacity-60"></div>
+                    </div>
                 ))}
             </div>
             {children}

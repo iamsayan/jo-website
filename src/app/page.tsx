@@ -5,20 +5,46 @@ import Main from '@/components/main';
 import Section from "@/components/section";
 import Slider from "@/components/slider";
 import CountdownTimer from "@/components/countdown-timer";
+import Gallery from "@/components/gallery";
+import Videos from "@/components/videos";
+import HeroSlider from "@/components/hero-slider";
 import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook, FaShoppingBag, FaTshirt } from "react-icons/fa";
 import { FaPen } from "react-icons/fa6";
 import { cn, formatDate, getDateByIndex, shuffle } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
 import { getSingletonData } from "@/utils/fetch";
-import Videos from "@/components/videos";
-import HeroSlider from "@/components/hero-slider";
 
-import slider1 from '@/public/assets/slider1.jpg';
-import slider2 from '@/public/assets/slider2.jpg';
-import slider3 from '@/public/assets/slider3.jpg';
-import slider4 from '@/public/assets/slider4.jpg';
-import slider5 from '@/public/assets/slider5.jpg';
-import slider6 from '@/public/assets/slider6.jpg';
+const imagesPath = [
+    '2024/IMG_2868.jpg',
+    'slider2.jpg',
+    'slider3.jpg',
+    'slider4.jpg',
+    '2024/IMG_3199.jpg',
+    'slider5.jpg',
+    'slider6.jpg',
+] as const;
+
+const storyImagesPath = [
+    '2024/IMG_2879.jpg',
+    '2024/IMG_2899.jpg',
+    '2024/IMG_2948.jpg',
+    '2024/IMG_2980.jpg',
+    '2024/IMG_3015.jpg',
+    '2024/IMG_3022.jpg',
+    '2024/IMG_3034.jpg',
+    '2024/IMG_3113.jpg',
+    '2024/IMG_3151.jpg',
+    '2024/IMG_3191.jpg',
+    '2024/IMG_3217.jpg',
+] as const;
+
+const sliderImages = imagesPath.map((image) => ({
+    imageUrl: require(`@/public/assets/${image}`).default.src,
+}));
+
+const storyImages = storyImagesPath.map((image) => ({
+    imageUrl: require(`@/public/assets/${image}`).default.src,
+}));
 
 interface StatsItem {
     title: string;
@@ -206,6 +232,38 @@ export default async function Home() {
                             <FaFlag /> Achievements
                         </Link>
                     </div>
+                    <div className="flex gap-3 flex-col lg:items-center justify-center bg-white rounded-xl shadow-sm p-3 lg:p-6 lg:w-fit lg:mx-auto">
+                        <h3 className="text-lg lg:text-xl font-semibold">Latest Stories</h3>
+                        <Gallery 
+                            elementClassNames="flex gap-2 lg:gap-3 overflow-x-auto scrollbar-none snap-x snap-mandatory" 
+                            speed={500} 
+                            slideShowAutoplay={true} 
+                            fullScreen={true} 
+                            getCaptionFromTitleOrAlt={false}
+                        >
+                            {shuffle(storyImages as any)?.map((image: any, index: number) => (
+                                <a 
+                                    data-disable-nprogress={true} 
+                                    key={index} 
+                                    className="flex flex-col items-center gap-2 cursor-pointer flex-shrink-0 snap-center p-1" 
+                                    href={image.imageUrl}
+                                >
+                                    <div className="p-[3px] bg-gradient-to-tr from-yellow-400 to-fuchsia-600 w-20 h-20 lg:w-24 lg:h-24 rounded-full hover:scale-105 transition-transform">
+                                        <div className="block p-[2px] bg-white h-full rounded-full">
+                                            <img 
+                                                src={image.imageUrl} 
+                                                alt={image.title || `Story ${index + 1}`}
+                                                className="h-full w-full object-cover rounded-full"
+                                            />
+                                        </div>
+                                    </div>
+                                    {/* <span className="text-xs text-gray-600">
+                                        Story {index + 1}
+                                    </span> */}
+                                </a>
+                            ))}
+                        </Gallery>
+                    </div>
                     <div className="stats stats-vertical lg:stats-horizontal text-left shadow container">
                         {stats?.map((item, index) => (
                             <div className="stat" key={index}>
@@ -217,14 +275,7 @@ export default async function Home() {
                         ))}
                     </div>
                     <Slider
-                        slides={[
-                            { imageUrl: slider1.src },
-                            { imageUrl: slider2.src },
-                            { imageUrl: slider3.src },
-                            { imageUrl: slider4.src },
-                            { imageUrl: slider5.src },
-                            { imageUrl: slider6.src },
-                        ]}
+                        slides={sliderImages}
                         options={{
                             height: 800,
                             breakpoints: {
