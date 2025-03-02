@@ -35,10 +35,6 @@ const config: Config = {
         'top-to-bottom': 'top-to-bottom 400ms ease-in-out',
       },
     }
-  },
-  plugins: [ 
-    require('daisyui'),
-    require('tailwind-scrollbar'),
-  ],
+  }
 }
 export default config;
