@@ -156,7 +156,7 @@ export default async function Page({ params }: PageProps) {
                         to {formatDate(getDateByIndex(information, 4), true)}.</p>}
                 </div>
                 <div className="overflow-x-auto mt-6">
-                    <div role="tablist" className="tabs tabs-lifted">
+                    <div role="tablist" className="tabs tabs-lift">
                         {tabs.map((item, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab"
@@ -165,7 +165,7 @@ export default async function Page({ params }: PageProps) {
                                 <div role="tabpanel"
                                     className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">{item?.text}: {item?.type?.length}</p>
-                                    <div className="overflow-x-auto mt-5">
+                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                                         <table className="table text-center table-zebra">
                                             <thead>
                                                 <tr>
@@ -210,7 +210,7 @@ export default async function Page({ params }: PageProps) {
                                 <div role="tabpanel"
                                     className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
-                                    <div className="overflow-x-auto mt-5">
+                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                                         <table className="table text-center table-zebra">
                                             <thead>
                                                 <tr>
@@ -245,7 +245,7 @@ export default async function Page({ params }: PageProps) {
                                 <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
                                     <p className="text-xl font-bold">Procession List {queryYear}</p>
                                     <p className="text-gray-500 mt-2">Total Vehicles: {totalVehicles}</p>
-                                    <div className="overflow-x-auto mt-5">
+                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                                         <table className="table text-center table-zebra">
                                             <thead>
                                                 <tr>
@@ -286,7 +286,7 @@ export default async function Page({ params }: PageProps) {
                     <div className="border rounded-md border-neutral-200">
                         <Link
                             rel="prev"
-                            className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                            className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block text-ellipsis overflow-hidden whitespace-nowrap"
                             href={`/jagadhatri-puja/${queryYear - 1}`}>
                             <FaArrowLeft className="inline-block mr-2 -mt-1" />
                             {queryYear - 1}
@@ -295,7 +295,7 @@ export default async function Page({ params }: PageProps) {
                     <div className="border rounded-md border-neutral-200 text-right">
                         <Link
                             rel="next"
-                            className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                            className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block text-ellipsis overflow-hidden whitespace-nowrap"
                             href={`/jagadhatri-puja/${queryYear + 1}`}>
                             {queryYear + 1}<FaArrowRight className="inline-block ml-2 -mt-1" />
                         </Link>

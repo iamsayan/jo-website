@@ -30,9 +30,15 @@ const config: Config = {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(0)' },
         },
+        'loader-progress': {
+          '0%': { width: '0%' },
+          '50%': { width: '70%' },
+          '100%': { width: '100%' },
+        }
       },
       animation: {
         'top-to-bottom': 'top-to-bottom 400ms ease-in-out',
+        'loader-progress': 'loader-progress 1.5s ease-in-out infinite',
       },
     }
   }

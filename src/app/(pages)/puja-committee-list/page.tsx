@@ -70,7 +70,7 @@ export default async function Page({ searchParams }: { searchParams: { y?: numbe
                     <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data?.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
-                    <div role="tablist" className="tabs tabs-lifted">
+                    <div role="tablist" className="tabs tabs-lift">
                         {zones?.map((item, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label={item?.name} defaultChecked={index === 0} />

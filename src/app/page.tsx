@@ -205,7 +205,7 @@ export default async function Home() {
                         <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
                         <Link
                             href={`/jagadhatri-puja/${year}`}
-                            className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3.5 px-6 h-auto min-h-full rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500"
+                            className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3 px-6 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500"
                         >
                             Jagadhatri Puja {btnYear}
                         </Link>
@@ -227,12 +227,12 @@ export default async function Home() {
                     <div>
                         <Link
                             href="/achievements"
-                            className="btn bg-yellow-500 border-0 uppercase py-4 px-6 h-auto min-h-full rounded-md hover:text-white hover:bg-blue-700"
+                            className="btn bg-yellow-500 border-0 uppercase py-3 px-6 h-auto shadow-none rounded-md hover:text-white hover:bg-blue-700"
                         >
                             <FaFlag /> Achievements
                         </Link>
                     </div>
-                    <div className="flex gap-3 flex-col lg:items-center justify-center bg-white rounded-xl shadow-sm p-3 lg:p-6 lg:w-fit lg:mx-auto">
+                    <div className="flex gap-3 flex-col lg:items-center justify-center bg-white rounded-xl shadow-xs p-3 lg:p-6 lg:w-fit lg:mx-auto">
                         <h3 className="text-lg lg:text-xl font-semibold">Latest Stories</h3>
                         <Gallery 
                             elementClassNames="flex gap-2 lg:gap-3 overflow-x-auto scrollbar-none snap-x snap-mandatory" 
@@ -245,7 +245,7 @@ export default async function Home() {
                                 <a 
                                     data-disable-nprogress={true} 
                                     key={index} 
-                                    className="flex flex-col items-center gap-2 cursor-pointer flex-shrink-0 snap-center p-1" 
+                                    className="flex flex-col items-center gap-2 cursor-pointer shrink-0 snap-center p-1" 
                                     href={image.imageUrl}
                                 >
                                     <div className="p-[3px] bg-gradient-to-tr from-yellow-400 to-fuchsia-600 w-20 h-20 lg:w-24 lg:h-24 rounded-full hover:scale-105 transition-transform">
@@ -264,9 +264,9 @@ export default async function Home() {
                             ))}
                         </Gallery>
                     </div>
-                    <div className="stats stats-vertical lg:stats-horizontal text-left shadow container">
+                    <div className="stats stats-vertical lg:stats-horizontal text-left shadow-sm container">
                         {stats?.map((item, index) => (
-                            <div className="stat" key={index}>
+                            <div className="stat bg-white" key={index}>
                                 <div className={`${cn('stat-figure text-primary', item?.class)}`}>{item?.icon}</div>
                                 <div className="stat-title">{item?.title}</div>
                                 <div className={`${cn('stat-value text-primary', item?.class)}`}>{item?.stat}</div>
@@ -293,7 +293,7 @@ export default async function Home() {
                                 target={item?.link?.includes('https') ? '_blank' : '_self'}
                                 className="flex flex-col gap-2 items-center"
                             >
-                                <span className="p-5 border rounded-full">{item?.icon}</span>
+                                <span className="p-5 border border-gray-200 rounded-full">{item?.icon}</span>
                                 <span className="text-xl font-bold uppercase">{item?.title}</span>
                                 <span className="">{item?.description}</span>
                             </Link>
@@ -341,7 +341,7 @@ export default async function Home() {
                             href="https://store.jagadhatrionline.co.in"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn bg-yellow-500 border-0 uppercase py-4 px-6 h-auto min-h-full rounded-md hover:text-white hover:bg-blue-700"
+                            className="btn bg-yellow-500 border-0 uppercase py-3 px-6 h-auto shadow-none rounded-md hover:text-white hover:bg-blue-700"
                         >
                             Visit Store
                         </a>

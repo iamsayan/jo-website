@@ -52,22 +52,22 @@ export default async function Page() {
                         others
                     </p>
                     <div className="grid md:grid-cols-3 gap-4 md:gap-6">
-                        <div className="bg-white/90 backdrop-blur p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
-                            <FaTrophy className="text-yellow-500 text-3xl flex-shrink-0 mt-1" />
+                        <div className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
+                            <FaTrophy className="text-yellow-500 text-3xl shrink-0 mt-1" />
                             <div className="ml-4">
                                 <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Prestigious Award</h3>
                                 <p className="text-gray-600">Celebrating creativity and craftsmanship since 2016.</p>
                             </div>
                         </div>
-                        <div className="bg-white/90 backdrop-blur p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
-                            <FaUsers className="text-yellow-500 text-3xl flex-shrink-0 mt-1" />
+                        <div className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
+                            <FaUsers className="text-yellow-500 text-3xl shrink-0 mt-1" />
                             <div className="ml-4">
                                 <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Expert Panel</h3>
                                 <p className="text-gray-600">Judged by eminent personalities from various fields.</p>
                             </div>
                         </div>
-                        <div className="bg-white/90 backdrop-blur p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
-                            <FaRegLightbulb className="text-yellow-500 text-3xl flex-shrink-0 mt-1" />
+                        <div className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
+                            <FaRegLightbulb className="text-yellow-500 text-3xl shrink-0 mt-1" />
                             <div className="ml-4">
                                 <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Innovation</h3>
                                 <p className="text-gray-600">Promoting artistic and cultural excellence.</p>

@@ -165,7 +165,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                             <h2 className="text-2xl md:text-[28px] font-bold flex items-center gap-2 text-blue-900">{pujaName}</h2>
                             {currentPuja?.location?.address && <h2 className="text-sm flex items-center gap-2">
                                 <FaMapMarkerAlt />
-                                <div className="overflow-ellipsis overflow-hidden whitespace-nowrap">{currentPuja?.location?.address}</div>
+                                <div className="text-ellipsis overflow-hidden whitespace-nowrap">{currentPuja?.location?.address}</div>
                             </h2>}
                         </div>
                         <hr />
@@ -244,7 +244,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                             <div className="border rounded-md border-neutral-200">
                                 <Link
                                     rel="prev"
-                                    className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                                    className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block text-ellipsis overflow-hidden whitespace-nowrap"
                                     href={`/puja/${getUrlSlug(array?.[0]?.puja_name)}/${array?.[0]?.reference_id}`}>
                                     <FaArrowLeft className="inline-block mr-2 -mt-1" />
                                     {array?.[0]?.puja_name}
@@ -253,7 +253,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                             <div className="border rounded-md border-neutral-200 text-right">
                                 <Link
                                     rel="next"
-                                    className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block overflow-ellipsis overflow-hidden whitespace-nowrap"
+                                    className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block text-ellipsis overflow-hidden whitespace-nowrap"
                                     href={`/puja/${getUrlSlug(array?.[1]?.puja_name)}/${array?.[1]?.reference_id}`}>
                                     {array?.[1]?.puja_name}<FaArrowRight className="inline-block ml-2 -mt-1" />
                                 </Link>

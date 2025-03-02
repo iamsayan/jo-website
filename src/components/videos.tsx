@@ -40,7 +40,7 @@ export default function Videos() {
                 <YouTubeEmbed videoid={videoId} params="controls=0&playsinline=1&cc_load_policy=1&modestbranding=1&rel=0" />
             </div>
             <div className="flex flex-col">
-                <div className="flex flex-row justify-between p-4 border-b-2">
+                <div className="flex flex-row justify-between p-4 border-b-2 border-gray-200">
                     <div>Playlist</div>
                     <div>{videos.length} videos</div>
                 </div>
@@ -56,7 +56,7 @@ export default function Videos() {
                                     alt={info.name}
                                 />
                             </div>
-                            <div className="basis-3/4 text-left overflow-ellipsis overflow-hidden whitespace-nowrap">
+                            <div className="basis-3/4 text-left text-ellipsis overflow-hidden whitespace-nowrap">
                                 {info.name}
                             </div>
                         </div>

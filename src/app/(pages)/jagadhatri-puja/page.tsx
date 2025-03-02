@@ -58,7 +58,7 @@ export default async function Page() {
                         shared joy.</p>
                     <div className="flex items-center justify-center">
                         <Link href={`/jagadhatri-puja/${uptoYear}`}
-                            className="btn border-2 uppercase py-3.5 px-6 h-auto min-h-full rounded-md bg-transparent border-yellow-500 text-yellow-500 hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">
+                            className="btn border-2 uppercase py-3 px-6 h-auto shadow-none rounded-md bg-transparent border-yellow-500 text-yellow-500 hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">
                             View Jagadhatri Puja {uptoYear} Details
                         </Link>
                     </div>

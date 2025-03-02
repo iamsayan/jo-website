@@ -56,7 +56,7 @@ const Contact: React.FC = () => {
                         type="text"
                         placeholder="Full Name"
                         autoComplete="false"
-                        className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                        className={`h-10 border mt-1 rounded-sm px-4 w-full bg-gray-50 ${
                             errors.name
                                 ? "border-red-600 focus:border-red-600"
                                 : "border-gray-300 focus:border-gray-600"
@@ -82,7 +82,7 @@ const Contact: React.FC = () => {
                         type="email"
                         placeholder="Email Address"
                         autoComplete="false"
-                        className={`h-10 border mt-1 rounded px-4 w-full bg-gray-50 ${
+                        className={`h-10 border mt-1 rounded-sm px-4 w-full bg-gray-50 ${
                             errors.email
                                 ? "border-red-600 focus:border-red-600"
                                 : "border-gray-300 focus:border-gray-600"
@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                 <div>
                     <textarea
                         placeholder="Your Message"
-                        className={`px-4 py-3 border mt-1 rounded w-full bg-gray-50 h-36 ${
+                        className={`px-4 py-3 border mt-1 rounded-sm w-full bg-gray-50 h-36 ${
                             errors.message
                                 ? "border-red-600 focus:border-red-600"
                                 : "border-gray-300 focus:border-gray-600"
@@ -123,7 +123,7 @@ const Contact: React.FC = () => {
 
                 <button
                     type="submit"
-                    className="w-full py-3 font-semibold text-white transition-colors bg-yellow-500 rounded-md hover:bg-gray-800 focus:outline-none hover:text-white px-6"
+                    className="w-full py-3 font-semibold text-white transition-colors bg-yellow-500 rounded-md hover:bg-gray-800 focus:outline-hidden hover:text-white px-6"
                 >
                     {isSubmitting ? (
                         <svg

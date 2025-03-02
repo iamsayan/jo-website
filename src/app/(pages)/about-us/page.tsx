@@ -126,7 +126,7 @@ export default function Page() {
                         <h2 className="text-xl font-bold">Founders</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                             {admins.map((item, index) => (
-                                <div key={index} className="flex flex-col md:flex-row p-10 bg-base-100 gap-4 items-center md:gap-10 md:items-start shadow rounded-md">
+                                <div key={index} className="flex flex-col md:flex-row p-10 bg-base-100 gap-4 items-center md:gap-10 md:items-start shadow-sm rounded-md">
                                     <div className="avatar">
                                         <div className="w-32 rounded-full">
                                             <Image
@@ -155,7 +155,7 @@ export default function Page() {
                         <h2 className="text-xl font-bold">Team</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 w-full">
                             {shuffle(members).map((item: Person, index: number) => (
-                                <div key={index} className="flex flex-col p-6 bg-base-100 gap-4 items-center w-full shadow rounded-md">
+                                <div key={index} className="flex flex-col p-6 bg-base-100 gap-4 items-center w-full shadow-sm rounded-md">
                                     <div className="avatar">
                                         <div className="w-24 rounded-full">
                                             <Image

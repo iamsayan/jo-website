@@ -47,7 +47,7 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
                                 objectFit: 'cover',
                             }}
                         />
-                        <div className="absolute inset-0 bg-black opacity-60"></div>
+                        <div className="absolute inset-0 bg-black/60"></div>
                     </div>
                 ))}
             </div>

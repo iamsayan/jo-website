@@ -24,7 +24,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
                     const title = breadcrumbTitle && index === (pathItems?.length - 1) ? breadcrumbTitle : item.replaceAll('-', ' ');
                     return (
                         <li key={index}>
-                            <div className="inline-block overflow-ellipsis overflow-hidden whitespace-nowrap max-w-36">
+                            <div className="inline-block text-ellipsis overflow-hidden whitespace-nowrap max-w-36">
                                 {index === pathItems.length - 1
                                     ? title
                                     : <Link href={`/${pathItems.slice(0, index + 1).join('/')}`}>{title}</Link>

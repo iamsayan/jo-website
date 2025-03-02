@@ -28,7 +28,7 @@ export default function AwardsSection({ awardsData }: AwardsSectionProps) {
     };
 
     return (
-        <div className="space-y-4 md:space-y-6">
+        <div className="flex flex-col gap-4 md:gap-6">
             <h2 className="text-2xl font-bold text-center flex items-center justify-center gap-2">
                 <FaHistory className="text-yellow-500" />
                 Archives
