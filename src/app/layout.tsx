@@ -4,7 +4,7 @@ import Script from "next/script"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { livvic } from "@/fonts"
-import Loader from "@/components/loader";
+import Providers from '@/app/providers';
 import OneSignal from '@/components/onesignal';
 import './globals.sass'
 
@@ -78,9 +78,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 </>
             }
             <body className={`${livvic.className} overflow-x-hidden text-sm md:text-base ${livvic.variable}`}>
-                {children}
+                <Providers>{children}</Providers>
                 <OneSignal />
-                <Loader />
                 {process.env.NODE_ENV === 'production' &&
                     <>
                         <Analytics />

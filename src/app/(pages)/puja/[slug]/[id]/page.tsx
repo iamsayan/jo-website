@@ -48,7 +48,7 @@ interface PageProps {
         id: string;
     };
     searchParams: {
-        y?: number;
+        year?: number;
     };
 }
 
@@ -69,7 +69,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-    const { slug, id } = params
+    const { slug, id } = await params
     const dataRes = await getData({
         populate: 1,
         models: {
@@ -103,8 +103,9 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
-    const { slug, id } = params
-    const queryYear = searchParams?.y ?? new Date().getFullYear()
+    const { slug, id } = await params
+    const { year } = await searchParams
+    const queryYear = year ?? new Date().getFullYear()
 
     const dataRes = await getData({
         populate: 1,

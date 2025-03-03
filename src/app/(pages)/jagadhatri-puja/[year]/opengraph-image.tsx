@@ -13,6 +13,7 @@ interface PageProps {
 }
 
 export default async function Image({ params }: PageProps) {
+    const { year } = await params
     return new ImageResponse(
         <div
             style={{
@@ -77,7 +78,7 @@ export default async function Image({ params }: PageProps) {
                         textShadow: '1px 1px 2px rgba(0,0,0,0.15)',
                     }}
                 >
-                    {params.year}
+                    {year}
                 </div>
 
                 {/* Subtitle */}

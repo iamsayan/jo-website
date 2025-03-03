@@ -203,7 +203,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             )}
-            <style jsx>{`
+            {/* <style jsx>{`
                 @keyframes slideDown {
                     from { transform: translateY(-100%); }
                     to { transform: translateY(0); }
@@ -212,7 +212,7 @@ const Navbar: React.FC = () => {
                 .animate-top-to-bottom {
                     animation: slideDown 0.4s ease-in-out;
                 }
-            `}</style>
+            `}</style> */}
         </header>
     );
 };

@@ -60,7 +60,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-    const queryYear = parseInt(params?.year);
+    const { year } = await params
+    const queryYear = parseInt(year);
     const siteDataRes = await getSingletonData('information');
     const siteData = siteDataRes ?? null;
     const displayDate = getDateByIndex(siteData, 0);
@@ -79,7 +80,8 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function Page({ params }: PageProps) {
-    const queryYear = Number(params?.year);
+    const { year } = await params
+    const queryYear = Number(year);
     const dataRes = await getData({
         populate: 1,
         models: {
