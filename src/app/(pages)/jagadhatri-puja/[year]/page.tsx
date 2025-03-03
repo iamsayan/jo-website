@@ -39,10 +39,6 @@ interface DateItem {
     };
 }
 
-interface SiteData {
-    dates: DateItem[];
-}
-
 interface SchemaOptions {
     slug: string;
     title: string;
@@ -158,7 +154,7 @@ export default async function Page({ params }: PageProps) {
                         to {formatDate(getDateByIndex(information, 4), true)}.</p>}
                 </div>
                 <div className="overflow-x-auto mt-6">
-                    <div role="tablist" className="tabs tabs-lift">
+                    <div role="tablist" className="tabs tabs-lift min-w-fit">
                         {tabs.map((item, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab"

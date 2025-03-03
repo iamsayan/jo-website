@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 // @ts-ignore
 import { Splide, SplideSlide, SplideProps } from '@splidejs/react-splide';
@@ -39,7 +40,7 @@ export default function Slider({ options, slides = [], ...props }: SliderProps) 
         <Splide options={options} {...props}>
             {slides.map((slide, index) => (
                 <SplideSlide key={index}>
-                    <img src={slide.imageUrl} alt={`Slide ${index + 1}`} style={imgStyle} />
+                    <Image src={slide.imageUrl} alt={`Slide ${index + 1}`} style={imgStyle} fill={true} />
                 </SplideSlide>
             ))}
         </Splide>

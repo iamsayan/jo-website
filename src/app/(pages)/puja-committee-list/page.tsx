@@ -77,7 +77,7 @@ export default async function Page({ searchParams }: PageProps) {
                     <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data?.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
                 </div>
                 <div className="overflow-x-auto mt-6">
-                    <div role="tablist" className="tabs tabs-lift">
+                    <div role="tablist" className="tabs tabs-lift min-w-fit">
                         {zones?.map((item, index) => (
                             <Fragment key={index}>
                                 <input type="radio" name="puja_zone" role="tab" className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50" aria-label={item?.name} defaultChecked={index === 0} />
@@ -85,7 +85,7 @@ export default async function Page({ searchParams }: PageProps) {
                                     <p className="text-xl font-bold">List of Jagadhatri Puja Committees</p>
                                     <p className="font-bold">Total {item?.zone.length} Puja Committees</p>
                                     <p className="font-bold">Total Jubilee: {filterData(item?.zone, jubilees)?.length} & Total Pre – Jubilee: {filterData(item?.zone, preJubilees)?.length}</p>
-                                    <div className="overflow-x-auto mt-5">
+                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                                         <table className="table text-center table-zebra">
                                             <thead>
                                                 <tr>

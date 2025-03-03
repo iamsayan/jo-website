@@ -24,28 +24,6 @@ const imagesPath = [
     'slider6.jpg',
 ] as const;
 
-const storyImagesPath = [
-    '2024/IMG_2879.jpg',
-    '2024/IMG_2899.jpg',
-    '2024/IMG_2948.jpg',
-    '2024/IMG_2980.jpg',
-    '2024/IMG_3015.jpg',
-    '2024/IMG_3022.jpg',
-    '2024/IMG_3034.jpg',
-    '2024/IMG_3113.jpg',
-    '2024/IMG_3151.jpg',
-    '2024/IMG_3191.jpg',
-    '2024/IMG_3217.jpg',
-] as const;
-
-const sliderImages = imagesPath.map((image) => ({
-    imageUrl: require(`@/public/assets/${image}`).default.src,
-}));
-
-const storyImages = storyImagesPath.map((image) => ({
-    imageUrl: require(`@/public/assets/${image}`).default.src,
-}));
-
 interface StatsItem {
     title: string;
     stat: string;
@@ -74,6 +52,10 @@ export default async function Home() {
     const year = getDateByIndex(data, 0).getFullYear();
     const curYear = new Date().getFullYear();
     const btnYear = curYear > year ? curYear : year;
+
+    const sliderImages = imagesPath.map((image) => ({
+        imageUrl: `/assets/${image}`,
+    }));
 
     const shopItems: ShopItem[] = [
         {
@@ -231,38 +213,6 @@ export default async function Home() {
                         >
                             <FaFlag /> Achievements
                         </Link>
-                    </div>
-                    <div className="flex gap-3 flex-col lg:items-center justify-center bg-white rounded-xl shadow-xs p-3 lg:p-6 lg:w-fit lg:mx-auto">
-                        <h3 className="text-lg lg:text-xl font-semibold">Latest Stories</h3>
-                        <Gallery 
-                            elementClassNames="flex gap-2 lg:gap-3 overflow-x-auto scrollbar-none snap-x snap-mandatory" 
-                            speed={500} 
-                            slideShowAutoplay={true} 
-                            fullScreen={true} 
-                            getCaptionFromTitleOrAlt={false}
-                        >
-                            {shuffle(storyImages as any)?.map((image: any, index: number) => (
-                                <a 
-                                    data-disable-nprogress={true} 
-                                    key={index} 
-                                    className="flex flex-col items-center gap-2 cursor-pointer shrink-0 snap-center p-1" 
-                                    href={image.imageUrl}
-                                >
-                                    <div className="p-[3px] bg-gradient-to-tr from-yellow-400 to-fuchsia-600 w-20 h-20 lg:w-24 lg:h-24 rounded-full hover:scale-105 transition-transform">
-                                        <div className="block p-[2px] bg-white h-full rounded-full">
-                                            <img 
-                                                src={image.imageUrl} 
-                                                alt={image.title || `Story ${index + 1}`}
-                                                className="h-full w-full object-cover rounded-full"
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* <span className="text-xs text-gray-600">
-                                        Story {index + 1}
-                                    </span> */}
-                                </a>
-                            ))}
-                        </Gallery>
                     </div>
                     <div className="stats stats-vertical lg:stats-horizontal text-left shadow-sm container">
                         {stats?.map((item, index) => (
