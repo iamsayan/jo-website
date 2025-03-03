@@ -7,6 +7,12 @@ import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/ut
 import schema from "@/utils/schema";
 import Link from "next/link";
 
+interface PageProps {
+    searchParams: Promise<{
+        year?: number;
+    }>;
+}
+
 interface PujaData {
     reference_id: string;
     puja_name: string;
@@ -30,8 +36,9 @@ export const metadata: Metadata = {
     },
 }
 
-export default async function Page({ searchParams }: { searchParams: { y?: number } }) {
-    const queryYear = searchParams?.y ?? undefined
+export default async function Page({ searchParams }: PageProps) {
+    const { year } = await searchParams
+    const queryYear = year ?? undefined
     const pujaData = await getCollectionData('pujas', {
         sort: { 'puja_name': 1 }
     });
