@@ -43,13 +43,13 @@ interface PujaData {
 }
 
 interface PageProps {
-    params: {
+    params: Promise<{
         slug: string;
         id: string;
-    };
-    searchParams: {
+    }>;
+    searchParams: Promise<{
         year?: number;
-    };
+    }>;
 }
 
 export const dynamicParams = false

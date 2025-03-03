@@ -7,9 +7,9 @@ export const size = {
 export const contentType = 'image/png'
 
 interface PageProps {
-    params: {
+    params: Promise<{
         year: string;
-    };
+    }>;
 }
 
 export default async function Image({ params }: PageProps) {

@@ -20,9 +20,9 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 // export const runtime = 'edge';
 
 interface PageProps {
-    params: {
+    params: Promise<{
         year: string;
-    };
+    }>;
 }
 
 interface Puja {
