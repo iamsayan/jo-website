@@ -67,7 +67,7 @@ export default function AwardsSection({ awardsData }: AwardsSectionProps) {
                             {yearData?.categories?.map((category: any, idx: any) => (
                                 <div 
                                     key={idx}
-                                    className="group hover:scale-105 transition-all duration-300 hover:shadow-lg border rounded-xl border-neutral-200 bg-gradient-to-br from-white to-neutral-50 flex gap-5"
+                                    className="group hover:scale-105 transition-all duration-300 delay-300 ease-in-out hover:shadow-lg border rounded-xl border-neutral-200 bg-gradient-to-br from-white to-neutral-50 flex gap-5"
                                 >
                                     <div className="border-r border-neutral-200 py-6 px-2 flex items-center justify-center w-8 md:w-12">
                                         <h3 className="md:text-lg font-bold text-gray-800 writing-mode-vertical transform -rotate-180">
