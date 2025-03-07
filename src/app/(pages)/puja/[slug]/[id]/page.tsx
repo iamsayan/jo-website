@@ -224,7 +224,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                             <Gallery elementClassNames={`grid ${images?.length > 4 ? 'grid-cols-3 xl:grid-cols-6' : 'grid-cols-2 xl:grid-cols-4'} gap-2 mt-2`} speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
                                 {images?.map((item: any, index: number) => {
                                     return (
-                                        <a data-disable-nprogress={true} key={index} className={`${images?.length > 4 ? 'h-40 md:h-52' : 'h-52 md:h-72'}`}
+                                        <a data-disable-progress={true} key={index} className={`${images?.length > 4 ? 'h-40 md:h-52' : 'h-52 md:h-72'}`}
                                             href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                             <Image
                                                 src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}

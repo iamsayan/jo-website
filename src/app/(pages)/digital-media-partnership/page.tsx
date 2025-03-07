@@ -119,10 +119,10 @@ export default function Page() {
                                 <tr>
                                     <th className="bg-gray-100">Click to Register</th>
                                     <td>
-                                        <a data-disable-nprogress={true} href="https://razorpay.com/payment-button/pl_Ony68U6SyoZEI6/view" className="btn bg-yellow-500 border-2 border-yellow-500 py-2 px-4 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Register</a>
+                                        <a data-disable-progress={true} href="https://razorpay.com/payment-button/pl_Ony68U6SyoZEI6/view" className="btn bg-yellow-500 border-2 border-yellow-500 py-2 px-4 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Register</a>
                                     </td>
                                     <td className="bg-yellow-50">
-                                        <a data-disable-nprogress={true} href="https://razorpay.com/payment-button/pl_Oo0wht5ntXU1gr/view" className="btn bg-yellow-500 border-2 border-yellow-500 py-2 px-4 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Register</a>
+                                        <a data-disable-progress={true} href="https://razorpay.com/payment-button/pl_Oo0wht5ntXU1gr/view" className="btn bg-yellow-500 border-2 border-yellow-500 py-2 px-4 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500">Register</a>
                                     </td>
                                 </tr>
                             </tbody>

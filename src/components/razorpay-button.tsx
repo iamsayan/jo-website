@@ -25,7 +25,7 @@ const RazorPayButton: React.FC<RazorPayButtonProps> = ({ buttonId }) => {
         }
     }, [buttonId]);
 
-    return <form ref={formRef}></form>;
+    return <form ref={formRef} data-prevent-progress={true}></form>;
 };
 
 export default RazorPayButton;

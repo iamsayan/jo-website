@@ -1,10 +1,36 @@
-'use client'
+"use client"
 
-import React from 'react';
-import ScrollToTop from "react-scroll-to-top";
+import React, { useEffect, useState } from "react"
+import { FaArrowUp } from "react-icons/fa6";
 
-const ScrollTop: React.FC = () => (
-    <ScrollToTop smooth className="flex items-center justify-center !bg-yellow-400" width='15' height='15' viewBox="0 0 20 20" svgPath="M10,0L9.4,0.6L0.8,9.1l1.2,1.2l7.1-7.1V20h1.7V3.3l7.1,7.1l1.2-1.2l-8.5-8.5L10,0z"/>
-);
+const ScrollToTopButton: React.FC = () => {
+    const [isVisible, setIsVisible] = useState(false)
 
-export default ScrollTop;
+    useEffect(() => {
+        const onScroll = () => {
+            setIsVisible(document.documentElement.scrollTop >= 20);
+        };
+        onScroll();
+        document.addEventListener("scroll", onScroll);
+        return () => document.removeEventListener("scroll", onScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        isVisible &&
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+    }
+
+    return (
+        <button
+            className={`cursor-pointer flex items-center justify-center text-black bg-yellow-400 shadow-md fixed bottom-10 right-10 rounded-lg p-3 outline-none transition-opacity duration-200 ${isVisible ? "opacity-100" : "opacity-0"}`}
+            onClick={scrollToTop}
+        >
+            <FaArrowUp />
+        </button>
+    )
+}
+
+export default ScrollToTopButton
