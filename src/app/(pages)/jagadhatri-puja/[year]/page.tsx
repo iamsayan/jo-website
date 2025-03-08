@@ -15,7 +15,7 @@ import {
 import schema from "@/utils/schema";
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
+import { metadata as metadataSchema } from "@/app/layout";
 // Exporting runtime for edge function if needed
 // export const runtime = 'edge';
 
@@ -67,6 +67,7 @@ export async function generateMetadata({ params }: PageProps) {
         title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
         description: `Here are the Jubilee & Pre Jubilee List${dateIsCurrent ? ', Schedule, Puja Updates ' : ''}and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
         openGraph: {
+            ...metadataSchema.openGraph,
             url: `/jagadhatri-puja/${queryYear}`,
         },
         alternates: {

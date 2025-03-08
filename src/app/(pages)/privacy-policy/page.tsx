@@ -3,11 +3,13 @@ import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
 import { getSingletonData } from "@/utils/fetch";
+import { metadata as metadataSchema } from "@/app/layout";
 
 export const metadata: Metadata = {
     title: 'Privacy Policy',
     description: 'We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.',
     openGraph: {
+        ...metadataSchema.openGraph,
         url: '/privacy-policy',
     },
     alternates: {

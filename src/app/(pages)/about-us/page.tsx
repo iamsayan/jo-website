@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image';
 import { FaSquareFacebook, FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
-
+import { metadata as metadataSchema } from "@/app/layout";
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     title: 'About Us',
     description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
     openGraph: {
+        ...metadataSchema.openGraph,
         url: '/about-us',
     },
     alternates: {

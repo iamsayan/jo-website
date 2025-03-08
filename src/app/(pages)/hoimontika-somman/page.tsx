@@ -5,11 +5,13 @@ import schema from "@/utils/schema";
 import AwardsSection from '@/components/awards-section';
 import { FaTrophy, FaRegLightbulb, FaUsers } from 'react-icons/fa';
 import { getCollectionData } from '@/utils/fetch';
+import { metadata as metadataSchema } from "@/app/layout";
 
 export const metadata: Metadata = {
     title: 'Amie Srestho Hoimantika Somman',
     description: 'The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity and craftsmanship during Jagadhatri Puja in Chandannagar since 2016.',
     openGraph: {
+        ...metadataSchema.openGraph,
         url: '/hoimontika-somman',
     },
     alternates: {

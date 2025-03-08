@@ -3,11 +3,13 @@ import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
 import schema from "@/utils/schema";
 import { FaCircleCheck, FaXmark, FaCheck } from "react-icons/fa6";
+import { metadata as metadataSchema } from "@/app/layout";
 
 export const metadata: Metadata = {
     title: 'Digital Media Partnership Programme',
     description: 'Digital Media Partnership Programme is a collaboration program for Jagadhatri Puja Commitees across Chandannagar Mankundu and Bhadreswar.',
     openGraph: {
+        ...metadataSchema.openGraph,
         url: '/digital-media-partnership',
     },
     alternates: {

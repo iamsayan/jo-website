@@ -6,6 +6,7 @@ import { getCollectionData } from "@/utils/fetch";
 import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
+import { metadata as metadataSchema } from "@/app/layout";
 
 interface PageProps {
     searchParams: Promise<{
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
     title: 'Jagadhatri Puja Committee List',
     description: 'Here is the full list of Chandannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
     openGraph: {
+        ...metadataSchema.openGraph,
         url: '/puja-committee-list',
     },
     alternates: {

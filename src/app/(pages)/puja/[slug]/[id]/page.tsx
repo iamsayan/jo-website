@@ -21,7 +21,7 @@ import Gallery from "@/components/gallery";
 import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '@/public/vr.jpg'
-
+import { metadata as metadataSchema } from "@/app/layout";
 interface PujaData {
     reference_id: string;
     puja_name: string;
@@ -88,6 +88,7 @@ export async function generateMetadata({ params }: PageProps) {
         title: `${pujas?.[0]?.puja_name} Sarbajanin, ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
         description: `Here are the Puja Updates and Latest Information about ${pujas?.[0]?.puja_name} Sarbajanin of ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}!`,
         openGraph: {
+            ...metadataSchema.openGraph,
             url: `/puja/${slug}/${id}`,
             images: images?.map((item: any) => {
                 return {
