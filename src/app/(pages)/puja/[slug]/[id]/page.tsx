@@ -111,7 +111,9 @@ export default async function Page({ params, searchParams }: PageProps) {
         populate: 1,
         models: {
             information: {},
-            pujas: {},
+            pujas: {
+                sort: { puja_name: 1 }
+            },
             images: {
                 filter: { reference_id: id },
                 populate: 1
