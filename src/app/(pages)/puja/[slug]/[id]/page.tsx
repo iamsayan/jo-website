@@ -111,9 +111,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         populate: 1,
         models: {
             information: {},
-            pujas: {
-                filter: { reference_id: id }
-            },
+            pujas: {},
             images: {
                 filter: { reference_id: id },
                 populate: 1
@@ -169,7 +167,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                 <div className="text-ellipsis overflow-hidden whitespace-nowrap">{currentPuja?.location?.address}</div>
                             </h2>}
                         </div>
-                        <hr />
+                        <hr className="border-neutral-200" />
                         <div className="flex flex-col gap-3">
                             <p>Welcome to the webpage dedicated to the vibrant celebration of Jagadhatri Puja
                                 by {pujaName} in {currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}! As one of the 177 esteemed puja committees in our beloved
@@ -240,7 +238,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                 })}
                             </Gallery>
                         }
-                        <hr />
+                        <hr className="border-neutral-200" />
                         <div className="flex flex-col sm:flex-row gap-3 justify-between text-sm">
                             <div className="border rounded-md border-neutral-200">
                                 <Link
@@ -266,7 +264,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                             <div className="p-4 md:p-6 bg-gray-100 flex flex-col gap-7">
                                 {dateIsCurrent && <div className="flex flex-col gap-2">
                                     <h1 className="text-xl font-bold uppercasse text-blue-700">Puja Schedule</h1>
-                                    <hr />
+                                    <hr className="border-neutral-200" />
                                     <div className="flex flex-col gap-1 text-sm">
                                         {information?.dates?.slice(-5)?.map((item: any, index: number) => {
                                             return (
@@ -283,7 +281,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                     <h1 className="text-xl font-bold uppercadse text-blue-700"><a
                                         href={`https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}`}
                                         target="_blank">Locate on Google Map</a></h1>
-                                    <hr />
+                                    <hr className="border-neutral-200" />
                                     <GoogleMapsEmbed
                                         apiKey={process.env.GOOGLE_MAP_API_KEY!}
                                         height={300}
