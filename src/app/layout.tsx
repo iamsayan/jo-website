@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import React from "react";
 import Script from "next/script"
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 import { livvic } from "@/fonts"
 import Providers from '@/app/providers';
 import OneSignal from '@/components/onesignal';
@@ -82,8 +80,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <OneSignal />
                 {process.env.NODE_ENV === 'production' &&
                     <>
-                        <Analytics />
-                        <SpeedInsights />
                         <Script id="statcounter">
                             {`
                                 var sc_project=11108007; 

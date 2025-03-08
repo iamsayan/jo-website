@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import classNames from 'classnames';
+import cx from 'classix';
 import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import circleLogo from '@/public/circle-logo.png';
@@ -135,11 +135,10 @@ const Navbar: React.FC = () => {
                             </div>
                             <ul className="menu menu-horizontal px-1 gap-2 uppercase font-bold hidden lg:flex">
                                 {items.map((item, index) => {
-                                    const classes = classNames({
-                                        'text-slate-300 focus:!text-white focus:!bg-transparent focus:!text-yellow-500 active:!bg-transparent': !isScrolled,
-                                        'text-slate-600': isScrolled,
-                                        '!text-yellow-500': pathname === item.path,
-                                    });
+                                    const classes = cx(
+                                        isScrolled ? 'text-slate-600' : 'text-slate-300 focus:!text-white focus:!bg-transparent focus:!text-yellow-500 active:!bg-transparent',
+                                        pathname === item.path && '!text-yellow-500',
+                                    );
                                     return (
                                         <li key={index}>
                                             {item.subMenu ? (
@@ -147,9 +146,10 @@ const Navbar: React.FC = () => {
                                                     <summary className={classes}>{item.name}</summary>
                                                     <ul className="p-2 w-56">
                                                         {item.subMenu.map((subItem, subIndex) => {
-                                                            const innerClasses = classNames('text-slate-600', {
-                                                                '!text-yellow-500': pathname === subItem.path,
-                                                            });
+                                                            const innerClasses = cx(
+                                                                !isScrolled && 'text-slate-600',
+                                                                pathname === subItem.path && '!text-yellow-500',
+                                                            );
                                                             return (
                                                                 <li key={subIndex}>
                                                                     <Link href={subItem.path} target={subItem.target ?? '_self'} className={innerClasses}>
@@ -203,16 +203,6 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             )}
-            {/* <style jsx>{`
-                @keyframes slideDown {
-                    from { transform: translateY(-100%); }
-                    to { transform: translateY(0); }
-                }
-                
-                .animate-top-to-bottom {
-                    animation: slideDown 0.4s ease-in-out;
-                }
-            `}</style> */}
         </header>
     );
 };

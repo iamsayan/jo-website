@@ -311,7 +311,7 @@ export default async function Home() {
                         {data?.dates?.slice(-5)?.map((item: any, index: number) => (
                             <div
                                 key={index}
-                                className={`flex gap-4 col-span-2${index === 3 ? ' md:col-start-2' : ''}`}
+                                className={`flex gap-4 col-span-2 ${index === 3 ? ' md:col-start-2' : ''}`}
                             >
                                 <Image
                                     width={55}

@@ -49,3 +49,12 @@ body
 .writing-mode-vertical
   writing-mode: vertical-rl
   text-orientation: mixed
+
+@keyframes slideDown
+  from
+    transform: translateY(-100%)
+  to
+    transform: translateY(0)
+                
+.animate-top-to-bottom
+  animation: slideDown 0.4s ease-in-out

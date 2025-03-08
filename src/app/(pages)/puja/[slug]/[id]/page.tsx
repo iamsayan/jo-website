@@ -147,7 +147,7 @@ export default async function Page({ params, searchParams }: PageProps) {
     const cel = getCelebrating(y);
 
     const jsonLd = schema({
-        slug: `/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
+        slug: `puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
         title: `Details of ${pujaName} Sarbajanin`,
     })
 

@@ -1,8 +1,8 @@
-import classNames from "classnames";
-import { twMerge } from "tailwind-merge";
+import cx from 'classix';
+import { twMerge } from 'tailwind-merge';
 
 export const cn = (...classes: (string | undefined)[]) => {
-    return twMerge(classNames(...classes));
+    return twMerge(cx(...classes));
 };
 
 export const jubilees: number[] = [25, 50, 60, 75, 100, 125, 150, 160, 175, 200, 225, 250, 260, 275, 300];

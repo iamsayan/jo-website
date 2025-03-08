@@ -3,6 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { GoHome } from "react-icons/go";
+import { FaRegFolder } from "react-icons/fa";
 
 interface BreadcrumbsProps {
     breadcrumbTitle?: string | null;
@@ -18,7 +20,9 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
         <div className="text-xs breadcrumbs uppercase">
             <ul>
                 <li>
-                    <Link href="/">Home</Link>
+                    <Link href="/" className="flex items-center gap-2">
+                        <GoHome /> Home
+                    </Link>
                 </li>
                 {pathItems?.map((item, index) => {
                     const title = breadcrumbTitle && index === (pathItems?.length - 1) ? breadcrumbTitle : item.replaceAll('-', ' ');
@@ -27,7 +31,9 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
                             <div className="inline-block text-ellipsis overflow-hidden whitespace-nowrap max-w-36">
                                 {index === pathItems.length - 1
                                     ? title
-                                    : <Link href={`/${pathItems.slice(0, index + 1).join('/')}`}>{title}</Link>
+                                    : <Link href={`/${pathItems.slice(0, index + 1).join('/')}`} className="flex items-center gap-2">
+                                        <FaRegFolder /> {title}
+                                    </Link>
                                 }
                             </div>
                         </li>
