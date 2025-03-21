@@ -7,12 +7,13 @@ const ScrollToTopButton: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
+        const controller = new AbortController();
         const onScroll = () => {
             setIsVisible(document.documentElement.scrollTop >= 20);
         };
         onScroll();
-        document.addEventListener("scroll", onScroll);
-        return () => document.removeEventListener("scroll", onScroll);
+        document.addEventListener("scroll", onScroll, { signal: controller.signal });
+        return () => controller.abort();
     }, []);
 
     const scrollToTop = () => {

@@ -22,6 +22,7 @@ const Navbar: React.FC = () => {
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
     useEffect(() => {
+        const controller = new AbortController();
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 5);
         };
@@ -30,11 +31,9 @@ const Navbar: React.FC = () => {
         handleScroll();
         setIsInitialized(true);
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { signal: controller.signal });
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => controller.abort();
     }, []);
 
     const items: MenuItem[] = [
