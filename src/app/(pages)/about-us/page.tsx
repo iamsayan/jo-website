@@ -5,7 +5,7 @@ import { metadata as metadataSchema } from "@/app/layout";
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
-import { shuffle } from "@/utils/functions";
+import arrayShuffle from "array-shuffle";
 
 export const metadata: Metadata = {
     title: 'About Us',
@@ -155,7 +155,7 @@ export default function Page() {
                     <div className="flex flex-col items-center gap-5 w-full">
                         <h2 className="text-xl font-bold">Team</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-4 w-full">
-                            {shuffle(members).map((item: Person, index: number) => (
+                            {arrayShuffle(members).map((item: Person, index: number) => (
                                 <div key={index} className="flex flex-col p-6 bg-base-100 gap-4 items-center w-full shadow-sm rounded-md">
                                     <div className="avatar">
                                         <div className="w-24 rounded-full">

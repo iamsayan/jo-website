@@ -1,17 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import runOneSignal from '@/lib/onesignal';
+import { useEffectOnce } from '@/hooks/useEffectOnce';
 
 export default function OneSignal() {
-  const initialized = useRef<boolean>(false);
-
-  useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      runOneSignal();
-    }
-  }, []);
+  useEffectOnce(() => {
+    runOneSignal();
+  });
 
   return null;
 }

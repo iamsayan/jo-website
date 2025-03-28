@@ -10,7 +10,7 @@ import Videos from "@/components/videos";
 import HeroSlider from "@/components/hero-slider";
 import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook, FaShoppingBag, FaTshirt } from "react-icons/fa";
 import { FaPen } from "react-icons/fa6";
-import { cn, formatDate, getDateByIndex, shuffle } from "@/utils/functions";
+import { cn, formatDate, getDateByIndex } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
 import { getSingletonData } from "@/utils/fetch";
 

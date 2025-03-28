@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffectOnce } from '@/hooks/useEffectOnce';
 
 declare global {
     interface Window {
@@ -14,18 +15,14 @@ interface GoogleAdUnitClientProps {
 }
 
 const GoogleAdUnitClient: React.FC<GoogleAdUnitClientProps> = ({ children }) => {
-    const initialized = useRef<boolean>(false);
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    useEffect(() => {
-        if (!initialized.current) {
-            initialized.current = true;
-            try {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (err) {
-                console.error(err);
-            }
+    useEffectOnce(() => {
+        try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (err) {
+            console.error(err);
         }
     }, [pathname, searchParams]);
 

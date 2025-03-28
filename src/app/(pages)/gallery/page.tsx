@@ -4,6 +4,7 @@ import Section from "@/components/section";
 import schema from "@/utils/schema";
 import GalleryFilter from "@/components/gallery-filter";
 import { getCollectionData } from "@/utils/fetch";
+import arrayShuffle from "array-shuffle";
 import { metadata as metadataSchema } from "@/app/layout";
 
 export const metadata = {
@@ -33,7 +34,7 @@ export default async function Page() {
     return (
         <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
             <Section title="View Jagadhatri Puja" description={<>Photo <span className="text-yellow-500">Gallery</span></>}>
-                <GalleryFilter images={images as any} />
+                <GalleryFilter images={arrayShuffle(images as any)} />
             </Section>
         </MainLayout>
     )

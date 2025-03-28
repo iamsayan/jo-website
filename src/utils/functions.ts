@@ -83,10 +83,6 @@ export const getDay = (date: string | Date): string => {
     return daysOfWeek[dayOfWeek];
 };
 
-export const shuffle = <T>(array: T[]): T[] => {
-    return array.sort(() => Math.random() - 0.5);
-};
-
 export const getDateByIndex = (data: { dates?: { date?: string } [] }, index: number): Date => {
     const dates = data?.dates ?? [];
     return dates[index]?.date ? new Date(dates[index].date) : new Date();
