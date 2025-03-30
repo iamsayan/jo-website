@@ -48,8 +48,8 @@ export default function Videos() {
     ];
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-0 md:gap-5">
-            <div className="col-span-3">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-5">
+            <div className="md:col-span-3">
                 <YouTubeEmbed videoid={videoId} params="controls=0&playsinline=1&cc_load_policy=1&modestbranding=1&rel=0" />
             </div>
             <div className="flex flex-col">
