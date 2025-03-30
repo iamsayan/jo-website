@@ -4,11 +4,12 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import Image from 'next/image';
 
 const images = [
-    { src: '/assets/2024/IMG_3214.jpg', alt: 'Slide 1' },
-    { src: '/assets/2024/IMG_3218.jpg', alt: 'Slide 2' },
-    { src: '/assets/2024/IMG_3087.jpg', alt: 'Slide 3' },
-    { src: '/assets/2024/IMG_3215.jpg', alt: 'Slide 4' },
-    { src: '/assets/2024/IMG_3144.jpg', alt: 'Slide 5' },
+    { src: '/assets/2024/mankucover.jpg', alt: 'Slide 1' },
+    { src: '/assets/2024/circuspandal.jpg', alt: 'Slide 2' },
+    { src: '/assets/2024/line.jpg', alt: 'Slide 3' },
+    { src: '/assets/2024/bhasan.jpg', alt: 'Slide 4' },
+    { src: '/assets/2024/tematha.jpg', alt: 'Slide 5' },
+    { src: '/assets/2024/strand.jpg', alt: 'Slide 6' },
 ] as const;
 
 interface ImageSliderProps {
