@@ -5,7 +5,6 @@ import Main from '@/components/main';
 import Section from "@/components/section";
 import Slider from "@/components/slider";
 import CountdownTimer from "@/components/countdown-timer";
-import Gallery from "@/components/gallery";
 import Videos from "@/components/videos";
 import HeroSlider from "@/components/hero-slider";
 import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook, FaShoppingBag, FaTshirt } from "react-icons/fa";
@@ -15,13 +14,13 @@ import { paytoneOne } from "@/fonts";
 import { getSingletonData } from "@/utils/fetch";
 
 const imagesPath = [
-    '2024/IMG_2868.jpg',
-    'slider2.jpg',
-    'slider3.jpg',
-    'slider4.jpg',
-    '2024/IMG_3199.jpg',
-    'slider5.jpg',
-    'slider6.jpg',
+    '2024/doibokhalf.jpg',
+    '2024/banerjeeparamadhyanchal.jpg',
+    '2024/circuscover.jpg',
+    '2024/coverkhalisani.jpg',
+    '2024/fatokgoraroadlight.jpg',
+    '2024/temathafull.jpg',
+    '2024/strand.jpg',
 ] as const;
 
 interface StatsItem {
@@ -227,6 +226,10 @@ export default async function Home() {
                     <Slider
                         slides={sliderImages}
                         options={{
+                            lazyLoad: 'nearby',
+                            autoScroll: {
+                                speed: 1,
+                            },
                             height: 800,
                             breakpoints: {
                                 640: {
