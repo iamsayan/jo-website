@@ -5,13 +5,12 @@ import { useState } from 'react';
 import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
-import { LazyLoadImage, trackWindowScroll, ScrollPosition } from 'react-lazy-load-image-component';
+import { LazyLoadImage, trackWindowScroll, LazyComponentProps } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-interface GalleryFilterProps {
+interface GalleryFilterProps extends LazyComponentProps {
     className?: string;
     images: any;
-    scrollPosition: ScrollPosition;
 }
 
 function GalleryFilter({ className, images, scrollPosition }: GalleryFilterProps) {
