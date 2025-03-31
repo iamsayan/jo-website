@@ -7,7 +7,13 @@ import {
     FaArrowLeft,
     FaArrowRight,
     FaCalendarAlt,
-    FaMapMarkerAlt
+    FaMapMarkerAlt,
+    FaHistory,
+    FaCrown,
+    FaShieldAlt,
+    FaPalette,
+    FaChalkboard,
+    FaPaintBrush,
 } from "react-icons/fa";
 import {
     getYear,
@@ -75,7 +81,9 @@ export async function generateMetadata({ params }: PageProps) {
     const dataRes = await getData({
         populate: 1,
         models: {
-            pujas: {},
+            pujas: {
+                filter: { reference_id: id }
+            },
             images: {
                 filter: { reference_id: id },
                 populate: 1
@@ -85,8 +93,8 @@ export async function generateMetadata({ params }: PageProps) {
     });
     const { pujas, images, pujadescriptions } = dataRes ?? {};
 
-    const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
-    const description = getDescription(currentPuja, pujadescriptions, pujas?.length)
+    const currentPuja = pujas?.[0];
+    const description = getDescription(currentPuja, pujadescriptions, 'famous')
 
     return {
         title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
@@ -184,26 +192,61 @@ export default async function Page({ params, searchParams }: PageProps) {
                             {currentPuja?.puja_info && <p className="text-justify space-y-2" dangerouslySetInnerHTML={{ __html: currentPuja.puja_info }} />}
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-4 text-sm">
-                            <div className="border rounded-md border-neutral-200 px-6 py-4">Year of Establishment: <span
-                                className="font-bold">{currentPuja?.estd != 0 ? currentPuja?.estd : 'Not Known'}</span>
+                            <div className="border rounded-md border-neutral-200 px-6 py-4 hover:border-yellow-500 transition-colors">
+                                <div className="flex items-center gap-2 text-yellow-600 mb-1">
+                                    <FaHistory className="text-lg" />
+                                    <span className="font-semibold">Heritage</span>
+                                </div>
+                                <div>Year of Establishment: <span className="font-bold text-blue-900">{currentPuja?.estd != 0 ? currentPuja?.estd : 'Not Known'}</span></div>
                             </div>
-                            {cel != 'Adi Puja' &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">Celebrating: <span
-                                    className="font-bold">{y} Years {cel !== '--' && <>({cel})</>}</span></div>}
-                            <div className="border rounded-md border-neutral-200 px-6 py-4">Police Station: <span
-                                className="font-bold">{currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</span>
+                            
+                            {cel != 'Adi Puja' && (
+                                <div className="border rounded-md border-neutral-200 px-6 py-4 hover:border-yellow-500 transition-colors">
+                                    <div className="flex items-center gap-2 text-yellow-600 mb-1">
+                                        <FaCrown className="text-lg" />
+                                        <span className="font-semibold">Legacy</span>
+                                    </div>
+                                    <div>Celebrating: <span className="font-bold text-blue-900">{y} Years {cel !== '--' && <>({cel})</>}</span></div>
+                                </div>
+                            )}
+                            
+                            <div className="border rounded-md border-neutral-200 px-6 py-4 hover:border-yellow-500 transition-colors">
+                                <div className="flex items-center gap-2 text-yellow-600 mb-1">
+                                    <FaShieldAlt className="text-lg" />
+                                    <span className="font-semibold">Jurisdiction</span>
+                                </div>
+                                <div>Police Station: <span className="font-bold text-blue-900">{currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</span></div>
                             </div>
-                            {currentPuja?.current_theme &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">
-                                    Theme: <span className="font-bold">{currentPuja.current_theme}</span></div>}
-                            {currentPuja?.idol_artist?.artist_name &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">
-                                    Idol Artist:  <span className="font-bold">{currentPuja.idol_artist.artist_name}</span>
-                                </div>}
-                            {currentPuja?.decoration_artist?.artist_name &&
-                                <div className="border rounded-md border-neutral-200 px-6 py-4">
-                                    Decoration Artist: <span className="font-bold">{currentPuja.decoration_artist.artist_name}</span>
-                                </div>}
+                            
+                            {currentPuja?.current_theme && (
+                                <div className="border rounded-md border-neutral-200 px-6 py-4 hover:border-yellow-500 transition-colors">
+                                    <div className="flex items-center gap-2 text-yellow-600 mb-1">
+                                        <FaChalkboard className="text-lg" />
+                                        <span className="font-semibold">Theme {new Date().getFullYear()}</span>
+                                    </div>
+                                    <div>Concept: <span className="font-bold text-blue-900">{currentPuja.current_theme}</span></div>
+                                </div>
+                            )}
+                            
+                            {currentPuja?.idol_artist?.artist_name && (
+                                <div className="border rounded-md border-neutral-200 px-6 py-4 hover:border-yellow-500 transition-colors">
+                                    <div className="flex items-center gap-2 text-yellow-600 mb-1">
+                                        <FaPaintBrush className="text-lg" />
+                                        <span className="font-semibold">Idol Craftsmanship</span>
+                                    </div>
+                                    <div>Artist: <span className="font-bold text-blue-900">{currentPuja.idol_artist.artist_name}</span></div>
+                                </div>
+                            )}
+                            
+                            {currentPuja?.decoration_artist?.artist_name && (
+                                <div className="border rounded-md border-neutral-200 px-6 py-4 hover:border-yellow-500 transition-colors">
+                                    <div className="flex items-center gap-2 text-yellow-600 mb-1">
+                                        <FaPalette className="text-lg" />
+                                        <span className="font-semibold">Decoration Artistry</span>
+                                    </div>
+                                    <div>Artist: <span className="font-bold text-blue-900">{currentPuja.decoration_artist.artist_name}</span></div>
+                                </div>
+                            )}
                         </div>
                         {images?.length > 0 &&
                             <Gallery elementClassNames={`grid ${images?.length > 4 ? 'grid-cols-3 xl:grid-cols-6' : 'grid-cols-2 xl:grid-cols-4'} gap-2 mt-2`} speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>

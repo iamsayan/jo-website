@@ -19,7 +19,7 @@ const RazorPayButton: React.FC<RazorPayButtonProps> = ({ buttonId }) => {
         if (formRef.current) {
             formRef.current.appendChild(script);
         }
-    }, [buttonId]);
+    });
 
     return <form ref={formRef} data-prevent-progress={true}></form>;
 };
