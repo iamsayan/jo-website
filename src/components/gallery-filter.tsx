@@ -89,6 +89,7 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
                             height={300}
                             style={imgStyle}
                             loading="lazy"
+                            priority={false}
                             alt={item?.puja_entry_id?.puja_name}
                             placeholder="blur"
                             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
