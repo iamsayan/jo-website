@@ -105,3 +105,24 @@ export const generateUrlSearchParams = (basePath: string, obj: Record<string, an
 
     return `${basePath}?${params.toString()}`;
 }
+
+export const getDescription = (puja: any, pujadescriptions: any, count: any): string => {
+    const descriptionIndex = getDescriptionIndex(puja?.reference_id, pujadescriptions?.content?.length || 1);
+    return pujadescriptions?.content?.[descriptionIndex]
+        ?.replaceAll('{pujaName}', puja?.puja_name)
+        .replaceAll('{zone}', puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar')
+        .replaceAll('{count}', count.toString());
+}
+
+export const getDescriptionIndex = (referenceId: string, totalDescriptions: number): number => {
+    const hash = referenceId.split('').reduce((acc, char) => {
+        return ((acc << 5) - acc) + char.charCodeAt(0) | 0;
+    }, 0);
+    
+    return Math.abs(hash) % totalDescriptions;
+}
+
+export const stripHtmlAndLimit = (text: string, limit: number = 160): string => {
+    const strippedText = text.replace(/<\/?[^>]+(>|$)/g, "");
+    return strippedText.length > limit ? strippedText.substring(0, limit).trim() + "..." : strippedText;
+}

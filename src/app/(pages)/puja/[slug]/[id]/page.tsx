@@ -2,6 +2,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getCollectionData, getData } from "@/utils/fetch";
+import { getDescription, stripHtmlAndLimit } from "@/utils/functions";
 import {
     FaArrowLeft,
     FaArrowRight,
@@ -22,6 +23,7 @@ import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '@/public/vr.jpg'
 import { metadata as metadataSchema } from "@/app/layout";
+
 interface PujaData {
     reference_id: string;
     puja_name: string;
@@ -73,20 +75,22 @@ export async function generateMetadata({ params }: PageProps) {
     const dataRes = await getData({
         populate: 1,
         models: {
-            pujas: {
-                filter: { reference_id: id }
-            },
+            pujas: {},
             images: {
                 filter: { reference_id: id },
                 populate: 1
             },
+            pujadescriptions: {}
         }
     });
-    const { pujas, images } = dataRes ?? {};
+    const { pujas, images, pujadescriptions } = dataRes ?? {};
+
+    const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
+    const description = getDescription(currentPuja, pujadescriptions, pujas?.length)
 
     return {
-        title: `${pujas?.[0]?.puja_name} Sarbajanin, ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
-        description: `Here are the Puja Updates and Latest Information about ${pujas?.[0]?.puja_name} Sarbajanin of ${pujas?.[0]?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}!`,
+        title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+        description: stripHtmlAndLimit(description),
         openGraph: {
             ...metadataSchema.openGraph,
             url: `/puja/${slug}/${id}`,
@@ -119,9 +123,10 @@ export default async function Page({ params, searchParams }: PageProps) {
                 filter: { reference_id: id },
                 populate: 1
             },
+            pujadescriptions: {}
         }
     });
-    const { information, pujas, images } = dataRes ?? {};
+    const { information, pujas, images, pujadescriptions } = dataRes ?? {};
 
     const displayDate = getDateByIndex(information, 0);
     const dateIsCurrent = Number(queryYear) === displayDate.getFullYear();
@@ -158,6 +163,9 @@ export default async function Page({ params, searchParams }: PageProps) {
         objectFit: 'cover',
         pointerEvents: 'none'
     };
+    
+    const description = getDescription(currentPuja, pujadescriptions, pujas?.length)
+
     return (
         <MainLayout title={pujaName} jsonLd={jsonLd} breadcrumbTitle={pujaName} end={-1}>
             <Section>
@@ -172,32 +180,8 @@ export default async function Page({ params, searchParams }: PageProps) {
                         </div>
                         <hr className="border-neutral-200" />
                         <div className="flex flex-col gap-3">
-                            <p>Welcome to the webpage dedicated to the vibrant celebration of Jagadhatri Puja
-                                by {pujaName} in {currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}! As one of the 177 esteemed puja committees in our beloved
-                                city, this platform serves as a window into our annual festivities.</p>
-
-                            <p>At {pujaName} Sarbajanin, the commitment to tradition and community shines through in
-                                every aspect of the Jagadhatri Puja celebration. Each year, the focus is on creating a
-                                divine ambiance that honors the grace and strength of Goddess Jagadhatri while fostering
-                                a sense of unity and joy among our residents and visitors.</p>
-
-                            <p>The pandal, a masterpiece of creativity and devotion, stands as a testament to the
-                                unwavering faith and dedication of {pujaName} Sarbajanin. Adorned with intricate
-                                decorations and illuminated by the soft glow of lights, it serves as a sacred space
-                                where devotees gather to offer their prayers and seek the blessings of the Divine
-                                Mother.</p>
-
-                            <p>Moreover, {pujaName} Sarbajanin takes great pride in social initiatives aimed at making a
-                                positive impact on the lives of community members. Whether it's through charitable
-                                endeavors or eco-friendly initiatives, there is a commitment to serving the greater good
-                                and spreading joy and compassion to all.</p>
-
-                            <p>As you navigate through this webpage, immerse yourself in the spirit of Jagadhatri Puja
-                                and experience the warmth and hospitality that define our celebration. Explore photo
-                                galleries, learn about our history and traditions, and stay updated on the latest news
-                                and events happening with {pujaName}.</p>
-
-                            {currentPuja?.puja_info && <p>{currentPuja.puja_info}</p>}
+                            {description && <div className="text-justify space-y-2" dangerouslySetInnerHTML={{ __html: description }} />}
+                            {currentPuja?.puja_info && <p className="text-justify space-y-2" dangerouslySetInnerHTML={{ __html: currentPuja.puja_info }} />}
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 gap-4 text-sm">
                             <div className="border rounded-md border-neutral-200 px-6 py-4">Year of Establishment: <span
