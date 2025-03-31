@@ -2,18 +2,17 @@
 
 import React, { useCallback, useRef } from 'react';
 import { useState } from 'react';
+import Image from "next/image";
 import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
-import { LazyLoadImage, trackWindowScroll, LazyComponentProps } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 
-interface GalleryFilterProps extends LazyComponentProps {
+interface GalleryFilterProps {
     className?: string;
     images: any;
 }
 
-function GalleryFilter({ className, images, scrollPosition }: GalleryFilterProps) {
+function GalleryFilter({ className, images }: GalleryFilterProps) {
     const lightGallery = useRef<any>(null);
     
     const classes = cn('gallery-filter mt-4', className);
@@ -80,24 +79,19 @@ function GalleryFilter({ className, images, scrollPosition }: GalleryFilterProps
                 ))}
             </div>
 
-            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
+            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
                 {paginatedImages.map((item: any, index: number) => (
                     <div key={item?._id + index} className="h-52 md:h-72 relative cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
-                        <LazyLoadImage
+                        <Image
                             key={item?._id + index + selectedYear}
-                            effect="blur"
-                            wrapperClassName="relative"
-                            wrapperProps={{
-                                style: {transitionDelay: ".8ms"},
-                            }}
                             src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                             width={500}
                             height={300}
                             style={imgStyle}
-                            scrollPosition={scrollPosition}
                             loading="lazy"
                             alt={item?.puja_entry_id?.puja_name}
-                            placeholder={<span className="loading loading-spinner text-warning"></span>}
+                            placeholder="blur"
+                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                         />
                         <span className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-xs">{item?.puja_entry_id?.puja_name}</span>
                     </div>
@@ -128,4 +122,4 @@ function GalleryFilter({ className, images, scrollPosition }: GalleryFilterProps
     );
 }
 
-export default trackWindowScroll(GalleryFilter);
+export default GalleryFilter;
