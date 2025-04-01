@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link';
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
-import { getSingletonData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import schema from "@/utils/schema";
 import { metadata as metadataSchema } from "@/app/layout";
    
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    const siteData = await getSingletonData('information');
+    const siteData = await getModel('information', { type: 'item' });
     const data = siteData ?? null;
 
     const currentYear = new Date().getFullYear();

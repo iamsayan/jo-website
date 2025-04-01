@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { Fragment } from 'react';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
-import { getCollectionData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
 export default async function Page({ searchParams }: PageProps) {
     const { year } = await searchParams
     const queryYear = year ?? undefined
-    const pujaData = await getCollectionData('pujas', {
-        sort: { 'puja_name': 1 }
+    const pujaData = await getModel('pujas', {
+        sort: { puja_name: 1 }
     });
 
     const data = pujaData ?? [];

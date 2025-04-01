@@ -1,10 +1,10 @@
 import type { MetadataRoute } from 'next'
 
-import { getCollectionData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import { getUrlSlug } from "@/utils/functions";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const pujaData = await getCollectionData('pujas');
+    const pujaData = await getModel('pujas', { type: 'tree' });
     const data = pujaData ?? null
 
     const sitemaps: MetadataRoute.Sitemap = [

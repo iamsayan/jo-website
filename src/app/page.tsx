@@ -11,7 +11,7 @@ import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVid
 import { FaPen } from "react-icons/fa6";
 import { cn, formatDate, getDateByIndex } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
-import { getSingletonData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 
 const imagesPath = [
     '2024/doibokhalf.jpg',
@@ -46,7 +46,7 @@ interface ShopItem {
 }
 
 export default async function Home() {
-    const siteData = await getSingletonData('information');
+    const siteData = await getModel('information', { type: 'item' });
     const data = siteData ?? null;
     const year = getDateByIndex(data, 0).getFullYear();
     const curYear = new Date().getFullYear();

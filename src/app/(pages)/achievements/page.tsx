@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
 import schema from "@/utils/schema";
-import { getSingletonData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import { metadata as metadataSchema } from "@/app/layout";
 export const metadata: Metadata = {
     title: 'Achievements',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-    const siteData = await getSingletonData('achievements');
+    const siteData = await getModel('achievements', { type: 'item' });
     const data = siteData ?? null
 
     const jsonLd = schema({

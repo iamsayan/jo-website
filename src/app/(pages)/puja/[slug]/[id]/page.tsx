@@ -1,7 +1,7 @@
 import { notFound, permanentRedirect } from 'next/navigation';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
-import { getCollectionData, getData } from "@/utils/fetch";
+import { getModel, getModels } from "@/utils/fetch";
 import { getDescription, stripHtmlAndLimit } from "@/utils/functions";
 import {
     FaArrowLeft,
@@ -29,6 +29,7 @@ import Link from "next/link";
 import Image from 'next/image'
 import vrImage from '@/public/vr.jpg'
 import { metadata as metadataSchema } from "@/app/layout";
+import type { Metadata } from 'next'
 
 interface PujaData {
     reference_id: string;
@@ -63,7 +64,7 @@ interface PageProps {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-    const pujasData = await getCollectionData('pujas', {
+    const pujasData = await getModel('pujas', {
         sort: { estd: 1 }
     });
     const data = pujasData ?? []
@@ -76,20 +77,18 @@ export async function generateStaticParams() {
     })
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug, id } = await params
-    const dataRes = await getData({
-        populate: 1,
-        models: {
-            pujas: {
-                filter: { reference_id: id }
-            },
-            images: {
-                filter: { reference_id: id },
-                populate: 1
-            },
-            pujadescriptions: {}
-        }
+
+    const dataRes = await getModels({
+        pujas: {
+            filter: { reference_id: id }
+        },
+        images: {
+            filter: { reference_id: id },
+            limit: 3
+        },
+        pujadescriptions: {}
     });
     const { pujas, images, pujadescriptions } = dataRes ?? {};
 
@@ -105,7 +104,7 @@ export async function generateMetadata({ params }: PageProps) {
             images: images?.map((item: any) => {
                 return {
                     url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-                    alt: item?.puja_entry_id?.puja_name
+                    alt: currentPuja?.puja_name
                 }
             })
         },
@@ -120,33 +119,21 @@ export default async function Page({ params, searchParams }: PageProps) {
     const { year } = await searchParams
     const queryYear = year ?? new Date().getFullYear()
 
-    const dataRes = await getData({
-        populate: 1,
-        models: {
-            information: {},
-            pujas: {
-                sort: { puja_name: 1 }
-            },
-            images: {
-                filter: { reference_id: id },
-                populate: 1
-            },
-            pujadescriptions: {}
-        }
+    const dataRes = await getModels({
+        pujas: {
+            sort: { puja_name: 1 }
+        },
+        images: {
+            filter: { reference_id: id }
+        },
+        pujadescriptions: {},
+        information: {}
     });
-    const { information, pujas, images, pujadescriptions } = dataRes ?? {};
+    const { pujas, images, pujadescriptions, information } = dataRes ?? {};
 
     const displayDate = getDateByIndex(information, 0);
     const dateIsCurrent = Number(queryYear) === displayDate.getFullYear();
     const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
-
-    let array: PujaData[] = [];
-    pujas?.forEach((item: PujaData, index: number) => {
-        if (item?.reference_id === id) {
-            array.push(pujas?.[0 < index ? index - 1 : pujas?.length - 1])
-            array.push(pujas?.[pujas?.length - 1 > index ? index + 1 : 0])
-        }
-    });
 
     if (!currentPuja || currentPuja?.length < 1) {
         notFound()
@@ -156,6 +143,14 @@ export default async function Page({ params, searchParams }: PageProps) {
     if (slug !== getUrlSlug(pujaName)) {
         permanentRedirect(`/puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`);
     }
+
+    let array: PujaData[] = [];
+    pujas?.forEach((item: PujaData, index: number) => {
+        if (item?.reference_id === id) {
+            array.push(pujas?.[0 < index ? index - 1 : pujas?.length - 1])
+            array.push(pujas?.[pujas?.length - 1 > index ? index + 1 : 0])
+        }
+    });
 
     const y = getYear(currentPuja?.estd, queryYear);
     const cel = getCelebrating(y);

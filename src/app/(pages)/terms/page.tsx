@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
-import { getSingletonData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import schema from "@/utils/schema";
 import { metadata as metadataSchema } from "@/app/layout";
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-    const pageData = await getSingletonData('pages');
+    const pageData = await getModel('pages', { type: 'item' });
     const data = pageData ?? null
 
     const jsonLd = schema({

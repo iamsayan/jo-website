@@ -4,7 +4,7 @@ import Section from '@/components/section';
 import schema from "@/utils/schema";
 import AwardsSection from '@/components/awards-section';
 import { FaTrophy, FaRegLightbulb, FaUsers } from 'react-icons/fa';
-import { getCollectionData } from '@/utils/fetch';
+import { getModel } from '@/utils/fetch';
 import { metadata as metadataSchema } from "@/app/layout";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Page() {
-    const awardsData = await getCollectionData('awards', {
+    const awardsData = await getModel('awards', {
         sort: { year: -1 },
         populate: -1
     })

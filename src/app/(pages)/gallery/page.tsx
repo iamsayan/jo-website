@@ -3,7 +3,7 @@ import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import schema from "@/utils/schema";
 import GalleryFilter from "@/components/gallery-filter";
-import { getCollectionData } from "@/utils/fetch";
+import { getModel } from "@/utils/fetch";
 import arrayShuffle from "array-shuffle";
 import { metadata as metadataSchema } from "@/app/layout";
 
@@ -20,7 +20,7 @@ export const metadata = {
 }
 
 export default async function Page() {
-    const imagesData = await getCollectionData('images', {
+    const imagesData = await getModel('images', {
         filter: { category: { $in: [1, 9] } },
         populate: 1
     })

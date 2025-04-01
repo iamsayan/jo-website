@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
-import { getSingletonData, getData } from "@/utils/fetch";
+import { getModel, getModels } from "@/utils/fetch";
 import {
     jubilees,
     preJubilees,
@@ -16,6 +16,8 @@ import schema from "@/utils/schema";
 import Link from "next/link";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { metadata as metadataSchema } from "@/app/layout";
+import type { Metadata } from 'next'
+
 // Exporting runtime for edge function if needed
 // export const runtime = 'edge';
 
@@ -30,13 +32,6 @@ interface Puja {
     puja_name: string;
     puja_zone: string;
     estd: string;
-}
-
-interface DateItem {
-    value: {
-        date: string;
-        event: string;
-    };
 }
 
 interface SchemaOptions {
@@ -55,10 +50,10 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { year } = await params
     const queryYear = parseInt(year);
-    const siteDataRes = await getSingletonData('information');
+    const siteDataRes = await getModel('information', { type: 'item' });
     const siteData = siteDataRes ?? null;
     const displayDate = getDateByIndex(siteData, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
@@ -73,25 +68,28 @@ export async function generateMetadata({ params }: PageProps) {
         alternates: {
             canonical: `/jagadhatri-puja/${queryYear}`,
         },
+        pagination: {
+            previous: `/jagadhatri-puja/${queryYear - 1}`,
+            next: `/jagadhatri-puja/${queryYear + 1}`
+        }
     }
 }
 
 export default async function Page({ params }: PageProps) {
     const { year } = await params
     const queryYear = Number(year);
-    const dataRes = await getData({
-        populate: 1,
-        models: {
-            information: {},
-            pujas: {
-                sort: { estd: 1 }
-            },
-            processionlist: {
-                populate: 1
-            },
-        }
-    });
-    const { information, pujas, processionlist } = dataRes ?? {};
+    
+    const dataRes = await getModels({
+        pujas: {
+            sort: { estd: 1 }
+        },
+        processionlist: {
+            populate: 1
+        },
+        information: {}
+    })
+    const { pujas, processionlist, information } = dataRes ?? {};
+
     const totalVehicles = processionlist?.reduce((sum: number, item: any) => sum + (parseInt(item?.vehicles) || 0), 0) || 0;
     const displayDate = getDateByIndex(information, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
