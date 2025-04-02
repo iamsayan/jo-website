@@ -21,13 +21,6 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
     const itemsPerPage = 48;
     const endOffset = itemOffset + itemsPerPage;
     
-    const imgStyle: React.CSSProperties = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        pointerEvents: 'none'
-    };
-    
     const years = Array.from(new Set<number>(images.map((item: { year: number }) => item.year))).sort((a, b) => b - a);
     const filterableItems = ['all', ...years];
     const filteredImages = selectedYear === 'all' ? images.toReversed() : images.filter((item: { year: any }) => item.year == selectedYear).toReversed();
@@ -79,15 +72,15 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
                 ))}
             </div>
 
-            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
+            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-3 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
                 {paginatedImages.map((item: any, index: number) => (
-                    <div key={item?._id + index} className="h-52 md:h-72 relative cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
+                    <div key={item?._id + index} className="h-52 md:h-72 relative cursor-pointer group overflow-hidden rounded-xl" onClick={() => lightGallery.current.openGallery(index)}>
                         <Image
                             key={item?._id + index + selectedYear}
                             src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                             width={500}
                             height={300}
-                            style={imgStyle}
+                            className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
                             loading="lazy"
                             priority={false}
                             alt={item?.puja_entry_id?.puja_name}

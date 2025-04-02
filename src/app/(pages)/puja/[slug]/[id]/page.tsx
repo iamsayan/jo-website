@@ -244,16 +244,15 @@ export default async function Page({ params, searchParams }: PageProps) {
                             )}
                         </div>
                         {images?.length > 0 &&
-                            <Gallery elementClassNames={`grid ${images?.length > 4 ? 'grid-cols-3 xl:grid-cols-6' : 'grid-cols-2 xl:grid-cols-4'} gap-2 mt-2`} speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
+                            <Gallery elementClassNames={`grid ${images?.length > 4 ? 'grid-cols-3 xl:grid-cols-6' : 'grid-cols-2 xl:grid-cols-4'} gap-2 md:gap-3 mt-2`} speed={500} slideShowAutoplay={true} fullScreen={true} getCaptionFromTitleOrAlt={false}>
                                 {images?.map((item: any, index: number) => {
                                     return (
-                                        <a data-disable-progress={true} key={index} className={`${images?.length > 4 ? 'h-40 md:h-52' : 'h-52 md:h-72'}`}
-                                            href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
+                                        <a data-disable-progress={true} key={index} className={`relative cursor-pointer group overflow-hidden rounded-md ${images?.length > 4 ? 'h-40 md:h-52' : 'h-52 md:h-72'}`} href={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}>
                                             <Image
                                                 src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                                                 width={500}
                                                 height={300}
-                                                style={imgStyle}
+                                                className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
                                                 priority={false}
                                                 loading="lazy"
                                                 alt={item?.puja_entry_id?.puja_name}

@@ -14,7 +14,7 @@ export const getCelebrating = (year: number | string): string => {
         return populateCel(parsedYear);
     } else if (preJubilees.includes(parsedYear)) {
         return populateCel(parsedYear, true);
-    } else if (!parsedYear) {
+    } else if (!parsedYear || parsedYear >= 150) {
         return "Adi Puja";
     }
     return '--';

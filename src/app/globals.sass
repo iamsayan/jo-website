@@ -3,11 +3,14 @@
 @plugin "tailwind-scrollbar"
 
 body
-  .tab
-    --tab-bg: #F9FAFB
+  .pattern-dots
+    background-image: radial-gradient(rgba(79, 70, 229, 0.2) 1px, transparent 1px)
+    background-size: 20px 20px
 
-  .lg-container
-    font-family: var(--font-family)
+  .gradient-text
+    background-clip: text
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
 
   lite-youtube
     max-width: 100% !important
@@ -26,25 +29,6 @@ body
 
   svg.instagram
     fill: #C82424
-
-  table
-    thead
-      tr
-        th
-          background-color: #d9edf7
-          color: #000000
-          text-transform: uppercase
-
-    tbody
-      tr
-        &[class*="jubilee"]
-          color: #FF4B4B
-
-        &[class*="pre"]
-          color: #01a3c3
-
-        &.adi-puja
-          color: #710df3
   
 .writing-mode-vertical
   writing-mode: vertical-rl
