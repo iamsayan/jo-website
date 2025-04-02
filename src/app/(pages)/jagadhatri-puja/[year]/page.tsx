@@ -1,7 +1,7 @@
-import { Fragment } from 'react';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getModel, getModels } from "@/utils/fetch";
+import Tabs, { TabProps } from '@/components/tabs';
 import {
     jubilees,
     preJubilees,
@@ -18,7 +18,6 @@ import { FaArrowLeft, FaArrowRight, FaChevronRight, FaStar, FaFlag, FaLandmark, 
 import { metadata as metadataSchema } from "@/app/layout";
 import type { Metadata } from 'next'
 import cx from 'classix';
-import TabsComponent, { TabProps } from '@/components/tabs';
 
 // Exporting runtime for edge function if needed
 // export const runtime = 'edge';
@@ -492,7 +491,7 @@ export default async function Page({ params }: PageProps) {
                     )}
                 </div>
                 <div className="mt-6">
-                    <TabsComponent
+                    <Tabs
                         tabs={tabs} 
                         className="border border-base-300" 
                         tabPanelClassName="bg-gray-50" 

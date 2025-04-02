@@ -2,13 +2,13 @@ import { Metadata } from 'next';
 import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getModel } from "@/utils/fetch";
+import Tabs, { TabProps } from '@/components/tabs';
 import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
 import { metadata as metadataSchema } from "@/app/layout";
 import { FaChevronRight, FaCity, FaArchway, FaMapMarkerAlt, FaStar, FaTrophy, FaLandmark, FaFlag } from "react-icons/fa";
 import cx from 'classix';
-import TabsComponent, { TabProps } from '@/components/tabs';
 
 interface PageProps {
     searchParams: Promise<{
@@ -271,7 +271,7 @@ export default async function Page({ searchParams }: PageProps) {
                     <p>The number of community pujas in Chandannagar, Bhadreswar and Champdany Municipal areas crosses 190 mark. Of these, {data?.length} Puja committees in different localities in Chandannagar and Bhadreswar are affiliated to the Chandannagar Central Jagadhatri Puja Committee (CCJPC). The Central committee renders all possible assistance to its constituents in getting permissions and clearances for holding Puja. The immersion procession is really memorable and enjoyable sight to witness which lakh of people throng in Chandannagar from far and near. The beautiful decorated tall images loaded on trucks are taken around the city in a procession.</p>
                 </div>
                 <div className="mt-6">
-                    <TabsComponent
+                    <Tabs
                         tabs={tabs} 
                         className="border border-base-300" 
                         tabPanelClassName="bg-gray-50" 

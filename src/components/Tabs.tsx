@@ -1,6 +1,6 @@
 'use client';
 
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Tab as ReactTab, Tabs as ReactTabs, TabList, TabPanel } from 'react-tabs';
 import { cn } from '@/utils/functions';
 
 export interface TabProps {
@@ -23,12 +23,12 @@ export interface TabsProps {
   tabPanelSelectedClassName?: string;
 }
 
-export default function TabsComponent({ tabs, className, ...props }: TabsProps) {
+export default function Tabs({ tabs, className, ...props }: TabsProps) {
   return (
-    <Tabs className={cn("w-full", className)}>
+    <ReactTabs className={cn("w-full", className)}>
       <TabList className={cn("flex overflow-x-auto", props.tabListClassName)}>
         {tabs.map((tab: TabProps, index: number) => (
-          <Tab 
+          <ReactTab 
             key={index} 
             className={cn(
               "cursor-pointer flex items-center gap-2 font-medium focus-visible:outline-none",
@@ -42,7 +42,7 @@ export default function TabsComponent({ tabs, className, ...props }: TabsProps) 
             )}
           >
             {tab?.icon} {tab.title}
-          </Tab>
+          </ReactTab>
         ))}
       </TabList>
 
@@ -63,6 +63,6 @@ export default function TabsComponent({ tabs, className, ...props }: TabsProps) 
           {tab.content}
         </TabPanel>
       ))}
-    </Tabs>
+    </ReactTabs>
   );
 }
