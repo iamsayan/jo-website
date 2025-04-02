@@ -2,6 +2,7 @@ import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getModel, getModels } from "@/utils/fetch";
 import Tabs, { TabProps } from '@/components/tabs';
+import Info, { InfoItem } from '@/components/info';
 import {
     jubilees,
     preJubilees,
@@ -111,54 +112,36 @@ export default async function Page({ params }: PageProps) {
             }).length,
         };
 
+        const items: InfoItem[] = [
+            {
+                title: "Total Committees",
+                description: stats?.total,
+                icon: <FaLandmark />,
+                variant: "from-green-500 to-green-300"
+            },
+            {       
+                title: "Chandannagar",
+                description: stats?.jubilees,
+                icon: <FaTrophy />,
+                variant: "from-rose-500 to-rose-300"
+            },
+            {
+                title: "Bhadreswar",
+                description: stats?.preJubilees,
+                icon: <FaStar />,
+                variant: "from-blue-500 to-blue-300"
+            },
+            {
+                title: "Adi Pujas",
+                description: stats?.adiPujas,
+                icon: <FaFlag />,
+                variant: "from-purple-500 to-purple-300"
+            }
+        ]
+
         return (
             <div className="text-center p-2 pt-5 md:p-5 space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-green-500 to-green-300 text-white mr-4">
-                            <FaLandmark />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Total Committees</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-green-500 to-green-300 gradient-text">{stats?.total}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
-                            <FaTrophy />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Chandannagar</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{stats?.jubilees}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
-                            <FaStar />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Bhadreswar</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{stats?.preJubilees}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 text-white mr-4">
-                            <FaFlag />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Adi Pujas</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-purple-300 gradient-text">{stats?.adiPujas}</p>
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                <Info items={items} />
                 <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
@@ -206,55 +189,39 @@ export default async function Page({ params }: PageProps) {
     }
 
     const tabPujaSchedule = () => {
+        const items: InfoItem[] = [
+            {
+                title: "Festival Duration",
+                description: `${information?.dates?.length} Days`,
+                icon: <span className="text-lg md:text-xl">📅</span>,
+                variant: "from-orange-500 to-orange-300 text-xl",
+                iconClassName: "p-2"
+            },
+            {
+                title: "Starting With",
+                description: "Sasthi",
+                icon: <span className="text-lg md:text-xl">🌅</span>,
+                variant: "from-blue-500 to-blue-300 text-xl",
+                iconClassName: "p-2"
+            },
+            {
+                title: "Main Puja Day",
+                description: "Nabami",
+                icon: <span className="text-lg md:text-xl">🎎</span>,
+                variant: "from-purple-500 to-purple-300 text-xl",
+                iconClassName: "p-2"
+            },
+            {
+                title: "Ending With",
+                description: "Dashami",
+                icon: <span className="text-lg md:text-xl">🌊</span>,
+                variant: "from-rose-500 to-rose-300 text-xl",
+                iconClassName: "p-2"
+            }
+        ]
         return (
             <div className="text-center p-2 pt-5 md:p-5 space-y-5">
-                <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
-                        <div className="flex items-center">
-                            <div className="p-2 rounded-full bg-gradient-to-br from-orange-500 to-orange-300 text-white mr-4">
-                                <span className="text-lg md:text-xl">📅</span>
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-medium text-gray-500">Festival Duration</h3>
-                                <p className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-300 gradient-text">{information?.dates?.length} Days</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
-                        <div className="flex items-center">
-                            <div className="p-2 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
-                                <span className="text-lg md:text-xl">🌅</span>
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-medium text-gray-500">Starting With</h3>
-                                <p className="text-xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">Sasthi</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
-                        <div className="flex items-center">
-                            <div className="p-2 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 text-white mr-4">
-                                <span className="text-lg md:text-xl">🎎</span>
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-medium text-gray-500">Main Puja Day</h3>
-                                <p className="text-xl font-bold bg-gradient-to-r from-purple-500 to-purple-300 gradient-text">Nabami</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
-                        <div className="flex items-center">
-                            <div className="p-2 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
-                                <span className="text-lg md:text-xl">🌊</span>
-                            </div>
-                            <div>
-                                <h3 className="text-sm font-medium text-gray-500">Ending With</h3>
-                                <p className="text-xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">Dashami</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Info items={items} />
                 <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
@@ -291,55 +258,35 @@ export default async function Page({ params }: PageProps) {
             totalPreJubilees: prejubilee?.length,
         };
 
+        const items: InfoItem[] = [
+            {
+                title: "Total Procession",
+                description: stats?.totalProcession,
+                icon: <FaLandmark />,
+                variant: "from-green-500 to-green-300"
+            },
+            {
+                title: "Total Vehicles",
+                description: stats?.totalVehicles,
+                icon: <FaLandmark />,
+                variant: "from-yellow-500 to-yellow-300"
+            },
+            {
+                title: "Jubilee Celebrations",
+                description: stats?.totalJubilees,
+                icon: <FaTrophy />,
+                variant: "from-rose-500 to-rose-300"
+            },
+            {
+                title: "Pre Jubilee Celebrations",
+                description: stats?.totalPreJubilees,
+                icon: <FaStar />,
+                variant: "from-blue-500 to-blue-300"
+            }
+        ]
         return (
             <div className="text-center p-2 pt-5 md:p-5 space-y-5">
-                <p className="text-xl font-bold">Procession List {queryYear}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-green-500 to-green-300 text-white mr-4">
-                            <FaLandmark />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Total Procession</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-green-500 to-green-300 gradient-text">{stats?.totalProcession}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-300 text-white mr-4">
-                            <FaLandmark />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Total Vehicles</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-300 gradient-text">{stats?.totalVehicles}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
-                            <FaTrophy />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Jubilee Celebrations</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{stats?.totalJubilees}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
-                            <FaStar />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Pre Jubilee Celebrations</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{stats?.totalPreJubilees}</p>
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                <Info items={items} />
                 <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
@@ -422,7 +369,7 @@ export default async function Page({ params }: PageProps) {
         };
     }
 
-    if (queryYear === 2025 && processionlist) {
+    if (queryYear === 2024 && processionlist) {
         tabs.push({
             title: <span className="flex items-center gap-2">Procession List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{processionlist?.length}</span></span>,
             icon: <FaAngellist  />,
@@ -496,7 +443,10 @@ export default async function Page({ params }: PageProps) {
                         className="border border-base-300" 
                         tabPanelClassName="bg-gray-50" 
                         tabListClassName="bg-gray-30 border-b border-base-300 pattern-dots w-full"
-                        tabClassName="py-4 px-6 border-b-2 border-transparent bg-gray-50 w-full"
+                        tabClassName={cx(
+                            'py-4 px-6 border-b-2 border-transparent bg-gray-50',
+                            Object.keys(tabs).length >= 4 && 'w-full'
+                        )}
                         tabSelectedClassName="border-b-2 !border-blue-700 bg-white"
                     />
                 </div>

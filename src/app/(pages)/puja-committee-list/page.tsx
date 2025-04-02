@@ -3,6 +3,7 @@ import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import { getModel } from "@/utils/fetch";
 import Tabs, { TabProps } from '@/components/tabs';
+import Info, { InfoItem } from '@/components/info';
 import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
@@ -96,12 +97,39 @@ export default async function Page({ searchParams }: PageProps) {
 
         const zoneInfo = getZoneDescription(zone[0]?.puja_zone);
 
+        const items: InfoItem[] = [
+            {
+                title: "Total Committees",
+                description: zoneStats?.total,
+                icon: <FaLandmark />,
+                variant: "from-green-500 to-green-300"
+            },
+            {
+                title: "Jubilee Celebrations",
+                description: zoneStats?.jubilees,
+                icon: <FaTrophy />,
+                variant: "from-rose-500 to-rose-300"
+            },
+            {
+                title: "Pre Jubilee Celebrations",
+                description: zoneStats?.preJubilees,
+                icon: <FaStar />,
+                variant: "from-blue-500 to-blue-300"
+            },
+            {
+                title: "Adi Pujas",
+                description: zoneStats?.adiPujas,
+                icon: <FaFlag />,
+                variant: "from-purple-500 to-purple-300"
+            }
+        ]
+
         return (
             <div className="text-center p-2 pt-5 md:p-5 space-y-5">
                 {zoneInfo && (
                     <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 mb-8">
                         <div className="absolute top-0 left-0 w-full h-full pattern-dots opacity-10"></div>
-                        <div className="relative z-10 flex flex-col gap-8">
+                        <div className="relative flex flex-col gap-8">
                             <div className="flex-1">
                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                                     {zoneInfo.title}
@@ -131,63 +159,18 @@ export default async function Page({ searchParams }: PageProps) {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                     <div className="flex items-center gap-2">
                         <div className="w-4 h-4 bg-rose-500 rounded-full"></div>
-                        <span className="text-sm">Jubilee Celebration</span>
+                        <span className="text-sm">Jubilee Celebrations</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                        <span className="text-sm">Pre-Jubilee Celebration</span>
+                        <span className="text-sm">Pre Jubilee Celebrations</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
                         <span className="text-sm">Adi Pujas</span>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-300 text-white mr-4">
-                            <FaLandmark />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Total Committees</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-300 gradient-text">{zone.length}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
-                            <FaTrophy />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Jubilee Celebrations</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{zoneStats.jubilees}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
-                            <FaStar />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Pre Jubilee Celebrations</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{zoneStats.preJubilees}</p>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
-                        <div className="flex items-center">
-                        <div className="p-3 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 text-white mr-4">
-                            <FaFlag />
-                        </div>
-                        <div>
-                            <h3 className="text-sm font-medium text-gray-500">Adi Pujas</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-purple-300 gradient-text">{zoneStats.adiPujas}</p>
-                        </div>
-                        </div>
-                    </div>
-                </div>
+                <Info items={items} />
                 <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
