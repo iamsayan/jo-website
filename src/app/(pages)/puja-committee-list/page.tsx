@@ -8,7 +8,7 @@ import Link from "next/link";
 import { metadata as metadataSchema } from "@/app/layout";
 import { FaChevronRight, FaCity, FaArchway, FaMapMarkerAlt, FaStar, FaTrophy, FaLandmark, FaFlag } from "react-icons/fa";
 import cx from 'classix';
-import TabsComponent, { TabProps } from '@/components/Tabs';
+import TabsComponent, { TabProps } from '@/components/tabs';
 
 interface PageProps {
     searchParams: Promise<{
