@@ -87,8 +87,10 @@ export default async function Page({ searchParams }: PageProps) {
             preJubilees: filterData(zone, preJubilees)?.length,
             adiPujas: zone.filter((data: any) => {
                 const y = getYear(data?.estd, queryYear);
-                const cel = getCelebrating(y);
-                return cel === 'Adi Puja';
+                if (!y || Number(y) >= 150) {
+                    return true;
+                }
+                return false;
             }).length,
         };
 
@@ -126,7 +128,6 @@ export default async function Page({ searchParams }: PageProps) {
                         </div>
                     </div>
                 )}
-
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                     <div className="flex items-center gap-2">
                         <div className="w-4 h-4 bg-rose-500 rounded-full"></div>
@@ -160,7 +161,7 @@ export default async function Page({ searchParams }: PageProps) {
                         </div>
                         <div>
                             <h3 className="text-sm font-medium text-gray-500">Jubilee Celebrations</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{filterData(zone, jubilees)?.length}</p>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{zoneStats.jubilees}</p>
                         </div>
                         </div>
                     </div>
@@ -171,7 +172,7 @@ export default async function Page({ searchParams }: PageProps) {
                         </div>
                         <div>
                             <h3 className="text-sm font-medium text-gray-500">Pre Jubilee Celebrations</h3>
-                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{filterData(zone, preJubilees)?.length}</p>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{zoneStats.preJubilees}</p>
                         </div>
                         </div>
                     </div>
@@ -238,12 +239,12 @@ export default async function Page({ searchParams }: PageProps) {
 
     const tabs: TabProps[] = [
         {
-            title: 'Chandannagar',
+            title: <span className="flex items-center gap-2">Chandannagar <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{cgr?.length}</span></span>,
             icon: <FaCity />,
             content: tabContent(cgr),
         },
         {
-            title: 'Bhadreswar',
+            title: <span className="flex items-center gap-2">Bhadreswar <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{bhr?.length}</span></span>,
             icon: <FaArchway />,
             content: tabContent(bhr),
         },

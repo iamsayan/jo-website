@@ -14,9 +14,11 @@ import {
 } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaChevronRight, FaStar, FaFlag, FaLandmark, FaTrophy, FaAngellist, FaList, FaCalendarAlt } from "react-icons/fa";
 import { metadata as metadataSchema } from "@/app/layout";
 import type { Metadata } from 'next'
+import cx from 'classix';
+import TabsComponent, { TabProps } from '@/components/tabs';
 
 // Exporting runtime for edge function if needed
 // export const runtime = 'edge';
@@ -96,16 +98,308 @@ export default async function Page({ params }: PageProps) {
     const jubilee = pujas?.filter((data: Puja) => jubilees.includes(Number(getYear(data?.estd, queryYear))));
     const prejubilee = pujas?.filter((data: Puja) => preJubilees.includes(Number(getYear(data?.estd, queryYear))));
 
-    const tabs = [
+    const tabContent = (puja: Puja[]) => {
+        const stats = {
+            total: puja?.length,
+            jubilees: puja?.filter((p: Puja) => p.puja_zone === 'cgr')?.length,
+            preJubilees: puja?.filter((p: Puja) => p.puja_zone === 'bhr')?.length,
+            adiPujas: puja?.filter((p: Puja) => {
+                const y = getYear(p?.estd, queryYear);
+                if (!y || Number(y) >= 150) {
+                    return true;
+                }
+                return false;
+            }).length,
+        };
+
+        return (
+            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-green-500 to-green-300 text-white mr-4">
+                            <FaLandmark />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Total Committees</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-green-500 to-green-300 gradient-text">{stats?.total}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
+                            <FaTrophy />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Chandannagar</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{stats?.jubilees}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
+                            <FaStar />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Bhadreswar</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{stats?.preJubilees}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 text-white mr-4">
+                            <FaFlag />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Adi Pujas</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-purple-300 gradient-text">{stats?.adiPujas}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
+                    <table className="table text-center table-zebra">
+                        <thead>
+                            <tr className="bg-blue-100 text-gray-700">
+                                <th>Sl. No.</th>
+                                <th>Puja Name</th>
+                                <th>Under P. S.</th>
+                                <th>Years</th>
+                                <th>{dateIsCurrent ? 'Celebrating' : 'Celebrated'}</th>
+                                {dateIsCurrent && <th>Details</th>}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {puja?.map((item: Puja, index: number) => {
+                                const y = getYear(item?.estd, queryYear);
+                                const cel = getCelebrating(y);
+                                const formattedCel = cel.replaceAll(' ', '-').toLowerCase();
+                                const celClass = cx(
+                                    'px-2.5 py-1 text-xs font-medium rounded-full',
+                                    formattedCel.includes('adi') && 'bg-purple-300/10 text-purple-800',
+                                    !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-rose-300/10 text-rose-700',
+                                    formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-blue-300/10 text-blue-500',
+                                );
+                                return (
+                                    <tr key={index} className="row">
+                                        <td>{index + 1}</td>
+                                        <td>{item?.puja_name}</td>
+                                        <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                        <td>{y}</td>
+                                        <td><span className={celClass}>{cel}</span></td>
+                                        {dateIsCurrent && <td><Link
+                                            className="btn btn-ghost btn-xs text-sky-600"
+                                            href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${new Date().getFullYear() !== queryYear ? `?y=${queryYear}` : ''}`}>
+                                            View <FaChevronRight />
+                                        </Link>
+                                        </td>}
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+
+    const tabPujaSchedule = () => {
+        return (
+            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+                <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
+                        <div className="flex items-center">
+                            <div className="p-2 rounded-full bg-gradient-to-br from-orange-500 to-orange-300 text-white mr-4">
+                                <span className="text-lg md:text-xl">📅</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-medium text-gray-500">Festival Duration</h3>
+                                <p className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-300 gradient-text">{information?.dates?.length} Days</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
+                        <div className="flex items-center">
+                            <div className="p-2 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
+                                <span className="text-lg md:text-xl">🌅</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-medium text-gray-500">Starting With</h3>
+                                <p className="text-xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">Sasthi</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
+                        <div className="flex items-center">
+                            <div className="p-2 rounded-full bg-gradient-to-br from-purple-500 to-purple-300 text-white mr-4">
+                                <span className="text-lg md:text-xl">🎎</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-medium text-gray-500">Main Puja Day</h3>
+                                <p className="text-xl font-bold bg-gradient-to-r from-purple-500 to-purple-300 gradient-text">Nabami</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5 text-left">
+                        <div className="flex items-center">
+                            <div className="p-2 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
+                                <span className="text-lg md:text-xl">🌊</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-medium text-gray-500">Ending With</h3>
+                                <p className="text-xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">Dashami</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
+                    <table className="table text-center table-zebra">
+                        <thead>
+                            <tr className="bg-blue-100 text-gray-700">
+                                <th>Day</th>
+                                <th>Date (English Calender)</th>
+                                <th>Weekday</th>
+                                <th>Tithi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {information?.dates?.map((item: any, index: number) => {
+                                return (
+                                    <tr key={index} className='row'>
+                                        <td>{index + 1}</td>
+                                        <td>{formatDate(item?.date)}</td>
+                                        <td>{getDay(item?.date)}</td>
+                                        <td>{item?.event}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+
+    const tabProcessionList = () => {
+        const stats = {
+            totalProcession: processionlist?.length,
+            totalVehicles: totalVehicles,
+            totalJubilees: jubilee?.length,
+            totalPreJubilees: prejubilee?.length,
+        };
+
+        return (
+            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+                <p className="text-xl font-bold">Procession List {queryYear}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 text-left">
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-green-500 to-green-300 text-white mr-4">
+                            <FaLandmark />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Total Procession</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-green-500 to-green-300 gradient-text">{stats?.totalProcession}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-300 text-white mr-4">
+                            <FaLandmark />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Total Vehicles</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-300 gradient-text">{stats?.totalVehicles}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-rose-500 to-rose-300 text-white mr-4">
+                            <FaTrophy />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Jubilee Celebrations</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-rose-500 to-rose-300 gradient-text">{stats?.totalJubilees}</p>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="rounded-box p-4 hover-scale bg-white border border-base-content/5">
+                        <div className="flex items-center">
+                        <div className="p-3 rounded-full bg-gradient-to-br from-blue-500 to-blue-300 text-white mr-4">
+                            <FaStar />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-medium text-gray-500">Pre Jubilee Celebrations</h3>
+                            <p className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 gradient-text">{stats?.totalPreJubilees}</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
+                    <table className="table text-center table-zebra">
+                        <thead>
+                            <tr className="bg-blue-100 text-gray-700">
+                                <th>Sl. No.</th>
+                                <th>Puja Name</th>
+                                <th>Vehicle(s)</th>
+                                <th>Zone</th>
+                                <th>Years</th>
+                                <th>Celebrating</th>
+                                <th>Under P. S.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {processionlist?.map((item: any, index: number) => {
+                                const y = getYear(item?.puja?.estd, queryYear);
+                                const cel = getCelebrating(y);
+                                const formattedCel = cel.replaceAll(' ', '-').toLowerCase();
+                                const celClass = cx(
+                                    'px-2.5 py-1 text-xs font-medium rounded-full',
+                                    formattedCel.includes('adi') && 'bg-purple-300/10 text-purple-800',
+                                    !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-rose-300/10 text-rose-700',
+                                    formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-blue-300/10 text-blue-500',
+                                );
+                                const rowClass = cx(
+                                    'row',
+                                    formattedCel.includes('adi') && 'text-purple-800 font-medium',
+                                    !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'text-rose-500 font-medium',
+                                    formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'text-blue-500 font-medium',
+                                );
+                                return (
+                                    <tr key={index} className={rowClass}>
+                                        <td>{index + 1}</td>
+                                        <td>{item?.puja?.puja_name}</td>
+                                        <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
+                                        <td>{item?.zone}</td>
+                                        <td>{y}</td>
+                                        <td><span className={celClass}>{cel}</span></td>
+                                        <td>{item?.puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    }
+
+    const tabs: TabProps[] = [
         {
-            name: 'Jubilee List',
-            text: 'Number of Total Jubilees',
-            type: jubilee
+            title: <span className="flex items-center gap-2">Jubilee List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{jubilee?.length}</span></span>,
+            icon: <FaList />,
+            content: tabContent(jubilee),
         },
         {
-            name: 'Pre Jubilee List',
-            text: 'Number of Total Pre Jubilees',
-            type: prejubilee
+            title: <span className="flex items-center gap-2">Pre Jubilee List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{prejubilee?.length}</span></span>,
+            icon: <FaList />,
+            content: tabContent(prejubilee),
         }
     ];
 
@@ -115,6 +409,12 @@ export default async function Page({ params }: PageProps) {
     };
 
     if (dateIsCurrent) {
+        tabs.push({
+            title: <span className="flex items-center gap-2">Puja Schedule <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{queryYear}</span></span>,
+            icon: <FaCalendarAlt />,
+            content: tabPujaSchedule(),
+        });
+
         schemaData = {
             ...schemaData,
             description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
@@ -122,162 +422,84 @@ export default async function Page({ params }: PageProps) {
             end: getDateByIndex(information, 4)
         };
     }
+
+    if (queryYear === 2025 && processionlist) {
+        tabs.push({
+            title: <span className="flex items-center gap-2">Procession List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{processionlist?.length}</span></span>,
+            icon: <FaAngellist  />,
+            content: tabProcessionList(),
+        });
+    }
+
     const jsonLd = schema(schemaData);
 
     return (
         <MainLayout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
             <Section title="Know More about" description={<>Puja Details <span className="text-yellow-500">{queryYear}</span></>}>
-                <div className="flex flex-col gap-6 text-justify">
-                    {dateIsCurrent && <p>
-                        Bengalis have a popular saying: "Bangalir baro mashe tero parbon," which translates to "Bengalis
-                        celebrate 13 festivals in 12 months." This phrase reflects their boundless enthusiasm for
-                        festivals and celebrations. However, the most eagerly awaited festival for the people of
-                        Chandannagar, Mankundu and Bhadreswar is undoubtedly Jagadhatri Puja. Typically taking place in
-                        November, Jagadhatri Puja is celebrated in Chandannagar, Mankundu and Bhadreswar with
-                        unparalleled pomp and grandeur. It stands out as a festival that spans five days, starting with
-                        Sashti and continuing through Saptami, Ashtami, Nabami, and culminating on Dashami with the
-                        immersion Procession of Goddess Jagadhatri in water, known as "Bisarjan." Also on the day of
-                        dashami, the procession of Goddess Jagadhatri is conducted in the city of Chandannagar, which is
-                        the 2nd largest after Brazil's city of Rio de Janeiro.</p>}
-                    <p>
-                        Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sasthi to Dashami, holds a
-                        special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on
-                        the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished
-                        Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja
-                        festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit
-                        of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious
-                        significance and communal harmony.</p>
-                    {dateIsCurrent && <p>In {queryYear}, Jagadhatri Puja will be
-                        observed on {formatDate(displayDate)}. This year it will start
-                        on {formatDate(displayDate, true)} and continue up
-                        to {formatDate(getDateByIndex(information, 4), true)}.</p>}
-                </div>
-                <div className="overflow-x-auto mt-6">
-                    <div role="tablist" className="tabs tabs-lift min-w-fit">
-                        {tabs.map((item, index) => (
-                            <Fragment key={index}>
-                                <input type="radio" name="puja_zone" role="tab"
-                                    className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
-                                    aria-label={item?.name} defaultChecked={index === 0} />
-                                <div role="tabpanel"
-                                    className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
-                                    <p className="text-xl font-bold">{item?.text}: {item?.type?.length}</p>
-                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
-                                        <table className="table text-center table-zebra">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sl. No.</th>
-                                                    <th>Puja Name</th>
-                                                    <th>Under P. S.</th>
-                                                    <th>Years</th>
-                                                    <th>{dateIsCurrent ? 'Celebrating' : 'Celebrated'}</th>
-                                                    {dateIsCurrent && <th>Details</th>}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {item?.type.map((item: any, index: number) => {
-                                                    const y = getYear(item?.estd, queryYear);
-                                                    const cel = getCelebrating(y);
-                                                    return (
-                                                        <tr key={index} className='row'>
-                                                            <td>{index + 1}</td>
-                                                            <td>{item?.puja_name}</td>
-                                                            <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
-                                                            <td>{y}</td>
-                                                            <td>{cel}</td>
-                                                            {dateIsCurrent && <th className="text-blue-800"><Link
-                                                                href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${new Date().getFullYear() !== queryYear ? `?y=${queryYear}` : ''}`}>
-                                                                <button className="btn btn-ghost btn-xs">View</button>
-                                                            </Link>
-                                                            </th>}
-                                                        </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                <div className="flex flex-col space-y-6 text-justify mt-2">
+                    {dateIsCurrent && (
+                        <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 border border-orange-100">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
+                                    <span className="text-2xl">🎉</span>
                                 </div>
-                            </Fragment>
-                        ))}
-                        {dateIsCurrent &&
-                            <>
-                                <input type="radio" name="puja_zone" role="tab"
-                                    className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
-                                    aria-label="Puja Schedule" />
-                                <div role="tabpanel"
-                                    className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
-                                    <p className="text-xl font-bold">Puja Schedule {queryYear}</p>
-                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
-                                        <table className="table text-center table-zebra">
-                                            <thead>
-                                                <tr>
-                                                    <th>Day</th>
-                                                    <th>Date (English Calender)</th>
-                                                    <th>Weekday</th>
-                                                    <th>Tithi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {information?.dates?.map((item: any, index: number) => {
-                                                    return (
-                                                        <tr key={index} className='row'>
-                                                            <td>{index + 1}</td>
-                                                            <td>{formatDate(item?.date)}</td>
-                                                            <td>{getDay(item?.date)}</td>
-                                                            <td>{item?.event}</td>
-                                                        </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </>
-                        }
-                        {queryYear === 2024 && processionlist &&
-                            <>
-                                <input type="radio" name="puja_zone" role="tab"
-                                    className="tab h-10 font-bold whitespace-nowrap checked:!bg-gray-50"
-                                    aria-label="Procession List" />
-                                <div role="tabpanel" className="tab-content text-center bg-gray-50 border-base-300 p-2 pt-5 md:p-5">
-                                    <p className="text-xl font-bold">Procession List {queryYear}</p>
-                                    <p className="text-gray-500 mt-2">Total Vehicles: {totalVehicles}</p>
-                                    <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
-                                        <table className="table text-center table-zebra">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sl. No.</th>
-                                                    <th>Puja Name</th>
-                                                    <th>Vehicle(s)</th>
-                                                    <th>Zone</th>
-                                                    <th>Years</th>
-                                                    <th>Celebrating</th>
-                                                    <th>Under P. S.</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {processionlist?.map((item: any, index: number) => {
-                                                    const y = getYear(item?.puja?.estd, queryYear);
-                                                    const cel = getCelebrating(y);
-                                                    return (
-                                                        <tr key={index} className={`${cel !== '--' ? cel.replaceAll(' ', '-').toLowerCase() + ' row' : 'row'}`}>
-                                                            <td>{index + 1}</td>
-                                                            <td>{item?.puja?.puja_name}</td>
-                                                            <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
-                                                            <td>{item?.zone}</td>
-                                                            <td>{y}</td>
-                                                            <td>{cel}</td>
-                                                            <td>{item?.puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
-                                                        </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </>
-                        }
+                                <h3 className="text-xl font-semibold text-orange-800">Festival Introduction</h3>
+                            </div>
+                            <p className="text-gray-700 leading-relaxed">
+                                Bengalis have a popular saying: "Bangalir baro mashe tero parbon," which translates to "Bengalis
+                                celebrate 13 festivals in 12 months." This phrase reflects their boundless enthusiasm for
+                                festivals and celebrations. However, the most eagerly awaited festival for the people of
+                                Chandannagar, Mankundu and Bhadreswar is undoubtedly Jagadhatri Puja. Typically taking place in
+                                November, Jagadhatri Puja is celebrated in Chandannagar, Mankundu and Bhadreswar with
+                                unparalleled pomp and grandeur. It stands out as a festival that spans five days, starting with
+                                Sashti and continuing through Saptami, Ashtami, Nabami, and culminating on Dashami with the
+                                immersion Procession of Goddess Jagadhatri in water, known as "Bisarjan." Also on the day of
+                                dashami, the procession of Goddess Jagadhatri is conducted in the city of Chandannagar, which is
+                                the 2nd largest after Brazil's city of Rio de Janeiro.
+                            </p>
+                        </div>
+                    )}
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                <span className="text-2xl">✨</span>
+                            </div>
+                            <h3 className="text-xl font-semibold text-purple-800">Festival Significance</h3>
+                        </div>
+                        <p className="text-gray-700 leading-relaxed">
+                            Jagadhatri Puja, an esteemed festival spanning five vibrant days from Sashti to Dashami, holds a
+                            special place in the hearts of devotees. The pinnacle of this celebration typically unfolds on
+                            the seventh day. Much like the grandeur of Kolkata's revered Durga Puja and Barasat's cherished
+                            Kali Puja, Chandannagar shines brightly for its elaborate and culturally rich Jagadhatri Puja
+                            festivities. The city comes alive with colorful decorations, radiant illuminations, and a spirit
+                            of devoutness that unites both locals and visitors, fostering an atmosphere steeped in religious
+                            significance and communal harmony.
+                        </p>
                     </div>
+                    {dateIsCurrent && (
+                        <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <span className="text-2xl">📅</span>
+                                </div>
+                                <h3 className="text-xl font-semibold text-blue-800">Festival Schedule</h3>
+                            </div>
+                            <p className="text-gray-700 leading-relaxed">
+                                In {queryYear}, Jagadhatri Puja will be observed on {formatDate(displayDate)}. This year it will start
+                                on {formatDate(displayDate, true)} and continue up to {formatDate(getDateByIndex(information, 4), true)}.
+                            </p>
+                        </div>
+                    )}
+                </div>
+                <div className="mt-6">
+                    <TabsComponent
+                        tabs={tabs} 
+                        className="border border-base-300" 
+                        tabPanelClassName="bg-gray-50" 
+                        tabListClassName="bg-gray-30 border-b border-base-300 pattern-dots w-full"
+                        tabClassName="py-4 px-6 border-b-2 border-transparent bg-gray-50 w-full"
+                        tabSelectedClassName="border-b-2 !border-blue-700 bg-white"
+                    />
                 </div>
                 <div className="flex gap-3 text-sm justify-between mt-6">
                     <div className="border rounded-md border-neutral-200">

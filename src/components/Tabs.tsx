@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { cn } from '@/utils/functions';
 
 export interface TabProps {
-    title: string;
+    title: string | React.ReactNode;
     content: React.ReactNode;
     icon?: React.ReactNode;
     className?: string;
