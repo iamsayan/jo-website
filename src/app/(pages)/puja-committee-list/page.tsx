@@ -8,7 +8,7 @@ import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/ut
 import schema from "@/utils/schema";
 import Link from "next/link";
 import { metadata as metadataSchema } from "@/app/layout";
-import { FaChevronRight, FaCity, FaArchway, FaMapMarkerAlt, FaStar, FaTrophy, FaLandmark, FaFlag } from "react-icons/fa";
+import { FaChevronRight, FaLandmark, FaUsers, FaCity, FaCrown, FaMedal, FaAward, FaArchway, FaMapMarkerAlt } from "react-icons/fa";
 import cx from 'classix';
 
 interface PageProps {
@@ -101,34 +101,33 @@ export default async function Page({ searchParams }: PageProps) {
             {
                 title: "Total Committees",
                 description: zoneStats?.total,
-                icon: <FaLandmark />,
+                icon: <FaUsers />,
                 variant: "from-green-500 to-green-300"
             },
             {
                 title: "Jubilee Celebrations",
                 description: zoneStats?.jubilees,
-                icon: <FaTrophy />,
+                icon: <FaMedal />,
                 variant: "from-rose-500 to-rose-300"
             },
             {
                 title: "Pre Jubilee Celebrations",
                 description: zoneStats?.preJubilees,
-                icon: <FaStar />,
+                icon: <FaAward />,
                 variant: "from-blue-500 to-blue-300"
             },
             {
                 title: "Adi Pujas",
                 description: zoneStats?.adiPujas,
-                icon: <FaFlag />,
+                icon: <FaCrown />,
                 variant: "from-purple-500 to-purple-300"
             }
         ]
 
         return (
-            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+            <div className="text-center p-2 pt-5 md:p-5 space-y-3 md:space-y-4 lg:space-y-5">
                 {zoneInfo && (
-                    <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 mb-8">
-                        <div className="absolute top-0 left-0 w-full h-full pattern-dots opacity-10"></div>
+                    <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-6 md:p-8 mb-8">
                         <div className="relative flex flex-col gap-8">
                             <div className="flex-1">
                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">

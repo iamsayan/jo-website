@@ -34,7 +34,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="p-10 bg-slate-800 text-slate-200">
+        <footer className="p-10 bg-slate-900 text-slate-200">
             <div className="footer footer-horizontal footer-center container mx-auto">
                 <nav className="grid grid-flow-row md:grid-flow-col gap-2 md:gap-4">
                     {items.map((item, index) => (

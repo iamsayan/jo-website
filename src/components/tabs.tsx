@@ -31,7 +31,7 @@ export default function Tabs({ tabs, className, ...props }: TabsProps) {
           <ReactTab 
             key={index} 
             className={cn(
-              "cursor-pointer flex items-center gap-2 font-medium focus-visible:outline-none",
+              "whitespace-nowrap cursor-pointer flex items-center gap-2 font-medium focus-visible:outline-none",
               props.tabClassName,
               tab.className
             )}

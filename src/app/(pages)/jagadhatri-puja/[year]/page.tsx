@@ -15,7 +15,7 @@ import {
 } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
-import { FaArrowLeft, FaArrowRight, FaChevronRight, FaStar, FaFlag, FaLandmark, FaTrophy, FaAngellist, FaList, FaCalendarAlt } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaChevronRight, FaAngellist, FaList, FaCalendarAlt, FaClock, FaSun, FaPray, FaWater, FaUsers, FaCity, FaBuilding, FaCrown, FaTruck, FaMedal, FaAward } from "react-icons/fa";
 import { metadata as metadataSchema } from "@/app/layout";
 import type { Metadata } from 'next'
 import cx from 'classix';
@@ -116,33 +116,33 @@ export default async function Page({ params }: PageProps) {
             {
                 title: "Total Committees",
                 description: stats?.total,
-                icon: <FaLandmark />,
+                icon: <FaUsers />,
                 variant: "from-green-500 to-green-300"
             },
             {       
                 title: "Chandannagar",
                 description: stats?.jubilees,
-                icon: <FaTrophy />,
+                icon: <FaCity />,
                 variant: "from-rose-500 to-rose-300"
             },
             {
                 title: "Bhadreswar",
                 description: stats?.preJubilees,
-                icon: <FaStar />,
+                icon: <FaBuilding />,
                 variant: "from-blue-500 to-blue-300"
             },
             {
                 title: "Adi Pujas",
                 description: stats?.adiPujas,
-                icon: <FaFlag />,
+                icon: <FaCrown />,
                 variant: "from-purple-500 to-purple-300"
             }
         ]
 
         return (
-            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+            <div className="text-center p-2 pt-5 md:p-5 space-y-3 md:space-y-4 lg:space-y-3 md:space-y-4 lg:space-y-5">
                 <Info items={items} />
-                <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
+                <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
                             <tr className="bg-blue-100 text-gray-700">
@@ -193,36 +193,32 @@ export default async function Page({ params }: PageProps) {
             {
                 title: "Festival Duration",
                 description: `${information?.dates?.length} Days`,
-                icon: <span className="text-lg md:text-xl">📅</span>,
-                variant: "from-orange-500 to-orange-300 text-xl",
-                iconClassName: "p-2"
+                icon: <FaClock />,
+                variant: "from-orange-500 to-orange-300",
             },
             {
                 title: "Starting With",
                 description: "Sasthi",
-                icon: <span className="text-lg md:text-xl">🌅</span>,
-                variant: "from-blue-500 to-blue-300 text-xl",
-                iconClassName: "p-2"
+                icon: <FaSun />,
+                variant: "from-blue-500 to-blue-300",
             },
             {
                 title: "Main Puja Day",
                 description: "Nabami",
-                icon: <span className="text-lg md:text-xl">🎎</span>,
-                variant: "from-purple-500 to-purple-300 text-xl",
-                iconClassName: "p-2"
+                icon: <FaPray />,
+                variant: "from-purple-500 to-purple-300",
             },
             {
                 title: "Ending With",
                 description: "Dashami",
-                icon: <span className="text-lg md:text-xl">🌊</span>,
-                variant: "from-rose-500 to-rose-300 text-xl",
-                iconClassName: "p-2"
+                icon: <FaWater />,
+                variant: "from-rose-500 to-rose-300",
             }
         ]
         return (
-            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+            <div className="text-center p-2 pt-5 md:p-5 space-y-3 md:space-y-4 lg:space-y-5">
                 <Info items={items} />
-                <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
+                <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
                             <tr className="bg-blue-100 text-gray-700">
@@ -262,32 +258,32 @@ export default async function Page({ params }: PageProps) {
             {
                 title: "Total Procession",
                 description: stats?.totalProcession,
-                icon: <FaLandmark />,
+                icon: <FaUsers />,
                 variant: "from-green-500 to-green-300"
             },
             {
                 title: "Total Vehicles",
                 description: stats?.totalVehicles,
-                icon: <FaLandmark />,
+                icon: <FaTruck />,
                 variant: "from-yellow-500 to-yellow-300"
             },
             {
                 title: "Jubilee Celebrations",
                 description: stats?.totalJubilees,
-                icon: <FaTrophy />,
+                icon: <FaMedal />,
                 variant: "from-rose-500 to-rose-300"
             },
             {
                 title: "Pre Jubilee Celebrations",
                 description: stats?.totalPreJubilees,
-                icon: <FaStar />,
+                icon: <FaAward />,
                 variant: "from-blue-500 to-blue-300"
             }
         ]
         return (
-            <div className="text-center p-2 pt-5 md:p-5 space-y-5">
+            <div className="text-center p-2 pt-5 md:p-5 space-y-3 md:space-y-4 lg:space-y-5">
                 <Info items={items} />
-                <div className="overflow-x-auto mt-5 rounded-box border border-base-content/5 bg-base-100">
+                <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                     <table className="table text-center table-zebra">
                         <thead>
                             <tr className="bg-blue-100 text-gray-700">
