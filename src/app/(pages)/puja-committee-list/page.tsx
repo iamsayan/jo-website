@@ -22,6 +22,7 @@ interface PujaData {
     puja_name: string;
     puja_zone: string;
     estd: string;
+    tags: string[];
 }
 
 export const metadata: Metadata = {
@@ -86,13 +87,7 @@ export default async function Page({ searchParams }: PageProps) {
             total: zone.length,
             jubilees: filterData(zone, jubilees)?.length,
             preJubilees: filterData(zone, preJubilees)?.length,
-            adiPujas: zone.filter((data: any) => {
-                const y = getYear(data?.estd, queryYear);
-                if (!y || Number(y) >= 150) {
-                    return true;
-                }
-                return false;
-            }).length,
+            adiPujas: zone.filter((data: any) => data?.tags?.includes('adi') ?? false)?.length,
         };
 
         const zoneInfo = getZoneDescription(zone[0]?.puja_zone);
@@ -166,7 +161,7 @@ export default async function Page({ searchParams }: PageProps) {
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
-                        <span className="text-sm">Adi Pujas (More than 150 years)</span>
+                        <span className="text-sm">Adi Pujas</span>
                     </div>
                 </div>
                 <Info items={items} />
@@ -175,7 +170,7 @@ export default async function Page({ searchParams }: PageProps) {
                         <thead>
                             <tr className="bg-blue-100 text-gray-700">
                                 <th>Sl. No.</th>
-                                <th>Puja Committee Name</th>
+                                <th className="text-left">Puja Committee Name</th>
                                 <th>Years</th>
                                 <th>Celebrating (in {queryYear ?? new Date().getFullYear()})</th>
                                 <th>Details</th>
@@ -185,24 +180,48 @@ export default async function Page({ searchParams }: PageProps) {
                             {zone.map((item: PujaData, index: number) => {
                                 const y = getYear(item?.estd, queryYear);
                                 const cel = getCelebrating(y);
+                                const adi = item?.tags?.includes('adi') ?? false;
+                                const popular = item?.tags?.includes('popular') ?? false;
                                 const formattedCel = cel.replaceAll(' ', '-').toLowerCase();
                                 const celClass = cx(
-                                    'px-2.5 py-1 text-xs font-medium rounded-full',
-                                    formattedCel.includes('adi') && 'bg-purple-300/10 text-purple-800',
+                                    'px-2.5 py-1 text-xs font-medium rounded-md whitespace-nowrap',
                                     !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-rose-300/10 text-rose-700',
                                     formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-blue-300/10 text-blue-500',
                                 );
                                 const rowClass = cx(
                                     'row',
-                                    formattedCel.includes('adi') && 'text-purple-800 font-medium',
                                     !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'text-rose-500 font-medium',
                                     formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'text-blue-500 font-medium',
                                 );
                                 return (
                                     <tr key={index} className={rowClass}>
                                         <td>{index + 1}</td>
-                                        <td>{item?.puja_name}</td>
-                                        <td>{y}</td>
+                                        <td>
+                                            <div className="flex items-center gap-2 whitespace-nowrap">
+                                                <span className="text-left hover:text-green-700 transition-colors">{item?.puja_name}</span>
+                                                {(popular || adi) && (
+                                                    <div className="flex gap-1">
+                                                        {popular && (
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-amber-700 bg-amber-100 rounded-md whitespace-nowrap">
+                                                                <FaMedal className="text-amber-500" />
+                                                                Popular
+                                                            </span>
+                                                        )}
+                                                        {adi && (
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-purple-700 bg-purple-100 rounded-md whitespace-nowrap">
+                                                                <FaAward className="text-purple-500" />
+                                                                Adi Puja
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span className="inline-flex items-center justify-center px-2.5 py-1 text-xs font-medium bg-gray-100 rounded-md whitespace-nowrap">
+                                                {y}
+                                            </span>
+                                        </td>
                                         <td><span className={celClass}>{cel}</span></td>
                                         <td>
                                             <Link className="btn btn-ghost btn-xs text-sky-600" href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${queryYear ? `?y=${queryYear}` : ''}`}>

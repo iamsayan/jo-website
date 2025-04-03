@@ -34,6 +34,7 @@ interface Puja {
     puja_name: string;
     puja_zone: string;
     estd: string;
+    tags: string[];
 }
 
 interface SchemaOptions {
@@ -150,7 +151,7 @@ export default async function Page({ params }: PageProps) {
                         <thead>
                             <tr className="bg-blue-100 text-gray-700">
                                 <th>Sl. No.</th>
-                                <th>Puja Name</th>
+                                <th className="text-left">Puja Committee Name</th>
                                 <th>Under P. S.</th>
                                 <th>Years</th>
                                 <th>{dateIsCurrent ? 'Celebrating' : 'Celebrated'}</th>
@@ -161,19 +162,44 @@ export default async function Page({ params }: PageProps) {
                             {puja?.map((item: Puja, index: number) => {
                                 const y = getYear(item?.estd, queryYear);
                                 const cel = getCelebrating(y);
+                                const adi = item?.tags?.includes('adi') ?? false;
+                                const popular = item?.tags?.includes('popular') ?? false;
                                 const formattedCel = cel.replaceAll(' ', '-').toLowerCase();
                                 const celClass = cx(
-                                    'px-2.5 py-1 text-xs font-medium rounded-full',
-                                    formattedCel.includes('adi') && 'bg-purple-300/10 text-purple-800',
+                                    'px-2.5 py-1 text-xs font-medium rounded-md whitespace-nowrap',
                                     !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-rose-300/10 text-rose-700',
                                     formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-blue-300/10 text-blue-500',
                                 );
                                 return (
                                     <tr key={index} className="row">
                                         <td>{index + 1}</td>
-                                        <td>{item?.puja_name}</td>
+                                        <td>
+                                            <div className="flex items-center gap-2 whitespace-nowrap">
+                                                <span className="text-left hover:text-green-700 transition-colors">{item?.puja_name}</span>
+                                                {(popular || adi) && (
+                                                    <div className="flex gap-1">
+                                                        {popular && (
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-amber-700 bg-amber-100 rounded-md whitespace-nowrap">
+                                                                <FaMedal className="text-amber-500" />
+                                                                Popular
+                                                            </span>
+                                                        )}
+                                                        {adi && (
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-purple-700 bg-purple-100 rounded-md whitespace-nowrap">
+                                                                <FaAward className="text-purple-500" />
+                                                                Adi Puja
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </td>
                                         <td>{item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
-                                        <td>{y}</td>
+                                        <td>
+                                            <span className="inline-flex items-center justify-center px-2.5 py-1 text-xs font-medium bg-gray-100 rounded-md whitespace-nowrap">
+                                                {y}
+                                            </span>
+                                        </td>
                                         <td><span className={celClass}>{cel}</span></td>
                                         {dateIsCurrent && <td><Link
                                             className="btn btn-ghost btn-xs text-sky-600"
@@ -236,9 +262,11 @@ export default async function Page({ params }: PageProps) {
                                 return (
                                     <tr key={index} className='row'>
                                         <td>{index + 1}</td>
-                                        <td>{formatDate(item?.date)}</td>
-                                        <td>{getDay(item?.date)}</td>
-                                        <td>{item?.event}</td>
+                                        <td className="text-blue-800 whitespace-nowrap">{formatDate(item?.date)}</td>
+                                        <td className="text-gray-600">{getDay(item?.date)}</td>
+                                        <td>
+                                            <span className="px-2.5 py-1 text-sm rounded-md whitespace-nowrap bg-pink-300/10 text-pink-700">{item?.event}</span>
+                                        </td>
                                     </tr>
                                 );
                             })}
@@ -291,7 +319,7 @@ export default async function Page({ params }: PageProps) {
                         <thead>
                             <tr className="bg-blue-100 text-gray-700">
                                 <th>Sl. No.</th>
-                                <th>Puja Name</th>
+                                <th className="text-left">Puja Committee Name</th>
                                 <th>Vehicle(s)</th>
                                 <th>Zone</th>
                                 <th>Years</th>
@@ -304,23 +332,43 @@ export default async function Page({ params }: PageProps) {
                                 const puja = pujas?.find((data: any) => data?._id === item?.puja?._id);
                                 const y = getYear(puja?.estd, queryYear);
                                 const cel = getCelebrating(y);
+                                const adi = puja?.tags?.includes('adi') ?? false;
+                                const popular = puja?.tags?.includes('popular') ?? false;
                                 const formattedCel = cel.replaceAll(' ', '-').toLowerCase();
                                 const celClass = cx(
-                                    'px-2.5 py-1 text-xs font-medium rounded-full',
-                                    formattedCel.includes('adi') && 'bg-purple-300/10 text-purple-800',
+                                    'px-2.5 py-1 text-xs font-medium rounded-md whitespace-nowrap',
                                     !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-rose-300/10 text-rose-700',
                                     formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'bg-blue-300/10 text-blue-500',
                                 );
                                 const rowClass = cx(
                                     'row',
-                                    formattedCel.includes('adi') && 'text-purple-800 font-medium',
                                     !formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'text-rose-500 font-medium',
                                     formattedCel.includes('pre') && formattedCel.includes('jubilee') && 'text-blue-500 font-medium',
                                 );
                                 return (
                                     <tr key={index} className={rowClass}>
                                         <td>{index + 1}</td>
-                                        <td>{puja?.puja_name}</td>
+                                        <td>
+                                            <div className="flex items-center gap-2 whitespace-nowrap">
+                                                <span className="text-left hover:text-green-700 transition-colors">{puja?.puja_name}</span>
+                                                {(popular || adi) && (
+                                                    <div className="flex gap-1">
+                                                        {popular && (
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-amber-700 bg-amber-100 rounded-md whitespace-nowrap">
+                                                                <FaMedal className="text-amber-500" />
+                                                                Popular
+                                                            </span>
+                                                        )}
+                                                        {adi && (
+                                                            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-purple-700 bg-purple-100 rounded-md whitespace-nowrap">
+                                                                <FaAward className="text-purple-500" />
+                                                                Adi Puja
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </td>
                                         <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
                                         <td>{item?.zone}</td>
                                         <td>{y}</td>
