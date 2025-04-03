@@ -67,7 +67,7 @@ export default async function Page({ searchParams }: PageProps) {
     const { year } = await searchParams
     const queryYear = year ?? undefined
     const pujaData = await getModel('pujas', {
-        sort: { puja_name: 1 }
+        sort: { _o: 1 }
     });
 
     const data = pujaData ?? [];
@@ -166,7 +166,7 @@ export default async function Page({ searchParams }: PageProps) {
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="w-4 h-4 bg-purple-500 rounded-full"></div>
-                        <span className="text-sm">Adi Pujas</span>
+                        <span className="text-sm">Adi Pujas (More than 150 years)</span>
                     </div>
                 </div>
                 <Info items={items} />

@@ -65,14 +65,14 @@ export const dynamicParams = false
 
 export async function generateStaticParams() {
     const pujasData = await getModel('pujas', {
-        sort: { estd: 1 }
+        sort: { _o: 1 }
     });
     const data = pujasData ?? []
 
     return data.map((item: any) => {
         return {
             slug: getUrlSlug(item?.puja_name),
-            id: item?.reference_id
+            id: item?.reference_id,
         }
     })
 }
@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const dataRes = await getModels({
         pujas: {
-            filter: { reference_id: id }
+            sort: { _o: 1 }
         },
         images: {
             filter: { reference_id: id },
@@ -92,8 +92,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     });
     const { pujas, images, pujadescriptions } = dataRes ?? {};
 
-    const currentPuja = pujas?.[0];
+    const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
     const description = getDescription(currentPuja, pujadescriptions, 'famous')
+    const pagination = [
+        Number(currentPuja?._o) - 1,
+        Number(currentPuja?._o) + 1
+    ].map((item: number) => {
+        return item >= 0 && item < (pujas?.length ?? 0) ? pujas?.find((data: any) => data?._o === item) : null
+    })
 
     return {
         title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
@@ -109,8 +115,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             })
         },
         alternates: {
-            canonical: `/puja/${slug}/${id}`,
+            canonical: `/puja/${slug}/${id}`
         },
+        pagination: {
+            previous: pagination?.[0] ? `/puja/${getUrlSlug(pagination?.[0]?.puja_name)}/${pagination?.[0]?.reference_id}` : undefined,
+            next: pagination?.[1] ? `/puja/${getUrlSlug(pagination?.[1]?.puja_name)}/${pagination?.[1]?.reference_id}` : undefined
+        }
     }
 }
 
@@ -121,7 +131,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 
     const dataRes = await getModels({
         pujas: {
-            sort: { puja_name: 1 }
+            sort: { _o: 1 },
         },
         images: {
             filter: { reference_id: id }
@@ -159,13 +169,6 @@ export default async function Page({ params, searchParams }: PageProps) {
         slug: `puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
         title: `Details of ${pujaName} Sarbajanin`,
     })
-
-    const imgStyle: React.CSSProperties = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        pointerEvents: 'none'
-    };
     
     const description = getDescription(currentPuja, pujadescriptions, pujas?.length)
 
@@ -255,7 +258,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                                                 className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
                                                 priority={false}
                                                 loading="lazy"
-                                                alt={item?.puja_entry_id?.puja_name}
+                                                alt={pujaName}
                                             />
                                         </a>
                                     )

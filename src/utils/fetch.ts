@@ -27,7 +27,7 @@ export async function getModel(model: string, params: Record<string, any> = {}):
     }
 }
 
-export async function getModels(models: Record<string, any>, populate: -1 | 0 | 1 = 1): Promise<ApiResponse> {
+export async function getModels(models: Record<string, any>, populate: -1 | 0 | 1 = 0): Promise<ApiResponse> {
     const route = generateUrlSearchParams('items', { models, populate });
     const response = await fetch(`${process.env.API_URL}/content/${route}`, {
         method: "GET",

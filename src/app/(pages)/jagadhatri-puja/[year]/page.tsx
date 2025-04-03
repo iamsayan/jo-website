@@ -60,6 +60,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const displayDate = getDateByIndex(siteData, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
 
+    const archives = Array.from({ length: 10 }, (_, i) => ({
+        year: queryYear - i - 1
+    })).filter(item => item.year >= 2000 && item.year < queryYear);
+
     return {
         title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
         description: `Here are the Jubilee & Pre Jubilee List${dateIsCurrent ? ', Schedule, Puja Updates ' : ''}and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
@@ -71,9 +75,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             canonical: `/jagadhatri-puja/${queryYear}`,
         },
         pagination: {
-            previous: `/jagadhatri-puja/${queryYear - 1}`,
+            previous: queryYear > 2000 ? `/jagadhatri-puja/${queryYear - 1}` : null,
             next: `/jagadhatri-puja/${queryYear + 1}`
-        }
+        },
+        archives: archives?.map(item => `${metadataSchema.metadataBase}jagadhatri-puja/${item.year}`) ?? []
     }
 }
 
@@ -85,9 +90,7 @@ export default async function Page({ params }: PageProps) {
         pujas: {
             sort: { estd: 1 }
         },
-        processionlist: {
-            populate: 1
-        },
+        processionlist: {},
         information: {}
     })
     const { pujas, processionlist, information } = dataRes ?? {};
@@ -298,7 +301,8 @@ export default async function Page({ params }: PageProps) {
                         </thead>
                         <tbody>
                             {processionlist?.map((item: any, index: number) => {
-                                const y = getYear(item?.puja?.estd, queryYear);
+                                const puja = pujas?.find((data: any) => data?._id === item?.puja?._id);
+                                const y = getYear(puja?.estd, queryYear);
                                 const cel = getCelebrating(y);
                                 const formattedCel = cel.replaceAll(' ', '-').toLowerCase();
                                 const celClass = cx(
@@ -316,12 +320,12 @@ export default async function Page({ params }: PageProps) {
                                 return (
                                     <tr key={index} className={rowClass}>
                                         <td>{index + 1}</td>
-                                        <td>{item?.puja?.puja_name}</td>
+                                        <td>{puja?.puja_name}</td>
                                         <td>{item?.vehicles == 1 ? 1 : item?.vehicles - 1 + ' + 1 = ' + item?.vehicles}</td>
                                         <td>{item?.zone}</td>
                                         <td>{y}</td>
                                         <td><span className={celClass}>{cel}</span></td>
-                                        <td>{item?.puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
+                                        <td>{puja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</td>
                                     </tr>
                                 );
                             })}
