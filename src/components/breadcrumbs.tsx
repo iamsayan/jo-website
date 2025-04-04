@@ -19,7 +19,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
     pathItems = end !== null ? pathItems.slice(0, end) : pathItems;
 
     return (
-        <div className={cn("text-xs breadcrumbs uppercase", className)}>
+        <div className={cn("text-xs breadcrumbs text-white/90 capitalize p-0", className)}>
             <ul>
                 <li>
                     <Link href="/" className="flex items-center gap-2">

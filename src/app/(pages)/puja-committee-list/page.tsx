@@ -263,21 +263,10 @@ export default async function Page({ searchParams }: PageProps) {
     const jsonLd = schema({
         path: 'puja-committee-list',
         title: 'Jagadhatri Puja Committee List',
-    });
-
-    jsonLd['@graph'].push({
-        "@type": "CollectionPage",
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/puja-committee-list#webpage`,
-        "url": `${process.env.NEXT_PUBLIC_SITE_URL}/puja-committee-list`,
-        "name": "Puja Committee List",
-        "isPartOf": {
-            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
-        },
-        "inLanguage": "en-US",
-        "breadcrumb": {
-            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/puja-committee-list#breadcrumb`
+        type: {
+            collection: true
         }
-    })
+    });
 
     return (
         <MainLayout title="Puja Committee List" jsonLd={jsonLd}>

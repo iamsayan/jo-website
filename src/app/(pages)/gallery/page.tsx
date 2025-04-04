@@ -40,21 +40,10 @@ export default async function Page() {
     const jsonLd = schema({
         path: 'gallery',
         title: 'Photo Gallery',
-    });
-
-    jsonLd['@graph'].push({
-        "@type": "CollectionPage",
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/gallery#webpage`,
-        "url": `${process.env.NEXT_PUBLIC_SITE_URL}/gallery`,
-        "name": "Photo Gallery",
-        "isPartOf": {
-            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
-        },
-        "inLanguage": "en-US",
-        "breadcrumb": {
-            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/gallery#breadcrumb`
+        type: {
+            collection: true
         }
-    })
+    });
 
     return (
         <MainLayout title="Photo Gallery" jsonLd={jsonLd}>

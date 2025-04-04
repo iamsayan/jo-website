@@ -7,6 +7,9 @@ interface SchemaOptions {
     path: string;
     title: string;
     parents?: Parent[];
+    type?: {
+        collection?: boolean;
+    }
 }
 
 interface SchemaItem {
@@ -59,7 +62,7 @@ function generateBreadcrumbs(path: string, title: string, parents?: Parent[]): A
     return [homeBreadcrumb, ...parentsBreadcrumbs, currentBreadcrumb];
 }
 
-export default function schema({ path, title, parents }: SchemaOptions) {
+export default function schema({ path, title, parents, type }: SchemaOptions) {
     const siteSchema: { "@context": string; "@graph": SchemaItem[] } = {
         "@context": "https://schema.org",
         "@graph": [
@@ -102,6 +105,22 @@ export default function schema({ path, title, parents }: SchemaOptions) {
             }
         ]
     };
+
+    if (type?.collection) {
+        siteSchema['@graph'].push({
+            "@type": "CollectionPage",
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#webpage`,
+            "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}`,
+            "name": title,
+            "isPartOf": {
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
+            },
+            "inLanguage": "en-US",
+            "breadcrumb": {
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#breadcrumb`
+            }
+        })
+    }
 
     return siteSchema;
 }
