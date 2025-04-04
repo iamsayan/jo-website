@@ -124,3 +124,7 @@ export const stripHtmlAndLimit = (text: string, limit: number = 160): string => 
     const strippedText = text.replace(/<\/?[^>]+(>|$)/g, "");
     return strippedText.length > limit ? strippedText.substring(0, limit).trim() + "..." : strippedText;
 }
+
+export const getRndInteger = (min: number, max: number): number => {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
