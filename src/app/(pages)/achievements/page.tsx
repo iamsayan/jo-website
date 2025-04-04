@@ -27,7 +27,7 @@ export default async function Page() {
 
     return (
         <MainLayout title="Achievements" jsonLd={jsonLd}>
-            <Section title="Know More About" description={ <>Our <span className="text-yellow-500">Achievements</span></> } >
+            <Section title="Know More About" description="Our Achievements">
                 <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                     {data && data?.data?.map((item: any, index: number) => (
                         <li key={index}>

@@ -8,12 +8,14 @@ import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import circleLogo from '@/public/circle-logo.png';
 import { FaShoppingBag, FaGift } from 'react-icons/fa';
+import { cn } from '@/utils/functions';
 
 interface MenuItem {
     name: string;
     path: string | object;
     target?: '_blank' | '_self';
     subMenu?: MenuItem[];
+    className?: string;
 }
 
 const Navbar: React.FC = () => {
@@ -39,10 +41,14 @@ const Navbar: React.FC = () => {
     const items: MenuItem[] = [
         { name: 'Home', path: '/' },
         { name: 'History', path: '/puja-history' },
-        { name: 'Gallery', path: '/gallery', subMenu: [
-            { name: 'Photo Gallery 2024', path: '/gallery/2024' },
-            { name: 'Photo Gallery 2023', path: '/gallery/2023' },
-        ] },
+        { 
+            name: 'Gallery', 
+            path: '/gallery',
+            subMenu: [
+                { name: '2024', path: '/gallery/2024' },
+                { name: '2023', path: '/gallery/2023' },
+            ] 
+        },
         { name: 'Jagadhatri Puja', path: '/jagadhatri-puja' },
         { name: 'Puja List', path: '/puja-committee-list' },
         {
@@ -54,6 +60,7 @@ const Navbar: React.FC = () => {
                 { name: `DMP Program ${new Date().getFullYear()}`, path: '/digital-media-partnership' },
                 // { name: '360° Virtual Tours', path: 'https://vr.jagadhatrionline.co.in/', target: '_blank' }
             ],
+            className: 'w-52',
         }
     ];
 
@@ -139,7 +146,7 @@ const Navbar: React.FC = () => {
                             </div>
                             <ul className="menu menu-horizontal px-1 gap-2 uppercase font-bold hidden lg:flex">
                                 {items.map((item, index) => {
-                                    const classes = cx(
+                                    const classes = cn(
                                         isScrolled ? 'text-slate-600' : 'text-slate-300 focus:!text-white focus:!bg-transparent focus:!text-yellow-500 active:!bg-transparent',
                                         pathname === item.path && '!text-yellow-500',
                                     );
@@ -150,9 +157,9 @@ const Navbar: React.FC = () => {
                                                     <summary className={classes}>
                                                         {item.path !== '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
                                                     </summary>
-                                                    <ul className="p-2 w-56">
+                                                    <ul className={cn('p-2 w-28', item.className)}>
                                                         {item.subMenu.map((subItem, subIndex) => {
-                                                            const innerClasses = cx(
+                                                            const innerClasses = cn(
                                                                 !isScrolled && 'text-slate-600',
                                                                 pathname === subItem.path && '!text-yellow-500',
                                                             );

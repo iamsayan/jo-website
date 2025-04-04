@@ -1,7 +1,7 @@
-import cx from 'classix';
+import cx, { ClassName } from 'classix';
 import { twMerge } from 'tailwind-merge';
 
-export const cn = (...classes: (string | undefined)[]) => {
+export const cn = (...classes: ClassName[]) => {
     return twMerge(cx(...classes));
 };
 

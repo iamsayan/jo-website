@@ -459,7 +459,7 @@ export default async function Page({ params }: PageProps) {
 
     return (
         <MainLayout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>
-            <Section title="Know More about" description={<>Puja Details <span className="text-yellow-500">{queryYear}</span></>}>
+            <Section title="Know More about" description={`Puja Details ${queryYear}`}>
                 <div className="flex flex-col space-y-6 text-justify mt-2">
                     {dateIsCurrent && (
                         <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-6 border border-orange-100">

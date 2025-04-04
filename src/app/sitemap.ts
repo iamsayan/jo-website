@@ -64,14 +64,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ]
 
-    for (let year = 2000; year <= new Date().getFullYear() + 2; year++) {
+    const galleryYears = Array.from({length: 2}, (_, i) => i + 2023);
+    galleryYears.forEach((year: number, index: number) => {
+        sitemaps.push({
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/gallery/${year}`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: galleryYears.length - index > 1 ? 0.8 : 0.9,
+        });
+    });
+
+    const currentYear = new Date().getFullYear();
+    const pujaYears = Array.from({length: currentYear - 1998}, (_, i) => i + 2000);
+    pujaYears.forEach((year: number) => {
         sitemaps.push({
             url: `${process.env.NEXT_PUBLIC_SITE_URL}/jagadhatri-puja/${year}`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: year === currentYear ? 0.9 : 0.8,
         });
-    }
+    });
 
     data.forEach((element: any) => {
         sitemaps.push({

@@ -42,12 +42,26 @@ export default async function Page() {
         title: 'Photo Gallery',
     });
 
+    jsonLd['@graph'].push({
+        "@type": "CollectionPage",
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/gallery#webpage`,
+        "url": `${process.env.NEXT_PUBLIC_SITE_URL}/gallery`,
+        "name": "Photo Gallery",
+        "isPartOf": {
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
+        },
+        "inLanguage": "en-US",
+        "breadcrumb": {
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/gallery#breadcrumb`
+        }
+    })
+
     return (
         <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
-            <Section title="View Jagadhatri Puja" description={<>Photo <span className="text-yellow-500">Gallery</span></>}>
+            <Section title="View Jagadhatri Puja" description="Photo Gallery">
                 <div className="mb-16 text-center">
                     <Gallery 
-                        elementClassNames="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+                        elementClassNames="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4"
                         speed={500}
                         slideShowAutoplay={true}
                         fullScreen={true}
@@ -78,7 +92,7 @@ export default async function Page() {
                 </div>
                 <div>
                     <h2 className="text-2xl font-bold mb-6">Browse by Year</h2>
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 lg:gap-4">
                         {availableYears.map((year: string) => {
                             const yearImages = allImages.filter(img => img.year === year);
                             const randomImage = yearImages[Math.floor(Math.random() * yearImages.length)];
@@ -87,7 +101,7 @@ export default async function Page() {
                                 <Link
                                     key={year}
                                     href={`/gallery/${year}`}
-                                    className="relative aspect-square overflow-hidden rounded-lg group cursor-pointer"
+                                    className="relative aspect-[3/4] md:aspect-square overflow-hidden rounded-lg group cursor-pointer"
                                 >
                                     <Image
                                         src={`https://cgrutsav.jagadhatrionline.co.in/images/${randomImage.year}/${randomImage.reference_id}/${randomImage.image_name}`}

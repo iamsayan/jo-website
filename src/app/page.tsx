@@ -196,7 +196,7 @@ export default async function Home() {
             <Section
                 className="bg-gray-100"
                 title="Welcome to the Online Puja Portal"
-                description={<>Jagadhatri <span className="text-yellow-500">Online</span></>}
+                description="Jagadhatri Online"
             >
                 <div className="flex flex-col gap-6 text-center">
                     <p className="md:text-xl text-center m-auto md:leading-relaxed">
@@ -256,7 +256,7 @@ export default async function Home() {
             </Section>
             <Section
                 title="Our Store"
-                description={<>Discover Our <span className="text-yellow-500">Products</span></>}
+                description="Discover Our Products"
                 className="bg-gray-50"
             >
                 <div className="flex flex-col gap-8 items-center">
@@ -306,7 +306,7 @@ export default async function Home() {
             </Section>
             <Section
                 title="Jagadhatri Puja"
-                description={<>Countdown <span className="text-yellow-500">{year}</span></>}
+                description={`Countdown ${year}`}
             >
                 <div className="flex flex-col gap-8 text-center">
                     <CountdownTimer className="mt-3" targetDate={data?.dates[0]?.date} />

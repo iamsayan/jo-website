@@ -19,7 +19,9 @@ export default function Section({ children, title, description, className, ...pr
                     <div className={`flex flex-col text-center items-center justify-around ${paytoneOne.className}`}>
                         <div className="uppercase text-xs md:text-base text-slate-600">{title}</div>
                         <h2 className="title text-3xl md:text-4xl !leading-snug text-center text-ellipsis overflow-hidden whitespace-nowrap max-w-[600px]">
-                            {description}
+                            <span className="bg-gradient-to-r from-slate-600 via-yellow-700 to-yellow-500 bg-clip-text text-transparent">
+                                {description}
+                            </span>
                         </h2>
                         <div className="divider w-10 self-center m-0 divider-warning"></div>
                     </div>

@@ -111,7 +111,7 @@ export default async function Page() {
 
     return (
         <MainLayout title="Hoimantika Somman" jsonLd={jsonLd}>
-            <Section title="Know More About Amie Srestho" description={<>Hoimantika <span className="text-yellow-500">Somman</span></>}>
+            <Section title="Know More About Amie Srestho" description="Hoimantika Somman">
                 <div className="flex flex-col gap-6 text-justify">
                     <p>The Amie Srestho Hoimantika Somman is a prestigious award that has been celebrating creativity
                         and craftsmanship during Jagadhatri Puja in Chandannagar since 2016. It is one of the most

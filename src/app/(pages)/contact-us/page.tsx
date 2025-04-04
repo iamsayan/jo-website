@@ -25,7 +25,7 @@ export default function Page() {
 
     return (
         <MainLayout title="Contact Us" jsonLd={jsonLd}>
-            <Section title="need any help?" description={<>Contact <span className="text-yellow-500">Us</span></>}>
+            <Section title="Need any help?" description="Contact Us">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <div><Contact /></div>
                     <GoogleMapsEmbed

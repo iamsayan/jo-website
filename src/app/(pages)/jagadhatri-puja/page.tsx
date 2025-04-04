@@ -38,7 +38,7 @@ export default async function Page() {
 
     return (
         <MainLayout title="Puja Schedule" jsonLd={jsonLd}>
-            <Section title="Know More About" description={<>Puja <span className="text-yellow-500">Schedule</span></>}>
+            <Section title="Know More About" description="Puja Schedule">
                 <div className="flex flex-col gap-6 text-justify">
                     <p>Jagadhatri Puja, an esteemed festival in certain regions, extends across five joyous days,
                         commencing from Sasthi and culminating on Dashami. The main observance traditionally takes place

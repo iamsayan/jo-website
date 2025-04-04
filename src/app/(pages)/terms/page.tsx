@@ -27,7 +27,7 @@ export default async function Page() {
 
     return (
         <MainLayout title="Terms & Conditions" jsonLd={jsonLd}>
-            <Section title="Read Our" description={<>Terms & <span className="text-yellow-500">Conditions</span></>}>
+            <Section title="Read Our" description="Terms & Conditions">
                 <div className="flex flex-col gap-6 text-justify"
                      dangerouslySetInnerHTML={{__html: data?.terms}}></div>
             </Section>

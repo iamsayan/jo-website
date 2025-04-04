@@ -57,7 +57,7 @@ export default function Page() {
 
     return (
         <MainLayout title="Digital Media Partnership" jsonLd={jsonLd}>
-            <Section title="Know More About Digital" description={<>Media <span className="text-yellow-500">Partnership</span></>}>
+            <Section title="Know More About Digital" description="Media Partnership">
                 <div className="flex flex-col gap-6 text-justify">
                     <p>Digital Media Partnership Programme is a collaboration program for Jagadhatri Puja Commitees
                         across Chandannagar Mankundu and Bhadreswar. In this partnership program, we promote the

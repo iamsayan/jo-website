@@ -91,8 +91,8 @@ export default async function Page({ params, searchParams }: PageProps) {
     })
 
     return (
-        <MainLayout title="Photo Gallery" jsonLd={jsonLd}>
-            <Section title="View Jagadhatri Puja" description={<>Photo <span className="text-yellow-500">Gallery</span></>}>
+        <MainLayout title={`Photo Gallery ${year}`} jsonLd={jsonLd}>
+            <Section title="View Jagadhatri Puja" description={`Photo Gallery ${year}`}>
                 <GalleryPaginate images={images} itemsPerPage={itemsPerPage} />
             </Section>
         </MainLayout>

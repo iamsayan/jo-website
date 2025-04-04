@@ -99,7 +99,7 @@ export default function Page() {
 
     return (
         <MainLayout title="About Us" jsonLd={jsonLd}>
-            <Section title="Know More" description={<>Who We <span className="text-yellow-500">Are</span></>}>
+            <Section title="Know More" description="Who We Are">
                 <div className="flex flex-col gap-6 text-center">
                     <p>
                         Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu & Bhadreswar. It is a platform on internet where we display the Location, Photos & Videos of various Jagadhatri Pujas of Chandannagar. It will guide people who want directions to go Pandal Hopping around the city, looking for the best Pujas in town. Jagadhatri Puja is the biggest and the grandest festival celebrated in Chandannagar. Maa Jagadhatri is the Goddess of divine power against all evils. Starting from the day of the Kali Puja, the days of Sashthi, Saptami, Ashtami, Nabami and Dashami every day has its own unique rituals. The grandiosity and enthusiasm with which Jagadhatri Puja is celebrated in Chandannagar is unparalleled.
@@ -118,7 +118,7 @@ export default function Page() {
                     </p>
                 </div>
             </Section>
-            <Section className="bg-gray-100" title="MEET OUR" description={<>Passionate <span className="text-yellow-500">Team</span></>}>
+            <Section className="bg-gray-100" title="Meet Our" description="Passionate Team">
                 <div className="flex flex-col gap-6 justify-center items-center">
                     <p className="text-center md:text-[18px] md:w-[1200px] m-auto md:leading-relaxed">
                         Jagadhatri Online is designed to capture the most popular Jagadhatri Puja’s of Chandannagar, Mankundu & Bhadreswar. Some of you, who are not in Chandannagar are unable to experience the pleasure of Jagadhatri Puja in Bengal with their own eyes. We have created this Website to share our pride Jagadhatri Puja with the whole world. A well organised team at their best. Know more about our Team.
