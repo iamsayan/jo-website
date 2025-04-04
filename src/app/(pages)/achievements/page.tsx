@@ -21,7 +21,7 @@ export default async function Page() {
     const data = siteData ?? null
 
     const jsonLd = schema({
-        slug: 'achievements',
+        path: 'achievements',
         title: 'Achievements',
     })
 

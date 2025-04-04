@@ -105,7 +105,7 @@ export default async function Page() {
     })
 
     const jsonLd = schema({
-        slug: 'hoimontika-somman',
+        path: 'hoimontika-somman',
         title: 'History of Jagadhatri Puja',
     })
 

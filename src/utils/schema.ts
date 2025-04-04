@@ -1,9 +1,12 @@
-interface SchemaOptions {
-    slug: string;
+interface Parent {
     title: string;
-    description?: string;
-    start?: Date;
-    end?: Date;
+    slug: string;
+}
+
+interface SchemaOptions {
+    path: string;
+    title: string;
+    parents?: Parent[];
 }
 
 interface SchemaItem {
@@ -12,7 +15,51 @@ interface SchemaItem {
     [key: string]: any;
 }
 
-export default function schema({ slug, title, description, start, end }: SchemaOptions) {
+interface BreadcrumbItem {
+    "@type": "ListItem";
+    position: string;
+    item: {
+        "@id": string;
+        name: string;
+    };
+}
+
+function generateBreadcrumbs(path: string, title: string, parents?: Parent[]): Array<BreadcrumbItem> {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+    
+    const homeBreadcrumb = {
+        "@type": "ListItem" as const,
+        position: "1",
+        item: {
+            "@id": baseUrl,
+            name: "Home"
+        }
+    };
+
+    const parentsBreadcrumbs = parents?.map((parent, index) => {
+        return {
+            "@type": "ListItem" as const,
+            position: String(index + 2),
+            item: {
+                "@id": `${baseUrl}/${parents.slice(0, index + 1).map(p => p.slug).join('/')}`,
+                name: parent.title
+            }
+        };
+    }) || [];
+
+    const currentBreadcrumb = {
+        "@type": "ListItem" as const,
+        position: String(parentsBreadcrumbs.length + 2),
+        item: {
+            "@id": `${baseUrl}/${path}`,
+            name: title
+        }
+    };
+
+    return [homeBreadcrumb, ...parentsBreadcrumbs, currentBreadcrumb];
+}
+
+export default function schema({ path, title, parents }: SchemaOptions) {
     const siteSchema: { "@context": string; "@graph": SchemaItem[] } = {
         "@context": "https://schema.org",
         "@graph": [
@@ -37,88 +84,24 @@ export default function schema({ slug, title, description, start, end }: SchemaO
             },
             {
                 "@type": "BreadcrumbList",
-                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#breadcrumb`,
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": "1",
-                        "item": {
-                            "@id": process.env.NEXT_PUBLIC_SITE_URL,
-                            "name": "Home"
-                        }
-                    },
-                    {
-                        "@type": "ListItem",
-                        "position": "2",
-                        "item": {
-                            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
-                            "name": title
-                        }
-                    }
-                ]
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#breadcrumb`,
+                "itemListElement": generateBreadcrumbs(path, title, parents)
             },
             {
                 "@type": "WebPage",
-                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#webpage`,
-                "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}`,
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#webpage`,
+                "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}`,
                 "name": `${title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
                 "isPartOf": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
                 },
                 "inLanguage": "en-US",
                 "breadcrumb": {
-                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#breadcrumb`
+                    "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#breadcrumb`
                 }
             }
         ]
     };
-
-    if (typeof description !== 'undefined') {
-        siteSchema["@graph"].push({
-            "name": `${title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
-            "description": description,
-            "@type": "Event",
-            "eventStatus": "https://schema.org/EventScheduled",
-            "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
-            "location": [
-                {
-                    "@type": "VirtualLocation",
-                    "url": "https://www.facebook.com/JagadhatriOnlineOfficial"
-                },
-                {
-                    "@type": "Place",
-                    "name": "Chandannagar",
-                    "url": "https://en.wikipedia.org/wiki/Chandannagar",
-                    "address": {
-                        "@type": "PostalAddress",
-                        "streetAddress": "Station Road",
-                        "addressLocality": "Chandannagar",
-                        "addressRegion": "West Bengal",
-                        "postalCode": "712136",
-                        "addressCountry": "India"
-                    }
-                }
-            ],
-            "performer": {
-                "@type": "Organization",
-                "name": "Jagadhatri Online",
-                "sameAs": process.env.NEXT_PUBLIC_SITE_URL
-            },
-            "organizer": {
-                "@type": "Organization",
-                "name": "Jagadhatri Online",
-                "url": process.env.NEXT_PUBLIC_SITE_URL
-            },
-            "image": `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
-            "startDate": start,
-            "endDate": end,
-            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
-            "inLanguage": "en-US",
-            "mainEntityOfPage": {
-                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${slug}#webpage`
-            }
-        });
-    }
 
     return siteSchema;
 }

@@ -261,7 +261,7 @@ export default async function Page({ searchParams }: PageProps) {
     ];
 
     const jsonLd = schema({
-        slug: 'puja-committee-list',
+        path: 'puja-committee-list',
         title: 'Jagadhatri Puja Committee List',
     });
 

@@ -93,7 +93,7 @@ export default function Page() {
     ];
 
     const jsonLd = schema({
-        slug: 'about-us',
+        path: 'about-us',
         title: 'About Us',
     });
 

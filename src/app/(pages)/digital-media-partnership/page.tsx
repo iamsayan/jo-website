@@ -24,7 +24,7 @@ interface Feature {
 
 export default function Page() {
     const jsonLd = schema({
-        slug: 'digital-media-partnership',
+        path: 'digital-media-partnership',
         title: 'Digital Media Partnership Programme',
     });
 

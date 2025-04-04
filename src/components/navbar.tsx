@@ -39,7 +39,10 @@ const Navbar: React.FC = () => {
     const items: MenuItem[] = [
         { name: 'Home', path: '/' },
         { name: 'History', path: '/puja-history' },
-        { name: 'Gallery', path: '/gallery' },
+        { name: 'Gallery', path: '/gallery', subMenu: [
+            { name: 'Photo Gallery 2024', path: '/gallery/2024' },
+            { name: 'Photo Gallery 2023', path: '/gallery/2023' },
+        ] },
         { name: 'Jagadhatri Puja', path: '/jagadhatri-puja' },
         { name: 'Puja List', path: '/puja-committee-list' },
         {
@@ -59,7 +62,7 @@ const Navbar: React.FC = () => {
             {isInitialized && (
                 <div
                     className={`navbar-container fixed w-full top-0 left-0 z-50 transition-all duration-300 ${isScrolled
-                        ? 'animate-top-to-bottom bg-white shadow-xs border-b-[1px] border-gray-300'
+                        ? 'animate-slide-down bg-white shadow-xs border-b-[1px] border-gray-300'
                         : 'bg-transparent border-b-[1px] border-[#ffffff14]'
                         }`}
                 >
@@ -76,7 +79,9 @@ const Navbar: React.FC = () => {
                                         <li key={index}>
                                             {item.subMenu ? (
                                                 <details>
-                                                    <summary className="font-bold">{item.name}</summary>
+                                                    <summary className="font-bold">
+                                                        {item.path === '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
+                                                    </summary>
                                                     <ul className="p-2">
                                                         {item.subMenu.map((subItem, subIndex) => (
                                                             <li key={subIndex}>
@@ -142,7 +147,9 @@ const Navbar: React.FC = () => {
                                         <li key={index}>
                                             {item.subMenu ? (
                                                 <details>
-                                                    <summary className={classes}>{item.name}</summary>
+                                                    <summary className={classes}>
+                                                        {item.path !== '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
+                                                    </summary>
                                                     <ul className="p-2 w-56">
                                                         {item.subMenu.map((subItem, subIndex) => {
                                                             const innerClasses = cx(

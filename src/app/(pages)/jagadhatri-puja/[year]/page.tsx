@@ -37,14 +37,6 @@ interface Puja {
     tags: string[];
 }
 
-interface SchemaOptions {
-    slug: string;
-    title: string;
-    description?: string;
-    start?: Date;
-    end?: Date;
-}
-
 export const dynamicParams = false
 
 export async function generateStaticParams() {
@@ -61,10 +53,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const displayDate = getDateByIndex(siteData, 0);
     const dateIsCurrent = queryYear === displayDate.getFullYear();
 
-    const archives = Array.from({ length: 10 }, (_, i) => ({
-        year: queryYear - i - 1
-    })).filter(item => item.year >= 2000 && item.year < queryYear);
-
     return {
         title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
         description: `Here are the Jubilee & Pre Jubilee List${dateIsCurrent ? ', Schedule, Puja Updates ' : ''}and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
@@ -79,7 +67,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             previous: queryYear > 2000 ? `/jagadhatri-puja/${queryYear - 1}` : null,
             next: `/jagadhatri-puja/${queryYear + 1}`
         },
-        archives: archives?.map(item => `${metadataSchema.metadataBase}jagadhatri-puja/${item.year}`) ?? []
     }
 }
 
@@ -397,10 +384,17 @@ export default async function Page({ params }: PageProps) {
         }
     ];
 
-    let schemaData: SchemaOptions = {
-        slug: `jagadhatri-puja/${queryYear}`,
+    const schemaData = {
+        path: `jagadhatri-puja/${queryYear}`,
         title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
-    };
+        parents: [
+            {
+                title: 'Jagadhatri Puja Jubilee, Pre Jubilee List, Schedule',
+                slug: 'jagadhatri-puja'
+            }
+        ]
+    }
+    const jsonLd = schema(schemaData);
 
     if (dateIsCurrent) {
         tabs.push({
@@ -409,12 +403,50 @@ export default async function Page({ params }: PageProps) {
             content: tabPujaSchedule(),
         });
 
-        schemaData = {
-            ...schemaData,
-            description: `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
-            start: getDateByIndex(information, 0),
-            end: getDateByIndex(information, 4)
-        };
+        jsonLd["@graph"].push({
+            "name": `${schemaData.title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
+            "description": `Here are the Jubilee & Pre Jubilee List, Schedule, Puja Updates and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar & Bhadreswar.`,
+            "@type": "Event",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+            "location": [
+                {
+                    "@type": "VirtualLocation",
+                    "url": "https://www.facebook.com/JagadhatriOnlineOfficial"
+                },
+                {
+                    "@type": "Place",
+                    "name": "Chandannagar",
+                    "url": "https://en.wikipedia.org/wiki/Chandannagar",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "Station Road",
+                        "addressLocality": "Chandannagar",
+                        "addressRegion": "West Bengal",
+                        "postalCode": "712136",
+                        "addressCountry": "India"
+                    }
+                }
+            ],
+            "performer": {
+                "@type": "Organization",
+                "name": "Jagadhatri Online",
+                "sameAs": process.env.NEXT_PUBLIC_SITE_URL
+            },
+            "organizer": {
+                "@type": "Organization",
+                "name": "Jagadhatri Online",
+                "url": process.env.NEXT_PUBLIC_SITE_URL
+            },
+            "image": `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
+            "startDate": getDateByIndex(information, 0),
+            "endDate": getDateByIndex(information, 4),
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
+            "inLanguage": "en-US",
+            "mainEntityOfPage": {
+                "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#webpage`
+            }
+        });
     }
 
     if (queryYear === 2024 && processionlist) {
@@ -424,8 +456,6 @@ export default async function Page({ params }: PageProps) {
             content: tabProcessionList(),
         });
     }
-
-    const jsonLd = schema(schemaData);
 
     return (
         <MainLayout title={`Puja Details ${queryYear}`} jsonLd={jsonLd}>

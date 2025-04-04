@@ -5,19 +5,21 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { GoHome } from "react-icons/go";
 import { FaRegFolder } from "react-icons/fa";
+import { cn } from '@/utils/functions';
 
 interface BreadcrumbsProps {
     breadcrumbTitle?: string | null;
     end?: number | null;
+    className?: string;
 }
 
-const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end = null }) => {
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end = null, className }) => {
     const pathname = usePathname();
     let pathItems = pathname.split('/').filter(item => item !== '');
     pathItems = end !== null ? pathItems.slice(0, end) : pathItems;
 
     return (
-        <div className="text-xs breadcrumbs uppercase">
+        <div className={cn("text-xs breadcrumbs uppercase", className)}>
             <ul>
                 <li>
                     <Link href="/" className="flex items-center gap-2">
@@ -28,7 +30,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
                     const title = breadcrumbTitle && index === (pathItems?.length - 1) ? breadcrumbTitle : item.replaceAll('-', ' ');
                     return (
                         <li key={index}>
-                            <div className="inline-block text-ellipsis overflow-hidden whitespace-nowrap max-w-36">
+                            <div className="inline-block text-ellipsis overflow-hidden whitespace-nowrap">
                                 {index === pathItems.length - 1
                                     ? title
                                     : <Link href={`/${pathItems.slice(0, index + 1).join('/')}`} className="flex items-center gap-2">

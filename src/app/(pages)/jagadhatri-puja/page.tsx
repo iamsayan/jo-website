@@ -32,8 +32,8 @@ export default async function Page() {
     yearsArray.reverse();
 
     const jsonLd = schema({
-        slug: 'jagadhatri-puja',
-        title: 'Puja Schedule',
+        path: 'jagadhatri-puja',
+        title: 'Jagadhatri Puja Jubilee, Pre Jubilee List, Schedule',
     });
 
     return (

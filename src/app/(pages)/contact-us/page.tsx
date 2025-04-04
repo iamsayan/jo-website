@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
     const jsonLd = schema({
-        slug: 'contact-us',
+        path: 'contact-us',
         title: 'Contact Us',
     })
 
