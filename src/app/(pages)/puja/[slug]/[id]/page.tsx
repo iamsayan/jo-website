@@ -544,7 +544,8 @@ export default async function Page({ params }: PageProps) {
                                                             {cel == 'Diamond Jubilee' && "Diamond Jubilee: Sixty years of unwavering faith and tradition."}
                                                             {cel == 'Platinum Jubilee' && "Platinum Jubilee: A seventy-five years of spiritual journey and community bonding."}
                                                             {cel == 'Centennial Jubilee' && "Centennial Jubilee: A hundred years of spiritual journey and community bonding."}
-                                                            {cel == 'Jubilee' && "Jubilee: Celebrating a significant milestone in our spiritual journey and community bonding."}
+                                                            {cel == 'Jubilee' && "Jubilee: Celebrating a significant milestone in our spiritual journey, tradition and community bonding."}
+                                                            {cel.includes('Pre') && `${cel}: Celebrating a significant milestone in our spiritual journey and community bonding.`}
                                                         </p>
                                                     </div>
                                                 </div>
