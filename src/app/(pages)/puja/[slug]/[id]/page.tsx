@@ -1,22 +1,16 @@
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getModel, getModels } from "@/utils/fetch";
-import { cn, getDescription, getRndInteger, stripHtmlAndLimit } from "@/utils/functions";
+import { cn, getDescription, stripHtmlAndLimit } from "@/utils/functions";
 import {
     FaArrowLeft,
     FaArrowRight,
     FaCalendarAlt,
     FaMapMarkerAlt,
     FaHistory,
-    FaCrown,
-    FaShieldAlt,
     FaPalette,
     FaChalkboard,
     FaPaintBrush,
     FaBookOpen,
-    FaLandmark,
-    FaPray,
-    FaStar,
-    FaCompass,
     FaLightbulb,
 } from "react-icons/fa";
 import {
@@ -33,10 +27,8 @@ import {
     getDateByIndex
 } from "@/utils/functions";
 import schema from "@/utils/schema";
-import { GoogleMapsEmbed } from "@next/third-parties/google";
 import Link from "next/link";
 import Image from 'next/image'
-import vrImage from '@/public/vr.jpg'
 import { metadata as metadataSchema } from "@/app/layout";
 import type { Metadata } from 'next'
 import Main from '@/components/main';
@@ -87,42 +79,42 @@ export async function generateStaticParams() {
     })
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { slug, id } = await params
+// export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+//     const { slug, id } = await params
 
-    const dataRes = await getModels({
-        pujas: {
-            filter: { reference_id: id },
-        },
-        images: {
-            filter: { reference_id: id },
-            limit: 3
-        },
-        pujadescriptions: {}
-    });
-    const { pujas, images, pujadescriptions } = dataRes ?? {};
+//     const dataRes = await getModels({
+//         pujas: {
+//             filter: { reference_id: id },
+//         },
+//         images: {
+//             filter: { reference_id: id },
+//             limit: 3
+//         },
+//         pujadescriptions: {}
+//     });
+//     const { pujas, images, pujadescriptions } = dataRes ?? {};
 
-    const currentPuja = pujas?.[0];
-    const description = getDescription(currentPuja, pujadescriptions, 'famous')
+//     const currentPuja = pujas?.[0];
+//     const description = getDescription(currentPuja, pujadescriptions, 'famous')
 
-    return {
-        title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
-        description: stripHtmlAndLimit(description),
-        openGraph: {
-            ...metadataSchema.openGraph,
-            url: `/puja/${slug}/${id}`,
-            images: images?.map((item: any) => {
-                return {
-                    url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-                    alt: currentPuja?.puja_name
-                }
-            })
-        },
-        alternates: {
-            canonical: `/puja/${slug}/${id}`
-        },
-    }
-}
+//     return {
+//         title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+//         description: stripHtmlAndLimit(description),
+//         openGraph: {
+//             ...metadataSchema.openGraph,
+//             url: `/puja/${slug}/${id}`,
+//             images: images?.map((item: any) => {
+//                 return {
+//                     url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+//                     alt: currentPuja?.puja_name
+//                 }
+//             })
+//         },
+//         alternates: {
+//             canonical: `/puja/${slug}/${id}`
+//         },
+//     }
+// }
 
 export default async function Page({ params }: PageProps) {
     const { slug, id } = await params
