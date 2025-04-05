@@ -35,6 +35,9 @@ export const populateCel = (year: number, pre: boolean = false): string => {
         case 75:
             name = "Platinum";
             break;
+        case 100:
+            name = "Centennial";
+            break;
     }
     name = pre ? 'Pre ' + name : name;
 

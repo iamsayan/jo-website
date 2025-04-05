@@ -1,6 +1,6 @@
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getModel, getModels } from "@/utils/fetch";
-import { cn, getDescription, stripHtmlAndLimit } from "@/utils/functions";
+import { cn, getDateByIndex, getDescription, stripHtmlAndLimit } from "@/utils/functions";
 import {
     FaArrowLeft,
     FaArrowRight,
@@ -24,11 +24,9 @@ import {
     getCelebrating,
     formatDate,
     getUrlSlug,
-    getDateByIndex
 } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
-import Image from 'next/image'
 import { metadata as metadataSchema } from "@/app/layout";
 import type { Metadata } from 'next'
 import Main from '@/components/main';
@@ -138,20 +136,19 @@ export default async function Page({ params }: PageProps) {
     });
     const { pujas, images, pujadescriptions, information, processionlist } = dataRes ?? {};
 
-    const displayDate = getDateByIndex(information, 0);
     const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
-    const pujaImages = images.map((item: any, index: number) => {
+    const pujaImages = images.map((item: any) => {
         return {
             src: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
             thumb: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
             alt: currentPuja?.puja_name,
-            subHtml: `<h4>${currentPuja?.puja_name}</h4><p>By: ${item?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`,
+            subHtml: `<p>By: ${item?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`,
         }
     });
 
-    // if (!currentPuja || currentPuja?.length < 1) {
-    //     notFound()
-    // }
+    if (!currentPuja || currentPuja?.length < 1) {
+        notFound()
+    }
 
     const pujaName = currentPuja?.puja_name;
     if (slug !== getUrlSlug(pujaName)) {
@@ -225,92 +222,123 @@ export default async function Page({ params }: PageProps) {
         }
     });
 
-    const jsonLd = schema({
+    const schemaData = {
         path: `puja/${getUrlSlug(pujaName)}/${currentPuja?.reference_id}`,
         title: `Details of ${pujaName} Sarbajanin`,
-    })
+        parents: [
+            {
+                title: 'Jagadhatri Puja Committee List',
+                slug: 'puja-committee-list'
+            }
+        ]
+    }
+    const jsonLd = schema(schemaData);
+    jsonLd["@graph"].push({
+        "name": `${cel != '--' ? cel : y === 'Not Known' ? 'Jagadhatri Puja' : `${y} Years`} Celebration of ${pujaName} Sarbajanin`,
+        "description": `Jagadhatri Puja ${queryYear} celebration by ${pujaName} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+        "@type": "Event",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": [
+            {
+                "@type": "Place",
+                "name": currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar',
+                "url": `https://en.wikipedia.org/wiki/${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar,_Hooghly' : 'Chandannagar'}`,
+                "address": {
+                    "@type": "PostalAddress",
+                    "name": `${currentPuja?.puja_name} Puja Premises`,
+                    "streetAddress": `${currentPuja?.location?.address || `Somewhere at ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly`}`,
+                    "addressLocality": currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar',
+                    "addressRegion": "West Bengal",
+                    "addressCountry": "IN"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": currentPuja?.location?.lat,
+                    "longitude": currentPuja?.location?.lng
+                }
+            }
+        ],
+        "organizer": {
+            "@type": "Organization",
+            "name": currentPuja?.puja_name || 'Jagadhatri Puja',
+            "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}`
+        },
+        "image": pujaImages.map((item: any) => item.src),
+        "startDate": getDateByIndex(information, 0),
+        "endDate": getDateByIndex(information, 4),
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
+        "inLanguage": "en-US",
+        "mainEntityOfPage": {
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#webpage`
+        }
+    });
     
     const description = getDescription(currentPuja, pujadescriptions, pujas?.length)
 
     return (
         <Main jsonLd={jsonLd}>
             {/* Hero Section with Dynamic Background */}
-            <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
+            <div className="relative md:min-h-[90vh] p-32 w-full flex items-center justify-center overflow-hidden">
                 {/* Background Layer */}
                 <div className="absolute inset-0">
-                    {images?.[0] && false ? (
-                        <>
-                            <Image
-                                src={`https://cgrutsav.jagadhatrionline.co.in/images/${images[0]?.year}/${images[0]?.reference_id}/${images[0]?.image_name}`}
-                                fill
-                                className="object-cover scale-110 origin-center"
-                                alt={pujaName}
-                                priority
-                                style={{ transform: 'scale(1.1)' }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-b from-purple-950/90 via-purple-900/85 to-purple-950/90" />
-                        </>
-                    ) : (
-                        <>
-                            {/* Base Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#2D1B69] via-[#1E1B4B] to-[#4F1C48]">
-                                {/* Decorative Pattern Overlay */}
-                                <div className="absolute inset-0 opacity-5">
-                                    <div className="absolute inset-0" style={{
-                                        backgroundImage: `
-                                            radial-gradient(circle at 0% 0%, rgba(255,215,0,0.15) 1px, transparent 8px),
-                                            radial-gradient(circle at 100% 0%, rgba(255,215,0,0.15) 1px, transparent 8px),
-                                            radial-gradient(circle at 100% 100%, rgba(255,215,0,0.15) 1px, transparent 8px),
-                                            radial-gradient(circle at 0% 100%, rgba(255,215,0,0.15) 1px, transparent 8px)
-                                        `,
-                                        backgroundSize: '32px 32px',
-                                        backgroundPosition: '0 0, 16px 0, 16px 16px, 0 16px'
-                                    }} />
-                                </div>
-                                
-                                {/* Sacred Geometry Pattern */}
-                                <div className="absolute inset-0 opacity-10">
-                                    <div className="absolute inset-0" style={{
-                                        backgroundImage: `
-                                            repeating-linear-gradient(45deg, rgba(255,223,186,0.1) 0px, rgba(255,223,186,0.1) 1px, transparent 1px, transparent 8px),
-                                            repeating-linear-gradient(-45deg, rgba(255,223,186,0.1) 0px, rgba(255,223,186,0.1) 1px, transparent 1px, transparent 8px)
-                                        `,
-                                        backgroundSize: '16px 16px'
-                                    }} />
-                                </div>
+                    {/* Base Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#2D1B69] via-[#1E1B4B] to-[#4F1C48]">
+                        {/* Decorative Pattern Overlay */}
+                        <div className="absolute inset-0 opacity-5">
+                            <div className="absolute inset-0" style={{
+                                backgroundImage: `
+                                    radial-gradient(circle at 0% 0%, rgba(255,215,0,0.15) 1px, transparent 8px),
+                                    radial-gradient(circle at 100% 0%, rgba(255,215,0,0.15) 1px, transparent 8px),
+                                    radial-gradient(circle at 100% 100%, rgba(255,215,0,0.15) 1px, transparent 8px),
+                                    radial-gradient(circle at 0% 100%, rgba(255,215,0,0.15) 1px, transparent 8px)
+                                `,
+                                backgroundSize: '32px 32px',
+                                backgroundPosition: '0 0, 16px 0, 16px 16px, 0 16px'
+                            }} />
+                        </div>
+                        
+                        {/* Sacred Geometry Pattern */}
+                        <div className="absolute inset-0 opacity-10">
+                            <div className="absolute inset-0" style={{
+                                backgroundImage: `
+                                    repeating-linear-gradient(45deg, rgba(255,223,186,0.1) 0px, rgba(255,223,186,0.1) 1px, transparent 1px, transparent 8px),
+                                    repeating-linear-gradient(-45deg, rgba(255,223,186,0.1) 0px, rgba(255,223,186,0.1) 1px, transparent 1px, transparent 8px)
+                                `,
+                                backgroundSize: '16px 16px'
+                            }} />
+                        </div>
 
-                                {/* Additional Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#FF5E5B]/5 to-transparent" />
-                            </div>
+                        {/* Additional Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-[#FF5E5B]/5 to-transparent" />
+                    </div>
 
-                            {/* Animated Shapes with Enhanced Effects */}
-                            <div className="absolute inset-0 overflow-hidden">
-                                {/* Large Decorative Circle */}
-                                <div className="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-[#FFD700]/10 to-transparent" />
-                                
-                                {/* Animated Blobs */}
-                                <div className="absolute top-0 left-0 w-[600px] h-[600px]">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF9933]/20 to-transparent rounded-full mix-blend-overlay filter blur-3xl animate-blob" />
-                                </div>
-                                <div className="absolute top-1/4 right-0 w-[500px] h-[500px]">
-                                    <div className="absolute inset-0 bg-gradient-to-bl from-[#FF5E5B]/15 to-transparent rounded-full mix-blend-overlay filter blur-3xl animate-blob" style={{ animationDelay: '2s' }} />
-                                </div>
-                                <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px]">
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-[#FFD700]/10 to-transparent rounded-full mix-blend-overlay filter blur-3xl animate-blob" style={{ animationDelay: '4s' }} />
-                                </div>
+                    {/* Animated Shapes with Enhanced Effects */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        {/* Large Decorative Circle */}
+                        <div className="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] rounded-full bg-gradient-to-br from-[#FFD700]/10 to-transparent" />
+                        
+                        {/* Animated Blobs */}
+                        <div className="absolute top-0 left-0 w-[600px] h-[600px]">
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#FF9933]/20 to-transparent rounded-full mix-blend-overlay filter blur-3xl animate-blob" />
+                        </div>
+                        <div className="absolute top-1/4 right-0 w-[500px] h-[500px]">
+                            <div className="absolute inset-0 bg-gradient-to-bl from-[#FF5E5B]/15 to-transparent rounded-full mix-blend-overlay filter blur-3xl animate-blob" style={{ animationDelay: '2s' }} />
+                        </div>
+                        <div className="absolute bottom-0 left-1/4 w-[700px] h-[700px]">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-[#FFD700]/10 to-transparent rounded-full mix-blend-overlay filter blur-3xl animate-blob" style={{ animationDelay: '4s' }} />
+                        </div>
 
-                                {/* Subtle Light Effects */}
-                                <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#FFF1E6]/10 rounded-full filter blur-3xl" />
-                                <div className="absolute bottom-1/4 right-1/4 w-[200px] h-[200px] bg-[#FFB6C1]/10 rounded-full filter blur-2xl" />
-                            </div>
+                        {/* Subtle Light Effects */}
+                        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#FFF1E6]/10 rounded-full filter blur-3xl" />
+                        <div className="absolute bottom-1/4 right-1/4 w-[200px] h-[200px] bg-[#FFB6C1]/10 rounded-full filter blur-2xl" />
+                    </div>
 
-                            {/* Enhanced Vignette Effect */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#2D1B69]/60 via-transparent to-[#2D1B69]/60" />
-                            
-                            {/* Subtle Color Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#FFD700]/5 via-transparent to-[#FF5E5B]/5" />
-                        </>
-                    )}
+                    {/* Enhanced Vignette Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#2D1B69]/60 via-transparent to-[#2D1B69]/60" />
+                    
+                    {/* Subtle Color Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#FFD700]/5 via-transparent to-[#FF5E5B]/5" />
                 </div>
 
                 {/* Content Layer */}
@@ -408,15 +436,6 @@ export default async function Page({ params }: PageProps) {
                             </div> */}
                         </div>
 
-                        {/* {cel != '--' && false && (
-                            <div className="inline-block mb-6">
-                                <div className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-500/30 to-pink-500/30 backdrop-blur-md border border-white/20">
-                                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                                    <span className="text-white font-medium">Celebrating {cel} in {queryYear}</span>
-                                </div>
-                            </div>
-                        )} */}
-
                         <div className="flex items-center justify-center gap-4 mt-4">
                             {socialLinks.map((item, index) => (
                                 <a 
@@ -437,56 +456,54 @@ export default async function Page({ params }: PageProps) {
 
             <div className="w-full bg-gradient-to-br from-purple-50/50 via-white to-purple-50/50">
                 <div className="px-4 pattern-dots">
-                    <div className="container mx-auto relative -mt-10 mb-24">
-                        <div className="mx-auto px-4">
-                            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8`}>
-                                <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
-                                    <div className="flex items-center gap-4">
-                                        <div className="p-3 rounded-xl bg-purple-100">
-                                            <FaHistory className="text-2xl text-purple-600" />
-                                        </div>
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-800 mb-1">{cel != '--' ? cel : y === 'Not Known' ? '300+' : y}</div>
-                                            <div className="text-sm text-gray-600">{cel != '--' ? `Be the part of ${y === 'Not Known' ? '300+' : y} years' celebration` : 'Years of Celebration'}</div>
-                                        </div>
+                    <div className="container px-2 lg:px-0 mx-auto relative -mt-10 mb-16">
+                        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8`}>
+                            <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-3 rounded-xl bg-purple-100">
+                                        <FaHistory className="text-2xl text-purple-600" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xl md:text-2xl font-bold text-gray-800 mb-1">{cel != '--' ? cel : y === 'Not Known' ? '300+' : y}</div>
+                                        <div className="text-xs md:text-sm text-gray-600">{cel != '--' ? `Be the part of ${y === 'Not Known' ? '300+' : y} years' celebration` : 'Years of Celebration'}</div>
                                     </div>
                                 </div>
-                                <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
-                                    <div className="flex items-center gap-4">
-                                        <div className="p-3 rounded-xl bg-purple-100">
-                                            <FaMapMarkerAlt className="text-2xl text-purple-600" />
-                                        </div>
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-800 mb-1">{currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</div>
-                                            <div className="text-sm text-gray-600">Police Station Zone</div>
-                                        </div>
+                            </div>
+                            <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-3 rounded-xl bg-purple-100">
+                                        <FaMapMarkerAlt className="text-2xl text-purple-600" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xl md:text-2xl font-bold text-gray-800 mb-1">{currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</div>
+                                        <div className="text-xs md:text-sm text-gray-600">Police Station Zone</div>
                                     </div>
                                 </div>
-                                <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
-                                    <div className="flex items-center gap-4">
-                                        <div className="p-3 rounded-xl bg-purple-100">
-                                            <FaPalette className="text-2xl text-purple-600" />
-                                        </div>
-                                        <div>
-                                            <div className="text-2xl font-bold text-gray-800 mb-1">{processions?.vehicles ? 'Participating' : 'Not Participating'}</div>
-                                            <div className="text-sm text-gray-600">{processions?.vehicles ? `With ${processions.vehicles} Vehicle${processions.vehicles > 1 ? 's' : ''} in Procession` : `In Procession ${queryYear}`}</div>
-                                        </div>
+                            </div>
+                            <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
+                                <div className="flex items-center gap-4">
+                                    <div className="p-3 rounded-xl bg-purple-100">
+                                        <FaPalette className="text-2xl text-purple-600" />
+                                    </div>
+                                    <div>
+                                        <div className="text-xl md:text-2xl font-bold text-gray-800 mb-1">{processions?.vehicles ? 'Participating' : 'Not Participating'}</div>
+                                        <div className="text-xs md:text-sm text-gray-600">{processions?.vehicles ? `With ${processions.vehicles} Vehicle${processions.vehicles > 1 ? 's' : ''} in Procession` : `In Procession ${queryYear}`}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="about" className="relative overflow-hidden py-20">
-                        <div className="container mx-auto px-4">
-                            <div className="text-center max-w-3xl mx-auto mb-8">
+                    <div id="about" className="relative overflow-hidden py-16">
+                        <div className="container px-2 lg:px-0 mx-auto">
+                            <div className="text-center mb-8">
                                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100/50 text-purple-700 font-medium mb-4">
                                     <FaBookOpen className="text-sm" />
                                     <span className="text-sm">About Our Puja</span>
                                 </div>
-                                <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-900 via-purple-700 to-purple-800 leading-15">
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-900 via-purple-700 to-purple-800" style={{lineHeight: 'normal'}}>
                                     Celebrating Culture & Tradition
                                 </h2>
-                                <p className="text-gray-600 text-lg">
+                                <p className="text-gray-600 text-base md:text-lg">
                                     {currentPuja?.estd === '0' ? 'A Legacy of Tradition' : `Since the year ${currentPuja?.estd}`}
                                 </p>
                             </div>
@@ -506,6 +523,33 @@ export default async function Page({ params }: PageProps) {
                                         )}
                                         
                                         {currentPuja?.puja_info && <div className="space-y-2" dangerouslySetInnerHTML={{ __html: currentPuja?.puja_info }} />}
+                                        {cel != '--' && (
+                                            <div className="my-8 p-6 rounded-2xl bg-gradient-to-r from-purple-50 to-amber-50 border border-amber-100 relative overflow-hidden">
+                                                <div className="absolute top-0 right-0 w-40 h-40 bg-yellow-100/70 rounded-full blur-3xl -mr-20 -mt-20 opacity-70" />
+                                                <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-100/70 rounded-full blur-3xl -ml-20 -mb-20 opacity-70" />
+                                                
+                                                <div className="relative flex flex-col md:flex-row items-center gap-6">
+                                                    <div className="flex-shrink-0 w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-200/50">
+                                                        <div className="text-white font-bold text-2xl md:text-3xl">
+                                                            {y}
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-center md:text-left">
+                                                        <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-700 via-amber-600 to-amber-700 bg-clip-text text-transparent mb-2">
+                                                            Celebrating Our {cel} Year!
+                                                        </h3>
+                                                        <p className="text-gray-700">
+                                                            {cel == 'Silver Jubilee' && "Silver Jubilee: A quarter century of devotion and community celebration."}
+                                                            {cel == 'Golden Jubilee' && "Golden Jubilee: Half a century of preserving our cultural heritage."}
+                                                            {cel == 'Diamond Jubilee' && "Diamond Jubilee: Sixty years of unwavering faith and tradition."}
+                                                            {cel == 'Platinum Jubilee' && "Platinum Jubilee: A seventy-five years of spiritual journey and community bonding."}
+                                                            {cel == 'Centennial Jubilee' && "Centennial Jubilee: A hundred years of spiritual journey and community bonding."}
+                                                            {cel == 'Jubilee' && "Jubilee: Celebrating a significant milestone in our spiritual journey and community bonding."}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                     {info.length > 0 && <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-8 border-t border-purple-100 pt-8">
                                         {
@@ -532,7 +576,7 @@ export default async function Page({ params }: PageProps) {
                                         </div>
                                         <div>
                                             <h4 className="text-gray-900 font-medium mb-2">Disclaimer</h4>
-                                            <p className="text-sm text-gray-600 leading-relaxed">
+                                            <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
                                                 The information provided here may be incomplete or partially inaccurate. If you are a representative of this puja committee and notice any discrepancies, we encourage you to get in touch with us so we can update and correct the details. This initiative aims to bring all puja committees together on a single unified platform.
                                             </p>
                                         </div>
@@ -550,7 +594,7 @@ export default async function Page({ params }: PageProps) {
                                 <div className="inline-block px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium mb-4">
                                     Our Gallery
                                 </div>
-                                <h2 className="text-4xl font-bold mb-4">Glimpses of Celebration</h2>
+                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 px-3" style={{lineHeight: 'normal'}}>Glimpses of Celebration</h2>
                                 <p className="text-gray-600 max-w-2xl mx-auto">Explore moments from our recent celebrations that capture the essence of our tradition and community spirit.</p>
                             </div>
                             <GallerySlider 
@@ -576,25 +620,26 @@ export default async function Page({ params }: PageProps) {
                                             perPage: pujaImages.length >= 2 ? 2 : pujaImages.length,
                                             height: 300,
                                         },
-                                        768: {
+                                        1024: {
                                             perPage: pujaImages.length >= 3 ? 3 : pujaImages.length,
                                             height: 350,
                                         },
                                     },
                                 }}
+                                sliderItemClass="aspect-[4/5] overflow-hidden rounded-2xl group "
                             />
                         </div>
                     </div>
                 )}
 
-                <div className="py-24 bg-gradient-to-br from-white via-purple-50/50 to-purple-100/30">
+                <div className="py-20 bg-gradient-to-br from-white via-purple-50/50 to-purple-100/30">
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="text-center mb-16">
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium mb-4">
                                 <FaCalendarAlt className="text-lg" />
                                 <span>Event Schedule</span>
                             </div>
-                            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-purple-900 bg-clip-text text-transparent">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-purple-900 bg-clip-text text-transparent" style={{lineHeight: 'normal'}}>
                                 Upcoming Events
                             </h2>
                             <p className="text-gray-600 max-w-2xl mx-auto">Mark your calendar for these auspicious occasions</p>

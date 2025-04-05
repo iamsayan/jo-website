@@ -424,7 +424,7 @@ export default async function Page({ params }: PageProps) {
                         "addressLocality": "Chandannagar",
                         "addressRegion": "West Bengal",
                         "postalCode": "712136",
-                        "addressCountry": "India"
+                        "addressCountry": "IN"
                     }
                 }
             ],

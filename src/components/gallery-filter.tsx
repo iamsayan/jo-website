@@ -74,7 +74,7 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
 
             <Gallery elementClassNames="flex flex-row gap-2 md:gap-3 mt-2 justify-center" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
                 {paginatedImages.map((item: any, index: number) => (
-                    <div key={item?._id + index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer w-[calc(25%-0.75rem)] min-w-[200px] max-w-[300px]" onClick={() => lightGallery.current.openGallery(index)}>
+                    <div key={item?._id + index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
                         <Image
                             key={item?._id + index + selectedYear}
                             src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
