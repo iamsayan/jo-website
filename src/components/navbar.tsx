@@ -12,7 +12,7 @@ import { cn } from '@/utils/functions';
 
 interface MenuItem {
     name: string;
-    path: string | object;
+    path: string;
     target?: '_blank' | '_self';
     subMenu?: MenuItem[];
     className?: string;
@@ -49,7 +49,17 @@ const Navbar: React.FC = () => {
                 { name: '2023', path: '/gallery/2023' },
             ] 
         },
-        { name: 'Jagadhatri Puja', path: '/jagadhatri-puja' },
+        { 
+            name: 'Jagadhatri Puja', 
+            path: '/jagadhatri-puja',
+            subMenu: Array.from({ length: 6 }, (_, i) => {
+                const year = new Date().getFullYear() - i;
+                return {
+                    name: year.toString(),
+                    path: `/jagadhatri-puja/${year}`
+                };
+            })
+        },
         { name: 'Puja List', path: '/puja-committee-list' },
         {
             name: 'Links',
@@ -111,13 +121,11 @@ const Navbar: React.FC = () => {
                                         <a
                                             href="https://store.jagadhatrionline.co.in"
                                             target="_blank"
-                                            className="flex items-center gap-2 font-bold bg-gradient-to-r from-blue-500 to-purple-600 
-                                                     text-white rounded-md relative group"
+                                            className="flex items-center gap-2 font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-md relative group"
                                         >
                                             <FaShoppingBag className="text-lg" />
                                             <span>Store</span>
-                                            <FaGift className="text-yellow-300 absolute right-2 top-1/2 -translate-y-1/2 
-                                                           animate-bounce" />
+                                            <FaGift className="text-yellow-300 absolute right-2 top-1/2 -translate-y-1/2 animate-bounce" />
                                         </a>
                                     </li>
                                 </ul>
@@ -146,9 +154,10 @@ const Navbar: React.FC = () => {
                             </div>
                             <ul className="menu menu-horizontal px-1 gap-2 uppercase font-bold hidden lg:flex">
                                 {items.map((item, index) => {
+                                    const isActive = pathname === item.path || item.subMenu?.some(subItem => pathname === subItem.path);
                                     const classes = cn(
                                         isScrolled ? 'text-slate-600' : 'text-slate-300 focus:!text-white focus:!bg-transparent focus:!text-yellow-500 active:!bg-transparent',
-                                        pathname === item.path && '!text-yellow-500',
+                                        isActive && '!text-yellow-500',
                                     );
                                     return (
                                         <li key={index}>
@@ -157,7 +166,7 @@ const Navbar: React.FC = () => {
                                                     <summary className={classes}>
                                                         {item.path !== '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
                                                     </summary>
-                                                    <ul className={cn('p-2 w-28', item.className)}>
+                                                    <ul className={cn('p-2 w-28 right-0', item.className)}>
                                                         {item.subMenu.map((subItem, subIndex) => {
                                                             const innerClasses = cn(
                                                                 !isScrolled && 'text-slate-600',
