@@ -6,6 +6,9 @@ import Gallery from '@/components/gallery';
 
 // @ts-ignore
 import { Splide, SplideSlide, SplideProps } from '@splidejs/react-splide';
+import { Grid } from '@splidejs/splide-extension-grid';
+import { Intersection } from '@splidejs/splide-extension-intersection';
+import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
 import '@splidejs/splide/css';
 
 interface Slide {
@@ -25,7 +28,6 @@ export default function GallerySlider({ slides, sliderOptions, ...props }: Galle
     const lightGallery = useRef<any>(null);
     const defaultOptions: SplideProps['options'] = {
         type: 'loop',
-        autoplay: true,
     };
 
     sliderOptions = {
@@ -45,9 +47,9 @@ export default function GallerySlider({ slides, sliderOptions, ...props }: Galle
 
     return (
         <Gallery {...props} onInit={onInit} dynamicEl={slides} dynamic={true}>
-            <Splide options={sliderOptions}>
+            <Splide options={sliderOptions} extensions={{ Grid, AutoScroll, Intersection }}>
                 {slides.map((item: any, index: number) => (
-                    <SplideSlide key={index} onClick={() => lightGallery.current.openGallery(index)}>
+                    <SplideSlide key={index} onClick={() => lightGallery.current.openGallery(index)} className="cursor-pointer">
                         <Image src={item.src} alt={item.alt} className="w-full h-full object-cover pointer-events-none" fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" />
                     </SplideSlide>
                 ))}

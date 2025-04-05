@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Main from '@/components/main';
 import Section from "@/components/section";
-import Slider from "@/components/slider";
+import GallerySlider from "@/components/gallery-slider";
 import CountdownTimer from "@/components/countdown-timer";
 import Videos from "@/components/videos";
 import HeroSlider from "@/components/hero-slider";
@@ -53,7 +53,8 @@ export default async function Home() {
     const btnYear = curYear > year ? curYear : year;
 
     const sliderImages = imagesPath.map((image) => ({
-        imageUrl: `/assets/${image}`,
+        src: `/assets/${image}`,
+        alt: image,
     }));
 
     const shopItems: ShopItem[] = [
@@ -223,9 +224,9 @@ export default async function Home() {
                             </div>
                         ))}
                     </div>
-                    <Slider
+                    <GallerySlider
                         slides={sliderImages}
-                        options={{
+                        sliderOptions={{
                             lazyLoad: 'nearby',
                             autoScroll: {
                                 speed: 1,
@@ -234,6 +235,20 @@ export default async function Home() {
                             breakpoints: {
                                 640: {
                                     height: 300,
+                                },
+                            },
+                            drag: 'free',
+                            focus: 'center',
+                            // perPage: 2,
+                            // perMove: 1,
+                            gap: '6px',
+                            grid: {
+                                dimensions: [ [ 1, 1 ], [ 2, 2 ], [ 1, 2 ] ],
+                                // rows: 2,
+		                        // cols: 2,
+                                gap: {
+                                  row: '6px',
+                                  col: '6px',
                                 },
                             },
                         }}

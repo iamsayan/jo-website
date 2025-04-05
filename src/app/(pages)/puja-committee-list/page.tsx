@@ -11,12 +11,6 @@ import { metadata as metadataSchema } from "@/app/layout";
 import { FaChevronRight, FaLandmark, FaUsers, FaCity, FaCrown, FaMedal, FaAward, FaArchway, FaMapMarkerAlt } from "react-icons/fa";
 import cx from 'classix';
 
-interface PageProps {
-    searchParams: Promise<{
-        year?: number;
-    }>;
-}
-
 interface PujaData {
     reference_id: string;
     puja_name: string;
@@ -64,9 +58,7 @@ const getZoneDescription = (zone: string) => {
     }
 };
 
-export default async function Page({ searchParams }: PageProps) {
-    const { year } = await searchParams
-    const queryYear = year ?? undefined
+export default async function Page() {
     const pujaData = await getModel('pujas', {
         sort: { _o: 1 }
     });
@@ -78,7 +70,7 @@ export default async function Page({ searchParams }: PageProps) {
 
     const filterData = (zone: any, cel: any) => {
         return zone.filter((data: any) => {
-            return cel.includes(Number(getYear(data?.estd, queryYear)));
+            return cel.includes(Number(getYear(data?.estd)));
         });
     }
 
@@ -172,13 +164,13 @@ export default async function Page({ searchParams }: PageProps) {
                                 <th>Sl. No.</th>
                                 <th className="text-left">Puja Committee Name</th>
                                 <th>Years</th>
-                                <th>Celebrating (in {queryYear ?? new Date().getFullYear()})</th>
+                                <th>Celebrating (in {new Date().getFullYear()})</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             {zone.map((item: PujaData, index: number) => {
-                                const y = getYear(item?.estd, queryYear);
+                                const y = getYear(item?.estd);
                                 const cel = getCelebrating(y);
                                 const adi = item?.tags?.includes('adi') ?? false;
                                 const popular = item?.tags?.includes('popular') ?? false;
@@ -224,7 +216,7 @@ export default async function Page({ searchParams }: PageProps) {
                                         </td>
                                         <td><span className={celClass}>{cel}</span></td>
                                         <td>
-                                            <Link className="btn btn-ghost btn-xs text-sky-600" href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${queryYear ? `?y=${queryYear}` : ''}`}>
+                                            <Link className="btn btn-ghost btn-xs text-sky-600" href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
                                                 View <FaChevronRight />
                                             </Link>
                                         </td>
