@@ -61,11 +61,17 @@ export default async function Page() {
                                 data-disable-progress={true}
                                 key={index}
                                 className="relative aspect-[3/4] overflow-hidden rounded-lg group cursor-pointer"
+                                data-sub-html={`<h4>${image?.puja_entry_id?.puja_name}</h4><p>By: ${image?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`}
                             >
                                 <Image
                                     src={`https://cgrutsav.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
-                                    fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                    width={500}
+                                    height={300}
+                                    className="object-cover w-full h-full pointer-events-none text-transparent transition-transform duration-500 group-hover:scale-110"
+                                    loading="lazy"
+                                    priority={false}
+                                    placeholder="blur"
+                                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                                     alt={image?.puja_entry_id?.puja_name}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -94,8 +100,13 @@ export default async function Page() {
                                 >
                                     <Image
                                         src={`https://cgrutsav.jagadhatrionline.co.in/images/${randomImage.year}/${randomImage.reference_id}/${randomImage.image_name}`}
-                                        fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                        width={500}
+                                        height={300}
+                                        className="object-cover w-full h-full pointer-events-none text-transparent transition-transform duration-500 group-hover:scale-110"
+                                        loading="lazy"
+                                        priority={false}
+                                        placeholder="blur"
+                                        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                                         alt={`Gallery ${year}`}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />

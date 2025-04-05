@@ -16,7 +16,7 @@ interface PageProps {
     }>;
 }
 
-const itemsPerPage = 48;
+const itemsPerPage = 36;
 
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
     const { year } = await params
