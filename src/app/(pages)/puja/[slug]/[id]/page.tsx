@@ -73,48 +73,48 @@ export async function generateStaticParams() {
 
     return data.map((item: any) => {
         return {
-            path: getUrlSlug(item?.puja_name),
+            slug: getUrlSlug(item?.puja_name),
             id: item?.reference_id,
         }
     })
 }
 
-// export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-//     const { slug, id } = await params
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug, id } = await params
 
-//     const dataRes = await getModels({
-//         pujas: {
-//             filter: { reference_id: id },
-//         },
-//         images: {
-//             filter: { reference_id: id },
-//             limit: 3
-//         },
-//         pujadescriptions: {}
-//     });
-//     const { pujas, images, pujadescriptions } = dataRes ?? {};
+    const dataRes = await getModels({
+        pujas: {
+            filter: { reference_id: id },
+        },
+        images: {
+            filter: { reference_id: id },
+            limit: 3
+        },
+        pujadescriptions: {}
+    });
+    const { pujas, images, pujadescriptions } = dataRes ?? {};
 
-//     const currentPuja = pujas?.[0];
-//     const description = getDescription(currentPuja, pujadescriptions, 'famous')
+    const currentPuja = pujas?.[0];
+    const description = getDescription(currentPuja, pujadescriptions, 'famous')
 
-//     return {
-//         title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
-//         description: stripHtmlAndLimit(description),
-//         openGraph: {
-//             ...metadataSchema.openGraph,
-//             url: `/puja/${slug}/${id}`,
-//             images: images?.map((item: any) => {
-//                 return {
-//                     url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-//                     alt: currentPuja?.puja_name
-//                 }
-//             })
-//         },
-//         alternates: {
-//             canonical: `/puja/${slug}/${id}`
-//         },
-//     }
-// }
+    return {
+        title: `${currentPuja?.puja_name} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+        description: stripHtmlAndLimit(description),
+        openGraph: {
+            ...metadataSchema.openGraph,
+            url: `/puja/${slug}/${id}`,
+            images: images?.map((item: any) => {
+                return {
+                    url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                    alt: currentPuja?.puja_name
+                }
+            })
+        },
+        alternates: {
+            canonical: `/puja/${slug}/${id}`
+        },
+    }
+}
 
 export default async function Page({ params }: PageProps) {
     const { slug, id } = await params
