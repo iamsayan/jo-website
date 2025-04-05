@@ -25,13 +25,6 @@ export default function Slider({ options, slides = [], ...props }: SliderProps) 
         ...options,
     };
 
-    const imgStyle: React.CSSProperties = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-        pointerEvents: 'none',
-    };
-
     if (slides.length < 1) {
         return null;
     }
@@ -40,7 +33,7 @@ export default function Slider({ options, slides = [], ...props }: SliderProps) 
         <Splide options={options} {...props}>
             {slides.map((slide, index) => (
                 <SplideSlide key={index}>
-                    <Image src={slide.imageUrl} alt={`Slide ${index + 1}`} style={imgStyle} fill={true} />
+                    <Image src={slide.imageUrl} alt={`Slide ${index + 1}`} className="w-full h-full object-cover pointer-events-none" fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" />
                 </SplideSlide>
             ))}
         </Splide>

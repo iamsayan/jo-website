@@ -72,9 +72,9 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
                 ))}
             </div>
 
-            <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-3 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
+            <Gallery elementClassNames="flex flex-row gap-2 md:gap-3 mt-2 justify-center" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
                 {paginatedImages.map((item: any, index: number) => (
-                    <div key={item?._id + index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
+                    <div key={item?._id + index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer w-[calc(25%-0.75rem)] min-w-[200px] max-w-[300px]" onClick={() => lightGallery.current.openGallery(index)}>
                         <Image
                             key={item?._id + index + selectedYear}
                             src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
@@ -99,26 +99,28 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
                 ))}
             </Gallery>
 
-            <ReactPaginate
-                key={selectedYear}
-                previousLabel="Previous"
-                nextLabel="Next"
-                breakLabel="..."
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                containerClassName="join flex justify-center mt-5"
-                pageClassName="join-item"
-                pageLinkClassName="rounded-none btn"
-                nextClassName="join-item"
-                nextLinkClassName="rounded-none btn"
-                previousClassName="join-item"
-                previousLinkClassName="rounded-none btn"
-                breakClassName="join-item"
-                breakLinkClassName="rounded-none btn btn-disabled"
-                activeLinkClassName="btn-active"
-            />
+            {pageCount > 1 && (
+                <ReactPaginate
+                    key={selectedYear}
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    breakLabel="..."
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={2}
+                    onPageChange={handlePageClick}
+                    containerClassName="join flex justify-center mt-5"
+                    pageClassName="join-item"
+                    pageLinkClassName="rounded-none btn"
+                    nextClassName="join-item"
+                    nextLinkClassName="rounded-none btn"
+                    previousClassName="join-item"
+                    previousLinkClassName="rounded-none btn"
+                    breakClassName="join-item"
+                    breakLinkClassName="rounded-none btn btn-disabled"
+                    activeLinkClassName="btn-active"
+                />
+            )}
         </div>
     );
 }

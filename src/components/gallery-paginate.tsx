@@ -76,30 +76,32 @@ function GalleryPaginate({ className, images, itemsPerPage }: GalleryPaginatePro
                     </div>
                 ))}
             </Gallery>
-            <ReactPaginate
-                previousLabel={<FaChevronLeft />}
-                nextLabel={<FaChevronRight />}
-                breakLabel="..."
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={2}
-                onPageChange={handlePageClick}
-                forcePage={currentPage-1}
-                containerClassName="join flex justify-center mt-5"
-                pageClassName="join-item"
-                pageLinkClassName="rounded-none btn"
-                nextClassName="join-item"
-                nextLinkClassName="rounded-none btn"
-                previousClassName="join-item"
-                previousLinkClassName="rounded-none btn"
-                breakClassName="join-item"
-                breakLinkClassName="rounded-none btn btn-disabled"
-                activeLinkClassName="btn-active"
-                hrefBuilder={(page, pageCount, selected) =>
-                    page >= 1 && page <= pageCount ? `/gallery/${currentYear}?page=${page}` : '#'
-                }
-                hrefAllControls
-            />
+            {pageCount > 1 && (
+                <ReactPaginate
+                    previousLabel={<FaChevronLeft />}
+                    nextLabel={<FaChevronRight />}
+                    breakLabel="..."
+                    pageCount={pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={2}
+                    onPageChange={handlePageClick}
+                    forcePage={currentPage-1}
+                    containerClassName="join flex justify-center mt-5"
+                    pageClassName="join-item"
+                    pageLinkClassName="rounded-none btn"
+                    nextClassName="join-item"
+                    nextLinkClassName="rounded-none btn"
+                    previousClassName="join-item"
+                    previousLinkClassName="rounded-none btn"
+                    breakClassName="join-item"
+                    breakLinkClassName="rounded-none btn btn-disabled"
+                    activeLinkClassName="btn-active"
+                    hrefBuilder={(page, pageCount, selected) =>
+                        page >= 1 && page <= pageCount ? `/gallery/${currentYear}?page=${page}` : '#'
+                    }
+                    hrefAllControls
+                />
+            )}
         </div>
     );
 }
