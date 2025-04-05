@@ -172,7 +172,7 @@ export default async function Page({ params }: PageProps) {
     const info = [
         {
             icon: <FaChalkboard className="text-xl text-purple-600" />,
-            title: `Theme ${new Date().getFullYear()}`,
+            title: `Puja Theme`,
             value: currentPuja?.current_theme
         },
         {
