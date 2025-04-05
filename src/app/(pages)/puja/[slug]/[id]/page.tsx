@@ -157,9 +157,9 @@ export default async function Page({ params }: PageProps) {
         }
     });
 
-    if (!currentPuja || currentPuja?.length < 1) {
-        notFound()
-    }
+    // if (!currentPuja || currentPuja?.length < 1) {
+    //     notFound()
+    // }
 
     const pujaName = currentPuja?.puja_name;
     if (slug !== getUrlSlug(pujaName)) {
