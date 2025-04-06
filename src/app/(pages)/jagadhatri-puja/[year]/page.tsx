@@ -442,7 +442,7 @@ export default async function Page({ params }: PageProps) {
             "startDate": getDateByIndex(information, 0),
             "endDate": getDateByIndex(information, 4),
             "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${queryYear}`, // ensure unique ID
-            "inLanguage": "en-US",
+            "inLanguage": "en-IN",
             "mainEntityOfPage": {
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#webpage`
             }

@@ -161,7 +161,7 @@ export default async function Home() {
                 "publisher": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`
                 },
-                "inLanguage": "en-US"
+                "inLanguage": "en-IN"
             },
             {
                 "@type": "WebPage",
@@ -171,7 +171,7 @@ export default async function Home() {
                 "isPartOf": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`
                 },
-                "inLanguage": "en-US"
+                "inLanguage": "en-IN"
             }
         ]
     };

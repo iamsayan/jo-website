@@ -168,6 +168,7 @@ export default async function Page({ params }: PageProps) {
     const adi = currentPuja?.tags?.includes('adi') ?? false;
     const popular = currentPuja?.tags?.includes('popular') ?? false;
     const processions = processionlist?.find((item: any) => item?.puja?._id === currentPuja?._id)
+    const gMapLink = currentPuja?.location?.lat && currentPuja?.location?.lng ? `https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}(${currentPuja?.puja_name}+Jagadhatri+Puja+${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'})` : `https://www.google.com/maps/search/?api=1&query=${currentPuja?.puja_name}+Jagadhatri+Puja+${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'},+Hooghly,+West+Bengal`
 
     const info = [
         {
@@ -247,16 +248,19 @@ export default async function Page({ params }: PageProps) {
                 "address": {
                     "@type": "PostalAddress",
                     "name": `${currentPuja?.puja_name} Puja Premises`,
-                    "streetAddress": `${currentPuja?.location?.address || `Somewhere at ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly`}`,
+                    "streetAddress": `${currentPuja?.location?.address || `${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly, West Bengal`}`,
                     "addressLocality": currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar',
                     "addressRegion": "West Bengal",
                     "addressCountry": "IN"
                 },
-                "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": currentPuja?.location?.lat,
-                    "longitude": currentPuja?.location?.lng
-                }
+                ...(currentPuja?.location?.lat && currentPuja?.location?.lng ? {
+                    "geo": {
+                        "@type": "GeoCoordinates",
+                        "latitude": currentPuja?.location?.lat,
+                        "longitude": currentPuja?.location?.lng
+                    },
+                } : {}),
+                "hasMap": gMapLink
             }
         ],
         "organizer": {
@@ -267,8 +271,19 @@ export default async function Page({ params }: PageProps) {
         "image": pujaImages.map((item: any) => item.src),
         "startDate": getDateByIndex(information, 0),
         "endDate": getDateByIndex(information, 4),
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${currentPuja?._o}`, // ensure unique ID
-        "inLanguage": "en-US",
+        "subEvent": information?.dates?.map((item: any) => {
+            return {
+                "@type": "Event",
+                "name": item?.event,
+                "startDate": formatDate(item?.date),
+                "location": {
+                    "@type": "Place",
+                    "name": "Haridradanga Puja Premises"
+                }
+            }
+        }),
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${currentPuja?._o+1}`, // ensure unique ID
+        "inLanguage": "en-IN",
         "mainEntityOfPage": {
             "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#webpage`
         }
@@ -379,8 +394,8 @@ export default async function Page({ params }: PageProps) {
                         <div className="relative mb-12">
                             <div className="flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
                                 <FaMapMarkerAlt className="text-purple-400" />
-                                <a href={`https://www.google.com/maps/search/?api=1&query=${currentPuja?.location?.lat},${currentPuja?.location?.lng}`} target="_blank" className="text-sm md:text-base text-white/90">
-                                    {currentPuja?.location?.address || `Somewhere at ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly, West Bengal`}
+                                <a href={gMapLink} target="_blank" className="text-sm md:text-base text-white/90">
+                                    {currentPuja?.location?.address || `${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly, West Bengal`}
                                 </a>
                             </div>
                             {/* Decorative dots */}

@@ -83,7 +83,7 @@ export default function schema({ path, title, parents, type }: SchemaOptions) {
                 "publisher": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#organization`
                 },
-                "inLanguage": "en-US"
+                "inLanguage": "en-IN"
             },
             {
                 "@type": "BreadcrumbList",
@@ -98,7 +98,7 @@ export default function schema({ path, title, parents, type }: SchemaOptions) {
                 "isPartOf": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
                 },
-                "inLanguage": "en-US",
+                "inLanguage": "en-IN",
                 "breadcrumb": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#breadcrumb`
                 }
@@ -115,7 +115,7 @@ export default function schema({ path, title, parents, type }: SchemaOptions) {
             "isPartOf": {
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`
             },
-            "inLanguage": "en-US",
+            "inLanguage": "en-IN",
             "breadcrumb": {
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#breadcrumb`
             }
