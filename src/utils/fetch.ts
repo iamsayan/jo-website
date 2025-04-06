@@ -7,9 +7,8 @@ interface ApiResponse {
 export async function getModel(model: string, params: Record<string, any> = {}): Promise<ApiResponse> {
     const type = params.type ?? 'items';
     delete params.type;
-    model = generateUrlSearchParams(model, params);
     
-    const response = await fetch(`${process.env.API_URL}/content/${type}/${model}`, {
+    const response = await fetch(`${process.env.API_URL}/content/${type}/${generateUrlSearchParams(model, params)}`, {
         method: "GET",
         headers: {
             "api-key": process.env.API_KEY!,

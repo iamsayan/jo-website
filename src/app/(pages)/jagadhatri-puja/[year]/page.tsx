@@ -441,7 +441,7 @@ export default async function Page({ params }: PageProps) {
             "image": `${process.env.NEXT_PUBLIC_SITE_URL}/og-image.jpg`,
             "startDate": getDateByIndex(information, 0),
             "endDate": getDateByIndex(information, 4),
-            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${queryYear}`, // ensure unique ID
             "inLanguage": "en-US",
             "mainEntityOfPage": {
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#webpage`

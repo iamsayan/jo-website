@@ -267,7 +267,7 @@ export default async function Page({ params }: PageProps) {
         "image": pujaImages.map((item: any) => item.src),
         "startDate": getDateByIndex(information, 0),
         "endDate": getDateByIndex(information, 4),
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${Math.floor(Math.random() * 1000000)}`, // ensure unique ID
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${currentPuja?._o}`, // ensure unique ID
         "inLanguage": "en-US",
         "mainEntityOfPage": {
             "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#webpage`
