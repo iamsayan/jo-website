@@ -68,7 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en" data-theme="light" suppressHydrationWarning={process.env.NODE_ENV === 'production'}>
             {process.env.NODE_ENV === 'production' &&
-                <>
+                <head>
                     <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />
                     <Script id="google-analytics">
                         {`
@@ -78,7 +78,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"${process.env.NEXT_PUBLIC_SITE_URL}","cookie_flags":"samesite=none;secure","allow_google_signals":true});
                         `}
                     </Script>
-                </>
+                    <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`} crossOrigin="anonymous" strategy="afterInteractive" />
+                </head>
             }
             <body className={`${livvic.className} overflow-x-hidden text-sm md:text-base ${livvic.variable}`}>
                 <Providers>{children}</Providers>
