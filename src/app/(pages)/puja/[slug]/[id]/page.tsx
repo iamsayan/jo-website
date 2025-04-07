@@ -1,6 +1,6 @@
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getModel, getModels } from "@/utils/fetch";
-import { cn, getDateByIndex, getDescription, stripHtmlAndLimit } from "@/utils/functions";
+import { cn, getDateByIndex, getDescription, stripHtmlAndLimit, timestampToDate } from "@/utils/functions";
 import {
     FaArrowLeft,
     FaArrowRight,
@@ -163,6 +163,8 @@ export default async function Page({ params }: PageProps) {
         }
     });
 
+    console.log(currentPuja?._published)
+
     const y = getYear(currentPuja?.estd);
     const cel = getCelebrating(y);
     const adi = currentPuja?.tags?.includes('adi') ?? false;
@@ -231,7 +233,11 @@ export default async function Page({ params }: PageProps) {
                 title: 'Jagadhatri Puja Committee List',
                 slug: 'puja-committee-list'
             }
-        ]
+        ],
+        dates: {
+            published: timestampToDate(currentPuja?._created),
+            modified: timestampToDate(currentPuja?._modified),
+        }
     }
     const jsonLd = schema(schemaData);
     jsonLd["@graph"].push({
@@ -269,17 +275,35 @@ export default async function Page({ params }: PageProps) {
             "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}`
         },
         "image": pujaImages.map((item: any) => item.src),
-        "startDate": getDateByIndex(information, 0),
-        "endDate": getDateByIndex(information, 4),
+        "startDate": `${getDateByIndex(information, 0)}T00:00:00+05:30`,
+        "endDate": `${getDateByIndex(information, 4)}T21:59:59+05:30`,
         "subEvent": information?.dates?.map((item: any) => {
+            const date = new Date(item?.date);
+            date.setDate(date.getDate() + 1);
             return {
                 "@type": "Event",
                 "name": item?.event,
-                "startDate": formatDate(item?.date),
+                "description": `Jagadhatri Puja ${queryYear} ${item?.event} celebration by ${pujaName} Sarbajanin, ${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}`,
+                "eventStatus": "https://schema.org/EventScheduled",
+                "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                "startDate": item?.event === 'Procession' ? `${item?.date}T18:00:00+05:30` : `${item?.date}T00:00:00+05:30`,
+                "endDate": item?.event === 'Procession' ? `${date.toISOString().split('T')[0]}T08:00:00+05:30` : `${item?.date}T21:59:59+05:30`,
                 "location": {
                     "@type": "Place",
-                    "name": "Haridradanga Puja Premises"
-                }
+                    "name": "Haridradanga Puja Premises",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": `${currentPuja?.location?.address || `${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly, West Bengal`}`,
+                        "addressLocality": currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar',
+                        "addressRegion": "West Bengal",
+                        "addressCountry": "IN"
+                    },
+                },
+                "organizer": {
+                    "@type": "Organization",
+                    "name": currentPuja?.puja_name || 'Jagadhatri Puja',
+                    "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}`
+                },
             }
         }),
         "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${schemaData.path}#schema-${currentPuja?._o+1}`, // ensure unique ID

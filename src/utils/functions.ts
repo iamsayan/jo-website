@@ -131,3 +131,23 @@ export const stripHtmlAndLimit = (text: string, limit: number = 160): string => 
 export const getRndInteger = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+
+export const timestampToDate = (timestamp: number): string => {
+    const date = new Date(timestamp * 1000);
+    const options: any = {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-CA', options);
+    const parts = formatter.formatToParts(date);
+    const getPart = (type: any) => parts.find(p => p.type === type)?.value;
+
+    return `${getPart('year')}-${getPart('month')}-${getPart('day')}T` + `${getPart('hour')}:${getPart('minute')}:${getPart('second')}+05:30`;
+}
