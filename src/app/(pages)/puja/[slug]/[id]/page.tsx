@@ -575,7 +575,7 @@ export default async function Page({ params }: PageProps) {
                                                     </div>
                                                     <div className="text-center md:text-left">
                                                         <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-purple-700 via-amber-600 to-amber-700 bg-clip-text text-transparent mb-2">
-                                                            Celebrating Our {cel} Year!
+                                                            Celebrating {cel} Year!
                                                         </h3>
                                                         <p className="text-gray-700">
                                                             {cel == 'Silver Jubilee' && "Silver Jubilee: A quarter century of devotion and community celebration."}

@@ -21,7 +21,7 @@ const Main: React.FC<MainProps> = ({ children, className, jsonLd }) => {
                 />
             )}
             <NavBar />
-            <main className={classes}>{children!}</main>
+            <main className={classes}>{children}</main>
             <Footer />
         </>
     );
