@@ -18,6 +18,7 @@ import { getUrlSlug, getYear, sanitizeSearchQuery } from '@/utils/functions';
 import { LuSearch, LuList, LuImage, LuZap, LuShoppingCart, LuTrophy, LuInfo, LuMapPin } from "react-icons/lu";
 import { MdOutline360 } from 'react-icons/md';
 import { useSearchParams } from "next/navigation";
+import { Suspense } from 'react'
 
 interface CommandBarProps {
     children: React.ReactNode;
@@ -27,9 +28,23 @@ interface DynamicActionsLoaderProps {
     onSearch?: (isSearching: boolean) => void;
 }
 
+function Search() {
+    const { query } = useKBar();
+    const searchParams = useSearchParams()
+
+    useEffect(() => {
+        const searchQuery = searchParams.get('q');
+        if (searchQuery) {
+            query.toggle();
+            query.setSearch(sanitizeSearchQuery(searchQuery));
+        }
+    }, [searchParams, query]);
+
+    return null
+}
+
 function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
-    const {query, searchQuery, currentRootActionId} = useKBar((state) => state);
-    //const searchParams = useSearchParams();
+    const {searchQuery, currentRootActionId} = useKBar((state) => state);
     const router = useRouter();
     const actions = useMemo(() => [
         {
@@ -115,14 +130,6 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
         },
     ], []);
     const [results, setResults] = useState(actions);
-
-    // useEffect(() => {
-    //     const searchQuery = searchParams.get('q');
-    //     if (searchQuery) {
-    //         query.toggle();
-    //         query.setSearch(sanitizeSearchQuery(searchQuery));
-    //     }
-    // }, [searchParams, query]);
 
     const debouncedQuery = useDebouncedCallback(async (search: string) => {
         if (!search || search.length < 2) {
@@ -225,6 +232,9 @@ const CommandBar = ({ children }: CommandBarProps) => {
             enableHistory: true,
         }}>
             <DynamicActionsLoader onSearch={(state) => setShowLoader(state)}/>
+            <Suspense>
+                <Search />
+            </Suspense>
             <KBarPortal>
                 <KBarPositioner className="z-50 bg-black/60 backdrop-blur-sm">
                     <KBarAnimator className="w-full max-w-2xl bg-white dark:bg-zinc-900 text-black dark:text-white rounded-md shadow-2xl overflow-hidden flex flex-col">
