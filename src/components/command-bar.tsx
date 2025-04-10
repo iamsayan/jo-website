@@ -29,7 +29,7 @@ interface DynamicActionsLoaderProps {
 
 function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
     const {query, searchQuery, currentRootActionId} = useKBar((state) => state);
-    const searchParams = useSearchParams();
+    //const searchParams = useSearchParams();
     const router = useRouter();
     const actions = useMemo(() => [
         {
@@ -116,13 +116,13 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
     ], []);
     const [results, setResults] = useState(actions);
 
-    useEffect(() => {
-        const searchQuery = searchParams.get('q');
-        if (searchQuery) {
-            query.toggle();
-            query.setSearch(sanitizeSearchQuery(searchQuery));
-        }
-    }, [searchParams, query]);
+    // useEffect(() => {
+    //     const searchQuery = searchParams.get('q');
+    //     if (searchQuery) {
+    //         query.toggle();
+    //         query.setSearch(sanitizeSearchQuery(searchQuery));
+    //     }
+    // }, [searchParams, query]);
 
     const debouncedQuery = useDebouncedCallback(async (search: string) => {
         if (!search || search.length < 2) {
