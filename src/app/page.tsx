@@ -161,9 +161,11 @@ export default async function Home() {
                 "@type": "Organization",
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`,
                 "name": "Jagadhatri Online",
+                "url": process.env.NEXT_PUBLIC_SITE_URL,
+                "email": "info@jagadhatrionline.co.in",
                 "sameAs": [
                     "https://www.facebook.com/JagadhatriOnlineOfficial/",
-                    "https://twitter.com/JagadhatriLive"
+                    "https://twitter.com/Official_JO16"
                 ]
             },
             {
@@ -174,13 +176,20 @@ export default async function Home() {
                 "publisher": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#organization`
                 },
-                "inLanguage": "en-IN"
+                "inLanguage": "en-IN",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": `${process.env.NEXT_PUBLIC_SITE_URL}/?q={search_term_string}`,
+                    "query-input": "required name=search_term_string"
+                }
             },
             {
                 "@type": "WebPage",
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#webpage`,
                 "url": process.env.NEXT_PUBLIC_SITE_URL,
                 "name": "Jagadhatri Online | the #1 Puja Portal for Chandannagar Jagadhatri Puja",
+                "datePublished": "2016-05-06T00:00:00+05:30",
+                "dateModified": "2024-11-01T11:26:00+05:30",
                 "isPartOf": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/#website`
                 },

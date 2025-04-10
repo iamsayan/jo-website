@@ -81,7 +81,7 @@ export default function schema({ path, title, parents, type, dates }: SchemaOpti
                 "email": "info@jagadhatrionline.co.in",
                 "sameAs": [
                     "https://www.facebook.com/JagadhatriOnlineOfficial/",
-                    "https://twitter.com/JagadhatriLive"
+                    "https://twitter.com/Official_JO16"
                 ]
             },
             {
@@ -93,11 +93,11 @@ export default function schema({ path, title, parents, type, dates }: SchemaOpti
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#organization`
                 },
                 "inLanguage": "en-IN",
-                // "potentialAction": {
-                //     "@type": "SearchAction",
-                //     "target": `${process.env.NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
-                //     "query-input": "required name=search_term_string"
-                // }
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": `${process.env.NEXT_PUBLIC_SITE_URL}/?q={search_term_string}`,
+                    "query-input": "required name=search_term_string"
+                }
             },
             {
                 "@type": "BreadcrumbList",
@@ -110,7 +110,7 @@ export default function schema({ path, title, parents, type, dates }: SchemaOpti
                 "@id": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}#webpage`,
                 "url": `${process.env.NEXT_PUBLIC_SITE_URL}/${path}`,
                 "name": `${title} - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal`,
-                "datePublished": dates?.published ?? "2024-11-01T00:00:00+05:30",
+                "datePublished": dates?.published ?? "2016-05-06T00:00:00+05:30",
                 "dateModified": dates?.modified ?? "2024-11-01T11:26:00+05:30",
                 "isPartOf": {
                     "@id": `${process.env.NEXT_PUBLIC_SITE_URL}#website`

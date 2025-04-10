@@ -17,6 +17,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { getUrlSlug, getYear, sanitizeSearchQuery } from '@/utils/functions';
 import { LuSearch, LuList, LuImage, LuZap, LuShoppingCart, LuTrophy, LuInfo, LuMapPin } from "react-icons/lu";
 import { MdOutline360 } from 'react-icons/md';
+import { useSearchParams } from "next/navigation";
 
 interface CommandBarProps {
     children: React.ReactNode;
@@ -27,7 +28,8 @@ interface DynamicActionsLoaderProps {
 }
 
 function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
-    const {searchQuery, currentRootActionId} = useKBar((state) => state);
+    const {query, searchQuery, currentRootActionId} = useKBar((state) => state);
+    const searchParams = useSearchParams();
     const router = useRouter();
     const actions = useMemo(() => [
         {
@@ -113,6 +115,14 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
         },
     ], []);
     const [results, setResults] = useState(actions);
+
+    useEffect(() => {
+        const searchQuery = searchParams.get('q');
+        if (searchQuery) {
+            query.toggle();
+            query.setSearch(sanitizeSearchQuery(searchQuery));
+        }
+    }, [searchParams, query]);
 
     const debouncedQuery = useDebouncedCallback(async (search: string) => {
         if (!search || search.length < 2) {
