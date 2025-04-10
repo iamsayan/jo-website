@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
 import schema from "@/utils/schema";
-import { FaCircleCheck, FaXmark, FaCheck } from "react-icons/fa6";
+import { LuCircleCheck, LuX, LuCheck } from "react-icons/lu";
 import { metadata as metadataSchema } from "@/app/layout";
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ export default function Page() {
                         {features.map((feature, index) => (
                             <div className="hover:shadow border rounded-md border-neutral-200 px-4 py-4 md:px-5 flex gap-4" key={index}>
                                 <div className="pt-1">
-                                    <FaCircleCheck className="size-6 text-green-500" />
+                                    <LuCircleCheck className="size-6 text-green-500" />
                                 </div>
                                 <div className="flex flex-col gap-2 text-left">
                                     <h2 className="text-xl font-medium">{feature.title}</h2>
@@ -90,8 +90,8 @@ export default function Page() {
                             <tbody>
                                 <tr>
                                     <th className="bg-gray-100">Online Promotion</th>
-                                    <td><FaCheck className="size-6 text-green-500 inline" /><br /><small>(High quality content should be provided by the Puja Committee)</small></td>
-                                    <td className="bg-yellow-50"><FaCheck className="size-6 text-green-500 inline" /> <br /><small>(We visit the Puja Committee and create our own content)</small></td>
+                                    <td><LuCheck className="size-6 text-green-500 inline" /><br /><small>(High quality content should be provided by the Puja Committee)</small></td>
+                                    <td className="bg-yellow-50"><LuCheck className="size-6 text-green-500 inline" /> <br /><small>(We visit the Puja Committee and create our own content)</small></td>
                                 </tr>
                                 <tr>
                                     <th className="bg-gray-100">Reels Videos</th>
@@ -100,8 +100,8 @@ export default function Page() {
                                 </tr>
                                 <tr>
                                     <th className="bg-gray-100">Audio & Video Content</th>
-                                    <td><FaXmark className="size-6 text-red-500 inline" /></td>
-                                    <td className="bg-yellow-50"><FaCheck className="size-6 text-green-500 inline" /><br /><small>(We will provide edited high quality content)</small></td>
+                                    <td><LuX className="size-6 text-red-500 inline" /></td>
+                                    <td className="bg-yellow-50"><LuCheck className="size-6 text-green-500 inline" /><br /><small>(We will provide edited high quality content)</small></td>
                                 </tr>
                                 <tr>
                                     <th className="bg-gray-100">Live Videos (During Puja)</th>
@@ -110,8 +110,8 @@ export default function Page() {
                                 </tr>
                                 <tr>
                                     <th className="bg-gray-100">Drone Shoot</th>
-                                    <td><FaXmark className="size-6 text-red-500 inline" /></td>
-                                    <td className="bg-yellow-50"><FaCheck className="size-6 text-green-500 inline" /></td>
+                                    <td><LuX className="size-6 text-red-500 inline" /></td>
+                                    <td className="bg-yellow-50"><LuCheck className="size-6 text-green-500 inline" /></td>
                                 </tr>
                                 <tr>
                                     <th className="bg-gray-100">Package Price</th>

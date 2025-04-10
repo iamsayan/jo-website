@@ -7,8 +7,21 @@ import GallerySlider from "@/components/gallery-slider";
 import CountdownTimer from "@/components/countdown-timer";
 import Videos from "@/components/videos";
 import HeroSlider from "@/components/hero-slider";
-import { FaHistory, FaImages, FaYoutube, FaLocationArrow, FaFlag, FaGlobe, FaVideo, FaFacebook, FaShoppingBag, FaTshirt } from "react-icons/fa";
-import { FaPen } from "react-icons/fa6";
+import { 
+    LuHistory, 
+    LuImages, 
+    LuVideo, 
+    LuMapPin, 
+    LuFlag, 
+    LuGlobe, 
+    LuPencil, 
+    LuShirt, 
+    LuShoppingBag 
+} from "react-icons/lu";
+import { 
+    FaFacebook, 
+    FaYoutube 
+} from "react-icons/fa";
 import { cn, formatDate, getDateByIndex } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
 import { getModel } from "@/utils/fetch";
@@ -61,18 +74,18 @@ export default async function Home() {
         {
             title: 'Stationery',
             description: 'High-quality notebooks, pens, and other stationery items for your daily needs',
-            icon: <FaPen className="size-8 text-yellow-500" />,
+            icon: <LuPencil className="size-8 text-yellow-500" />,
         },
         {
             title: 'T-Shirts',
             description: 'Comfortable and stylish t-shirts with unique designs',
-            icon: <FaTshirt className="size-8 text-yellow-500" />,
+            icon: <LuShirt className="size-8 text-yellow-500" />,
             comingSoon: true,
         },
         {
             title: 'Hoodies',
             description: 'Stay warm and fashionable with our premium hoodies',
-            icon: <FaShoppingBag className="size-8 text-yellow-500" />,
+            icon: <LuShoppingBag className="size-8 text-yellow-500" />,
             comingSoon: true,
         },
     ];
@@ -81,13 +94,13 @@ export default async function Home() {
         {
             title: 'History',
             description: 'When the entire Bengal, nay India, was under the British rule, inspite of being under the French',
-            icon: <FaHistory className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
+            icon: <LuHistory className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: '/puja-history'
         },
         {
             title: 'Gallery',
             description: 'Latest Online Photo Gallery for Chandannagar, Mankundu and Bhadreswar Jagadhatri Puja.',
-            icon: <FaImages className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
+            icon: <LuImages className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: '/gallery'
         },
         {
@@ -99,7 +112,7 @@ export default async function Home() {
         {
             title: 'Location',
             description: 'Explore the Grand Festival of Chandannagar with CGR Utsav Android App.',
-            icon: <FaLocationArrow className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
+            icon: <LuMapPin className="size-6 sm:size-8 md:size-10 text-yellow-500" />,
             link: 'https://play.google.com/store/apps/details?id=com.cgr.utsav',
         }
     ];
@@ -114,14 +127,14 @@ export default async function Home() {
         {
             title: 'Post Reach',
             stat: data?.stats?.reach ?? '1.6M',
-            icon: <FaHistory className="inline-block size-8 stroke-current" />,
+            icon: <LuHistory className="inline-block size-8 stroke-current" />,
             description: '85% more than last month',
             class: 'text-secondary'
         },
         {
             title: 'Post Engagement',
             stat: data?.stats?.engagement ?? '47.8K',
-            icon: <FaVideo className="inline-block size-8 stroke-current" />,
+            icon: <LuVideo className="inline-block size-8 stroke-current" />,
             description: '38% more than last month',
             class: 'text-blue-500'
         },
@@ -135,7 +148,7 @@ export default async function Home() {
         {
             title: 'Visitors',
             stat: data?.stats?.visitors ?? '98.5K',
-            icon: <FaGlobe className="inline-block size-8 stroke-current" />,
+            icon: <LuGlobe className="inline-block size-8 stroke-current" />,
             description: '14% more than last month',
             class: 'text-pink-500'
         },
@@ -211,7 +224,7 @@ export default async function Home() {
                             href="/achievements"
                             className="btn bg-yellow-500 border-0 uppercase py-3 px-6 h-auto shadow-none rounded-md hover:text-white hover:bg-blue-700"
                         >
-                            <FaFlag /> Achievements
+                            <LuFlag /> Achievements
                         </Link>
                     </div>
                     <div className="stats stats-vertical lg:stats-horizontal text-left shadow-sm container">
@@ -239,6 +252,7 @@ export default async function Home() {
                             },
                             drag: 'free',
                             focus: 'center',
+                            pagination: false,
                             // perPage: 2,
                             // perMove: 1,
                             gap: '6px',

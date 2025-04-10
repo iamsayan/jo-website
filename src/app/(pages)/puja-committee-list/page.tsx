@@ -8,7 +8,17 @@ import { jubilees, preJubilees, getYear, getCelebrating, getUrlSlug } from "@/ut
 import schema from "@/utils/schema";
 import Link from "next/link";
 import { metadata as metadataSchema } from "@/app/layout";
-import { FaChevronRight, FaLandmark, FaUsers, FaCity, FaCrown, FaMedal, FaAward, FaArchway, FaMapMarkerAlt } from "react-icons/fa";
+import { 
+    LuChevronRight, 
+    LuLandmark, 
+    LuUsers, 
+    LuBuilding, 
+    LuBuilding2, 
+    LuCrown, 
+    LuMedal, 
+    LuAward, 
+    LuMapPin 
+} from "react-icons/lu";
 import cx from 'classix';
 
 interface PujaData {
@@ -38,9 +48,9 @@ const getZoneDescription = (zone: string) => {
                 title: "Chandannagar - The Heart of Jagadhatri Puja",
                 description: "Known as the cultural capital of Jagadhatri Puja, Chandannagar's celebrations date back to the French colonial era. The city is famous for its stunning light decorations (illumination) and artistic excellence in idol making. Each year, thousands of visitors throng the streets to witness the grand celebrations and spectacular immersion procession along the Hooghly riverfront.",
                 highlights: [
-                    { icon: <FaCity className="text-yellow-500" />, title: "Cultural Heritage", value: "270+ Years" },
-                    { icon: <FaLandmark className="text-rose-500" />, title: "Famous For", value: "Light Art & Illumination" },
-                    { icon: <FaArchway className="text-blue-500" />, title: "Annual Footfall", value: "1 Million+" }
+                    { icon: <LuBuilding2 className="text-yellow-500" />, title: "Cultural Heritage", value: "270+ Years" },
+                    { icon: <LuLandmark className="text-rose-500" />, title: "Famous For", value: "Light Art & Illumination" },
+                    { icon: <LuBuilding className="text-blue-500" />, title: "Annual Footfall", value: "1 Million+" }
                 ]
             };
         case 'bhr':
@@ -48,9 +58,9 @@ const getZoneDescription = (zone: string) => {
                 title: "Bhadreswar - Preserving Ancient Traditions",
                 description: "Bhadreswar carries forward the legacy of traditional Jagadhatri Puja with its unique blend of old-world charm and modern celebrations. The area is particularly known for its traditional dhak, cultural programs, and community engagement that brings together people from all walks of life.",
                 highlights: [
-                    { icon: <FaCity className="text-yellow-500" />, title: "Heritage Status", value: "150+ Years" },
-                    { icon: <FaLandmark className="text-rose-500" />, title: "Known For", value: "Traditional Rituals" },
-                    { icon: <FaArchway className="text-blue-500" />, title: "Community Spirit", value: "United in Faith" }
+                    { icon: <LuBuilding2 className="text-yellow-500" />, title: "Heritage Status", value: "150+ Years" },
+                    { icon: <LuLandmark className="text-rose-500" />, title: "Known For", value: "Traditional Rituals" },
+                    { icon: <LuBuilding className="text-blue-500" />, title: "Community Spirit", value: "United in Faith" }
                 ]
             };
         default:
@@ -88,25 +98,25 @@ export default async function Page() {
             {
                 title: "Total Committees",
                 description: zoneStats?.total,
-                icon: <FaUsers />,
+                icon: <LuUsers />,
                 variant: "from-green-500 to-green-300"
             },
             {
                 title: "Jubilee Celebrations",
                 description: zoneStats?.jubilees,
-                icon: <FaMedal />,
+                icon: <LuMedal />,
                 variant: "from-rose-500 to-rose-300"
             },
             {
                 title: "Pre Jubilee Celebrations",
                 description: zoneStats?.preJubilees,
-                icon: <FaAward />,
+                icon: <LuAward />,
                 variant: "from-blue-500 to-blue-300"
             },
             {
                 title: "Adi Pujas",
                 description: zoneStats?.adiPujas,
-                icon: <FaCrown />,
+                icon: <LuCrown />,
                 variant: "from-purple-500 to-purple-300"
             }
         ]
@@ -195,13 +205,13 @@ export default async function Page() {
                                                     <div className="flex gap-1">
                                                         {popular && (
                                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-amber-700 bg-amber-100 rounded-md whitespace-nowrap">
-                                                                <FaMedal className="text-amber-500" />
+                                                                <LuMedal className="text-amber-500" />
                                                                 Popular
                                                             </span>
                                                         )}
                                                         {adi && (
                                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-purple-700 bg-purple-100 rounded-md whitespace-nowrap">
-                                                                <FaAward className="text-purple-500" />
+                                                                <LuAward className="text-purple-500" />
                                                                 Adi Puja
                                                             </span>
                                                         )}
@@ -217,7 +227,7 @@ export default async function Page() {
                                         <td><span className={celClass}>{cel}</span></td>
                                         <td>
                                             <Link className="btn btn-ghost btn-xs text-sky-600" href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`}>
-                                                View <FaChevronRight />
+                                                View <LuChevronRight />
                                             </Link>
                                         </td>
                                     </tr>
@@ -233,17 +243,17 @@ export default async function Page() {
     const tabs: TabProps[] = [
         {
             title: <span className="flex items-center gap-2">Chandannagar <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{cgr?.length}</span></span>,
-            icon: <FaCity />,
+            icon: <LuBuilding />,
             content: tabContent(cgr),
         },
         {
             title: <span className="flex items-center gap-2">Bhadreswar <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{bhr?.length}</span></span>,
-            icon: <FaArchway />,
+            icon: <LuBuilding2 />,
             content: tabContent(bhr),
         },
         {
             title: 'Others',
-            icon: <FaMapMarkerAlt />,
+            icon: <LuMapPin />,
             content: <div className="text-center py-16 px-5 space-y-3">
                 <h3 className="text-2xl font-bold text-gray-800">Enlist Your Puja Committee</h3>
                 <p className="text-gray-600 max-w-2xl mx-auto">Others puja committees are requested to send their puja info in details to us via this email id cgrjagadhatripuja@gmail.com. We will add your puja to our website within 24 hours.

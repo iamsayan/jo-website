@@ -6,10 +6,9 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import circleLogo from '@/public/circle-logo.png';
-import { FaShoppingBag, FaGift } from 'react-icons/fa';
 import { cn } from '@/utils/functions';
 import { useKBar } from 'kbar';
-import { IoSearch } from 'react-icons/io5';
+import { LuAlignLeft, LuSearch, LuShoppingBag, LuGift } from 'react-icons/lu';
 
 interface MenuItem {
     name: string;
@@ -89,9 +88,7 @@ const Navbar: React.FC = () => {
                         <div className="navbar-start">
                             <div className="dropdown">
                                 <label tabIndex={0} className={cn('cursor-pointer lg:hidden p-0', !isScrolled && 'text-white')}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-                                    </svg>
+                                    <LuAlignLeft className="size-5" />
                                 </label>
                                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow-sm bg-base-100 rounded-box w-56">
                                     {items.map((item, index) => (
@@ -125,9 +122,9 @@ const Navbar: React.FC = () => {
                                             target="_blank"
                                             className="flex items-center gap-2 font-bold bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-md relative group"
                                         >
-                                            <FaShoppingBag className="text-lg" />
+                                            <LuShoppingBag className="text-lg" />
                                             <span>Store</span>
-                                            <FaGift className="text-yellow-300 absolute right-2 top-1/2 -translate-y-1/2 animate-bounce" />
+                                            <LuGift className="text-yellow-300 absolute right-2 top-1/2 -translate-y-1/2 animate-bounce" />
                                         </a>
                                     </li>
                                 </ul>
@@ -168,7 +165,7 @@ const Navbar: React.FC = () => {
                                                     <summary className={classes}>
                                                         {item.path !== '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
                                                     </summary>
-                                                    <ul className={cn('p-2 w-28 right-0', item.className)}>
+                                                    <ul className={cn('p-2 w-28 right-0 text-slate-600', item.className)}>
                                                         {item.subMenu.map((subItem, subIndex) => {
                                                             const innerClasses = cn(
                                                                 !isScrolled && 'text-slate-600',
@@ -195,8 +192,8 @@ const Navbar: React.FC = () => {
                             </ul>
                         </div>
                         <div className="navbar-end flex gap-3">
-                            <div className="cursor-pointer" onClick={query.toggle}>
-                                <IoSearch className={`size-5 ${isScrolled ? '' : 'text-white'}`} />
+                            <div className="cursor-pointer" onClick={query.toggle} title="Search" aria-label="Search">
+                                <LuSearch className={`size-5 ${isScrolled ? '' : 'text-white'}`} />
                             </div>
                             {/* <div className="hidden lg:block relative group">
                                 <a
@@ -206,7 +203,7 @@ const Navbar: React.FC = () => {
                                              px-5 py-2.5 rounded-lg font-medium transition-all duration-300 
                                              hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:scale-105"
                                 >
-                                    <FaShoppingBag className="text-xl animate-bounce" />
+                                    <LuShoppingBag className="text-xl animate-bounce" />
                                     <span>Store</span>
 
                                     <span className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full 
@@ -226,6 +223,9 @@ const Navbar: React.FC = () => {
                             {/* <a className="hidden lg:flex items-center gap-2 btn bg-yellow-500 border-0 uppercase py-2.5 px-5 h-auto shadow-none rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
                                 360° Virtual Tours
                             </a> */}
+                            <a className="cursor-pointer hidden lg:block" href="https://store.jagadhatrionline.co.in/" target="_blank" title="JO Store" aria-label="JO Store">
+                                <LuShoppingBag className={`size-5 ${isScrolled ? '' : 'text-white'}`} />
+                            </a>
                         </div>
                     </div>
                 </div>

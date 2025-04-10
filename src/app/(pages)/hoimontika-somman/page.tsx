@@ -2,7 +2,16 @@ import type { Metadata } from 'next'
 import MainLayout from '@/components/main-layout';
 import Section from '@/components/section';
 import schema from "@/utils/schema";
-import { FaTrophy, FaRegLightbulb, FaUsers, FaHistory, FaRibbon, FaStar, FaAward, FaMedal } from 'react-icons/fa';
+import { 
+    LuTrophy, 
+    LuLightbulb, 
+    LuUsers, 
+    LuHistory, 
+    LuRibbon, 
+    LuStar, 
+    LuAward, 
+    LuMedal 
+} from 'react-icons/lu';
 import { getModel } from '@/utils/fetch';
 import { metadata as metadataSchema } from "@/app/layout";
 import Tabs, { TabProps } from '@/components/tabs';
@@ -25,15 +34,15 @@ export const metadata: Metadata = {
 const getPositionStyle = (position: string) => {
     switch(position) {
         case 'First':
-            return { icon: FaTrophy, color: 'text-yellow-500' };
+            return { icon: LuTrophy, color: 'text-yellow-500' };
         case 'Second':
-            return { icon: FaMedal, color: 'text-emerald-500' };
+            return { icon: LuMedal, color: 'text-emerald-500' };
         case 'Third':
-            return { icon: FaAward, color: 'text-amber-700' };
+            return { icon: LuAward, color: 'text-amber-700' };
         case 'Ononnyo':
-            return { icon: FaStar, color: 'text-blue-600' };
+            return { icon: LuStar, color: 'text-blue-600' };
         default:
-            return { icon: FaRibbon, color: 'text-indigo-500' };
+            return { icon: LuRibbon, color: 'text-indigo-500' };
     }
 };
 
@@ -99,7 +108,7 @@ export default async function Page() {
 
         tabs.push({
             title: <span className="flex items-center gap-2">{award.year} <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{totalAwards}</span></span>,
-            icon: <FaTrophy />,
+            icon: <LuTrophy />,
             content: tabContent(award)
         })
     })
@@ -133,21 +142,21 @@ export default async function Page() {
                     </p>
                     <div className="grid md:grid-cols-3 gap-4 md:gap-6">
                         <div className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
-                            <FaTrophy className="text-yellow-500 text-3xl shrink-0 mt-1" />
+                            <LuTrophy className="text-yellow-500 text-3xl shrink-0 mt-1" />
                             <div className="ml-4">
                                 <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Prestigious Award</h3>
                                 <p className="text-gray-600">Celebrating creativity and craftsmanship since 2016.</p>
                             </div>
                         </div>
                         <div className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
-                            <FaUsers className="text-yellow-500 text-3xl shrink-0 mt-1" />
+                            <LuUsers className="text-yellow-500 text-3xl shrink-0 mt-1" />
                             <div className="ml-4">
                                 <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Expert Panel</h3>
                                 <p className="text-gray-600">Judged by eminent personalities from various fields.</p>
                             </div>
                         </div>
                         <div className="bg-white/90 backdrop-blur-sm p-4 md:p-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200 flex items-start">
-                            <FaRegLightbulb className="text-yellow-500 text-3xl shrink-0 mt-1" />
+                            <LuLightbulb className="text-yellow-500 text-3xl shrink-0 mt-1" />
                             <div className="ml-4">
                                 <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2">Innovation</h3>
                                 <p className="text-gray-600">Promoting artistic and cultural excellence.</p>
@@ -156,7 +165,7 @@ export default async function Page() {
                     </div>
                     <div className="flex flex-col gap-4 md:gap-6">
                         <h2 className="text-2xl font-bold text-center flex items-center justify-center gap-2">
-                            <FaHistory className="text-yellow-500" />
+                            <LuHistory className="text-yellow-500" />
                             Archives
                         </h2>
                         <Tabs tabs={tabs} 

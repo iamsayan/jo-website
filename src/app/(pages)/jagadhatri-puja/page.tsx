@@ -5,7 +5,7 @@ import Section from '@/components/section';
 import { getModel } from "@/utils/fetch";
 import schema from "@/utils/schema";
 import { metadata as metadataSchema } from "@/app/layout";
-import { FaCalendarAlt, FaHistory, FaMapMarkerAlt, FaUsers } from 'react-icons/fa';
+import { LuCalendar, LuHistory, LuMapPin, LuUsers } from 'react-icons/lu';
 import Info from '@/components/info';
    
 export const metadata: Metadata = {
@@ -43,25 +43,25 @@ export default async function Page() {
 
     const infoCards = [
         {
-            icon: <FaCalendarAlt />,
+            icon: <LuCalendar />,
             title: "Duration",
             description: "5 Days Festival",
             variant: "from-orange-600 to-yellow-500 rounded-xl"
         },
         {
-            icon: <FaHistory />,
+            icon: <LuHistory />,
             title: "History",
             description: "350+ Years",
             variant: "from-blue-600 to-blue-400 rounded-xl"
         },
         {
-            icon: <FaMapMarkerAlt />,
+            icon: <LuMapPin />,
             title: "Location",
             description: "Chandannagar",
             variant: "from-green-600 to-green-400 rounded-xl"
         },
         {
-            icon: <FaUsers />,
+            icon: <LuUsers />,
             title: "Participants",
             description: "177+ Committees",
             variant: "from-purple-600 to-purple-400 rounded-xl"
@@ -104,7 +104,7 @@ export default async function Page() {
                             href={`/jagadhatri-puja/${uptoYear}`}
                             className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-semibold py-4 px-8 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all"
                         >
-                            <FaCalendarAlt className="text-xl" />
+                            <LuCalendar className="text-xl" />
                             View Jagadhatri Puja {uptoYear} Details
                         </Link>
                     </div>

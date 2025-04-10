@@ -15,7 +15,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useRouter } from '@bprogress/next/app'
 import { useDebouncedCallback } from "use-debounce";
 import { getUrlSlug, getYear, sanitizeSearchQuery } from '@/utils/functions';
-import { FaBolt, FaHandPointRight, FaImages, FaInfo, FaListUl, FaMapMarkerAlt, FaSearch, FaShoppingCart, FaTrophy } from "react-icons/fa";
+import { LuSearch, LuList, LuImage, LuZap, LuShoppingCart, LuTrophy, LuInfo, LuMapPin } from "react-icons/lu";
 import { MdOutline360 } from 'react-icons/md';
 
 interface CommandBarProps {
@@ -36,7 +36,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             section: "Find Pujas",
             shortcut: ["j", "f"],
             keywords: "find-puja",
-            icon: <FaSearch />,
+            icon: <LuSearch />,
             subtitle: "Find a Puja Committee by Name, ESTD etc.",
         },
         {
@@ -45,7 +45,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             name: "Puja Committee List",
             shortcut: ["j", "l"],
             keywords: "puja-list",
-            icon: <FaListUl />,
+            icon: <LuList />,
             perform: () => router.push('/puja-committee-list'),
         },
         {
@@ -54,7 +54,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             name: "Photo Gallery",
             shortcut: ["j", "g"],
             keywords: "photo-gallery",
-            icon: <FaImages />,
+            icon: <LuImage />,
             perform: () => router.push('/gallery'),
         },
         {
@@ -63,7 +63,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             name: `Jagadhatri Puja ${new Date().getFullYear()}`,
             shortcut: ["j", "p"],
             keywords: "jagadhatri-puja",
-            icon: <FaBolt />,
+            icon: <LuZap />,
             perform: () => router.push(`/jagadhatri-puja/${new Date().getFullYear()}`),
         },
         {
@@ -72,7 +72,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             shortcut: ["j", "s"],
             section: "Go To",
             keywords: "visit-store",
-            icon: <FaShoppingCart />,
+            icon: <LuShoppingCart />,
             perform: () => window.open('https://store.jagadhatrionline.co.in', '_blank'),
         },
         {
@@ -81,7 +81,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             name: "Hoimantika Somman",
             shortcut: ["j", "h"],
             keywords: "hoimontika-somman",
-            icon: <FaTrophy />,
+            icon: <LuTrophy />,
             perform: () => router.push('/hoimontika-somman'),
         },
         {
@@ -99,7 +99,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             name: "About Us",
             shortcut: ["j", "a"],
             keywords: "about-us",
-            icon: <FaInfo />,
+            icon: <LuInfo />,
             perform: () => router.push('/about-us'),
         },
         {
@@ -108,7 +108,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
             shortcut: ["j", "c"],
             section: "Go To",
             keywords: "contact-us",
-            icon: <FaMapMarkerAlt />,
+            icon: <LuMapPin />,
             perform: () => router.push('/contact-us'),
         },
     ], []);
@@ -138,7 +138,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
                     section: "Search Results",
                     keywords: getUrlSlug(item?.puja_name),
                     parent: "pujas",
-                    icon: <FaHandPointRight />,
+                    icon: <LuZap />,
                     subtitle: `${item?.location?.address || `${item?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly, West Bengal`}`,
                     perform: () => router.push(`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}`),
                 })

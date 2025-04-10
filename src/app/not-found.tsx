@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from 'next'
 import Link from 'next/link';
-import { FaArrowLeftLong } from 'react-icons/fa6';
+import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 
 export const metadata: Metadata = {
     title: '404: This page could not be found',
@@ -41,7 +41,7 @@ const NotFound: React.FC = () => {
                                     href="/" 
                                     className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full font-medium hover:opacity-90 transition-opacity"
                                 >
-                                    <FaArrowLeftLong className="text-sm" />
+                                    <LuArrowLeft className="text-sm" />
                                     <span>Return Home</span>
                                 </Link>
                                 <a 
@@ -51,9 +51,7 @@ const NotFound: React.FC = () => {
                                     className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-6 py-3 rounded-full font-medium hover:opacity-90 transition-opacity"
                                 >
                                     <span>Visit Our Store</span>
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                    </svg>
+                                    <LuArrowRight className="text-sm" />
                                 </a>
                             </div>
                             <p className="text-sm text-gray-500 mt-4">

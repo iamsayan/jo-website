@@ -7,8 +7,7 @@ import Image from "next/image";
 import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
-import { FaChevronRight } from 'react-icons/fa';
-import { FaChevronLeft } from 'react-icons/fa';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 
 interface GalleryPaginateProps {
     className?: string;
@@ -78,8 +77,8 @@ function GalleryPaginate({ className, images, itemsPerPage }: GalleryPaginatePro
             </Gallery>
             {pageCount > 1 && (
                 <ReactPaginate
-                    previousLabel={<FaChevronLeft />}
-                    nextLabel={<FaChevronRight />}
+                    previousLabel={<LuChevronLeft />}
+                    nextLabel={<LuChevronRight />}
                     breakLabel="..."
                     pageCount={pageCount}
                     marginPagesDisplayed={2}

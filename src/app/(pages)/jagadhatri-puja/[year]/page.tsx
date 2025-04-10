@@ -15,7 +15,24 @@ import {
 } from "@/utils/functions";
 import schema from "@/utils/schema";
 import Link from "next/link";
-import { FaArrowLeft, FaArrowRight, FaChevronRight, FaAngellist, FaList, FaCalendarAlt, FaClock, FaSun, FaPray, FaWater, FaUsers, FaCity, FaBuilding, FaCrown, FaTruck, FaMedal, FaAward } from "react-icons/fa";
+import { 
+    LuArrowLeft, 
+    LuArrowRight, 
+    LuChevronRight, 
+    LuPartyPopper, 
+    LuList, 
+    LuCalendar, 
+    LuClock, 
+    LuSun, 
+    LuWaves, 
+    LuUsers, 
+    LuBuilding2, 
+    LuBuilding, 
+    LuCrown, 
+    LuTruck, 
+    LuMedal, 
+    LuAward 
+} from "react-icons/lu";
 import { metadata as metadataSchema } from "@/app/layout";
 import type { Metadata } from 'next'
 import cx from 'classix';
@@ -107,25 +124,25 @@ export default async function Page({ params }: PageProps) {
             {
                 title: "Total Committees",
                 description: stats?.total,
-                icon: <FaUsers />,
+                icon: <LuUsers />,
                 variant: "from-green-500 to-green-300"
             },
             {       
                 title: "Chandannagar",
                 description: stats?.jubilees,
-                icon: <FaCity />,
+                icon: <LuBuilding2 />,
                 variant: "from-rose-500 to-rose-300"
             },
             {
                 title: "Bhadreswar",
                 description: stats?.preJubilees,
-                icon: <FaBuilding />,
+                icon: <LuBuilding />,
                 variant: "from-blue-500 to-blue-300"
             },
             {
                 title: "Adi Pujas",
                 description: stats?.adiPujas,
-                icon: <FaCrown />,
+                icon: <LuCrown />,
                 variant: "from-purple-500 to-purple-300"
             }
         ]
@@ -167,13 +184,13 @@ export default async function Page({ params }: PageProps) {
                                                     <div className="flex gap-1">
                                                         {popular && (
                                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-amber-700 bg-amber-100 rounded-md whitespace-nowrap">
-                                                                <FaMedal className="text-amber-500" />
+                                                                <LuMedal className="text-amber-500" />
                                                                 Popular
                                                             </span>
                                                         )}
                                                         {adi && (
                                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-purple-700 bg-purple-100 rounded-md whitespace-nowrap">
-                                                                <FaAward className="text-purple-500" />
+                                                                <LuAward className="text-purple-500" />
                                                                 Adi Puja
                                                             </span>
                                                         )}
@@ -191,7 +208,7 @@ export default async function Page({ params }: PageProps) {
                                         {dateIsCurrent && <td><Link
                                             className="btn btn-ghost btn-xs text-sky-600"
                                             href={`/puja/${getUrlSlug(item?.puja_name)}/${item?.reference_id}${new Date().getFullYear() !== queryYear ? `?y=${queryYear}` : ''}`}>
-                                            View <FaChevronRight />
+                                            View <LuChevronRight />
                                         </Link>
                                         </td>}
                                     </tr>
@@ -209,25 +226,25 @@ export default async function Page({ params }: PageProps) {
             {
                 title: "Festival Duration",
                 description: `${information?.dates?.length} Days`,
-                icon: <FaClock />,
+                icon: <LuClock />,
                 variant: "from-orange-500 to-orange-300",
             },
             {
                 title: "Starting With",
                 description: "Sasthi",
-                icon: <FaSun />,
+                icon: <LuSun />,
                 variant: "from-blue-500 to-blue-300",
             },
             {
                 title: "Main Puja Day",
                 description: "Nabami",
-                icon: <FaPray />,
+                icon: <LuPartyPopper />,
                 variant: "from-purple-500 to-purple-300",
             },
             {
                 title: "Ending With",
                 description: "Dashami",
-                icon: <FaWater />,
+                icon: <LuWaves />,
                 variant: "from-rose-500 to-rose-300",
             }
         ]
@@ -276,25 +293,25 @@ export default async function Page({ params }: PageProps) {
             {
                 title: "Total Procession",
                 description: stats?.totalProcession,
-                icon: <FaUsers />,
+                icon: <LuUsers />,
                 variant: "from-green-500 to-green-300"
             },
             {
                 title: "Total Vehicles",
                 description: stats?.totalVehicles,
-                icon: <FaTruck />,
+                icon: <LuTruck />,
                 variant: "from-yellow-500 to-yellow-300"
             },
             {
                 title: "Jubilee Celebrations",
                 description: stats?.totalJubilees,
-                icon: <FaMedal />,
+                icon: <LuMedal />,
                 variant: "from-rose-500 to-rose-300"
             },
             {
                 title: "Pre Jubilee Celebrations",
                 description: stats?.totalPreJubilees,
-                icon: <FaAward />,
+                icon: <LuAward />,
                 variant: "from-blue-500 to-blue-300"
             }
         ]
@@ -342,13 +359,13 @@ export default async function Page({ params }: PageProps) {
                                                     <div className="flex gap-1">
                                                         {popular && (
                                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-amber-700 bg-amber-100 rounded-md whitespace-nowrap">
-                                                                <FaMedal className="text-amber-500" />
+                                                                <LuMedal className="text-amber-500" />
                                                                 Popular
                                                             </span>
                                                         )}
                                                         {adi && (
                                                             <span className="inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium text-purple-700 bg-purple-100 rounded-md whitespace-nowrap">
-                                                                <FaAward className="text-purple-500" />
+                                                                <LuAward className="text-purple-500" />
                                                                 Adi Puja
                                                             </span>
                                                         )}
@@ -374,12 +391,12 @@ export default async function Page({ params }: PageProps) {
     const tabs: TabProps[] = [
         {
             title: <span className="flex items-center gap-2">Jubilee List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{jubilee?.length}</span></span>,
-            icon: <FaList />,
+            icon: <LuList />,
             content: tabContent(jubilee),
         },
         {
             title: <span className="flex items-center gap-2">Pre Jubilee List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{prejubilee?.length}</span></span>,
-            icon: <FaList />,
+            icon: <LuList />,
             content: tabContent(prejubilee),
         }
     ];
@@ -399,7 +416,7 @@ export default async function Page({ params }: PageProps) {
     if (dateIsCurrent) {
         tabs.push({
             title: <span className="flex items-center gap-2">Puja Schedule <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{queryYear}</span></span>,
-            icon: <FaCalendarAlt />,
+            icon: <LuCalendar />,
             content: tabPujaSchedule(),
         });
 
@@ -452,7 +469,7 @@ export default async function Page({ params }: PageProps) {
     if (queryYear === 2024 && processionlist) {
         tabs.push({
             title: <span className="flex items-center gap-2">Procession List <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-blue-300/10 text-blue-500">{processionlist?.length}</span></span>,
-            icon: <FaAngellist  />,
+            icon: <LuPartyPopper  />,
             content: tabProcessionList(),
         });
     }
@@ -534,7 +551,7 @@ export default async function Page({ params }: PageProps) {
                             rel="prev"
                             className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block text-ellipsis overflow-hidden whitespace-nowrap"
                             href={`/jagadhatri-puja/${queryYear - 1}`}>
-                            <FaArrowLeft className="inline-block mr-2 -mt-1" />
+                            <LuArrowLeft className="inline-block mr-2 -mt-1" />
                             {queryYear - 1}
                         </Link>
                     </div>
@@ -543,7 +560,7 @@ export default async function Page({ params }: PageProps) {
                             rel="next"
                             className="bg-gray-50 hover:bg-gray-100 rounded-md px-4 py-3 block text-ellipsis overflow-hidden whitespace-nowrap"
                             href={`/jagadhatri-puja/${queryYear + 1}`}>
-                            {queryYear + 1}<FaArrowRight className="inline-block ml-2 -mt-1" />
+                            {queryYear + 1}<LuArrowRight className="inline-block ml-2 -mt-1" />
                         </Link>
                     </div>
                 </div>

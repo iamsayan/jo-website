@@ -3,8 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { GoHome } from "react-icons/go";
-import { FaRegFolder } from "react-icons/fa";
+import { LuFolder, LuHouse } from 'react-icons/lu';
 import { cn } from '@/utils/functions';
 
 interface BreadcrumbsProps {
@@ -23,7 +22,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
             <ul>
                 <li>
                     <Link href="/" className="flex items-center gap-2">
-                        <GoHome /> Home
+                        <LuHouse /> Home
                     </Link>
                 </li>
                 {pathItems?.map((item, index) => {
@@ -34,7 +33,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ breadcrumbTitle = null, end =
                                 {index === pathItems.length - 1
                                     ? title
                                     : <Link href={`/${pathItems.slice(0, index + 1).join('/')}`} className="flex items-center gap-2">
-                                        <FaRegFolder /> {title}
+                                        <LuFolder /> {title}
                                     </Link>
                                 }
                             </div>

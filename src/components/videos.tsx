@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { YouTubeEmbed } from '@next/third-parties/google'
-import { FaPlay } from "react-icons/fa6";
+import { LuPlay } from 'react-icons/lu';
 
 interface VideoInfo {
     id: string;
@@ -68,7 +68,7 @@ export default function Videos() {
                                     <div className="text-xs uppercase font-semibold opacity-60">{info.description}</div>
                                 </div>
                                 <button className="btn btn-square btn-ghost" onClick={() => setVideoId(info.id)}>
-                                    <FaPlay />
+                                    <LuPlay />
                                 </button>
                             </li>
                         ))}

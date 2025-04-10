@@ -2,17 +2,17 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import { getModel, getModels } from "@/utils/fetch";
 import { cn, getDateByIndex, getDescription, stripHtmlAndLimit, timestampToDate } from "@/utils/functions";
 import {
-    FaArrowLeft,
-    FaArrowRight,
-    FaCalendarAlt,
-    FaMapMarkerAlt,
-    FaHistory,
-    FaPalette,
-    FaChalkboard,
-    FaPaintBrush,
-    FaBookOpen,
-    FaLightbulb,
-} from "react-icons/fa";
+    LuArrowLeft,
+    LuArrowRight,
+    LuCalendar,
+    LuMapPin,
+    LuHistory,
+    LuPalette,
+    LuPencil,
+    LuBrush,
+    LuBook,
+    LuLightbulb,
+} from "react-icons/lu";
 import {
     FaFacebook,
     FaInstagram,
@@ -174,27 +174,27 @@ export default async function Page({ params }: PageProps) {
 
     const info = [
         {
-            icon: <FaChalkboard className="text-xl text-purple-600" />,
+            icon: <LuPencil className="text-xl text-purple-600" />,
             title: `Puja Theme`,
             value: currentPuja?.current_theme
         },
         {
-            icon: <FaPaintBrush className="text-xl text-purple-600" />,
+            icon: <LuBrush className="text-xl text-purple-600" />,
             title: `Idol Artist`,
             value: currentPuja?.idol_artist?.artist_name
         },
         {
-            icon: <FaPalette className="text-xl text-purple-600" />,
+            icon: <LuPalette className="text-xl text-purple-600" />,
             title: `Decoration Artist`,
             value: currentPuja?.decoration_artist?.artist_name
         },
         {
-            icon: <FaLightbulb className="text-xl text-purple-600" />,
+            icon: <LuLightbulb className="text-xl text-purple-600" />,
             title: `Lighting Artist`,
             value: currentPuja?.lighting_artist?.artist_name
         },
         {
-            icon: <FaPaintBrush className="text-xl text-purple-600" />,
+            icon: <LuBrush className="text-xl text-purple-600" />,
             title: `Theme Artist`,
             value: currentPuja?.theme_artist?.artist_name
         },
@@ -417,7 +417,7 @@ export default async function Page({ params }: PageProps) {
                         {/* Location */}
                         <div className="relative mb-12">
                             <div className="flex items-center justify-center gap-3 px-6 py-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                                <FaMapMarkerAlt className="text-purple-400" />
+                                <LuMapPin className="text-purple-400" />
                                 <a href={gMapLink} target="_blank" className="text-sm md:text-base text-white/90">
                                     {currentPuja?.location?.address || `${currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}, Hooghly, West Bengal`}
                                 </a>
@@ -500,7 +500,7 @@ export default async function Page({ params }: PageProps) {
                             <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-xl bg-purple-100">
-                                        <FaHistory className="text-2xl text-purple-600" />
+                                        <LuHistory className="text-2xl text-purple-600" />
                                     </div>
                                     <div>
                                         <div className="text-xl md:text-2xl font-bold text-gray-800 mb-1">{cel != '--' ? cel : y === 'Not Known' ? '300+' : y}</div>
@@ -511,7 +511,7 @@ export default async function Page({ params }: PageProps) {
                             <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-xl bg-purple-100">
-                                        <FaMapMarkerAlt className="text-2xl text-purple-600" />
+                                        <LuMapPin className="text-2xl text-purple-600" />
                                     </div>
                                     <div>
                                         <div className="text-xl md:text-2xl font-bold text-gray-800 mb-1">{currentPuja?.puja_zone === 'bhr' ? 'Bhadreswar' : 'Chandannagar'}</div>
@@ -522,7 +522,7 @@ export default async function Page({ params }: PageProps) {
                             <div className="bg-white rounded-2xl p-5 shadow-xl shadow-purple-100/50 hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-300">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-xl bg-purple-100">
-                                        <FaPalette className="text-2xl text-purple-600" />
+                                        <LuPalette className="text-2xl text-purple-600" />
                                     </div>
                                     <div>
                                         <div className="text-xl md:text-2xl font-bold text-gray-800 mb-1">{processions?.vehicles ? 'Participating' : 'Not Participating'}</div>
@@ -536,7 +536,7 @@ export default async function Page({ params }: PageProps) {
                         <div className="container px-2 lg:px-0 mx-auto">
                             <div className="text-center mb-8">
                                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100/50 text-purple-700 font-medium mb-4">
-                                    <FaBookOpen className="text-sm" />
+                                    <LuBook className="text-sm" />
                                     <span className="text-sm">About Our Puja</span>
                                 </div>
                                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-900 via-purple-700 to-purple-800" style={{lineHeight: 'normal'}}>
@@ -612,7 +612,7 @@ export default async function Page({ params }: PageProps) {
                                 <div className="px-6 py-4 rounded-xl bg-purple-50 border border-purple-100">
                                     <div className="flex items-start gap-3">
                                         <div className="p-2 rounded-lg bg-purple-100">
-                                            <FaLightbulb className="text-purple-600 text-lg" />
+                                            <LuLightbulb className="text-purple-600 text-lg" />
                                         </div>
                                         <div>
                                             <h4 className="text-gray-900 font-medium mb-2">Disclaimer</h4>
@@ -676,7 +676,7 @@ export default async function Page({ params }: PageProps) {
                     <div className="max-w-7xl mx-auto px-4">
                         <div className="text-center mb-16">
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium mb-4">
-                                <FaCalendarAlt className="text-lg" />
+                                <LuCalendar className="text-lg" />
                                 <span>Event Schedule</span>
                             </div>
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-700 to-purple-900 bg-clip-text text-transparent" style={{lineHeight: 'normal'}}>
@@ -696,7 +696,7 @@ export default async function Page({ params }: PageProps) {
                                     <div className="relative">
                                         <div className="flex gap-4">
                                             <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                                                <FaCalendarAlt className="text-2xl text-purple-600" />
+                                                <LuCalendar className="text-2xl text-purple-600" />
                                             </div>
                                             <div className="flex flex-col gap-1">
                                                 <h3 className="text-xl font-semibold text-purple-900">{item?.event}</h3>
@@ -757,7 +757,7 @@ export default async function Page({ params }: PageProps) {
                                         <div className="space-y-6">
                                             <div className="flex items-start gap-4">
                                                 <div className="p-3 rounded-xl bg-purple-100">
-                                                    <FaMapMarkerAlt className="text-xl text-purple-600" />
+                                                    <LuMapPin className="text-xl text-purple-600" />
                                                 </div>
                                                 <div>
                                                     <div className="font-medium mb-1">Address</div>
@@ -770,7 +770,7 @@ export default async function Page({ params }: PageProps) {
                                                 className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors"
                                             >
                                                 Get Directions
-                                                <FaArrowRight className="text-sm" />
+                                                <LuArrowRight className="text-sm" />
                                             </a>
                                         </div>
                                     </div>
@@ -791,7 +791,7 @@ export default async function Page({ params }: PageProps) {
                             >
                                 <div className="absolute top-0 left-0 w-1 h-full bg-purple-400"></div>
                                 <div className="p-2.5 rounded-lg bg-purple-100 group-hover:-translate-x-1 transition-transform">
-                                    <FaArrowLeft className="text-purple-600" />
+                                    <LuArrowLeft className="text-purple-600" />
                                 </div>
                                 <div className="flex-1">
                                     <div className="text-sm text-gray-600 flex items-center gap-1">
@@ -821,7 +821,7 @@ export default async function Page({ params }: PageProps) {
                                     )}
                                 </div>
                                 <div className="p-2.5 rounded-lg bg-purple-100 group-hover:translate-x-1 transition-transform">
-                                    <FaArrowRight className="text-purple-600" />
+                                    <LuArrowRight className="text-purple-600" />
                                 </div>
                             </Link>
                         </div>
