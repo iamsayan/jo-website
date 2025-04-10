@@ -1,16 +1,17 @@
 'use client';
  
 import { ProgressProvider } from '@bprogress/next/app';
+import CommandBar from '@/components/command-bar';
  
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <ProgressProvider 
-        height="2px"
-        color="#eab308"
         options={{ showSpinner: false }}
-        shallowRouting
+        disableStyle
     >
-      {children}
+      <CommandBar>
+        {children}
+      </CommandBar>
     </ProgressProvider>
   );
 };

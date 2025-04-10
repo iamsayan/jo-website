@@ -393,7 +393,7 @@ export default async function Page({ params }: PageProps) {
                         {/* Main Title */}
                         <div className="relative">
                             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight text-center">
-                                <span className="text-shadow-lg text-shadow-grey-900 flex items-center gap-2">
+                                <span className="text-shadow-lg text-shadow-grey-900 flex flex-col md:flex-row items-center gap-2">
                                     {pujaName}
                                     {popular && (
                                         <div className="relative inline-flex items-center tracking-normal">

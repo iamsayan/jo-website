@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import cx from 'classix';
 import { usePathname } from 'next/navigation';
 import logo from '@/public/logo.png';
 import circleLogo from '@/public/circle-logo.png';
 import { FaShoppingBag, FaGift } from 'react-icons/fa';
 import { cn } from '@/utils/functions';
+import { useKBar } from 'kbar';
+import { IoSearch } from 'react-icons/io5';
 
 interface MenuItem {
     name: string;
@@ -20,6 +21,7 @@ interface MenuItem {
 
 const Navbar: React.FC = () => {
     const pathname = usePathname();
+    const { query } = useKBar();
     const [isScrolled, setIsScrolled] = useState<boolean>(false);
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
@@ -83,10 +85,10 @@ const Navbar: React.FC = () => {
                         : 'bg-transparent border-b-[1px] border-[#ffffff14]'
                         }`}
                 >
-                    <div className="navbar container mx-auto px-0">
+                    <div className="navbar container mx-auto px-5 md:px-0">
                         <div className="navbar-start">
                             <div className="dropdown">
-                                <label tabIndex={0} className={`btn btn-ghost ${!isScrolled && 'text-white'} lg:hidden`}>
+                                <label tabIndex={0} className={cn('cursor-pointer lg:hidden p-0', !isScrolled && 'text-white')}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
                                     </svg>
@@ -193,7 +195,10 @@ const Navbar: React.FC = () => {
                             </ul>
                         </div>
                         <div className="navbar-end flex gap-3">
-                            <div className="hidden lg:block relative group">
+                            <div className="cursor-pointer" onClick={query.toggle}>
+                                <IoSearch className={`size-5 ${isScrolled ? '' : 'text-white'}`} />
+                            </div>
+                            {/* <div className="hidden lg:block relative group">
                                 <a
                                     href="https://store.jagadhatrionline.co.in"
                                     target="_blank"
@@ -217,10 +222,10 @@ const Navbar: React.FC = () => {
                                         <p className="text-sm text-gray-600">Stationery • T-Shirts • Hoodies</p>
                                     </div>
                                 </div>
-                            </div>
-                            <a className="hidden lg:flex items-center gap-2 btn bg-yellow-500 border-0 uppercase py-2.5 px-5 h-auto shadow-none rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
+                            </div> */}
+                            {/* <a className="hidden lg:flex items-center gap-2 btn bg-yellow-500 border-0 uppercase py-2.5 px-5 h-auto shadow-none rounded-md hover:bg-yellow-400" href="https://vr.jagadhatrionline.co.in/" target="_blank">
                                 360° Virtual Tours
-                            </a>
+                            </a> */}
                         </div>
                     </div>
                 </div>

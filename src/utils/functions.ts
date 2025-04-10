@@ -151,3 +151,16 @@ export const timestampToDate = (timestamp: number): string => {
 
     return `${getPart('year')}-${getPart('month')}-${getPart('day')}T` + `${getPart('hour')}:${getPart('minute')}:${getPart('second')}+05:30`;
 }
+
+export const sanitizeSearchQuery = (query: string | number): string => {
+    if (typeof query !== 'string') {
+        query = String(query);
+    }
+
+    return query
+        .trim()
+        .slice(0, 100) // Limit to 100 characters
+        .replace(/[<>{}[\]\\\/]/g, '') // Remove potentially dangerous characters
+        //.replace(/[&]/g, ' and ') // Replace & with 'and'
+        .replace(/\s+/g, ' '); // Replace multiple spaces with single space
+}

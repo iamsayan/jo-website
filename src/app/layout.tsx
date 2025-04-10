@@ -4,7 +4,8 @@ import Script from "next/script"
 import { livvic } from "@/fonts"
 import Providers from '@/app/providers';
 import OneSignal from '@/components/onesignal';
-import './globals.sass'
+import '@/app/globals.sass'
+import '@bprogress/core/css';
 
 export const revalidate = 604800 // 1 week
 

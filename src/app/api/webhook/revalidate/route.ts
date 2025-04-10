@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const tag = `collection-${modelName}`;
+        const tag = `model-${modelName}`;
         revalidateTag(tag);
 
         return NextResponse.json({
