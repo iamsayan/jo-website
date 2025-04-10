@@ -3,8 +3,8 @@
 import React from 'react';
 import Countdown, { CountdownRendererFn } from 'react-countdown';
 import { paytoneOne } from "@/fonts";
-import NoSsr from "@/components/nossr";
 import { cn } from "@/utils/functions";
+import { useState, useEffect } from 'react'
 
 interface CountdownTimerProps {
     className?: string;
@@ -13,6 +13,15 @@ interface CountdownTimerProps {
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ className, targetDate }) => {
     const classes = cn('countdown-area', className);
+    const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
+    useEffect(() => {
+        setIsLoaded(true)
+    }, []);
+
+    if (!isLoaded) {
+        return null
+    }
 
     const renderer: CountdownRendererFn = ({ days, hours, minutes, seconds, completed }) => {
         const timer = [
@@ -54,7 +63,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ className, targetDate }
         }
     };
 
-    return <NoSsr><Countdown date={targetDate} renderer={renderer} /></NoSsr>;
+    return <Countdown date={targetDate} renderer={renderer} />;
 };
 
 export default CountdownTimer;

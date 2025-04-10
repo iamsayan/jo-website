@@ -6,6 +6,7 @@ import { getModel } from "@/utils/fetch";
 import { metadata as metadataSchema } from "@/app/layout";
 import { notFound } from "next/navigation";
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 interface PageProps {
     params: Promise<{
@@ -93,7 +94,9 @@ export default async function Page({ params, searchParams }: PageProps) {
     return (
         <MainLayout title={`Photo Gallery ${year}`} jsonLd={jsonLd}>
             <Section title="View Jagadhatri Puja" description={`Photo Gallery ${year}`}>
-                <GalleryPaginate images={images} itemsPerPage={itemsPerPage} />
+                <Suspense>
+                    <GalleryPaginate images={images} itemsPerPage={itemsPerPage} />
+                </Suspense>
             </Section>
         </MainLayout>
     )
