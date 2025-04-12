@@ -2,7 +2,7 @@ import React from 'react';
 import Main from '@/components/main';
 import Breadcrumbs from '@/components/breadcrumbs';
 import { paytoneOne } from '@/fonts';
-import bg from '@/public/images/20241107-035455.jpg';
+import bg from '@/public/bg.jpg';
 
 interface LayoutProps {
     children: React.ReactNode;
