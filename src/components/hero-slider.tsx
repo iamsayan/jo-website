@@ -4,12 +4,11 @@ import React, { useState, useEffect, ReactNode } from 'react';
 import Image from 'next/image';
 
 const images = [
-    { src: '/assets/2024/mankucover.jpg', alt: 'Slide 1' },
-    { src: '/assets/2024/circuspandal.jpg', alt: 'Slide 2' },
-    { src: '/assets/2024/line.jpg', alt: 'Slide 3' },
-    { src: '/assets/2024/bhasan.jpg', alt: 'Slide 4' },
-    { src: '/assets/2024/tematha.jpg', alt: 'Slide 5' },
-    { src: '/assets/2024/strand.jpg', alt: 'Slide 6' },
+    { src: '/images/20241107-042519.jpg', alt: 'Mankundu' },
+    { src: '/images/20241107-040207.jpg', alt: 'Boro' },
+    { src: '/images/20241107-034735.jpg', alt: 'Kundughat Dalan' },
+    { src: '/images/20241107-034843.jpg', alt: 'Lalbagan Padripara' },
+    { src: '/images/20241107-035443.jpg', alt: 'Boro Panchanantala' },
 ] as const;
 
 interface ImageSliderProps {
@@ -24,7 +23,7 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
             setCurrentImageIndex((prevIndex) =>
                 prevIndex === images.length - 1 ? 0 : prevIndex + 1
             );
-        }, 5000);
+        }, 4000);
 
         return () => clearInterval(interval);
     }, [images.length]);
@@ -44,9 +43,7 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
                             priority={index === 0}
                             quality={90}
                             sizes="100vw"
-                            style={{
-                                objectFit: 'cover',
-                            }}
+                            className="object-cover"
                         />
                         <div className="absolute inset-0 bg-black/60"></div>
                     </div>

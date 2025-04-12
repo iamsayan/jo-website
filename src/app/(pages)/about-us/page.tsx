@@ -133,7 +133,7 @@ export default function Page() {
                                             <Image
                                                 width={500}
                                                 height={500}
-                                                src={`/members/${item.icon}`}
+                                                src={`/images/members/${item.icon}`}
                                                 alt={item.name}
                                                 quality={100}
                                             />
@@ -162,7 +162,7 @@ export default function Page() {
                                             <Image
                                                 width={500}
                                                 height={500}
-                                                src={`/members/${item.icon}`}
+                                                src={`/images/members/${item.icon}`}
                                                 alt={item.name}
                                                 quality={80}
                                             />

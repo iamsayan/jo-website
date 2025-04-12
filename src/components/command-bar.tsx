@@ -19,6 +19,7 @@ import { LuSearch, LuList, LuImage, LuZap, LuShoppingCart, LuTrophy, LuInfo, LuM
 import { MdOutline360 } from 'react-icons/md';
 import { useSearchParams } from "next/navigation";
 import { Suspense } from 'react'
+import { searchPujas } from "@/app/actions/search";
 
 interface CommandBarProps {
     children: React.ReactNode;
@@ -139,13 +140,9 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
 
         onSearch?.(true);
         try {
-            const res = await fetch(`/api/search/${currentRootActionId}?q=${search}`, {
-                signal: AbortSignal.timeout(5000)
+            const results = await searchPujas(currentRootActionId as string, {
+                q: search,
             });
-            
-            if (!res.ok) throw new Error('Search failed');
-            
-            const results = await res.json();
 
             const dynamicActions = Array.isArray(results?.hits) ? results?.hits.map((item: any) => {
                 const y = getYear(item?.estd);
@@ -163,9 +160,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
 
             setResults([...actions, ...dynamicActions]);
         } catch (error) {
-            if (error instanceof Error && error.name !== 'TimeoutError') {
-                console.error("API error:", error);
-            }
+            console.error("Search error:", error);
             setResults(actions);
         } finally {
             onSearch?.(false);
@@ -173,7 +168,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
     }, 500, { maxWait: 2000 });
 
     useEffect(() => {
-        if(currentRootActionId) {
+        if(typeof currentRootActionId === "string" && currentRootActionId) {
             debouncedQuery(sanitizeSearchQuery(searchQuery));
         }
     }, [searchQuery, currentRootActionId]);
@@ -228,9 +223,7 @@ function RenderResults() {
 const CommandBar = ({ children }: CommandBarProps) => {
     const [showLoader, setShowLoader] = useState<boolean>(false);
     return (
-        <KBarProvider actions={[]} options={{
-            enableHistory: true,
-        }}>
+        <KBarProvider actions={[]}>
             <DynamicActionsLoader onSearch={(state) => setShowLoader(state)}/>
             <Suspense>
                 <Search />

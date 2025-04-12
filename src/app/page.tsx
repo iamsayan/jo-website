@@ -27,13 +27,20 @@ import { paytoneOne } from "@/fonts";
 import { getModel } from "@/utils/fetch";
 
 const imagesPath = [
-    '2024/doibokhalf.jpg',
-    '2024/banerjeeparamadhyanchal.jpg',
-    '2024/circuscover.jpg',
-    '2024/coverkhalisani.jpg',
-    '2024/fatokgoraroadlight.jpg',
-    '2024/temathafull.jpg',
-    '2024/strand.jpg',
+    '20241107-044545.jpg',
+    '20241107-045103.jpg',
+    '20241107-044432.jpg',
+    '20241107-044103.jpg',
+    '20241107-035403.jpg',
+    '20241107-040112.jpg',
+    'img20241106134634.jpg',
+    '20241107-041629.jpg',
+    '20241107-044210.jpg',
+    '20241107-040138.jpg',
+    '20241107-042409.jpg',
+    '20241107-042214.jpg',
+    '20241107-045032.jpg',
+    '20241107-042836.jpg',
 ] as const;
 
 interface StatsItem {
@@ -66,7 +73,7 @@ export default async function Home() {
     const btnYear = curYear > year ? curYear : year;
 
     const sliderImages = imagesPath.map((image) => ({
-        src: `/assets/${image}`,
+        src: `/images/${image}`,
         alt: image,
     }));
 
@@ -266,7 +273,7 @@ export default async function Home() {
                             // perMove: 1,
                             gap: '6px',
                             grid: {
-                                dimensions: [ [ 1, 1 ], [ 2, 2 ], [ 1, 2 ] ],
+                                dimensions: [ [ 1, 2 ], [ 2, 2 ], [ 1, 3 ], [ 1, 2 ], [ 1, 3 ] ],
                                 // rows: 2,
 		                        // cols: 2,
                                 gap: {
@@ -357,7 +364,7 @@ export default async function Home() {
                                 <Image
                                     width={55}
                                     height={55}
-                                    src={`/dates/${index}.png`}
+                                    src={`/images/dates/${index}.png`}
                                     alt={item?.event}
                                     quality={100}
                                     className="h-fit"

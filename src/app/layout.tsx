@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
-import React from "react";
 import Script from "next/script"
 import { livvic } from "@/fonts"
+import { GoogleTagManager } from '@next/third-parties/google'
 import Providers from '@/app/providers';
 import OneSignal from '@/components/onesignal';
 import '@/app/globals.sass'
@@ -69,34 +69,29 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en" data-theme="light" suppressHydrationWarning={process.env.NODE_ENV === 'production'}>
             {process.env.NODE_ENV === 'production' &&
-                <head>
-                    <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`} />
-                    <Script id="google-analytics">
+                <>
+                    <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA4_ID!} dataLayer={{
+                        cookie_prefix: "JoGtag",
+                        cookie_domain: process.env.NEXT_PUBLIC_SITE_URL!,
+                        cookie_flags: "samesite=none;secure",
+                        allow_google_signals: true
+                    }} />
+                    <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`} crossOrigin="anonymous" strategy="afterInteractive" />
+                    <Script id="statcounter">
                         {`
-                            window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {"cookie_prefix":"JoGtag","cookie_domain":"${process.env.NEXT_PUBLIC_SITE_URL}","cookie_flags":"samesite=none;secure","allow_google_signals":true});
+                            var sc_project=11108007; 
+                            var sc_invisible=1; 
+                            var sc_security="13b4e93a"; 
                         `}
                     </Script>
-                    <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`} crossOrigin="anonymous" strategy="afterInteractive" />
-                </head>
+                    <Script src="https://www.statcounter.com/counter/counter.js" async={true} />
+                </>
             }
             <body className={`${livvic.className} overflow-x-hidden text-sm md:text-base ${livvic.variable}`}>
-                <Providers>{children}</Providers>
+                <Providers>
+                    {children}
+                </Providers>
                 <OneSignal />
-                {process.env.NODE_ENV === 'production' &&
-                    <>
-                        <Script id="statcounter">
-                            {`
-                                var sc_project=11108007; 
-                                var sc_invisible=1; 
-                                var sc_security="13b4e93a"; 
-                            `}
-                        </Script>
-                        <Script src="https://www.statcounter.com/counter/counter.js" async={true} />
-                    </>
-                }
             </body>
         </html>
     )
