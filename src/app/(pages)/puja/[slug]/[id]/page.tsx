@@ -69,12 +69,10 @@ export async function generateStaticParams() {
     });
     const data = pujasData ?? []
 
-    return data.map((item: any) => {
-        return {
-            slug: getUrlSlug(item?.puja_name),
-            id: item?.reference_id,
-        }
-    })
+    return data.map((item: any) => ({
+        slug: getUrlSlug(item?.puja_name),
+        id: item?.reference_id,
+    }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -162,8 +160,6 @@ export default async function Page({ params }: PageProps) {
             array.push(pujas?.[pujas?.length - 1 > index ? index + 1 : 0])
         }
     });
-
-    console.log(currentPuja?._published)
 
     const y = getYear(currentPuja?.estd);
     const cel = getCelebrating(y);

@@ -9,6 +9,7 @@ import circleLogo from '@/public/circle-logo.png';
 import { cn } from '@/utils/functions';
 import { useKBar } from 'kbar';
 import { LuAlignLeft, LuSearch, LuShoppingBag, LuGift } from 'react-icons/lu';
+import { sendGTMEvent } from '@next/third-parties/google'
 
 interface MenuItem {
     name: string;
@@ -25,19 +26,20 @@ const Navbar: React.FC = () => {
     const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
     useEffect(() => {
+        sendGTMEvent({ event: 'page_view', value: pathname });
+
         const controller = new AbortController();
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 5);
         };
 
-        // Check scroll position immediately
         handleScroll();
         setIsInitialized(true);
 
         window.addEventListener('scroll', handleScroll, { signal: controller.signal });
 
         return () => controller.abort();
-    }, []);
+    }, [pathname]);
 
     const items: MenuItem[] = [
         { name: 'Home', path: '/' },

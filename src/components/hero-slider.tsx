@@ -39,11 +39,11 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
                         <Image
                             src={image.src}
                             alt={image.alt}
-                            fill
+                            height={800}
+                            width={1000}
                             priority={index === 0}
                             quality={90}
-                            sizes="100vw"
-                            className="object-cover"
+                            className="object-cover h-full w-full"
                         />
                         <div className="absolute inset-0 bg-black/60"></div>
                     </div>

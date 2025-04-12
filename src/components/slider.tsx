@@ -35,7 +35,13 @@ export default function Slider({ options, slides = [], ...props }: SliderProps) 
         <Splide options={options} {...props} extensions={{ Grid, AutoScroll, Intersection }}>
             {slides.map((slide, index) => (
                 <SplideSlide key={index} className="cursor-pointer">
-                    <Image src={slide.imageUrl} alt={`Slide ${index + 1}`} className="w-full h-full object-cover pointer-events-none" fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" />
+                    <Image 
+                        src={slide.imageUrl} 
+                        alt={`Slide ${index + 1}`} 
+                        className="w-full h-full object-cover pointer-events-none" 
+                        fill={true} 
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 60vw" 
+                    />
                 </SplideSlide>
             ))}
         </Splide>

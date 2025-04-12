@@ -55,8 +55,8 @@ function GalleryPaginate({ className, images, itemsPerPage }: GalleryPaginatePro
                         <Image
                             key={item?._id + index}
                             src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
-                            width={500}
-                            height={300}
+                            fill={true} 
+                            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw" 
                             className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
                             loading="lazy"
                             priority={false}
