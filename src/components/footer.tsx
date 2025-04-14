@@ -46,26 +46,26 @@ export default function Footer() {
                 </nav>
                 <nav>
                     <div className="grid grid-flow-col gap-4">
-                        <a href="https://www.facebook.com/JagadhatriOnlineOfficial/" target="_blank" rel="noopener">
+                        <a href="https://www.facebook.com/JagadhatriOnlineOfficial/" aria-label="Facebook" target="_blank" rel="noopener">
                             <FaFacebookF className="size-4 sm:size-5 md:size-6" />
                         </a>
-                        <a href="https://www.youtube.com/c/JagadhatriOnline?sub_confirmation=1" target="_blank"
+                        <a href="https://www.youtube.com/c/JagadhatriOnline?sub_confirmation=1" aria-label="YouTube" target="_blank"
                            rel="noopener">
                             <FaYoutube className="size-4 sm:size-5 md:size-6" />
                         </a>
-                        <a href="https://www.instagram.com/jagadhatri_online" target="_blank" rel="noopener">
+                        <a href="https://www.instagram.com/jagadhatri_online" aria-label="Instagram" target="_blank" rel="noopener">
                             <FaInstagram className="size-4 sm:size-5 md:size-6" />
                         </a>
-                        <a href="https://whatsapp.com/channel/0029Va54b17DOQIQ6yoP9t39" target="_blank" rel="noopener">
+                        <a href="https://whatsapp.com/channel/0029Va54b17DOQIQ6yoP9t39" aria-label="WhatsApp" target="_blank" rel="noopener">
                             <FaWhatsapp className="size-4 sm:size-5 md:size-6" />
                         </a>
-                        <a href="https://twitter.com/Official_JO16" target="_blank" rel="noopener">
+                        <a href="https://x.com/Official_JO16" target="_blank" aria-label="X" rel="noopener">
                             <FaXTwitter className="size-4 sm:size-5 md:size-6" />
                         </a>
-                        <a href="https://www.pinterest.com/jagadhatrionline/" target="_blank" rel="noopener">
+                        <a href="https://www.pinterest.com/jagadhatrionline/" aria-label="Pinterest" target="_blank" rel="noopener">
                             <FaPinterestP className="size-4 sm:size-5 md:size-6" />
                         </a>
-                        <a href="https://github.com/iamsayan/jo-website" target="_blank" rel="noopener">
+                        <a href="https://github.com/iamsayan/jo-website" aria-label="GitHub" target="_blank" rel="noopener">
                             <FaGithub className="size-4 sm:size-5 md:size-6" />
                         </a>
                     </div>

@@ -62,7 +62,7 @@ export default function Videos() {
                         <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">Most played videos this week</li>
                         {videos.map((info, index) => (
                             <li key={index} className="list-row">
-                                <div><img className="size-10 rounded-box object-cover" src={`https://i3.ytimg.com/vi/${info.id}/maxresdefault.jpg`} /></div>
+                                <div><img className="size-10 rounded-box object-cover" alt={`Video ${info.description}`} loading="lazy" fetchPriority="low" src={`https://i3.ytimg.com/vi/${info.id}/maxresdefault.jpg`} /></div>
                                 <div className="list-col-grow overflow-hidden">
                                     <div className="truncate">{info.name}</div>
                                     <div className="text-xs uppercase font-semibold opacity-60">{info.description}</div>

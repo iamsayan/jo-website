@@ -194,7 +194,7 @@ const Navbar: React.FC = () => {
                             </ul>
                         </div>
                         <div className="navbar-end flex gap-3">
-                            <div className="cursor-pointer" onClick={query.toggle} title="Search" aria-label="Search">
+                            <div className="cursor-pointer" onClick={query.toggle} title="Search">
                                 <LuSearch className={`size-5 ${isScrolled ? '' : 'text-white'}`} />
                             </div>
                             {/* <div className="hidden lg:block relative group">
