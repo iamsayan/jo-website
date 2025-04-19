@@ -87,7 +87,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                     <Script src="https://www.statcounter.com/counter/counter.js" async={true} />
                 </>
             }
-            <body className={`${livvic.className} overflow-x-hidden text-sm md:text-base ${livvic.variable}`}>
+            <body className={`${livvic.className} antialiased overflow-x-hidden text-sm md:text-base ${livvic.variable}`}>
                 <Providers>
                     {children}
                 </Providers>
