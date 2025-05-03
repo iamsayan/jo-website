@@ -30,6 +30,10 @@ interface DynamicActionsLoaderProps {
     onSearch?: (isSearching: boolean) => void;
 }
 
+interface RenderResultsProps {
+    onRender?: (results: object, rootActionId: any) => void;
+}
+
 function Search() {
     const { query } = useKBar();
     const searchParams = useSearchParams()
@@ -180,8 +184,13 @@ function DynamicActionsLoader({ onInput, onSearch }: DynamicActionsLoaderProps) 
     return null;
 }
 
-function RenderResults() {
-    const { results } = useMatches();
+function RenderResults({ onRender }: RenderResultsProps) {
+    const { results, rootActionId } = useMatches();
+    
+    useEffect(() => {
+        onRender?.(results, rootActionId);
+    }, [results, rootActionId]);
+
     return (
         <KBarResults
             items={results}
@@ -225,12 +234,16 @@ function RenderResults() {
 const CommandBar = ({ children }: CommandBarProps) => {
     const [showLoader, setShowLoader] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<any>('');
+    const [parentId, setParentId] = useState<any>('');
 
     return (
         <KBarProvider actions={[]}>
             <DynamicActionsLoader 
                 onSearch={state => setShowLoader(state)}
-                onInput={(query, parent) => setSearchQuery(parent)}
+                onInput={(query, parent) => {
+                    setSearchQuery(query)
+                    setParentId(parent)
+                }}
             />
             <Suspense>
                 <Search />
@@ -238,12 +251,15 @@ const CommandBar = ({ children }: CommandBarProps) => {
             <KBarPortal>
                 <KBarPositioner className="z-50 bg-black/60 backdrop-blur-sm">
                     <KBarAnimator className="w-full max-w-2xl bg-white dark:bg-zinc-900 text-black dark:text-white rounded-md shadow-2xl overflow-hidden flex flex-col">
-                        {searchQuery && 
-                            <div className="px-4 py-3 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 dark:border-zinc-700 uppercase">
-                                <span className="bg-gray-800 py-1 px-2 rounded-sm">{searchQuery}</span>
+                        {parentId && 
+                            <div className="px-4 pt-3 flex items-center justify-between text-zinc-500 dark:text-zinc-400 dark:border-zinc-700 uppercase">
+                                <span className="text-[10px] bg-gray-800 py-1 px-2 rounded-sm">{parentId}</span>
                             </div>
                         }
-                        <KBarSearch className="w-full px-4 py-3 text-lg outline-none border-b border-zinc-200 dark:border-zinc-700 bg-transparent placeholder:text-zinc-400" />
+                        <div className="flex border-b border-zinc-200 dark:border-zinc-700">
+                            <KBarSearch className="w-full px-4 py-3 text-lg outline-none bg-transparent placeholder:text-zinc-400" />
+                            {searchQuery && <div className="flex justify-center items-center p-4 cursor-pointer" title="Search on Google" onClick={() => window.open(`https://www.google.com/search?q=site:${process.env.NEXT_PUBLIC_SITE_URL}"${searchQuery}"`, '_blank')}><LuSearch /></div>}
+                        </div>
                         {showLoader && <div className="px-3 py-2 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 dark:border-zinc-700">
                             <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
