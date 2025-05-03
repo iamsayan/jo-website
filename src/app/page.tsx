@@ -87,7 +87,6 @@ export default async function Home() {
             title: 'T-Shirts',
             description: 'Comfortable and stylish t-shirts with unique designs',
             icon: <LuShirt className="size-8 text-yellow-500" />,
-            comingSoon: true,
         },
         {
             title: 'Hoodies',

@@ -26,6 +26,7 @@ interface CommandBarProps {
 }
 
 interface DynamicActionsLoaderProps {
+    onInput?: (searchQuery: string, currentRootActionId: any) => void;
     onSearch?: (isSearching: boolean) => void;
 }
 
@@ -44,7 +45,7 @@ function Search() {
     return null
 }
 
-function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
+function DynamicActionsLoader({ onInput, onSearch }: DynamicActionsLoaderProps) {
     const {searchQuery, currentRootActionId} = useKBar((state) => state);
     const router = useRouter();
     const actions = useMemo(() => [
@@ -168,6 +169,7 @@ function DynamicActionsLoader({ onSearch }: DynamicActionsLoaderProps) {
     }, 500, { maxWait: 2000 });
 
     useEffect(() => {
+        onInput?.(searchQuery, currentRootActionId);
         if(typeof currentRootActionId === "string" && currentRootActionId) {
             debouncedQuery(sanitizeSearchQuery(searchQuery));
         }
@@ -222,15 +224,25 @@ function RenderResults() {
 
 const CommandBar = ({ children }: CommandBarProps) => {
     const [showLoader, setShowLoader] = useState<boolean>(false);
+    const [searchQuery, setSearchQuery] = useState<any>('');
+
     return (
         <KBarProvider actions={[]}>
-            <DynamicActionsLoader onSearch={(state) => setShowLoader(state)}/>
+            <DynamicActionsLoader 
+                onSearch={state => setShowLoader(state)}
+                onInput={(query, parent) => setSearchQuery(parent)}
+            />
             <Suspense>
                 <Search />
             </Suspense>
             <KBarPortal>
                 <KBarPositioner className="z-50 bg-black/60 backdrop-blur-sm">
                     <KBarAnimator className="w-full max-w-2xl bg-white dark:bg-zinc-900 text-black dark:text-white rounded-md shadow-2xl overflow-hidden flex flex-col">
+                        {searchQuery && 
+                            <div className="px-4 py-3 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 dark:border-zinc-700 uppercase">
+                                <span className="bg-gray-800 py-1 px-2 rounded-sm">{searchQuery}</span>
+                            </div>
+                        }
                         <KBarSearch className="w-full px-4 py-3 text-lg outline-none border-b border-zinc-200 dark:border-zinc-700 bg-transparent placeholder:text-zinc-400" />
                         {showLoader && <div className="px-3 py-2 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 dark:border-zinc-700">
                             <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -57,7 +57,7 @@ export default function GallerySlider({ slides, sliderOptions, ...props }: Galle
                             src={item.src} 
                             alt={item.alt} 
                             priority={index === 0} 
-                            className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110 pointer-events-none" 
+                            className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110" 
                             height={800}
                             width={1000}
                         />
