@@ -25,6 +25,7 @@ import {
 import { cn, formatDate, getDateByIndex } from "@/utils/functions";
 import { paytoneOne } from "@/fonts";
 import { getModel } from "@/utils/fetch";
+import { PiConfettiThin } from "react-icons/pi";
 
 const imagesPath = [
     '20241107-044545.jpg',
@@ -209,21 +210,43 @@ export default async function Home() {
             <HeroSlider>
                 <div className="hero-content text-center text-white-content text-white p-0 z-2">
                     <div className="pt-36 pb-28">
-                        <h1 className={`mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}`}>
-                            CHANDANNAGAR <br /> JAGADHATRI PUJA
-                        </h1>
-                        <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
-                        <Link
-                            href={`/jagadhatri-puja/${year}`}
-                            className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3 px-6 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500"
-                        >
-                            Jagadhatri Puja {btnYear}
-                        </Link>
+                        <div className="inline-block mb-10">
+                            <div className="group relative flex items-center justify-center gap-3 px-5 py-2.5 rounded-full bg-yellow-500/10 backdrop-blur-md border border-white/20 text-sm hover:bg-yellow-500/20 transition-all duration-300">
+                                {/* Animated confetti icon */}
+                                <PiConfettiThin className="animate-bounce text-lg" />
+                                
+                                {/* Celebration text */}
+                                <span className="font-medium">
+                                    Celebrating 10 Years
+                                </span>
+                                
+                                {/* Animated dots */}
+                                <div className="flex space-x-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                                    {/* <span className="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span>
+                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce"></span> */}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative">
+                            <h1 className={`mb-3 text-2xl md:text-4xl lg:text-6xl ${paytoneOne.className}`}>
+                                CHANDANNAGAR <br /> JAGADHATRI PUJA
+                            </h1>
+                            <p className="mb-8">Explore the Grand Festival of Chandannagar.</p>
+                            <Link
+                                href={`/jagadhatri-puja/${year}`}
+                                className="btn bg-yellow-500 border-2 border-yellow-500 uppercase py-3 px-6 h-auto shadow-none rounded-md hover:bg-transparent hover:border-yellow-500 hover:text-yellow-500"
+                            >
+                                Jagadhatri Puja {btnYear}
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </HeroSlider>
+            
             <Section
-                className="bg-gray-100"
+                className="bg-gradient-to-b from-yellow-500/10 to-transparent"
                 title="Welcome to the Online Puja Portal"
                 description="Jagadhatri Online"
             >
@@ -234,6 +257,32 @@ export default async function Home() {
                         Location, Photos & Videos of various Jagadhatri Pujas of Chandannagar. It will guide people who
                         want directions to go Pandal Hopping around the city, looking for the best Pujas in town.
                     </p>
+                    <div className="relative py-8 px-6 bg-gradient-to-r from-yellow-500/5 via-yellow-500/10 to-yellow-500/5 rounded-2xl border border-yellow-500/20">
+                        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 truncate">
+                            <span className="inline-block px-4 py-1 bg-yellow-500 text-white text-sm font-medium rounded-full">
+                                10 Years of Digital Heritage
+                            </span>
+                        </div>
+                        <div className="flex flex-col items-center gap-4">
+                            <p className="md:text-lg text-gray-700">
+                                Since 2016, we've been documenting the grandeur of Chandannagar's Jagadhatri Puja, preserving its rich cultural heritage for future generations. As we celebrate our 10th anniversary in 2025, we remain committed to showcasing the beauty and tradition of this magnificent festival for many more years to come.
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-4 text-center">
+                                <div className="px-6 py-3 bg-white rounded-xl shadow-sm">
+                                    <div className="text-2xl font-bold text-yellow-600">2016</div>
+                                    <div className="text-sm text-gray-600">Journey Began</div>
+                                </div>
+                                <div className="px-6 py-3 bg-white rounded-xl shadow-sm">
+                                    <div className="text-2xl font-bold text-yellow-600">2025</div>
+                                    <div className="text-sm text-gray-600">10th Anniversary</div>
+                                </div>
+                                <div className="px-6 py-3 bg-white rounded-xl shadow-sm">
+                                    <div className="text-2xl font-bold text-yellow-600">Beyond</div>
+                                    <div className="text-sm text-gray-600">Continuing Legacy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         <Link
                             href="/achievements"
