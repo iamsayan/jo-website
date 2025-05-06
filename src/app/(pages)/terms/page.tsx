@@ -6,7 +6,7 @@ import schema from "@/utils/schema";
 import { metadata as metadataSchema } from "@/app/layout";
 export const metadata: Metadata = {
     title: 'Terms & Conditions',
-    description: 'Please read these terms and conditions carefully before applying to become a member of Jagadhatri Online on our Website. You should understand that by applying to become a part of this Community, you agree to be bound by these terms and conditions.',
+    description: 'Read the user terms for Jagadhatri Online, outlining site usage, copyrights, and community interaction guidelines.',
     openGraph: {
         ...metadataSchema.openGraph,
         url: '/terms',

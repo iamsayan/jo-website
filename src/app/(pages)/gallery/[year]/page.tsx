@@ -44,7 +44,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
 
     return {
         title: `Photo Gallery of ${year}`,
-        description: `Photo Gallery of ${year}`,
+        description: `View Jagadhatri Puja ${year} photos from Chandannagar, Mankundu, and nearby Bhadreswar—featuring award-winning pandals and themes.`,
         openGraph: {
             ...metadataSchema.openGraph,
             url: `/gallery/${year}?page=${currentPage}`,

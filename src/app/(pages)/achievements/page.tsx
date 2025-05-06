@@ -6,7 +6,7 @@ import { getModel } from "@/utils/fetch";
 import { metadata as metadataSchema } from "@/app/layout";
 export const metadata: Metadata = {
     title: 'Achievements',
-    description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
+    description: 'Celebrating a decade of digital service—view our milestones, media features, and honors as Chandannagar’s official online puja archive.',
     openGraph: {
         ...metadataSchema.openGraph,
         url: '/achievements',

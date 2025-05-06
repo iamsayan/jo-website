@@ -10,7 +10,7 @@ import Info from '@/components/info';
    
 export const metadata: Metadata = {
     title: 'Jagadhatri Puja Jubilee, Pre Jubilee List, Schedule',
-    description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
+    description: 'Learn about the Jagadhatri Puja traditions in Chandannagar and Mankundu, with extended coverage of Bhadreswar’s growing celebrations.',
     openGraph: {
         ...metadataSchema.openGraph,
         url: '/jagadhatri-puja',

@@ -16,7 +16,7 @@ interface ImageData {
 
 export const metadata = {
     title: 'Photo Gallery',
-    description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
+    description: `Browse Jagadhatri Puja photos from Chandannagar, Mankundu, and Bhadreswar—capturing pandals, lighting, idols, and themes from 2016 to ${new Date().getFullYear()}.`,
     openGraph: {
         ...metadataSchema.openGraph,
         url: '/gallery',

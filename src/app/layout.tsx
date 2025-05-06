@@ -19,10 +19,10 @@ export const metadata: Metadata = {
         canonical: '/',
     },
     title: {
-        template: '%s - Jagadhatri Online™ | the #1 Popular Jagadhatri Puja Portal',
+        template: '%s - Jagadhatri Online™ | 10 Years of Being the #1 Puja Portal for Chandannagar Jagadhatri Puja',
         default: 'Jagadhatri Online™ | the #1 Puja Portal for Chandannagar Jagadhatri Puja',
     },
-    description: `Jagadhatri or Jagaddhatri is an aspect of the Hindu goddess Durga, who is particularly worshipped in the Chandannagar region of West Bengal, India. Her cult is directly derived from Tantra where she is a symbol of sattva beside Durga and Kali, respectably symbolized with Rajas and Tamas.`,
+    description: `Celebrating 10 years of devotion, Jagadhatri Online™ is Chandannagar’s leading portal for Jagadhatri Puja – dedicated to the goddess Jagaddhatri, a serene form of Durga worshipped through Tantra and tradition in West Bengal.`,
     keywords: ['jagadhatri puja', 'jagadhatri', 'chandannagar'],
     authors: [{ name: 'Sayan Datta', url: 'https://sayandatta.co.in' }],
     creator: 'Sayan Datta',

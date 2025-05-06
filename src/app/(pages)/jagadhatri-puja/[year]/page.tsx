@@ -72,7 +72,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     return {
         title: `Jagadhatri Puja ${queryYear} Jubilee, Pre Jubilee List${dateIsCurrent ? ', Schedule' : ''}`,
-        description: `Here are the Jubilee & Pre Jubilee List${dateIsCurrent ? ', Schedule, Puja Updates ' : ''}and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
+        description: `Explore the Jubilee List${dateIsCurrent ? ', Schedule, Puja Updates' : ''} and Latest Information about Jagadhatri Puja ${queryYear} the great festival of Chandannagar.`,
         openGraph: {
             ...metadataSchema.openGraph,
             url: `/jagadhatri-puja/${queryYear}`,

@@ -9,7 +9,7 @@ import arrayShuffle from "array-shuffle";
 
 export const metadata: Metadata = {
     title: 'About Us',
-    description: 'Jagadhatri Online is your online destination to visit the collection of most popular Jagadhatri Pujas of Chanannagar, Mankundu &amp; Bhadreswar. It is a platform on internet where we display the Location, Photos &amp; Videos of various Jagadhatri Pujas of Chandannagar.',
+    description: 'Jagadhatri Online is the leading digital portal covering Jagadhatri Pujas in Chandannagar, Mankundu, and Bhadreswar—celebrating 10 years of cultural storytelling.',
     openGraph: {
         ...metadataSchema.openGraph,
         url: '/about-us',

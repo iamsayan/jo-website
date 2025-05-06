@@ -31,7 +31,7 @@ interface PujaData {
 
 export const metadata: Metadata = {
     title: 'Jagadhatri Puja Committee List',
-    description: 'Here is the full list of Chandannagar Jagadhatri Puja Committees registered under Chandannagar Central Jagadhatri Puja Committee.',
+    description: 'Find verified Jagadhatri Puja committees from Chandannagar, Mankundu, and Bhadreswar with locations, years, and contact details.',
     openGraph: {
         ...metadataSchema.openGraph,
         url: '/puja-committee-list',
