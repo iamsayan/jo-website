@@ -57,19 +57,20 @@ export default async function Page() {
                     >
                         {allImages.slice(0, 12).map((image: any, index: number) => (
                             <a 
-                                href={`https://cgrutsav.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
+                                href={`https://assets.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
                                 data-disable-progress={true}
                                 key={index}
                                 className="relative aspect-[3/4] overflow-hidden rounded-lg group cursor-pointer"
                                 data-sub-html={`<h4>${image?.puja_entry_id?.puja_name}</h4><p>By: ${image?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`}
                             >
                                 <Image
-                                    src={`https://cgrutsav.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
+                                    src={`https://assets.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
                                     width={500}
                                     height={300}
                                     className="object-cover w-full h-full pointer-events-none text-transparent transition-transform duration-500 group-hover:scale-110"
                                     loading="lazy"
                                     priority={false}
+                                    quality={80}
                                     placeholder="blur"
                                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                                     alt={image?.puja_entry_id?.puja_name}
@@ -99,13 +100,14 @@ export default async function Page() {
                                     className="relative aspect-[3/4] md:aspect-square overflow-hidden rounded-lg group cursor-pointer"
                                 >
                                     <Image
-                                        src={`https://cgrutsav.jagadhatrionline.co.in/images/${randomImage.year}/${randomImage.reference_id}/${randomImage.image_name}`}
+                                        src={`https://assets.jagadhatrionline.co.in/images/${randomImage.year}/${randomImage.reference_id}/${randomImage.image_name}`}
                                         width={500}
                                         height={300}
                                         className="object-cover w-full h-full pointer-events-none text-transparent transition-transform duration-500 group-hover:scale-110"
                                         loading="lazy"
                                         priority={false}
                                         placeholder="blur"
+                                        quality={80}
                                         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                                         alt={`Gallery ${year}`}
                                     />

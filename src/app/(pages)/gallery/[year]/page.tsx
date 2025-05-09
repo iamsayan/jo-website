@@ -50,7 +50,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
             url: `/gallery/${year}?page=${currentPage}`,
             images: images?.data?.slice(0, 3)?.map((item: any) => {
                 return {
-                    url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                    url: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
                     alt: item?.puja_entry_id?.puja_name
                 }
             })

@@ -101,7 +101,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             url: `/puja/${slug}/${id}`,
             images: images?.map((item: any) => {
                 return {
-                    url: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                    url: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
                     alt: currentPuja?.puja_name
                 }
             })
@@ -137,8 +137,8 @@ export default async function Page({ params }: PageProps) {
     const currentPuja = pujas?.find((data: any) => data?.reference_id === id);
     const pujaImages = images.map((item: any) => {
         return {
-            src: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-            thumb: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+            src: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+            thumb: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
             alt: currentPuja?.puja_name,
             subHtml: `<p>By: ${item?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`,
         }

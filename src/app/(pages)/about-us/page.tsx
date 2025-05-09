@@ -135,7 +135,8 @@ export default function Page() {
                                                 height={500}
                                                 src={`/images/members/${item.icon}`}
                                                 alt={item.name}
-                                                quality={100}
+                                                unoptimized={true}
+                                                loading="lazy"
                                             />
                                         </div>
                                     </div>
@@ -164,7 +165,8 @@ export default function Page() {
                                                 height={500}
                                                 src={`/images/members/${item.icon}`}
                                                 alt={item.name}
-                                                quality={80}
+                                                unoptimized={true}
+                                                loading="lazy"
                                             />
                                         </div>
                                     </div>

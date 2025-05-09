@@ -40,8 +40,8 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
 
     const dynamicEl = paginatedImages.map((item: any, index: number) => {
         return {
-            src: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-            thumb: `https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+            src: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+            thumb: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
             alt: item?.puja_entry_id?.puja_name,
             subHtml: `<h4>${item?.puja_entry_id?.puja_name}</h4><p>By: ${item?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`,
         }
@@ -77,7 +77,7 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
                     <div key={item?._id + index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
                         <Image
                             key={item?._id + index + selectedYear}
-                            src={`https://cgrutsav.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
+                            src={`https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
                             width={500}
                             height={300}
                             className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"

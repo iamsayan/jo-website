@@ -414,7 +414,8 @@ export default async function Home() {
                                     height={55}
                                     src={`/images/dates/${index}.png`}
                                     alt={item?.event}
-                                    quality={100}
+                                    unoptimized={true}
+                                    loading="lazy"
                                     className="h-fit"
                                 />
                                 <div className="flex flex-col gap-2 text-left">
