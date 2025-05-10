@@ -10,6 +10,7 @@ import {
     useRegisterActions,
     useKBar,
     useMatches,
+    Action
 } from "kbar";
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from '@bprogress/next/app'
@@ -19,7 +20,7 @@ import { LuSearch, LuList, LuImage, LuZap, LuShoppingCart, LuTrophy, LuInfo, LuM
 import { MdOutline360 } from 'react-icons/md';
 import { useSearchParams } from "next/navigation";
 import { Suspense } from 'react'
-import { searchPujas } from "@/app/actions/search";
+import { searchModels } from "@/app/actions/search";
 
 interface CommandBarProps {
     children: React.ReactNode;
@@ -135,7 +136,7 @@ function DynamicActionsLoader({ onInput, onSearch }: DynamicActionsLoaderProps) 
             perform: () => router.push('/contact-us'),
         },
     ], []);
-    const [results, setResults] = useState(actions);
+    const [results, setResults] = useState<Action[]>(actions);
 
     const debouncedQuery = useDebouncedCallback(async (search: string) => {
         if (!search || search.length < 2) {
@@ -145,11 +146,8 @@ function DynamicActionsLoader({ onInput, onSearch }: DynamicActionsLoaderProps) 
 
         onSearch?.(true);
         try {
-            const results = await searchPujas(currentRootActionId as string, {
-                q: search,
-            });
-
-            const dynamicActions = Array.isArray(results?.hits) ? results?.hits.map((item: any) => {
+            const searchResults = await searchModels(currentRootActionId as string, search);
+            const dynamicActions = Array.isArray(searchResults) ? searchResults.map((item: any) => {
                 const y = getYear(item?.estd);
                 return ({
                     id: `puja-${item._o+1}`,
@@ -186,7 +184,7 @@ function DynamicActionsLoader({ onInput, onSearch }: DynamicActionsLoaderProps) 
 
 function RenderResults({ onRender }: RenderResultsProps) {
     const { results, rootActionId } = useMatches();
-    
+
     useEffect(() => {
         onRender?.(results, rootActionId);
     }, [results, rootActionId]);
@@ -234,6 +232,7 @@ function RenderResults({ onRender }: RenderResultsProps) {
 const CommandBar = ({ children }: CommandBarProps) => {
     const [showLoader, setShowLoader] = useState<boolean>(false);
     const [searchQuery, setSearchQuery] = useState<any>('');
+    const [searchResults, setSearchResults] = useState<any>([]);
     const [parentId, setParentId] = useState<any>('');
 
     return (
@@ -258,7 +257,7 @@ const CommandBar = ({ children }: CommandBarProps) => {
                         }
                         <div className="flex border-b border-zinc-200 dark:border-zinc-700">
                             <KBarSearch className="w-full px-4 py-3 text-lg outline-none bg-transparent placeholder:text-zinc-400" />
-                            {searchQuery && <div className="flex justify-center items-center p-4 cursor-pointer" title="Search on Google" onClick={() => window.open(`https://www.google.com/search?q=site:${process.env.NEXT_PUBLIC_SITE_URL}"${searchQuery}"`, '_blank')}><LuSearch /></div>}
+                            {searchQuery && searchResults.length === 0 && <div className="flex justify-center items-center p-4 cursor-pointer" title="Search on Google" onClick={() => window.open(`https://www.google.com/search?q=site:${process.env.NEXT_PUBLIC_SITE_URL}"${searchQuery}"`, '_blank')}><LuSearch /></div>}
                         </div>
                         {showLoader && <div className="px-3 py-2 flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 dark:border-zinc-700">
                             <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -267,7 +266,7 @@ const CommandBar = ({ children }: CommandBarProps) => {
                             </svg>
                             Searching...
                         </div>}
-                        <RenderResults />
+                        <RenderResults onRender={(results) => setSearchResults(results)} />
                     </KBarAnimator>
                 </KBarPositioner>
             </KBarPortal>

@@ -1,22 +1,18 @@
 'use server'
 
-import { generateUrlSearchParams } from "@/utils/functions";
+import { getModel } from "@/utils/fetch";
 
-export async function searchPujas(rootActionId: string, query: object) {
+export async function searchModels(model: string, query: string, params: Record<string, any> = {}) {
     try {
-        const res = await fetch(`${process.env.API_URL}/detektivo/search/${generateUrlSearchParams(rootActionId, query)}`, {
-            method: "GET",
-            headers: {
-                "api-key": process.env.API_KEY!,
+        const searchData = await getModel(model, {
+            filter: {
+                puja_name: {
+                    '$regex': query,
+                },
             },
-            next: {
-                revalidate: process.env.NODE_ENV === 'development' ? 0 : 1800,
-            },
+            ...params,
         });
-        
-        if (!res.ok) throw new Error('Search failed');
-        
-        return await res.json();
+        return searchData ?? null;
     } catch (error) {
         if (error instanceof Error && error.name !== 'TimeoutError') {
             console.error("API error:", error);

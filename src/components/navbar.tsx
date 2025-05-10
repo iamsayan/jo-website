@@ -98,7 +98,7 @@ const Navbar: React.FC = () => {
                                             {item.subMenu ? (
                                                 <details>
                                                     <summary className="font-bold">
-                                                        {item.path === '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
+                                                        {item.path !== '#' ? <Link href={item.path}>{item.name}</Link> : item.name}
                                                     </summary>
                                                     <ul className="p-2">
                                                         {item.subMenu.map((subItem, subIndex) => (
