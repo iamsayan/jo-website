@@ -3,7 +3,7 @@
 import React, { useCallback, useRef } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 import { useRouter } from '@bprogress/next/app';
-import Image from "next/image";
+import TransformedImage from './transformed-image';
 import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
@@ -52,17 +52,16 @@ function GalleryPaginate({ className, images, itemsPerPage }: GalleryPaginatePro
             <Gallery elementClassNames="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2 md:gap-3 lg:gap-4 mt-2" speed={500} thumbnail={true} slideShowAutoplay={true} onInit={onInit} fullScreen={true} dynamicEl={dynamicEl} dynamic={true}>
                 {paginatedImages.map((item: any, index: number) => (
                     <div key={item?._id + index} className="relative aspect-[4/5] overflow-hidden rounded-2xl group cursor-pointer" onClick={() => lightGallery.current.openGallery(index)}>
-                        <Image
+                        <TransformedImage
                             key={item?._id + index}
-                            src={`https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`}
+                            src={`${item?.year}/${item?.reference_id}/${item?.image_name}`}
                             fill={true} 
                             sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw" 
                             className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
                             loading="lazy"
                             priority={false}
+                            quality={70}
                             alt={item?.puja_entry_id?.puja_name}
-                            placeholder="blur"
-                            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                         />
                         {/* <span className="absolute bottom-0 left-0 right-0 text-center bg-yellow-500 p-1.5 text-xs">{item?.puja_entry_id?.puja_name}</span> */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

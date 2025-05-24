@@ -3,7 +3,7 @@ import MainLayout from "@/components/main-layout";
 import Section from "@/components/section";
 import Gallery from "@/components/gallery";
 import schema from "@/utils/schema";
-import Image from "next/image";
+import TransformedImage from "@/components/transformed-image";
 import Link from "next/link";
 import { getModel } from "@/utils/fetch";
 import { metadata as metadataSchema } from "@/app/layout";
@@ -63,16 +63,14 @@ export default async function Page() {
                                 className="relative aspect-[3/4] overflow-hidden rounded-lg group cursor-pointer"
                                 data-sub-html={`<h4>${image?.puja_entry_id?.puja_name}</h4><p>By: ${image?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`}
                             >
-                                <Image
-                                    src={`https://assets.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
+                                <TransformedImage
+                                    src={`${image.year}/${image.reference_id}/${image.image_name}`}
                                     width={500}
                                     height={300}
                                     className="object-cover w-full h-full pointer-events-none text-transparent transition-transform duration-500 group-hover:scale-110"
                                     loading="lazy"
                                     priority={false}
-                                    quality={80}
-                                    placeholder="blur"
-                                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
+                                    quality={70}
                                     alt={image?.puja_entry_id?.puja_name}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -99,15 +97,15 @@ export default async function Page() {
                                     href={`/gallery/${year}`}
                                     className="relative aspect-[3/4] md:aspect-square overflow-hidden rounded-lg group cursor-pointer"
                                 >
-                                    <Image
-                                        src={`https://assets.jagadhatrionline.co.in/images/${randomImage.year}/${randomImage.reference_id}/${randomImage.image_name}`}
+                                    <TransformedImage
+                                        src={`${randomImage.year}/${randomImage.reference_id}/${randomImage.image_name}`}
                                         width={500}
                                         height={300}
                                         className="object-cover w-full h-full pointer-events-none text-transparent transition-transform duration-500 group-hover:scale-110"
                                         loading="lazy"
                                         priority={false}
                                         placeholder="blur"
-                                        quality={80}
+                                        quality={70}
                                         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAt8B9zvLyE8AAAAASUVORK5CYII="
                                         alt={`Gallery ${year}`}
                                     />
