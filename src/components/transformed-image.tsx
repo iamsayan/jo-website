@@ -9,6 +9,7 @@ type TransformParams = {
     grayscale?: boolean;
     fit?: 'cover' | 'contain';
     format?: 'jpeg' | 'png' | 'webp' | 'gif' | 'auto';
+    lazy?: boolean;
 };
 
 type TransformedImageProps = Omit<ImageProps, 'loader' | 'src' | 'unoptimized'> & TransformParams;
@@ -18,9 +19,10 @@ export default function TransformedImage({
     grayscale,
     fit,
     format,
+    lazy = true,
     ...rest
 }: TransformedImageProps) {
-    const { ref, inView } = useInView({ triggerOnce: true, fallbackInView: true });
+    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "50px 0px", fallbackInView: true });
 
     const loader = ({ src, width, quality }: ImageLoaderProps) => {
         const url = new URL('https://assets.jagadhatrionline.co.in/images/transform');
@@ -33,9 +35,10 @@ export default function TransformedImage({
         if (quality) url.searchParams.set('quality', String(quality));
         if (format) url.searchParams.set('format', format);
 
-        if (!inView) {
+        if (lazy && !inView) {
             url.searchParams.set('blur', String(8));
             url.searchParams.set('quality', String(20));
+            url.searchParams.set('grayscale', '1');
         }
 
         return url.toString();
