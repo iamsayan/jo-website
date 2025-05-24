@@ -74,7 +74,7 @@ export default async function Home() {
     const btnYear = curYear > year ? curYear : year;
 
     const sliderImages = imagesPath.map((image) => ({
-        src: `/images/${image}`,
+        src: `static/${image}`,
         alt: image,
     }));
 

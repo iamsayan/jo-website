@@ -1,14 +1,14 @@
 'use client'
 
 import React, { useState, useEffect, ReactNode } from 'react';
-import Image from 'next/image';
+import TransformedImage from '@/components/transformed-image';
 
 const images = [
-    { src: '/images/20241107-042519.jpg', alt: 'Mankundu' },
-    { src: '/images/20241107-040207.jpg', alt: 'Boro' },
-    { src: '/images/20241107-034735.jpg', alt: 'Kundughat Dalan' },
-    { src: '/images/20241107-034843.jpg', alt: 'Lalbagan Padripara' },
-    { src: '/images/20241107-035443.jpg', alt: 'Boro Panchanantala' },
+    { src: 'static/20241107-042519.jpg', alt: 'Mankundu' },
+    { src: 'static/20241107-040207.jpg', alt: 'Boro' },
+    { src: 'static/20241107-034735.jpg', alt: 'Kundughat Dalan' },
+    { src: 'static/20241107-034843.jpg', alt: 'Lalbagan Padripara' },
+    { src: 'static/20241107-035443.jpg', alt: 'Boro Panchanantala' },
 ] as const;
 
 interface ImageSliderProps {
@@ -36,13 +36,14 @@ const HeroSlider: React.FC<ImageSliderProps> = ({ children }) => {
                         key={index}
                         className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out bg-cover bg-center ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'}`}
                     >
-                        <Image
+                        <TransformedImage
                             src={image.src}
                             alt={image.alt}
                             height={800}
                             width={1000}
                             priority={index === 0}
                             quality={90}
+                            lazy={false}
                             className="object-cover h-full w-full"
                         />
                         <div className="absolute inset-0 bg-black/60"></div>

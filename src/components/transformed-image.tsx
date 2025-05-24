@@ -25,7 +25,7 @@ export default function TransformedImage({
     const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "50px 0px", fallbackInView: true });
 
     const loader = ({ src, width, quality }: ImageLoaderProps) => {
-        const url = new URL('https://assets.jagadhatrionline.co.in/images/transform');
+        const url = new URL(process.env.NEXT_PUBLIC_IMAGE_TRANSFORM_SERVICE_URL!);
 
         url.searchParams.set('src', src);
         if (width) url.searchParams.set('width', String(width));

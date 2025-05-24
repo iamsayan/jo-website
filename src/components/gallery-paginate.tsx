@@ -3,7 +3,7 @@
 import React, { useCallback, useRef } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
 import { useRouter } from '@bprogress/next/app';
-import TransformedImage from './transformed-image';
+import TransformedImage from '@/components/transformed-image';
 import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
