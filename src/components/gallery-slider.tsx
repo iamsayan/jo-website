@@ -75,6 +75,7 @@ export default function GallerySlider({ slides, sliderOptions, transformImage = 
                                 className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110" 
                                 width={item.width ?? 800}
                                 height={item.height ?? 500}
+                                quality={item?.quality?? 70}
                             /> : 
                             <Image
                                 src={item.src} 
@@ -83,6 +84,7 @@ export default function GallerySlider({ slides, sliderOptions, transformImage = 
                                 className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110" 
                                 width={item.width ?? 800}
                                 height={item.height ?? 500}
+                                quality={item?.quality?? 70}
                             />
                         }
                         {item?.subHtml && (
