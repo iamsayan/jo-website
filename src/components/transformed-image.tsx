@@ -22,7 +22,7 @@ export default function TransformedImage({
     lazy = true,
     ...rest
 }: TransformedImageProps) {
-    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "100px 0px", fallbackInView: true });
+    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "100px 50px", fallbackInView: true });
 
     const loader = ({ src, width, quality }: ImageLoaderProps) => {
         const url = new URL(process.env.NEXT_PUBLIC_IMAGE_TRANSFORM_SERVICE_URL!);

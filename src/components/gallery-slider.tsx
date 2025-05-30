@@ -76,6 +76,7 @@ export default function GallerySlider({ slides, sliderOptions, transformImage = 
                                 width={item.width ?? 800}
                                 height={item.height ?? 500}
                                 quality={item?.quality?? 70}
+                                lazy={false}
                             /> : 
                             <Image
                                 src={item.src} 
