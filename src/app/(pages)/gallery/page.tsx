@@ -7,6 +7,7 @@ import TransformedImage from "@/components/transformed-image";
 import Link from "next/link";
 import { getModel } from "@/utils/fetch";
 import { metadata as metadataSchema } from "@/app/layout";
+import { assetImageLoader } from "@/utils/transform";
 
 interface ImageData {
     year: string;
@@ -57,7 +58,9 @@ export default async function Page() {
                     >
                         {allImages.slice(0, 12).map((image: any, index: number) => (
                             <a 
-                                href={`https://assets.jagadhatrionline.co.in/images/${image.year}/${image.reference_id}/${image.image_name}`}
+                                href={assetImageLoader({
+                                    src: `${image.year}/${image.reference_id}/${image.image_name}`,
+                                })}
                                 data-disable-progress={true}
                                 key={index}
                                 className="relative aspect-[3/4] overflow-hidden rounded-lg group cursor-pointer"

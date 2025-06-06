@@ -7,6 +7,7 @@ import { metadata as metadataSchema } from "@/app/layout";
 import { notFound } from "next/navigation";
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
+import { assetImageLoader } from "@/utils/transform";
 
 interface PageProps {
     params: Promise<{
@@ -50,7 +51,10 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
             url: `/gallery/${year}?page=${currentPage}`,
             images: images?.data?.slice(0, 3)?.map((item: any) => {
                 return {
-                    url: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                    url: assetImageLoader({
+                        src: `${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                        quality: 70
+                    }),
                     alt: item?.puja_entry_id?.puja_name
                 }
             })

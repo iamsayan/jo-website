@@ -6,6 +6,7 @@ import TransformedImage from '@/components/transformed-image';
 import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
+import { assetImageLoader } from '@/utils/transform';
 
 interface GalleryFilterProps {
     className?: string;
@@ -39,9 +40,12 @@ function GalleryFilter({ className, images }: GalleryFilterProps) {
     }, []);
 
     const dynamicEl = paginatedImages.map((item: any, index: number) => {
+        const imagePath = assetImageLoader({
+            src: `${item?.year}/${item?.reference_id}/${item?.image_name}`,
+        });
         return {
-            src: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-            thumb: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+            src: imagePath,
+            thumb: imagePath,
             alt: item?.puja_entry_id?.puja_name,
             subHtml: `<h4>${item?.puja_entry_id?.puja_name}</h4><p>By: ${item?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`,
         }

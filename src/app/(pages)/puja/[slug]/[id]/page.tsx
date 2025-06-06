@@ -32,6 +32,7 @@ import type { Metadata } from 'next'
 import Main from '@/components/main';
 import Breadcrumbs from '@/components/breadcrumbs';
 import GallerySlider from '@/components/gallery-slider';
+import { assetImageLoader } from '@/utils/transform';
 
 interface PujaData {
     reference_id: string;
@@ -101,7 +102,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             url: `/puja/${slug}/${id}`,
             images: images?.map((item: any) => {
                 return {
-                    url: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                    url: assetImageLoader({
+                        src: `${item?.year}/${item?.reference_id}/${item?.image_name}`,
+                        quality: 70
+                    }),
                     alt: currentPuja?.puja_name
                 }
             })

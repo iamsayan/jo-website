@@ -8,6 +8,7 @@ import { cn } from '@/utils/functions';
 import Gallery from "@/components/gallery";
 import ReactPaginate from 'react-paginate';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
+import { assetImageLoader } from '@/utils/transform';
 
 interface GalleryPaginateProps {
     className?: string;
@@ -38,10 +39,13 @@ function GalleryPaginate({ className, images, itemsPerPage }: GalleryPaginatePro
 
     const paginatedImages = images.data;
     const dynamicEl = paginatedImages.map((item: any, index: number) => {
+        const imagePath = assetImageLoader({
+            src: `${item?.year}/${item?.reference_id}/${item?.image_name}`,
+        });
         return {
             key: item?._id + index,
-            src: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
-            thumb: `https://assets.jagadhatrionline.co.in/images/${item?.year}/${item?.reference_id}/${item?.image_name}`,
+            src: imagePath,
+            thumb: imagePath,
             alt: item?.puja_entry_id?.puja_name,
             subHtml: `<h4>${item?.puja_entry_id?.puja_name}</h4><p>By: ${item?.uploaded_by.trim().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}</p>`,
         }
@@ -58,8 +62,7 @@ function GalleryPaginate({ className, images, itemsPerPage }: GalleryPaginatePro
                             fill={true} 
                             sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 16vw" 
                             className="object-cover w-full h-full pointer-events-none text-transparent transform transition-all duration-700 group-hover:scale-110"
-                            loading="lazy"
-                            priority={false}
+                            priority={true}
                             quality={70}
                             alt={item?.puja_entry_id?.puja_name}
                         />
