@@ -662,7 +662,7 @@ export default async function Page({ params }: PageProps) {
                                         },
                                     },
                                 }}
-                                sliderItemClass="aspect-[4/5] overflow-hidden rounded-2xl group "
+                                sliderItemClass="aspect-[4/5] overflow-hidden rounded-2xl group"
                             />
                         </div>
                     </div>

@@ -325,8 +325,8 @@ export default async function Home() {
                                 // rows: 2,
 		                        // cols: 2,
                                 gap: {
-                                  row: '6px',
-                                  col: '6px',
+                                    row: '6px',
+                                    col: '6px',
                                 },
                             },
                         }}
